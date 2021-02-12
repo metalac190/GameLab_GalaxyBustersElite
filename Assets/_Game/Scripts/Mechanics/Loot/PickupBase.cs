@@ -12,23 +12,28 @@ public class PickupBase : MonoBehaviour
     //ensure that paired Collider is set to Trigger Volume
     private Collider triggerVolume = null;
 
+    //do all drops give Points? Do weapons give an ammount? 
+    //Can we re-use PickupBase as Points-Default?
+    //private GameManger manager = GameManger.STATICMANAGER;
+
     private void Awake()
     {
         triggerVolume = GetComponent<Collider>();
+        //PickedUp.AddListener(manager);    //?
     }
 
     private void OnTriggerEnter(Collider other)
     {
         //TODO implement PlayerBase check
-        //if other.getcomponent<PlayerBase> != null
-        //  //ApplyEffect()
+        //LayerMask -> Pickup only collides with Player
+
+        ApplyEffect();
     }
 
     /// <summary> Virtual/Abstract function
     /// <para> All children need to override to implement </para>
     /// 
     /// </summary>
-    /// /// <param name="playerReference"> Reference from OnTriggerEnter to player's Collision/PlayerBase
     protected virtual void ApplyEffect()
     {
         PickedUp.Invoke();

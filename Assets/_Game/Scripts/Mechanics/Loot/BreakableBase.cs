@@ -3,6 +3,8 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Events;
 
+
+//inherit from EntityBase, use Health productively
 public class BreakableBase : MonoBehaviour
 {
     //Refer to Ben Friedman for QA/Bugfixing on BreakableBase
@@ -11,10 +13,13 @@ public class BreakableBase : MonoBehaviour
     //confer with EnemyProgrammer (Brett) to determine how Health is being handled
 
     public UnityEvent OnBreak;
+
+    //re-define useing EntityBase.Health
     public int Hits { get; } = 1;    //number of hits needed to destroy this object
     private int curHits = 0;
 
 
+    //Use EntityBase TakeDamage(int) instead of MarkHit();
     /// <summary> Called when hit, refer to Hit-Detection scripts
     /// <para>
     ///     Implement as a Listener to Hit-Detection script, call when object is Hit
@@ -37,7 +42,7 @@ public class BreakableBase : MonoBehaviour
     public virtual void Break()
     {
         OnBreak.Invoke();
-        Destroy(this);
+        Destroy(this.gameObject);
     }
 
 }
