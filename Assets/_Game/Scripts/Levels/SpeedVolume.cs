@@ -17,9 +17,9 @@ public class SpeedVolume : MonoBehaviour
     private float smallUp = 0.5f;
     private float fastUp = 1f;
 
-    //normal = ship.startSpeed
-    //fullslow = 0?
-    //fullthrottle = ship.maxSpeed?10?
+    private float normal = 5f;
+    private float fullslow = 0f;
+    private float fullthrottle = 10f;
 
     private void Awake()
     {
@@ -29,8 +29,9 @@ public class SpeedVolume : MonoBehaviour
 
     private void OnTriggerEnter(Collider other)
     {
-        //if other.getcomponent<PlayerBase> != null
-        //  //AdjustPlayerSpeed();
+        //Layers ensure only player can collide with SpeedVolume
+        //player = other.GetComponent<PlayerController>();
+        //AdjustPlayerSpeed(player);
     }
 
     /// <summary> Adjusts ForwardSpeed by amount specified in SpeedVolumeSetting
@@ -40,7 +41,7 @@ public class SpeedVolume : MonoBehaviour
     /// </para>
     /// </summary>
     /// <param name="playerReference"> PlayerBase reference passed from OnTriggerEnter collision </param>
-    private void AdjustPlayerSpeed()
+    private void AdjustPlayerSpeed()    //parameter for Player, once playercontroller is established
     {
         Debug.Log("Player Speed is set to: ");
         switch (setting)
