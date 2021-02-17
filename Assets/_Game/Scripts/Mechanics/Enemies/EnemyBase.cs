@@ -1,10 +1,11 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEditor;
 
 public abstract class EnemyBase : MonoBehaviour
 {
-    public enum EnemyState { Arrival, Passive, Detected, Attacking, Dead, Flee }
+    public enum EnemyState { Arrival, Passive, Attacking, Dead, Flee }
 
     [Header("Enemy State")]
     public EnemyState currentState;
@@ -34,8 +35,6 @@ public abstract class EnemyBase : MonoBehaviour
                 break;
             case EnemyState.Passive:
                 break;
-            case EnemyState.Detected:
-                break;
             case EnemyState.Attacking:
                 break;
             case EnemyState.Dead:
@@ -47,12 +46,18 @@ public abstract class EnemyBase : MonoBehaviour
         }
     }
 
-    public virtual void Passive()
+    /// Visual radius of enemy detection radius if enemy selected in editor
+    public virtual void OnDrawGizmosSelected()
+    {
+        Handles.DrawWireDisc(transform.position, Vector3.up, playerDetectionRadius);
+    }
+
+    public virtual void Arrival()
     {
 
     }
 
-    public virtual void Detected()
+    public virtual void Passive()
     {
 
     }
