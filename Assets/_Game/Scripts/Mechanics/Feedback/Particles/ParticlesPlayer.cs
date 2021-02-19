@@ -2,8 +2,16 @@
 
 public class ParticlesPlayer : MonoBehaviour
 {
+    public bool playOnAwake;
+
     public ParticleSystem particles;
 
+
+    private void Awake()
+    {
+        if (playOnAwake)
+            particles.Play();
+    }
 
     private void Start()
     {
