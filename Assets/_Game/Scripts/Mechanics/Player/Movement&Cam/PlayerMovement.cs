@@ -15,15 +15,14 @@ public class PlayerMovement : MonoBehaviour
     [SerializeField] Transform rotateTargetTransform;
     [SerializeField] Transform shipsTransform;
 
+    [Header("Boundary")]
+    [Tooltip("Limit is the size of the whole rectangle, so player can travel half of x to the left, or half of x to the right")]
+    [SerializeField] Vector2 playerLimits = new Vector2(5, 3);
+    public Vector2 PlayerLimits { get { return playerLimits; } }
+
     public UnityEvent dodge;
 
-    // Start is called before the first frame update
-    void Start()
-    {
-        
-    }
 
-    // Update is called once per frame
     void Update()
     {
         float x = Input.GetAxis("Horizontal");
@@ -39,9 +38,18 @@ public class PlayerMovement : MonoBehaviour
     void LocalMove(float x, float y)
     {
         transform.localPosition += new Vector3(x, y, 0) * moveSpeed * Time.deltaTime;
-        ClampPosOnScreen();
+
+        // clamp within boundary
+        transform.localPosition = new Vector3(
+            Mathf.Clamp(transform.localPosition.x, -0.5f * playerLimits.x, 0.5f * playerLimits.x),
+            Mathf.Clamp(transform.localPosition.y, -0.5f * playerLimits.y, 0.5f * playerLimits.y),
+            transform.localPosition.z);
+
+        //ClampPosOnScreen();
     }
 
+
+    /*
     void ClampPosOnScreen()
     {
         // bot-left is (0,0), top-right is (1,1)
@@ -52,7 +60,7 @@ public class PlayerMovement : MonoBehaviour
         pos.y = Mathf.Clamp01(pos.y);
 
         transform.position = Camera.main.ViewportToWorldPoint(pos);
-    }
+    }*/
 
     // rotate towards an invisible aim target in front of the ship over time for better rotational feel
     void RotateTowardsDir(float x, float y)
