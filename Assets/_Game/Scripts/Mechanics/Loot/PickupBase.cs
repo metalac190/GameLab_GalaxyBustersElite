@@ -26,6 +26,7 @@ public class PickupBase : MonoBehaviour
     {
         //TODO implement PlayerBase check
         //LayerMask -> Pickup only collides with Player
+        Debug.Log("OnTriggerEnter PickupBase");
 
         ApplyEffect();
     }

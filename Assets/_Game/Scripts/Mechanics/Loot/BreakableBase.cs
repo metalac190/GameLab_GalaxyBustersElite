@@ -4,7 +4,8 @@ using UnityEngine;
 using UnityEngine.Events;
 
 
-//inherit from EntityBase, use Health productively
+[RequireComponent(typeof(Collider))]
+[RequireComponent(typeof(Rigidbody))]
 public class BreakableBase : MonoBehaviour
 {
     //Refer to Ben Friedman for QA/Bugfixing on BreakableBase
@@ -13,13 +14,35 @@ public class BreakableBase : MonoBehaviour
     //confer with EnemyProgrammer (Brett) to determine how Health is being handled
 
     public UnityEvent OnBreak;
+    public UnityEvent OnHit;
+
+    private Collider triggerVolume = null;
+    private Rigidbody rb = null;
 
     //re-define useing EntityBase.Health
-    public int Hits { get; } = 1;    //number of hits needed to destroy this object
+    [SerializeField] private int hits = 1;    //number of hits needed to destroy this object
     private int curHits = 0;
 
 
-    //Use EntityBase TakeDamage(int) instead of MarkHit();
+    private void Awake()
+    {
+        triggerVolume = GetComponent<Collider>();
+        triggerVolume.isTrigger = true;
+
+        rb = GetComponent<Rigidbody>();
+        rb.useGravity = false;
+    }
+
+    private void OnTriggerEnter(Collider other)
+    {
+        Debug.Log("OnTriggerEnter BreakableBase");
+        
+        //use Layers system to make sure Breakables only interact with Projectiles
+        //might need to use tags for PlayerProjectiles, EnemyProjectiles?
+        MarkHit();
+        
+    }
+
     /// <summary> Called when hit, refer to Hit-Detection scripts
     /// <para>
     ///     Implement as a Listener to Hit-Detection script, call when object is Hit
@@ -29,8 +52,14 @@ public class BreakableBase : MonoBehaviour
     /// </summary>
     public void MarkHit()
     {
-        if (curHits++ >= Hits)
+        OnHit.Invoke();
+
+        curHits++;
+
+        if (curHits >= hits)
+        {
             Break();
+        }
     }
 
     /// <summary>default Break calls UnityEvent and Destroy()

@@ -9,11 +9,8 @@ public class LootContainer : BreakableBase
     //TODO create a reference array for each PickUp prefab
 
     [Header("Weapon Drop Settings")]
-    [Tooltip("WeaponPickup Prefab Reference")]
-    [SerializeField] private GameObject weaponPickupReference = null;   //Prefab Pickup asset with VFX, SFX, etc
-
     [Tooltip("Reference to Each Weapon Prefab")]
-    [SerializeField] private GameObject[] weaponPrefabArray = new GameObject[3];    //Prefab Weapon asset for each weapon type
+    [SerializeField] private GameObject[] WEAPONREF_ARRAY = new GameObject[3];    //Prefab Weapon asset for each weapon type
 
     [Tooltip("Chance out of 100 to drop Weapon A")]
     [SerializeField] private float WeaponAChance = 0f;
@@ -25,9 +22,17 @@ public class LootContainer : BreakableBase
     [SerializeField] private float WeaponCChance = 0f;
 
 
+    [Header("Health Drop Settings")]
+    [Tooltip("HealthPickup Prefab Reference")]
+    [SerializeField] private GameObject HEALTHREF = null;   //Prefab Pickup asset with VFX, SFX, etc
+
+    [Tooltip("Chance out of 100 to drop a Health Pickup")]
+    [SerializeField] private float healthChance = 100f;
+
+
     [Header("Coin Drop Settings")]
     [Tooltip("PointsPickup Prefab Reference")]
-    [SerializeField] private GameObject pointsPikcupReference = null;   //Prefab Pickup asset with VFX, SFX, etc
+    [SerializeField] private GameObject POINTSREF = null;   //Prefab Pickup asset with VFX, SFX, etc
 
     [Tooltip("Number of Points awarded")]
     [SerializeField] private int pointsAwarded = 0;
@@ -35,7 +40,7 @@ public class LootContainer : BreakableBase
     [Tooltip("Chance out of 100 to drop any Points")]
     [SerializeField] private float pointsChance = 100f;
 
-    
+
     /// <summary> Implements LootDropping functionality in addition to Break()
     ///
     /// </summary>
@@ -51,10 +56,10 @@ public class LootContainer : BreakableBase
     /// </summary>
     private void RollDropChance()
     {
-        float[] allDrops = { WeaponAChance, WeaponBChance, WeaponCChance, pointsChance };
+        float[] allDrops = { WeaponAChance, WeaponBChance, WeaponCChance, healthChance, pointsChance };
 
         //if Designer inputs 100% across the board, chances are compared against 400, and NOT drop all 4 items
-        float totalDrop = WeaponAChance + WeaponBChance + WeaponCChance + pointsChance;
+        float totalDrop = WeaponAChance + WeaponBChance + WeaponCChance + healthChance + pointsChance;
 
         //if Designer inputs 50% A + 0% else, total would be 50, instead boost total to 100
         if (totalDrop < 100)
@@ -92,18 +97,24 @@ public class LootContainer : BreakableBase
 
         if (lootReference < 3)
         {
-            GameObject weaponDrop = Instantiate(weaponPickupReference); //Prefab asset with VFX, SFX, etc
-            WeaponPickup droppedWeapon = weaponDrop.GetComponent<WeaponPickup>();
-            droppedWeapon.SetWeaponReference(weaponPrefabArray[lootReference]);
+            GameObject droppedWeapon = Instantiate(WEAPONREF_ARRAY[lootReference], transform.position, Quaternion.identity); //Prefab asset with VFX, SFX, etc
+            Debug.Log("Dropped Weapon " + lootReference);
 
-            Debug.Log("Dropping Weapon" + lootReference);
+        }
+        else if(lootReference == 3)
+        {
+            //ref 3 == Health
+            GameObject droppedHealth = Instantiate(HEALTHREF, transform.position, Quaternion.identity);
+            Debug.Log("Dropped Health");
+
         }
         else
         {
-            GameObject pointsDrop = Instantiate(pointsPikcupReference); //Prefab asset with VFX, SFX, etc
-            PointsPickup droppedPoints = pointsDrop.GetComponent<PointsPickup>();
-            droppedPoints.SetPointAmount(pointsAwarded);
-            droppedPoints.GivePoints();
+            //else, Coin Pickup
+            GameObject droppedPoints = Instantiate(POINTSREF, transform.position, Quaternion.identity); //Prefab asset with VFX, SFX, etc
+            PointsPickup pointsPickup = droppedPoints.GetComponent<PointsPickup>();
+            pointsPickup.SetPointAmount(pointsAwarded);
+            pointsPickup.GivePoints();
 
             Debug.Log("Dropping " + pointsAwarded +" Points");
         }
