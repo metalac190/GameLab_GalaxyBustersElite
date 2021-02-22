@@ -7,18 +7,27 @@ using Cinemachine;
 public class Tester : MonoBehaviour
 {
     public int waypointIndex;
-    public GameObject[] waypointTriggers;
+    public List<float> waypointSpeeds;
 
-    public PlayerMovement playerMovement;
+    public Transform movementTracker;
+    public CinemachineDollyCart trackerDollyCart;
+
     public CinemachineDollyCart cineDollyCart;
     public CinemachineSmoothPath cineSmoothPath;
 
     public TextMeshProUGUI uiText;
 
-    // Start is called before the first frame update
-    void Start()
+    private void Start()
     {
-        SetWaypointTriggers();
+        InitCamRailSpeed();
+    }
+
+    private void InitCamRailSpeed()
+    {
+        cineDollyCart.m_Speed = waypointSpeeds[0];
+        trackerDollyCart.m_Speed = cineDollyCart.m_Speed;
+
+        waypointIndex = 1;
     }
 
     // Update is called once per frame
@@ -28,28 +37,23 @@ public class Tester : MonoBehaviour
         {
             Application.Quit();
         }
-        else if (Input.GetKeyDown(KeyCode.LeftBracket))
+
+        // x is offset automatically for some reason
+        Vector2 movementTrackerPos = new Vector2(movementTracker.position.y, movementTracker.position.z);
+        Vector2 nextWaypointPos = new Vector2(cineSmoothPath.m_Waypoints[waypointIndex].position.y, cineSmoothPath.m_Waypoints[waypointIndex].position.z);
+
+        if (Vector2.Distance(movementTrackerPos, nextWaypointPos) < 0.1f && waypointIndex < waypointSpeeds.Count - 1)
         {
-            cineDollyCart.m_Speed--;
-        }
-        else if (Input.GetKeyDown(KeyCode.RightBracket))
-        {
-            cineDollyCart.m_Speed++;
+            SetCamRailSpeed();
+
+            waypointIndex++;
         }
     }
 
-    void SetWaypointTriggers()
+    void SetCamRailSpeed()
     {
-        for (int i = 0; i < cineSmoothPath.m_Waypoints.Length; i++)
-        {
-            waypointTriggers[i].transform.position = cineSmoothPath.m_Waypoints[i].position;
-        }
-    }
-
-    public void SetRailSpeed(float speed)
-    {
-        cineDollyCart.m_Speed = speed;
-        waypointIndex++;
+        trackerDollyCart.m_Speed = waypointSpeeds[waypointIndex];
+        cineDollyCart.m_Speed = waypointSpeeds[waypointIndex];
     }
 
     public void InvincibleText()

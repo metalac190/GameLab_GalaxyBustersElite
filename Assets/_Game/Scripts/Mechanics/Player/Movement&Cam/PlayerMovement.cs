@@ -30,7 +30,7 @@ public class PlayerMovement : MonoBehaviour
 
         LocalMove(x, y);
         RotateTowardsDir(x, y);
-        HorizontalLean(shipsTransform, x, horizontalLean, .1f);
+        HorizontalLean(shipsTransform, x, horizontalLean, 0.1f);
 
         Dodge();
     }
