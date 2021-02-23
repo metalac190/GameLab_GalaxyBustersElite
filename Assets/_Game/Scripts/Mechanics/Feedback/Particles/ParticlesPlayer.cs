@@ -32,7 +32,7 @@ public class ParticlesPlayer : MonoBehaviour
         allParticles[indexParticlesToPlay].particleSystem.Play();
     }
 
-    public void PlayThenDetachAndDestroy(int indexParticlesToPlay)
+    public void DetachPlayThenDestroy(int indexParticlesToPlay)
     {
         if (allParticles.Length == 0 || indexParticlesToPlay >= allParticles.Length)
         {
@@ -56,22 +56,22 @@ public class ParticlesPlayer : MonoBehaviour
     #region Debug
     [ContextMenu("Test Play First Particles")]
     void TestPlayFirst() => Play(0);
-    [ContextMenu("Test Play Then Detach and Destroy First Particles")]
-    void TestPlayThenDetachAndDestroyFirst() => PlayThenDetachAndDestroy(0);
+    [ContextMenu("Test Detach, Play, then Destroy First Particles")]
+    void TestPlayThenDetachAndDestroyFirst() => DetachPlayThenDestroy(0);
 
     [ContextMenu("Test Play Second Particles")]
     void TestPlaySecond() => Play(1);
-    [ContextMenu("Test Play Then Detach and Destroy Second Particles")]
-    void TestPlayThenDetachAndDestroySecond() => PlayThenDetachAndDestroy(1);
+    [ContextMenu("Test Detach, Play, then Destroy Second Particles")]
+    void TestPlayThenDetachAndDestroySecond() => DetachPlayThenDestroy(1);
 
     [ContextMenu("Test Play Third Particles")]
     void TestPlayThird() => Play(2);
-    [ContextMenu("Test Play Then Detach and Destroy Third Particles")]
-    void TestPlayThenDetachAndDestroyThird() => PlayThenDetachAndDestroy(2);
+    [ContextMenu("Test Detach, Play, then Destroy Third Particles")]
+    void TestPlayThenDetachAndDestroyThird() => DetachPlayThenDestroy(2);
 
     [ContextMenu("Test Play Fourth Particles")]
     void TestPlayFourth() => Play(3);
-    [ContextMenu("Test Play Then Detach and Destroy Fourth Particles")]
-    void TestPlayThenDetachAndDestroyFourth() => PlayThenDetachAndDestroy(3);
+    [ContextMenu("Test Detach, Play, then Destroy Fourth Particles")]
+    void TestPlayThenDetachAndDestroyFourth() => DetachPlayThenDestroy(3);
     #endregion
 }
