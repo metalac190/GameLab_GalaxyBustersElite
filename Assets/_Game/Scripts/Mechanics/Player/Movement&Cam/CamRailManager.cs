@@ -4,17 +4,21 @@ using UnityEngine;
 using TMPro;
 using Cinemachine;
 
-public class Tester : MonoBehaviour
+public class CamRailManager : MonoBehaviour
 {
+    [Header("Cam Rail Settings")]
     public int waypointIndex;
     public List<float> waypointSpeeds;
 
+    [Header("Inspector References")]
     public Transform movementTracker;
     public CinemachineDollyCart trackerDollyCart;
 
     public CinemachineDollyCart cineDollyCart;
     public CinemachineSmoothPath cineSmoothPath;
 
+    // TODO- remove this
+    [Header("Tester")]
     public TextMeshProUGUI uiText;
 
     private void Start()
@@ -56,11 +60,13 @@ public class Tester : MonoBehaviour
         cineDollyCart.m_Speed = waypointSpeeds[waypointIndex];
     }
 
+    // TODO- remove this
     public void InvincibleText()
     {
         StartCoroutine(InvincibleTextCoroutine());
     }
 
+    // TODO- remove this
     IEnumerator InvincibleTextCoroutine()
     {
         if (uiText.text == "")

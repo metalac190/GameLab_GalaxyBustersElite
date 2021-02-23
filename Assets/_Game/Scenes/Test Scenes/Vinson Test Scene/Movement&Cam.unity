@@ -1258,7 +1258,7 @@ GameObject:
   - component: {fileID: 961751242}
   - component: {fileID: 961751241}
   m_Layer: 5
-  m_Name: Canvas
+  m_Name: Canvas (tester)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -1939,9 +1939,9 @@ MonoBehaviour:
   moveSpeed: 30
   rotateSpeed: 1000
   horizontalLean: 50
+  playerLimits: {x: 100, y: 50}
   rotateTargetTransform: {fileID: 581057376}
   shipsTransform: {fileID: 1818799566}
-  playerLimits: {x: 100, y: 50}
   dodge:
     m_PersistentCalls:
       m_Calls:
@@ -2335,7 +2335,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 777, y: 410}
+  m_AnchoredPosition: {x: 711.6, y: 433.3}
   m_SizeDelta: {x: 200, y: 50}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1455881167
@@ -3194,7 +3194,7 @@ GameObject:
   - component: {fileID: 1836040497}
   - component: {fileID: 1836040496}
   m_Layer: 0
-  m_Name: TESTER
+  m_Name: CamRail Manager
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
