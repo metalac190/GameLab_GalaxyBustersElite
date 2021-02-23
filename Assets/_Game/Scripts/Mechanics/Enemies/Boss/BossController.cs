@@ -1,69 +1,118 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-
+using UnityEngine.Events;
 
 [RequireComponent(typeof(Collider))]
 [RequireComponent(typeof(Rigidbody))]
 public class BossController : MonoBehaviour
 {
     //Refer to Ben Friedman for QA/Bugfixing on Boss System scripts
+    
+    public IntEvent Attacked;
 
     //TODO inherit from EnemyBase?
-    //triggerVolume to recieve body hits
-    private Collider triggerVolume = null;
-    private Rigidbody rb = null;
 
-    private BossState nextState = BossState.Idle;  //enum, 0 = idle, 1 = attackAnimation, 2 = movementAnimation, 3 = bloodiedAnimation, ...?
+    //triggerVolume to recieve body hits
+    private Collider _triggerVolume = null;
+    private Rigidbody _rb = null;
+
+    private BossState _nextState = BossState.Idle;  //enum, 0 = idle, 1 = attackAnimation, 2 = movementAnimation, 3 = bloodiedAnimation, ...?
+    private float _wait = 0f;    //time between state being started, and cue for next state queued
 
     [Header("Boss Statistics")]
-    [SerializeField] private int totalBossHealth = 100;
-    [SerializeField] private int totalSegmentHealth = 100;
-    [SerializeField] private GameObject[] segmentRefs = new GameObject[13];
-    bool segmentsAlive = false;
+    [SerializeField] private int _totalHealth = 100;
+    [SerializeField] private int _segmentHealth = 100;
+    [SerializeField] private BossSegmentController[] _segmentRefs = new BossSegmentController[0];
+    bool _areSegmentsAlive = true;
 
     [Header("Attack Pattern")]
-    [SerializeField] private int mainAttackDamage = 1;
-    [SerializeField] private float mainAttackSpeed = 10f;
-    [SerializeField] private int minionSpawnRate = 5;
-    [SerializeField] private GameObject minionPrefabReference = null;
+    [SerializeField] private int _attackDamage = 1;
+    [SerializeField] private float _attackAnimTime = 10f;
+    [SerializeField] private int _minionWaveSize = 5;
+    [SerializeField] private GameObject _minionRef = null;
+
+    [Header("Boss Settings")]
+    [SerializeField] private float _idleTime = 100f;
 
     private void Awake()
     {
-        triggerVolume = GetComponent<Collider>();
-        triggerVolume.isTrigger = true;
+        _triggerVolume = GetComponent<Collider>();
+        _triggerVolume.isTrigger = true;
 
-        rb = GetComponent<Rigidbody>();
-        rb.useGravity = false;
+        _rb = GetComponent<Rigidbody>();
+        _rb.useGravity = false;
 
-        //foreach (BossSegment segments in segmentRefs) segment.health = segmentRefs.count/totalsegmenthealth
+        foreach (BossSegmentController segment in _segmentRefs)
+        {
+            //health per segment
+            segment.SetHealth(_segmentHealth);
+        }
     }
 
-    private void SetBossState()
+    #region Listeners
+    private void OnEnable()
     {
-        switch (nextState)
+        foreach (BossSegmentController segment in _segmentRefs)
+        {
+            segment.Died.AddListener(OnSegmentDestroyed);
+        }
+    }
+
+    private void OnDisable()
+    {
+        foreach (BossSegmentController segment in _segmentRefs)
+        {
+            segment.Died.RemoveListener(OnSegmentDestroyed);
+        }
+    }
+    #endregion
+
+    private void Update()
+    {
+        if (_wait > 0)
+        {
+            _wait--;
+            if (_wait <= 0)
+            {
+                NextBossState();
+            }
+        }
+    }
+
+    //for dev-testing purposes, remove before playtest/final
+    public void SetBossState(BossState state)
+    {
+        _wait = 0;
+        _nextState = state;
+        NextBossState();
+    }
+
+    private void NextBossState()
+    {
+        switch (_nextState)
         {
             case BossState.Idle:
-                //wait some time, then move to next state
-                nextState = BossState.Attack;
+                BossIdle();
+                _nextState = BossState.Attack;
                 break;
 
             case BossState.Attack:
                 GenerateAttack();
-                if (segmentsAlive)
-                    nextState = BossState.Idle;
+                if (_areSegmentsAlive)
+                    _nextState = BossState.Idle;
                 else
-                    nextState = BossState.Move;
+                    _nextState = BossState.Move;
                 break;
 
             case BossState.Move:
                 MovePattern();
-                nextState = (BossState)Random.Range(1, 3); //either 1 or 2
+                _nextState = (BossState)Random.Range(1, 3); //either 1 or 2
                 break;
 
             case BossState.Bloodied:
-                BloodiedAnimation();
-                nextState = BossState.Move;
+                Bloodied();
+                _nextState = BossState.Move;
                 break;
 
             default:
@@ -72,58 +121,65 @@ public class BossController : MonoBehaviour
         }
     }
 
-    private void BossIdle()
-    {
-        Debug.Log("Boss is Idle");
-
-        //wait predetermined amount of time
-        SetBossState();
-    }
-
+    //interjects behavior loop with check for bloodied state
     private void OnSegmentDestroyed()
     {
         Debug.Log("Segment Destroyed, Boss Updating");
 
-        bool prevAlive = segmentsAlive;
-        segmentsAlive = false;
+        bool prevAlive = _areSegmentsAlive;
+        _areSegmentsAlive = false;
 
-        foreach (GameObject segment in segmentRefs)
+        foreach (BossSegmentController segment in _segmentRefs)
         {
-            if (segment.activeInHierarchy)
-                segmentsAlive = true;
+            if (segment.isActiveAndEnabled)
+                _areSegmentsAlive = true;
         }
 
         if (prevAlive)
         {
             //first time segments goes from True to False, play bloodied animation
-            if (!segmentsAlive)
-                nextState = BossState.Bloodied;
+            if (!_areSegmentsAlive)
+                _nextState = BossState.Bloodied;
         }
     }
 
-    private void BloodiedAnimation()
+    private void BossIdle()
+    {
+        Debug.Log("Boss is Idle");
+
+        //wait predetermined amount of time
+        _wait = _idleTime;
+    }
+
+    private void Bloodied()
     {
         Debug.Log("Boss is Bloodied");
-        SetBossState();
+        //play animation
+        //set invulnerable
+
+        //wait for animation to end
+        _wait = _idleTime;
     }
 
     private void MovePattern()
     {
-        //zig-zag
         Debug.Log("Boss is Moving");
+        //zig-zag
 
         //wait to arrive at next position
-        SetBossState();
+        _wait = _idleTime;
     }
 
     private void GenerateAttack()
     {
         BossAttacks randomAttack;
 
-        if (segmentsAlive)
+        if (_areSegmentsAlive)
             randomAttack = (BossAttacks)Random.Range(0, 4);
         else
             randomAttack = (BossAttacks)Random.Range(0, 2);
+
+        Attacked.Invoke((int)randomAttack);
 
         switch (randomAttack)
         {
@@ -143,42 +199,46 @@ public class BossController : MonoBehaviour
                 Debug.Log("Invalid Normal Attack called");
                 break;
         }
-
-        //return data from each Attack, wait for delay?
-        SetBossState();
     }
 
     private void RingAttack()
     {
-        if (segmentsAlive)
+        if (_areSegmentsAlive)
         {
             Debug.Log("Firing the normal Ring Attack");
+            _wait = _attackAnimTime;
         }
         else 
         {
             Debug.Log("Firing bloodied Ring Attack");
+            _wait = _attackAnimTime;
         }
     }
 
     private void MissileAttack()
     {
-        if (segmentsAlive)
+        if (_areSegmentsAlive)
         {
             Debug.Log("Triggering the normal Missile Attack");
+            _wait = _attackAnimTime;
         }
         else
         {
             Debug.Log("Triggering bloodied Missile Attack");
+            _wait = _attackAnimTime;
         }
     }
 
     private void LaserAttack()
     {
         Debug.Log("Activating the Laser");
+        _wait = _attackAnimTime;
+
     }
 
     private void SummonMinions()
     {
         Debug.Log("Summoning Minions");
+        _wait = _attackAnimTime;
     }
 }

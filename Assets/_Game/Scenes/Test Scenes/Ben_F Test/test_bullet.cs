@@ -4,13 +4,22 @@ using UnityEngine;
 
 public class test_bullet : MonoBehaviour
 {
-    [SerializeField] private float _time = 5f;
+    [SerializeField] private float _lifetime = 5f;
     [SerializeField] private float _speed = 10f;
-    private IEnumerator lifetime = null;
+    private float _time = 0f;
 
-    private void Start()
+    private void OnEnable()
     {
-        Destroy(this.gameObject, _time);
+        _time = _lifetime; 
+    }
+
+    private void Update()
+    {
+        _time -= Time.deltaTime;
+        if (_time <= 0)
+        {
+            gameObject.SetActive(false);
+        }
     }
 
     private void FixedUpdate()
@@ -21,6 +30,6 @@ public class test_bullet : MonoBehaviour
 
     private void OnTriggerEnter(Collider other)
     {
-        Destroy(this.gameObject);
+        gameObject.SetActive(false);
     }
 }
