@@ -16,9 +16,6 @@ public class SoundPlayer : MonoBehaviour
 
         foreach (Sound sound in allSounds)
         {
-            sound.audioSource = gameObject.AddComponent<AudioSource>();
-            sound.audioSource.clip = sound.audioClip;
-            sound.audioSource.volume = sound.volume;
             sound.audioSource.loop = sound.loop;
             if (sound.playOnAwake)
                 sound.audioSource.Play();
