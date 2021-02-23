@@ -38,7 +38,7 @@ public class SoundPlayer : MonoBehaviour
         allSounds[indexSoundToPlay].audioSource.Play();
     }
 
-    public void PlayThenDetachAndDestroy(int indexSoundToPlay)
+    public void DetachPlayThenDestroy(int indexSoundToPlay)
     {
         if (allSounds.Length == 0 || indexSoundToPlay >= allSounds.Length)
         {
@@ -69,22 +69,22 @@ public class SoundPlayer : MonoBehaviour
     #region Debug
     [ContextMenu("Test Play First Sound")]
     void TestPlayFirst() => Play(0);
-    [ContextMenu("Test Play Then Detach and Destroy First Sound")]
-    void TestPlayThenDetachAndDestroyFirst() => PlayThenDetachAndDestroy(0);
+    [ContextMenu("Test Detach, Play, then Destroy First Sound")]
+    void TestPlayThenDetachAndDestroyFirst() => DetachPlayThenDestroy(0);
 
     [ContextMenu("Test Play Second Sound")]
     void TestPlaySecond() => Play(1);
-    [ContextMenu("Test Play Then Detach and Destroy Second Sound")]
-    void TestPlayThenDetachAndDestroySecond() => PlayThenDetachAndDestroy(1);
+    [ContextMenu("Test Detach, Play, then Destroy Second Sound")]
+    void TestPlayThenDetachAndDestroySecond() => DetachPlayThenDestroy(1);
 
     [ContextMenu("Test Play Third Sound")]
     void TestPlayThird() => Play(2);
-    [ContextMenu("Test Play Then Detach and Destroy Third Sound")]
-    void TestPlayThenDetachAndDestroyThird() => PlayThenDetachAndDestroy(2);
+    [ContextMenu("Test Detach, Play, then Destroy Third Sound")]
+    void TestPlayThenDetachAndDestroyThird() => DetachPlayThenDestroy(2);
 
     [ContextMenu("Test Play Fourth Sound")]
     void TestPlayFourth() => Play(3);
-    [ContextMenu("Test Play Then Detach and Destroy Fourth Sound")]
-    void TestPlayThenDetachAndDestroyFourth() => PlayThenDetachAndDestroy(3);
+    [ContextMenu("Test Detach, Play, then Destroy Fourth Sound")]
+    void TestPlayThenDetachAndDestroyFourth() => DetachPlayThenDestroy(3);
     #endregion
 }
