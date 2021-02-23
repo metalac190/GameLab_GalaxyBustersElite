@@ -5,24 +5,24 @@ using UnityEngine;
 [ExecuteInEditMode]
 public class CameraFollow : MonoBehaviour
 {
-    [Header("Target")]
-    [SerializeField] Transform target;
-    [SerializeField] Camera mainCam;
-
     [Header("Camera Settings")]
     [SerializeField] Vector3 offset = new Vector3(0, 0, 2);
     // curve defining the relationship between player position and camera position, 0 should eval to 0 and 1 should eval to 1
     [SerializeField] AnimationCurve cameraRelation;
 
     PlayerMovement playerMove;
+    Transform target;
+
     Vector2 cameraLimits;
     Vector2 playerT;
     Vector2 cameraT;
 
     void Start()
     {
-        playerMove = target.GetComponent<PlayerMovement>();
-        cameraLimits = CalculateCameraLimits(mainCam);
+        playerMove = FindObjectOfType<PlayerMovement>();
+        target = playerMove.transform;
+
+        cameraLimits = CalculateCameraLimits(Camera.main);
     }
 
     private void LateUpdate()
