@@ -11,6 +11,7 @@ public class MainMenu : MonoBehaviour
     // Start is called before the first frame update
     public void QuitGame()
     {
+        Debug.Log(" Application.Quit() called. Does not quit while in inspector.");
         Application.Quit();
     }
 
