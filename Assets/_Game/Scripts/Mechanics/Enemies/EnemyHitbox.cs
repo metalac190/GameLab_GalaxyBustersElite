@@ -18,7 +18,7 @@ public class EnemyHitbox : MonoBehaviour
 
             Debug.Log("Enemy lost 1 health, current health: " + gameObject.GetComponentInParent<EnemyDrone>().enemyHealth);
 
-            if (gameObject.GetComponentInParent<EnemyDrone>().enemyHealth == 0)
+            if (gameObject.GetComponentInParent<EnemyDrone>().enemyHealth <= 0)
             {
                 gameObject.GetComponentInParent<EnemyDrone>().Dead();
             }
