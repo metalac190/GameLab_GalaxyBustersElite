@@ -18,18 +18,18 @@ public class BossSegmentController : MonoBehaviour
     private int _health = 0;
     public int Health { get { return _health; } }
 
-    private List<GameObject> missilePool = new List<GameObject>();
+    private List<GameObject> _missilePool = new List<GameObject>();
 
     #region Listeners
     private void OnEnable()
     {
-        _bossRef.Attacked.AddListener(OnAttacked);
+        _bossRef.Attacking.AddListener(OnAttacked);
     }
 
     
     private void OnDisable()
     {
-        _bossRef.Attacked.RemoveListener(OnAttacked);
+        _bossRef.Attacking.RemoveListener(OnAttacked);
     }
     #endregion
 
@@ -96,6 +96,7 @@ public class BossSegmentController : MonoBehaviour
     private void OnRingAttack()
     {
         //ring attack animation
+        //if any
     }
 
     private void OnMissileAttack()
@@ -105,32 +106,15 @@ public class BossSegmentController : MonoBehaviour
         //instantiate missile
         if (_missileRef != null)
         {
-            InstantiateMissileFromPool();
+            PoolUtility.InstantiateFromPool(_missilePool, _missileSpawnPoint, _missileRef);
         }
 
         //missile.target = player
     }
 
-    //pools missiles instead of instantiating, uses less resources over time
-    private void InstantiateMissileFromPool()
-    {
-        foreach (GameObject missile in missilePool)
-        {
-            if (missile != null && missile.activeInHierarchy == false)
-            {
-                missile.SetActive(true);
-                missile.transform.position = _missileSpawnPoint.position;
-                missile.transform.rotation = _missileSpawnPoint.rotation;
-                return;
-            }
-        }
-
-        GameObject newMissle = Instantiate(_missileRef, _missileSpawnPoint.position, _missileSpawnPoint.rotation, null);
-        missilePool.Add(newMissle);
-    }
-
     private void OnLaserAttack()
     {
-        //laster attack animation
+        //laser attack animation
+        //if any
     }
 }
