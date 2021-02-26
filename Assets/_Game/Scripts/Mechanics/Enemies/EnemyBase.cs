@@ -10,13 +10,8 @@ public abstract class EnemyBase : MonoBehaviour
     [Header("Enemy State")]
     public EnemyState currentState;
 
-    [Header("Enemy Movement")]
-    public EnemyMovement.EnemyMovementPatterns currentMovementPattern;
-    public EnemyMovement.EnemyZAxisMovement currentZAxisMovement;
-    public EnemyMovement.EnemySpawnMovement currentSpawnMovement;
-
     [Header("Basic Enemy Variables")]
-    public int enemyHealth = 0;
+    public int enemyHealth = 1;
     public int enemyDamage = 0;
     public float enemySpeed = 0;
     public float attackRate = 0;
