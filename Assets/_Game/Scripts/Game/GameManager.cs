@@ -113,17 +113,14 @@ public class GameManager : MonoBehaviour {
                 LoadScene("Main Menu");
                 currentState = GameState.MainMenu;
                 break;
-            case Levels.Level1:
-                LoadScene("Level 1");
-                currentState = GameState.Gameplay;
+            case Levels.Mission1:
+                LoadScene("Mission 1");
                 break;
-            case Levels.Level2:
-                LoadScene("Level 2");
-                currentState = GameState.Gameplay;
+            case Levels.Mission2:
+                LoadScene("Mission 2");
                 break;
-            case Levels.Level3:
-                LoadScene("Level 3");
-                currentState = GameState.Gameplay;
+            case Levels.Mission3:
+                LoadScene("Mission 3");
                 break;
             default:
                 break;
