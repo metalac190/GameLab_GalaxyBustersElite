@@ -78,18 +78,28 @@ public class GameManager : MonoBehaviour {
     }
 
     private bool CanPause() {
-        switch(currentState) {
-            case GameState.Gameplay:
-            case GameState.Paused:
-                return true;
-            default:
-                return false;
-        }
+        return currentState == GameState.Gameplay || currentState == GameState.Paused;
     }
 
     #endregion
 
     // ----------------------------------------------------------------------------------------------------
+
+    #region Game Flow
+
+    public void WinGame() {
+        // TODO
+    }
+
+    public void LoseGame() {
+        // TODO
+    }
+
+    #endregion
+
+    // ----------------------------------------------------------------------------------------------------
+
+    #region Scene Management
 
     public void LoadScene(string scene) {
         score = 0;
@@ -101,19 +111,25 @@ public class GameManager : MonoBehaviour {
         switch(scene) {
             case Levels.MainMenu:
                 LoadScene("Main Menu");
+                currentState = GameState.MainMenu;
                 break;
             case Levels.Level1:
                 LoadScene("Level 1");
+                currentState = GameState.Gameplay;
                 break;
             case Levels.Level2:
                 LoadScene("Level 2");
+                currentState = GameState.Gameplay;
                 break;
             case Levels.Level3:
                 LoadScene("Level 3");
+                currentState = GameState.Gameplay;
                 break;
             default:
                 break;
         }
     }
+
+    #endregion
 
 }
