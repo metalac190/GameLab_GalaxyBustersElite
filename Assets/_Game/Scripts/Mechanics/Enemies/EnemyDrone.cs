@@ -56,7 +56,8 @@ public class EnemyDrone : EnemyBase
 
     public override void Dead()
     {
-        Destroy(gameObject);
+        Debug.Log("Enemy destroyed");
+        Destroy(transform.parent.gameObject);
     }
 
     public override void Flee()
