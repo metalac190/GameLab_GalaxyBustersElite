@@ -37,10 +37,11 @@ public class CamRailManager : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if (Input.GetKeyDown(KeyCode.Escape))
+        // Removed by Bill for Pre-Alpha
+        /*if (Input.GetKeyDown(KeyCode.Escape))
         {
             Application.Quit();
-        }
+        }*/
 
         // TODO- prob need to find a better fix
         Vector2 movementTrackerPosXY = new Vector2(movementTracker.position.x, movementTracker.position.y);

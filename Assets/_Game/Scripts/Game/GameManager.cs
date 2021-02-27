@@ -16,6 +16,9 @@ public class GameManager : MonoBehaviour {
     private bool _paused;
     private float lastSavedTimeScale;
 
+    [Header("Game Flow")]
+    [SerializeField] private GameObject winScreen;
+
     [Header("Game Stats")]
     public int score;
 
@@ -78,42 +81,71 @@ public class GameManager : MonoBehaviour {
     }
 
     private bool CanPause() {
-        switch(currentState) {
-            case GameState.Gameplay:
-            case GameState.Paused:
-                return true;
-            default:
-                return false;
-        }
+        return currentState == GameState.Gameplay || currentState == GameState.Paused;
+    }
+
+    public void SetPauseMenu(GameObject pauseMenu) {
+        this.pauseMenu = pauseMenu;
     }
 
     #endregion
 
     // ----------------------------------------------------------------------------------------------------
 
+    #region Game Flow
+
+    public void WinGame() {
+        Paused = false;
+        Time.timeScale = 0;
+        currentState = GameState.Win;
+        winScreen.SetActive(true);
+    }
+
+    public void SetWinScreen(GameObject winScreen) {
+        this.winScreen = winScreen;
+    }
+
+    public void LoseGame() {
+        // TODO
+    }
+
+    #endregion
+
+    // ----------------------------------------------------------------------------------------------------
+
+    #region Scene Management
+
     public void LoadScene(string scene) {
         score = 0;
         Paused = false;
+        Time.timeScale = 1;
         SceneManager.LoadScene(scene);
     }
 
     public void LoadScene(Levels scene) {
         switch(scene) {
             case Levels.MainMenu:
+                currentState = GameState.MainMenu;
                 LoadScene("Main Menu");
                 break;
-            case Levels.Level1:
-                LoadScene("Level 1");
+            case Levels.Mission1:
+                currentState = GameState.Gameplay;
+                LoadScene("Pre-Alpha");
+                //LoadScene("Mission 1");
                 break;
-            case Levels.Level2:
-                LoadScene("Level 2");
+            case Levels.Mission2:
+                currentState = GameState.Gameplay;
+                LoadScene("Mission 2");
                 break;
-            case Levels.Level3:
-                LoadScene("Level 3");
+            case Levels.Mission3:
+                currentState = GameState.Gameplay;
+                LoadScene("Mission 3");
                 break;
             default:
                 break;
         }
     }
+
+    #endregion
 
 }

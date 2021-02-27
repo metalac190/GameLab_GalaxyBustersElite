@@ -41,11 +41,13 @@ public abstract class EnemyBase : MonoBehaviour
         }
     }
 
+#if UNITY_EDITOR
     /// Visual radius of enemy detection radius if enemy selected in editor
     public virtual void OnDrawGizmosSelected()
     {
         Handles.DrawWireDisc(transform.position, Vector3.up, playerDetectionRadius);
     }
+#endif
 
     public virtual void Arrival()
     {
