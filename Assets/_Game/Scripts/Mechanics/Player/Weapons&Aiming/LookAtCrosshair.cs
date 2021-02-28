@@ -27,18 +27,19 @@ public class LookAtCrosshair : MonoBehaviour
 			Debug.DrawRay(transform.position, newDir * debugRayLength, Color.red);
 		}
 
-		xAngle = targetRotation.eulerAngles.x;
-		xAngle = (xAngle > 180) ? xAngle - 360 : xAngle;
-		yAngle = targetRotation.eulerAngles.y;
-		yAngle = (yAngle > 180) ? yAngle - 360 : yAngle;
+		// TODO: Fix angle clamping to use local rotation
+		//xAngle = targetRotation.eulerAngles.x;
+		//xAngle = (xAngle > 180) ? xAngle - 360 : xAngle;
+		//yAngle = targetRotation.eulerAngles.y;
+		//yAngle = (yAngle > 180) ? yAngle - 360 : yAngle;
 
-		clampedRotation.eulerAngles = new Vector3(
-		  Mathf.Clamp(xAngle, angleClamp * -1, angleClamp),
-		  Mathf.Clamp(yAngle, angleClamp * -1, angleClamp),
-		  0
-		);
+		//clampedRotation.eulerAngles = new Vector3(
+		//  Mathf.Clamp(xAngle, angleClamp * -1, angleClamp),
+		//  Mathf.Clamp(yAngle, angleClamp * -1, angleClamp),
+		//  0
+		//);
 
-		transform.rotation = clampedRotation;
+		transform.rotation = targetRotation;
 
 	}
 }
