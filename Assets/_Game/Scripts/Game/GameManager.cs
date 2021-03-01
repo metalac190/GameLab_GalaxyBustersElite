@@ -69,6 +69,7 @@ public class GameManager : MonoBehaviour {
         lastSavedTimeScale = Time.timeScale;
         Time.timeScale = 0;
 
+        Cursor.visible = true;
         if(pauseMenu)
             pauseMenu.SetActive(true);
     }
@@ -76,6 +77,7 @@ public class GameManager : MonoBehaviour {
     public void UnpauseGame() {
         if(pauseMenu)
             pauseMenu.SetActive(false);
+        Cursor.visible = false;
 
         Time.timeScale = lastSavedTimeScale;
     }
