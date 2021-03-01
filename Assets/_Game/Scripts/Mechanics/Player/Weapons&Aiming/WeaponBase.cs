@@ -2,6 +2,8 @@
 using System.Collections.Generic;
 using UnityEngine;
 
+// Base class for creating player weapons and modifying how they behave
+// Refer to Xander Youssef with questions
 public class WeaponBase : MonoBehaviour
 {
 
@@ -12,15 +14,16 @@ public class WeaponBase : MonoBehaviour
 	[SerializeField] GameObject projectile;
 	public Transform[] spawnPoints;
 
-	[Header("Click Fire Settings")]
+	[Header("Fire Settings")]
 	[SerializeField] float clickCooldown = 0.5f;
 	private float cdTime = 0f;
 	[SerializeField] float damage = 3f;
-	[SerializeField] [Range(1,10)] int projectileSpeed = 5;
-	[SerializeField] [Range(0, 180)] float projectileCone = 6f;
+	[SerializeField] float projectileSpeed = 40f;
+	[SerializeField] [Range(0, 45)] float projectileCone = 6f;
 
 	[Header("Hold Fire Settings")]
 	[SerializeField] float fireRate = 3f;
+	[SerializeField] bool chargeWeapon = false;
 	[SerializeField] bool tickDamage = false;
 	[SerializeField] float damageMultiplier = 1f;
 
@@ -41,36 +44,37 @@ public class WeaponBase : MonoBehaviour
 			switch (projectileType)
 			{
 				case Projectiles.bullet:
-					FireBullet(projectile);
+					FireBullet();
 					break;
 
 				case Projectiles.energy:
-					FireEnergy(projectile);
+					FireEnergy();
 					break;
 
 				case Projectiles.laser:
-					FireLaser(projectile);
+					FireLaser();
 					break;
 			}
 
 		}
 
-		if (Input.GetButton("Overload Fire"))
+		if (Input.GetButton("Overload Fire") && !overloaded)
 		{
+			// Start the overload countdown
+			StartCoroutine("ActivateOverload");
+
 			switch (projectileType)
 			{
 				case Projectiles.bullet:
-					overloaded = true;
-					FireBullet(projectile);
-					overloaded = false;
+					StartCoroutine("BulletOverload");
 					break;
 
 				case Projectiles.energy:
-					FireEnergy(projectile);
+					FireEnergy();
 					break;
 
 				case Projectiles.laser:
-					FireLaser(projectile);
+					FireLaser();
 					break;
 			}
 
@@ -78,41 +82,59 @@ public class WeaponBase : MonoBehaviour
 
 	}
 
-
-	void FireBullet(GameObject bullet)
+	void FireBullet()
 	{
+		// Set fire rate based on a cooldown/overload multiplier
 		if (Time.time - cdTime > 1 / (overloaded ? fireRate * fireRateMultiplier : fireRate))
 		{
 			cdTime = Time.time;
+
+			// Instantiate projectile at each spawn point
 			foreach (Transform point in spawnPoints)
 			{
-				Instantiate(bullet, point.position, point.rotation);
+				// Create random rotation within cone
+				Quaternion randAng = Quaternion.Euler(Random.Range(projectileCone * -1, projectileCone), Random.Range(projectileCone * -1, projectileCone), 0);
+
+				// Instantiate projectile
+				GameObject bulletObj = Instantiate(projectile, point.position, point.rotation * randAng);
+
+				// Set instantiated projectile's speed and damage
+				bulletObj.GetComponent<Projectile>().speed = projectileSpeed;
+				bulletObj.GetComponent<Projectile>().damage = damage;
 			}
 		}
 	}
 
+	IEnumerator BulletOverload()
+	{
+		InvokeRepeating("FireBullet", 0f, 0.05f);
+		yield return new WaitForSeconds(overloadTime);
+		CancelInvoke();
+	}
+
 	// TODO: Add hold click to charge for energy wave
-	void FireEnergy(GameObject wave)
+	void FireEnergy()
 	{
 		//foreach (Transform point in spawnPoints)
 		//{
-		//	Instantiate(wave, point.position, point.rotation);
+		//	Instantiate(projectile, point.position, point.rotation);
 		//}
 	}
 
 	// TODO: Add raycasts for laser firing
-	void FireLaser(GameObject laser)
+	void FireLaser()
 	{
 		//foreach (Transform point in spawnPoints)
 		//{
-		//	Instantiate(laser, point.position, point.rotation);
+		//	Instantiate(projectile, point.position, point.rotation);
 		//}
 	}
 
-	public enum Projectiles
+	IEnumerator ActivateOverload()
 	{
-		bullet,
-		energy,
-		laser
-	};
+		overloaded = true;
+		yield return new WaitForSeconds(overloadTime);
+		overloaded = false;
+	}
+
 }

@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
+// Moves the GameObject to the corresponding location of the mouse with provided distance from the camera
 public class MouseToScreen : MonoBehaviour
 {
 	private Vector3 mousePos;

@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
+// Places GameObject at a percent distance on the line between two points.
 public class MoveCrosshair : MonoBehaviour
 {
 	[SerializeField] Transform start;

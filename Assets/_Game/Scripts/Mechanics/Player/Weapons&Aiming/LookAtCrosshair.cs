@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
+// Rotates the GameObject to look at another with clamped rotation speed and amount.
 public class LookAtCrosshair : MonoBehaviour
 {
 	[SerializeField] Transform target;
