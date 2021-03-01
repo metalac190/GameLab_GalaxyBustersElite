@@ -34,6 +34,10 @@ public class WeaponBase : MonoBehaviour
 	private bool overloaded = false;
 	float chargeMeter = 0f;
 
+	private void Awake()
+	{
+		overloaded = false;
+	}
 
 	void Update()
 	{
@@ -135,6 +139,14 @@ public class WeaponBase : MonoBehaviour
 		overloaded = true;
 		yield return new WaitForSeconds(overloadTime);
 		overloaded = false;
+	}
+
+	public void DeactivateOverload()
+	{
+		overloaded = false;
+		StopCoroutine("ActivateOverload");
+		StopCoroutine("BulletOverload");
+		CancelInvoke();
 	}
 
 }
