@@ -4,6 +4,9 @@ using UnityEngine;
 
 public class WeaponBase : MonoBehaviour
 {
+
+	// TODO: Customize editor so only applicable settings will show with each projectile type
+
 	[Header("Weapon Settings")]
 	public Projectiles projectileType;
 	[SerializeField] GameObject projectile;
@@ -17,27 +20,23 @@ public class WeaponBase : MonoBehaviour
 	[SerializeField] [Range(0, 180)] float projectileCone = 6f;
 
 	[Header("Hold Fire Settings")]
-	[SerializeField] float fireRate = 6f;
-	[SerializeField] bool chargeWeapon = false;
+	[SerializeField] float fireRate = 3f;
 	[SerializeField] bool tickDamage = false;
 	[SerializeField] float damageMultiplier = 1f;
 
 	[Header("Overload Settings")]
-	[SerializeField] float fireRateMultiplier = 4f;
+	[SerializeField] float fireRateMultiplier = 2f;
 	[SerializeField] float meterRequired = 50f;
 	[SerializeField] float overloadTime = 2.5f;
+	private bool overloaded = false;
 	float chargeMeter = 0f;
-
-	void Start()
-    {
-        
-    }
 
 
 	void Update()
 	{
 
-		if (Input.GetButtonDown("Primary Fire"))
+		// TODO: Add slight bonus for clicking rapidly over holding fire
+		if (Input.GetButton("Primary Fire") && !overloaded)
 		{
 			switch (projectileType)
 			{
@@ -53,6 +52,28 @@ public class WeaponBase : MonoBehaviour
 					FireLaser(projectile);
 					break;
 			}
+
+		}
+
+		if (Input.GetButton("Overload Fire"))
+		{
+			switch (projectileType)
+			{
+				case Projectiles.bullet:
+					overloaded = true;
+					FireBullet(projectile);
+					overloaded = false;
+					break;
+
+				case Projectiles.energy:
+					FireEnergy(projectile);
+					break;
+
+				case Projectiles.laser:
+					FireLaser(projectile);
+					break;
+			}
+
 		}
 
 	}
@@ -60,9 +81,13 @@ public class WeaponBase : MonoBehaviour
 
 	void FireBullet(GameObject bullet)
 	{
-		foreach (Transform point in spawnPoints)
+		if (Time.time - cdTime > 1 / (overloaded ? fireRate * fireRateMultiplier : fireRate))
 		{
-			Instantiate(bullet, point.position, point.rotation);
+			cdTime = Time.time;
+			foreach (Transform point in spawnPoints)
+			{
+				Instantiate(bullet, point.position, point.rotation);
+			}
 		}
 	}
 
