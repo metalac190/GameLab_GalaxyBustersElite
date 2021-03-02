@@ -29,7 +29,6 @@ Transform:
   m_Children:
   - {fileID: 142404734665767611}
   - {fileID: 5879435177615464238}
-  - {fileID: 147412323725326204}
   m_Father: {fileID: 1776219114867413298}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -537,7 +536,7 @@ MonoBehaviour:
     ModeOverride: 0
     LensShift: {x: 0, y: 0}
     GateFit: 0
-    m_SensorSize: {x: 1.7781818, y: 1}
+    m_SensorSize: {x: 1.9, y: 1}
     Iso: 200
     ShutterSpeed: 0.005
     Aperture: 16
@@ -763,6 +762,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 1776219114867413298}
+  - {fileID: 147412323725326204}
   m_Father: {fileID: 1776219115295872289}
   m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -1051,7 +1051,7 @@ PrefabInstance:
     - target: {fileID: 1554756655631277004, guid: fac00b2cc971f864bb2082dfc1305843,
         type: 3}
       propertyPath: m_RootOrder
-      value: 2
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 1554756655631277004, guid: fac00b2cc971f864bb2082dfc1305843,
         type: 3}
@@ -1324,6 +1324,11 @@ PrefabInstance:
       propertyPath: m_Name
       value: Crosshairs
       objectReference: {fileID: 0}
+    - target: {fileID: 1718110191570075605, guid: 94d4f27b288b0244e82f16cb7e279845,
+        type: 3}
+      propertyPath: start
+      value: 
+      objectReference: {fileID: 147412323725326204}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 94d4f27b288b0244e82f16cb7e279845, type: 3}
 --- !u!4 &4243709832942783224 stripped
