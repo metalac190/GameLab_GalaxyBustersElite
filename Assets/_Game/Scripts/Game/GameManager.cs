@@ -100,6 +100,7 @@ public class GameManager : MonoBehaviour {
         Paused = false;
         Time.timeScale = 0;
         currentState = GameState.Win;
+        Cursor.visible = true;
         winScreen.SetActive(true);
     }
 
