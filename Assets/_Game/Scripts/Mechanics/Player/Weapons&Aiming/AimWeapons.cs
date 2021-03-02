@@ -2,14 +2,15 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-// Rotates the GameObject to look at another with clamped rotation speed and amount.
-public class LookAtCrosshair : MonoBehaviour
+// Aims the attached weapons towards a specific point with set speed
+public class AimWeapons : MonoBehaviour
 {
 	[SerializeField] Transform target;
+	[SerializeField] Transform[] weapons;
 	[SerializeField] float angleClamp = 45f;
-	[SerializeField] float speed = 1f;
-	[SerializeField] bool debugRays = true;
-	[SerializeField] float debugRayLength = 10f;
+	[SerializeField] float speed = 8f;
+	[SerializeField] bool debugRays = false;
+	[SerializeField] float debugRayLength = 25f;
 
 	Quaternion targetRotation;
 	Quaternion clampedRotation;
@@ -17,15 +18,22 @@ public class LookAtCrosshair : MonoBehaviour
 
 	void Update()
 	{
+		// Get vector of weapon center to mouse
 		Vector3 targetDir = target.position - transform.position;
 		float step = speed * Time.deltaTime;
-		Vector3 newDir = Vector3.RotateTowards(transform.forward, targetDir, step, 0.0F);
-		targetRotation = Quaternion.LookRotation(newDir);
 
-		// Debug
-		if (debugRays)
+		foreach (Transform weapon in weapons)
 		{
-			Debug.DrawRay(transform.position, newDir * debugRayLength, Color.red);
+			// Rotate weapons to be parallel with weapon center
+			Vector3 newDir = Vector3.RotateTowards(weapon.forward, targetDir, step, 0.0F);
+			targetRotation = Quaternion.LookRotation(newDir);
+			weapon.rotation = targetRotation;
+
+			// Debug
+			if (debugRays)
+			{
+				Debug.DrawRay(weapon.position, newDir * debugRayLength, Color.red);
+			}
 		}
 
 		// TODO: Fix angle clamping to use local rotation
@@ -40,7 +48,7 @@ public class LookAtCrosshair : MonoBehaviour
 		//  0
 		//);
 
-		transform.rotation = targetRotation;
+
 
 	}
 }

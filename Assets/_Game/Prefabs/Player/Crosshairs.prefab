@@ -10,7 +10,6 @@ GameObject:
   m_Component:
   - component: {fileID: 1057388987788976192}
   - component: {fileID: 1057388987788976206}
-  - component: {fileID: 1057388987788976207}
   m_Layer: 0
   m_Name: CrosshairFar
   m_TagString: Untagged
@@ -82,22 +81,6 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
---- !u!114 &1057388987788976207
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1057388987788976193}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 1a613db22583b664c8f9c265219fecf7, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  start: {fileID: 0}
-  end: {fileID: 1057388988930096834}
-  percentageToEnd: 0.55
-  debug: 1
 --- !u!1 &1057388988524561198
 GameObject:
   m_ObjectHideFlags: 0
@@ -108,7 +91,6 @@ GameObject:
   m_Component:
   - component: {fileID: 1057388988524561197}
   - component: {fileID: 1057388988524561195}
-  - component: {fileID: 1057388988524561196}
   m_Layer: 0
   m_Name: CrosshairNear
   m_TagString: Untagged
@@ -180,22 +162,6 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
---- !u!114 &1057388988524561196
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1057388988524561198}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 1a613db22583b664c8f9c265219fecf7, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  start: {fileID: 0}
-  end: {fileID: 1057388988930096834}
-  percentageToEnd: 0.5
-  debug: 0
 --- !u!1 &1057388988930096835
 GameObject:
   m_ObjectHideFlags: 0
@@ -249,6 +215,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1057388989183822417}
+  - component: {fileID: 1718110191570075605}
   m_Layer: 0
   m_Name: Crosshairs
   m_TagString: Untagged
@@ -273,3 +240,22 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1718110191570075605
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1057388989183822418}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8720f138b83e9c44ea695df6fd5e9cb5, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  start: {fileID: 0}
+  end: {fileID: 1057388988930096834}
+  nearCrosshair: {fileID: 1057388988524561197}
+  farCrosshair: {fileID: 1057388987788976192}
+  nearCrosshairDistance: 1
+  farCrosshairDistance: 1
+  debug: 1

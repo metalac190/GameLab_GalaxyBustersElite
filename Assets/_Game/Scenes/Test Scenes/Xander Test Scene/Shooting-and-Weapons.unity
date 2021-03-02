@@ -166,7 +166,7 @@ Transform:
   - {fileID: 1640829850}
   - {fileID: 1812062488}
   m_Father: {fileID: 0}
-  m_RootOrder: 6
+  m_RootOrder: 7
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &97756432
 GameObject:
@@ -506,7 +506,7 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 254692932}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
@@ -800,6 +800,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 470694614}
+  - component: {fileID: 470694615}
   m_Layer: 0
   m_Name: Crosshairs
   m_TagString: Untagged
@@ -814,7 +815,7 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 470694613}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalRotation: {x: -0, y: -0, z: -5.820766e-11, w: 1}
   m_LocalPosition: {x: 4.9207735, y: 5.670108, z: -6.959731}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
@@ -822,8 +823,27 @@ Transform:
   - {fileID: 668119978}
   - {fileID: 1932153031}
   m_Father: {fileID: 0}
-  m_RootOrder: 8
+  m_RootOrder: 4
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &470694615
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 470694613}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8720f138b83e9c44ea695df6fd5e9cb5, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  start: {fileID: 708438155}
+  end: {fileID: 254692933}
+  nearCrosshair: {fileID: 668119978}
+  farCrosshair: {fileID: 1932153031}
+  nearCrosshairDistance: 0.8
+  farCrosshairDistance: 1
+  debug: 0
 --- !u!1 &524784116
 GameObject:
   m_ObjectHideFlags: 0
@@ -1239,7 +1259,6 @@ GameObject:
   m_Component:
   - component: {fileID: 668119978}
   - component: {fileID: 668119980}
-  - component: {fileID: 668119979}
   m_Layer: 0
   m_Name: CrosshairNear
   m_TagString: Untagged
@@ -1261,22 +1280,6 @@ Transform:
   m_Father: {fileID: 470694614}
   m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &668119979
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 668119977}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 1a613db22583b664c8f9c265219fecf7, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  start: {fileID: 708438155}
-  end: {fileID: 254692933}
-  percentageToEnd: 0.5
-  debug: 0
 --- !u!212 &668119980
 SpriteRenderer:
   m_ObjectHideFlags: 0
@@ -2348,7 +2351,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 7
+  m_RootOrder: 8
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1357477209
 GameObject:
@@ -2947,7 +2950,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 4
+  m_RootOrder: 5
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1640829849
 GameObject:
@@ -3380,7 +3383,7 @@ Transform:
   m_Children:
   - {fileID: 961751240}
   m_Father: {fileID: 0}
-  m_RootOrder: 5
+  m_RootOrder: 6
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1872608116
 GameObject:
@@ -3708,7 +3711,6 @@ GameObject:
   m_Component:
   - component: {fileID: 1932153031}
   - component: {fileID: 1932153033}
-  - component: {fileID: 1932153032}
   m_Layer: 0
   m_Name: CrosshairFar
   m_TagString: Untagged
@@ -3730,22 +3732,6 @@ Transform:
   m_Father: {fileID: 470694614}
   m_RootOrder: 2
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &1932153032
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1932153030}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 1a613db22583b664c8f9c265219fecf7, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  start: {fileID: 708438155}
-  end: {fileID: 254692933}
-  percentageToEnd: 0.55
-  debug: 1
 --- !u!212 &1932153033
 SpriteRenderer:
   m_ObjectHideFlags: 0
@@ -4100,6 +4086,11 @@ PrefabInstance:
       propertyPath: target
       value: 
       objectReference: {fileID: 254692933}
+    - target: {fileID: 2065207819672571435, guid: a8777f99d15e12f429e089b0540e0faf,
+        type: 3}
+      propertyPath: target
+      value: 
+      objectReference: {fileID: 254692933}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: a8777f99d15e12f429e089b0540e0faf, type: 3}
 --- !u!1001 &1554756654259986394
@@ -4184,6 +4175,11 @@ PrefabInstance:
       propertyPath: m_IsActive
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 7419795802843804139, guid: fac00b2cc971f864bb2082dfc1305843,
+        type: 3}
+      propertyPath: target
+      value: 
+      objectReference: {fileID: 254692933}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: fac00b2cc971f864bb2082dfc1305843, type: 3}
 --- !u!4 &2676090033422150901 stripped
@@ -4270,6 +4266,11 @@ PrefabInstance:
       value: 
       objectReference: {fileID: 254692933}
     - target: {fileID: 4018402609996550875, guid: 119b9b21cd5f56c48ad3b8bfe3c7348c,
+        type: 3}
+      propertyPath: target
+      value: 
+      objectReference: {fileID: 254692933}
+    - target: {fileID: 8181699092328756910, guid: 119b9b21cd5f56c48ad3b8bfe3c7348c,
         type: 3}
       propertyPath: target
       value: 
