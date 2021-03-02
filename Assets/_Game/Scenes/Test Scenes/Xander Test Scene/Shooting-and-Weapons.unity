@@ -506,7 +506,7 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 254692932}
-  m_LocalRotation: {x: -0, y: -0, z: -5.820766e-11, w: 1}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
@@ -841,9 +841,9 @@ MonoBehaviour:
   end: {fileID: 254692933}
   nearCrosshair: {fileID: 668119978}
   farCrosshair: {fileID: 1932153031}
-  nearCrosshairDistance: 0.5
-  farCrosshairDistance: 0.55
-  debug: 1
+  nearCrosshairDistance: 0.8
+  farCrosshairDistance: 1
+  debug: 0
 --- !u!1 &524784116
 GameObject:
   m_ObjectHideFlags: 0
@@ -4086,6 +4086,11 @@ PrefabInstance:
       propertyPath: target
       value: 
       objectReference: {fileID: 254692933}
+    - target: {fileID: 2065207819672571435, guid: a8777f99d15e12f429e089b0540e0faf,
+        type: 3}
+      propertyPath: target
+      value: 
+      objectReference: {fileID: 254692933}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: a8777f99d15e12f429e089b0540e0faf, type: 3}
 --- !u!1001 &1554756654259986394
@@ -4170,6 +4175,11 @@ PrefabInstance:
       propertyPath: m_IsActive
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 7419795802843804139, guid: fac00b2cc971f864bb2082dfc1305843,
+        type: 3}
+      propertyPath: target
+      value: 
+      objectReference: {fileID: 254692933}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: fac00b2cc971f864bb2082dfc1305843, type: 3}
 --- !u!4 &2676090033422150901 stripped
@@ -4256,6 +4266,11 @@ PrefabInstance:
       value: 
       objectReference: {fileID: 254692933}
     - target: {fileID: 4018402609996550875, guid: 119b9b21cd5f56c48ad3b8bfe3c7348c,
+        type: 3}
+      propertyPath: target
+      value: 
+      objectReference: {fileID: 254692933}
+    - target: {fileID: 8181699092328756910, guid: 119b9b21cd5f56c48ad3b8bfe3c7348c,
         type: 3}
       propertyPath: target
       value: 

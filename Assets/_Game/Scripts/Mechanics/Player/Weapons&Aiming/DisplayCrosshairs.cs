@@ -9,8 +9,8 @@ public class DisplayCrosshairs : MonoBehaviour
 	[SerializeField] Transform end;
 	[SerializeField] Transform nearCrosshair;
 	[SerializeField] Transform farCrosshair;
-	[SerializeField] [Range(0, 1)] float nearCrosshairDistance = 1f;
-	[SerializeField] [Range(0, 1)] float farCrosshairDistance = 1f;
+	[SerializeField] [Range(0, 1.5f)] float nearCrosshairDistance = 1f;
+	[SerializeField] [Range(0, 1.5f)] float farCrosshairDistance = 1f;
 	[SerializeField] bool debug = true;
 	Vector3 line;
 
@@ -25,8 +25,8 @@ public class DisplayCrosshairs : MonoBehaviour
 
 		// BUG: Sprites don't rotate towards camera properly near corners of screen
 		// Rotate sprite to look at camera
-		nearCrosshair.LookAt(Camera.main.transform.position, -Vector3.up);
-		farCrosshair.LookAt(Camera.main.transform.position, -Vector3.up);
+		nearCrosshair.rotation = Camera.main.transform.rotation;
+		farCrosshair.rotation = Camera.main.transform.rotation;
 
 		// Draw debug line to far crosshair
 		if (debug)

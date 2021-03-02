@@ -17,7 +17,7 @@ public class MoveCrosshair : MonoBehaviour
 		transform.position = start.position + (line * percentageToEnd);
 
 		// BUG: Sprites don't rotate towards camera properly near corners of screen
-		transform.LookAt(Camera.main.transform.position, -Vector3.up);
+		transform.rotation = Camera.main.transform.rotation;
 
 		// Debug
 		if (debug)
