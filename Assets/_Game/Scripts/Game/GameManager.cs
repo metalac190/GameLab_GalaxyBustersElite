@@ -22,6 +22,15 @@ public class GameManager : MonoBehaviour {
     [Header("Game Stats")]
     public int score;
 
+    [Header("Player Reference")]
+    public static PlayerReferences player = new PlayerReferences();
+
+    public class PlayerReferences {
+        public GameObject obj;
+        public PlayerMovement movement;
+        public PlayerController controller;
+    }
+
     // ----------------------------------------------------------------------------------------------------
 
     #region Variables
