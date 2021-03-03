@@ -6,7 +6,7 @@ using UnityEngine;
 public class Projectile : MonoBehaviour
 {
 	public float speed = 20f;
-	public float damage = 2;
+	public int damage = 2;
 	public float lifeTime = 2f;
 	private Rigidbody rb;
 
@@ -22,5 +22,13 @@ public class Projectile : MonoBehaviour
 		// Destroy projectile after lifetime expires
 		Destroy(gameObject, lifeTime);
 	}
+
+    private void OnCollisionEnter(Collision collision)
+    {
+        EntityBase entity = collision.gameObject.GetComponent<EntityBase>();
+        entity?.TakeDamage(damage);
+
+        Destroy(this.gameObject);
+    }
 
 }

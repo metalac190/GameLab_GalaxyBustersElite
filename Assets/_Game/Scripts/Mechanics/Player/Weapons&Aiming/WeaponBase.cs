@@ -17,7 +17,7 @@ public class WeaponBase : MonoBehaviour
 	[Header("Fire Settings")]
 	[SerializeField] float clickCooldown = 0.5f;
 	private float cdTime = 0f;
-	[SerializeField] float damage = 3f;
+	[SerializeField] int damage = 3;
 	[SerializeField] float projectileSpeed = 40f;
 	[SerializeField] [Range(0, 45)] float projectileCone = 6f;
 

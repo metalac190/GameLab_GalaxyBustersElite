@@ -29,13 +29,11 @@ public class EntityBase : MonoBehaviour
         if (_currentHealth <= 0)
         {
             Died.Invoke();
-            OnDied();
             //disable or destroy as needed?
         }
         else
         {
             Damaged.Invoke();
-            OnDamaged();
             //set up FX + AnimationController from Inspector, using Event
         }
     }
