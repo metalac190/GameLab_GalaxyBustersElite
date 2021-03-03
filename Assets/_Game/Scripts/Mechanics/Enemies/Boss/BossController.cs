@@ -27,29 +27,41 @@ public class BossController : MonoBehaviour
     [Tooltip("Starting Health for each Segment.\nTotal Segment Health derived from\nStarting Health * number of Segments")]
     [SerializeField] private int _segmentHealth = 100;
     private BossSegmentController[] _segmentRefs = new BossSegmentController[0];
-    bool _isBloodied = true;
+    bool _segmentsAlive = true;
 
     [Header("Boss Settings")]
 
     [Tooltip("Time in Seconds to wait during Idle state.")]
-    [SerializeField] private float _idleTime = 100f;
+    [SerializeField] private float _idleTime = 2f;
+    [Tooltip("Placeholder.\nAmount of time in Seconds per attack.\nDependant on type of attack chosen.")]
+    [SerializeField] private float _attackAnimTime = 2f;
+
     [Tooltip("Standardized amount of damage to apply to Player.")]
     [SerializeField] private int _attackDamage = 1;
-    [Tooltip("Placeholder.\nAmount of time in Seconds per attack.\nDependant on type of attack chosen.")]
-    [SerializeField] private float _attackAnimTime = 10f;
     [Tooltip("Number of Minions to spawn during behavior loop.")]
     [SerializeField] private int _minionWaveSize = 5;
-    private List<GameObject> _minionWaveRef = new List<GameObject>();
-
-    [Header("Asset References. Do Not Touch.")]
+    [Tooltip("Number of Missiles to spawn during Bloodied Missile Attack")]
+    [SerializeField] private int _bloodiedProjectileCount = 3;
+    
+    [Header("Asset References! Do Not Touch!")]
 
     [Tooltip("Reference to Minion Prefab.")]
     [SerializeField] private GameObject _minionRef = null;
+    private List<GameObject> _minionWaveRef = new List<GameObject>();
+
     [Tooltip("Reference to Ring Attack Prefab.")]
     [SerializeField] private GameObject _ringRef = null;
-    [Tooltip("Reference to Game Object where Ring Attack originates from.")]
-    [SerializeField] private Transform _ringSpawn = null;
     private List<GameObject> _ringPool = new List<GameObject>();
+
+    [Tooltip("Reference to Bloodied Boss Missile Prefab")]
+    [SerializeField] private GameObject _missileRef = null;
+    private List<GameObject> _missilePool = new List<GameObject>();
+
+    [Tooltip("Reference to Game Object where Ring Attack originates from.")]
+    [SerializeField] private Transform _projectileSpawn = null;
+    private Transform _laserEndPoint = null;
+    
+    
 
     private void Awake()
     {
@@ -60,10 +72,10 @@ public class BossController : MonoBehaviour
         _rb.useGravity = false;
 
         _segmentRefs = GetComponentsInChildren<BossSegmentController>();
-        foreach (BossSegmentController segment in _segmentRefs)
+        for (int i=0; i < _segmentRefs.Length; i++)
         {
-            //health per segment
-            segment.SetHealth(_segmentHealth);
+            _segmentRefs[i].SetHealth(_segmentHealth);
+            _segmentRefs[i].SetDelay(i * 0.1f);
         }
     }
 
@@ -97,6 +109,22 @@ public class BossController : MonoBehaviour
         }
     }
 
+    /// <summary> 
+    ///     Returns Boss's current health, plus all active Segments' health
+    ///
+    /// </summary>
+    public int TotalHealth()
+    {
+        int value = 0;
+        foreach (BossSegmentController segment in _segmentRefs)
+        {
+            if (segment.isActiveAndEnabled)
+                value += segment.Health;
+        }
+
+        return value + _totalHealth;
+    }
+
     //for dev-testing purposes, remove before playtest/final
     public void SetBossState(BossState state)
     {
@@ -120,7 +148,7 @@ public class BossController : MonoBehaviour
 
                 GenerateAttack();
 
-                if (_isBloodied)
+                if (_segmentsAlive)
                     _nextState = BossState.Idle;
                 else
                     _nextState = BossState.Move;
@@ -147,28 +175,31 @@ public class BossController : MonoBehaviour
         }
     }
 
-    /// <summary> Interjects behavior loop with check for bloodied state
-    /// <para> Called when Segments Destroyed is invoked. </para>
+    /// <summary> 
+    ///     Interjects behavior loop with a check for Bloodied State
+    /// <para> 
+    ///     Called primarilly by BossSegmentController.Destroyed.Invoke()
+    /// </para>
     /// </summary>
     private void OnSegmentDestroyed()
     {
         Debug.Log("Segment Destroyed, Boss Updating");
         
         //If current or previous check returned any alive segments
-        if (_isBloodied)
+        if (_segmentsAlive)
         {
             //Set to False, and enable if any are still alive
-            _isBloodied = false;
+            _segmentsAlive = false;
             foreach (BossSegmentController segment in _segmentRefs)
             {
                 if (segment.isActiveAndEnabled)
-                    _isBloodied = true;
+                    _segmentsAlive = true;
             }
 
             //If previous check returned alive, but now check returns false, call Bloodied state
-            if (!_isBloodied)
+            if (!_segmentsAlive)
             {
-                if (!_isBloodied)
+                if (!_segmentsAlive)
                     _nextState = BossState.Bloodied;
             }
         }
@@ -208,7 +239,7 @@ public class BossController : MonoBehaviour
     {
         BossAttacks randomAttack;
 
-        if (_isBloodied)
+        if (_segmentsAlive)
             randomAttack = (BossAttacks)Random.Range(0, 4);
         else
             randomAttack = (BossAttacks)Random.Range(0, 2);
@@ -239,19 +270,23 @@ public class BossController : MonoBehaviour
 
     private void RingAttack()
     {
+        _projectileSpawn.transform.LookAt(GameManager.player.obj.transform.position);
+
         //RingAttack behavior dependant on Bloodied state
-        if (_isBloodied)
+        if (_segmentsAlive)
         {
             //Single Ring Attack
             Debug.Log("Firing the normal Ring Attack");
-            PoolUtility.InstantiateFromPool(_ringPool, _ringSpawn, _ringRef);
+            PoolUtility.InstantiateFromPool(_ringPool, _projectileSpawn, _ringRef);
 
             //put Boss Animation here.
+            //or have BossAnimator listen to IntEvent Attacked
             //calculate wait time, defined by Animation
             _wait = _attackAnimTime;
         }
         else 
         {
+            //TODO
             //Up to 3 Rings?
             Debug.Log("Firing bloodied Ring Attack");
             _wait = _attackAnimTime;
@@ -261,23 +296,26 @@ public class BossController : MonoBehaviour
     private void MissileAttack()
     {
         //Dependant on Bloodied state
-        if (_isBloodied)
+        if (_segmentsAlive)
         {
             //Segments each fire a missile to track player
             Debug.Log("Triggering the normal Missile Attack");
 
             //put Boss Animation here.
+            //or have BossAnimator listen to IntEvent Attacked
             //calculate wait time, defined by Animation
             _wait = _attackAnimTime;
         }
         else
         {
-            //Up to 3 Missiles? from core to track player
             Debug.Log("Triggering bloodied Missile Attack");
 
-            
+            //amount of missiles determined by Designer
+            for (int i=0; i<_bloodiedProjectileCount; i++)
+                PoolUtility.InstantiateFromPool(_missilePool, _projectileSpawn, _missileRef);
 
             //put Boss Animation here.
+            //or have BossAnimator listen to IntEvent Attacked
             //calculate wait time, defined by Animation
             _wait = _attackAnimTime;
         }
@@ -287,12 +325,22 @@ public class BossController : MonoBehaviour
     {
         //Beam that follows Player position
         Debug.Log("Activating the Laser");
-        _wait = _attackAnimTime;
 
+        //laser find's player position
+        //delay for player to dodge, while animation warms up
+        //laser starts moving towards player, but slow (or traces player path?)
+
+        //end of time, laser fades over 1 second?
+        _wait = _attackAnimTime;
     }
 
-    /// <summary> Summons a Wave of Enemy Minions
-    /// <para> Minions defined by _minionRef, and wave size defined by _minionWaveSize </para>
+    /// <summary> 
+    ///     Summons a Wave of Enemy Minions
+    /// <para> 
+    ///     Minions defined by _minionRef </para>
+    /// <para> 
+    ///     Wave size defined by _minionWaveSize. 
+    /// </para>
     /// </summary>
     private void SummonMinions()
     {
@@ -311,7 +359,7 @@ public class BossController : MonoBehaviour
         for (int i = waveCount; i < _minionWaveSize; i++)
         {
             //reliant on Minions being Disabled when killed, and not Destroyed()
-            PoolUtility.InstantiateFromPool(_minionWaveRef, _ringSpawn, _minionRef);
+            PoolUtility.InstantiateFromPool(_minionWaveRef, _projectileSpawn, _minionRef);
         }
         
         //put Boss Animation here.
