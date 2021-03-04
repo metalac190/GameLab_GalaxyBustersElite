@@ -9,7 +9,14 @@ public class PlayerController : MonoBehaviour
 	[SerializeField] GameObject currentWeapon;
 	public GameObject[] weapons;
 
-	private void Start()
+    private void Awake() {
+		// Set references in game manager
+		GameManager.player.obj = gameObject;
+		GameManager.player.movement = GetComponent<PlayerMovement>();
+		GameManager.player.controller = this;
+    }
+
+    private void Start()
 	{
 		SetWeapon(currentWeapon);
 	}
