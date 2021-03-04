@@ -10,16 +10,27 @@ public class CamRailManager : MonoBehaviour
     public int waypointIndex;
     public List<float> waypointSpeeds;
 
-    [Header("Inspector References")]
-    public Transform movementTracker;
-    public CinemachineDollyCart trackerDollyCart;
-
-    public CinemachineDollyCart cineDollyCart;
-    public CinemachineSmoothPath cineSmoothPath;
+    // references
+    Transform movementTrackerTrans;
+    CinemachineDollyCart movementTrackerDollyCart;
+    CinemachineDollyCart cineDollyCart;
+    CinemachineSmoothPath cineSmoothPath;
 
     // TODO- remove this
     [Header("Tester")]
     public TextMeshProUGUI uiText;
+
+    private void Awake()
+    {
+        movementTrackerTrans = GameObject.Find("Movement Tracker").transform;
+        movementTrackerDollyCart = movementTrackerTrans.GetComponent<CinemachineDollyCart>();
+
+        cineDollyCart = GameObject.Find("Camera Follower").GetComponent<CinemachineDollyCart>();
+        cineSmoothPath = FindObjectOfType<CinemachineSmoothPath>();
+
+        cineDollyCart.m_Path = cineSmoothPath;
+        movementTrackerDollyCart.m_Path = cineSmoothPath;
+    }
 
     private void Start()
     {
@@ -29,7 +40,7 @@ public class CamRailManager : MonoBehaviour
     private void InitCamRailSpeed()
     {
         cineDollyCart.m_Speed = waypointSpeeds[0];
-        trackerDollyCart.m_Speed = cineDollyCart.m_Speed;
+        movementTrackerDollyCart.m_Speed = cineDollyCart.m_Speed;
 
         waypointIndex = 1;
     }
@@ -44,8 +55,8 @@ public class CamRailManager : MonoBehaviour
         }*/
 
         // TODO- prob need to find a better fix
-        Vector2 movementTrackerPosXY = new Vector2(movementTracker.position.x, movementTracker.position.y);
-        Vector2 movementTrackerPosYZ = new Vector2(movementTracker.position.y, movementTracker.position.z);
+        Vector2 movementTrackerPosXY = new Vector2(movementTrackerTrans.position.x, movementTrackerTrans.position.y);
+        Vector2 movementTrackerPosYZ = new Vector2(movementTrackerTrans.position.y, movementTrackerTrans.position.z);
 
         Vector2 nextWaypointPosXY = new Vector2(cineSmoothPath.m_Waypoints[waypointIndex].position.x, cineSmoothPath.m_Waypoints[waypointIndex].position.y);
         Vector2 nextWaypointPosYZ = new Vector2(cineSmoothPath.m_Waypoints[waypointIndex].position.y, cineSmoothPath.m_Waypoints[waypointIndex].position.z);
@@ -61,7 +72,7 @@ public class CamRailManager : MonoBehaviour
 
     void SetCamRailSpeed()
     {
-        trackerDollyCart.m_Speed = waypointSpeeds[waypointIndex];
+        movementTrackerDollyCart.m_Speed = waypointSpeeds[waypointIndex];
         cineDollyCart.m_Speed = waypointSpeeds[waypointIndex];
     }
 
