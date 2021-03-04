@@ -37,16 +37,21 @@ public class CamRailManager : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if (Input.GetKeyDown(KeyCode.Escape))
+        // Removed by Bill for Pre-Alpha
+        /*if (Input.GetKeyDown(KeyCode.Escape))
         {
             Application.Quit();
-        }
+        }*/
 
-        // x is offset automatically for some reason
-        Vector2 movementTrackerPos = new Vector2(movementTracker.position.y, movementTracker.position.z);
-        Vector2 nextWaypointPos = new Vector2(cineSmoothPath.m_Waypoints[waypointIndex].position.y, cineSmoothPath.m_Waypoints[waypointIndex].position.z);
+        // TODO- prob need to find a better fix
+        Vector2 movementTrackerPosXY = new Vector2(movementTracker.position.x, movementTracker.position.y);
+        Vector2 movementTrackerPosYZ = new Vector2(movementTracker.position.y, movementTracker.position.z);
 
-        if (Vector2.Distance(movementTrackerPos, nextWaypointPos) < 0.1f && waypointIndex < waypointSpeeds.Count - 1)
+        Vector2 nextWaypointPosXY = new Vector2(cineSmoothPath.m_Waypoints[waypointIndex].position.x, cineSmoothPath.m_Waypoints[waypointIndex].position.y);
+        Vector2 nextWaypointPosYZ = new Vector2(cineSmoothPath.m_Waypoints[waypointIndex].position.y, cineSmoothPath.m_Waypoints[waypointIndex].position.z);
+
+        if ((Vector2.Distance(movementTrackerPosXY, nextWaypointPosXY) < 1f || Vector2.Distance(movementTrackerPosYZ, nextWaypointPosYZ) < 1f)
+            && waypointIndex < waypointSpeeds.Count - 1)
         {
             SetCamRailSpeed();
 

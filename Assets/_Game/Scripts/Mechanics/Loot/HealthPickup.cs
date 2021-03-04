@@ -5,15 +5,16 @@ using UnityEngine.Events;
 
 public class HealthPickup : PickupBase
 {
-    public UnityEvent healthPickedUp;
+    //Refer to Ben Friedman for QA/Bugfixing on all Pickup related scripts
 
-    [SerializeField] private int healthGain = 1;
+    //health amount should be standardized by a prefab, but could add functionality for varaible health values through the loot system?
+    [SerializeField] private int _healValue = 1;
 
-    protected override void ApplyEffect()
+    protected override void ApplyEffect(PlayerController player)
     {
-        //TODO Gain Health
+        player.HealPlayer(_healValue);
 
         //Invoke Event, Destroy Object
-        base.ApplyEffect();
+        base.ApplyEffect(player);
     }
 }
