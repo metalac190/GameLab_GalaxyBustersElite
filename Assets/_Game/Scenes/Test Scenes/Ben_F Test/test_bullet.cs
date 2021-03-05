@@ -7,7 +7,7 @@ public class test_bullet : MonoBehaviour
     [SerializeField] private float _lifetime = 5f;
     [SerializeField] private float _speed = 10f;
     private float _time = 0f;
-
+    
     private void OnEnable()
     {
         _time = _lifetime; 
@@ -31,5 +31,11 @@ public class test_bullet : MonoBehaviour
     private void OnTriggerEnter(Collider other)
     {
         gameObject.SetActive(false);
+    }
+
+    public void SetTarget(Vector3 point)
+    {
+        //convert to Coroutine (or add to Update loop), to turn over time, instead of snapping
+        transform.LookAt(point);
     }
 }
