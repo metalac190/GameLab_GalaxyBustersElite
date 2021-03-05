@@ -2,7 +2,6 @@
 {
     Idle = 0,
     Attack,
-    WeaponPrimed,
     Move,
     Bloodied
 }
