@@ -10,6 +10,7 @@ public class WeaponBase : MonoBehaviour
 	// TODO: Customize editor so only applicable settings will show with each projectile type
 
 	[Header("Weapon Settings")]
+	public string weaponID;
 	public Projectiles projectileType;
 	[SerializeField] GameObject projectile;
 	public Transform[] spawnPoints;

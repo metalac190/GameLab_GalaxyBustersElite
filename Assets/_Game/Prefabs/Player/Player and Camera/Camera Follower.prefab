@@ -779,11 +779,12 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   playerHealth: 10
   overloadCharge: 0
-  currentWeapon: {fileID: 0}
+  currentWeapon: {fileID: 3500800723739833614, guid: 119b9b21cd5f56c48ad3b8bfe3c7348c,
+    type: 3}
   weapons:
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
+  - {fileID: 7768120872092555115}
+  - {fileID: 6436499051799564778}
+  - {fileID: 6037407632847935356}
 --- !u!65 &1776219115318667528
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -1039,6 +1040,11 @@ PrefabInstance:
       propertyPath: m_Name
       value: Crosshairs
       objectReference: {fileID: 0}
+    - target: {fileID: 1718110191570075605, guid: 94d4f27b288b0244e82f16cb7e279845,
+        type: 3}
+      propertyPath: player
+      value: 
+      objectReference: {fileID: 6436499052479238154}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 94d4f27b288b0244e82f16cb7e279845, type: 3}
 --- !u!4 &2313147531632264587 stripped
@@ -1212,6 +1218,24 @@ PrefabInstance:
       objectReference: {fileID: 2313147531953123608}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 6055266311df1c04d86d84be8f100dfa, type: 3}
+--- !u!1 &6037407632847935356 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 3582029672068281088, guid: 6055266311df1c04d86d84be8f100dfa,
+    type: 3}
+  m_PrefabInstance: {fileID: 7096761805538321532}
+  m_PrefabAsset: {fileID: 0}
+--- !u!1 &6436499051799564778 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 4264850066483525014, guid: 6055266311df1c04d86d84be8f100dfa,
+    type: 3}
+  m_PrefabInstance: {fileID: 7096761805538321532}
+  m_PrefabAsset: {fileID: 0}
+--- !u!1 &7768120872092555115 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 698387270334690071, guid: 6055266311df1c04d86d84be8f100dfa,
+    type: 3}
+  m_PrefabInstance: {fileID: 7096761805538321532}
+  m_PrefabAsset: {fileID: 0}
 --- !u!4 &6436499052479238154 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 4264850067514602614, guid: 6055266311df1c04d86d84be8f100dfa,
