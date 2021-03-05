@@ -7,7 +7,7 @@ public class SoundPlayer : MonoBehaviour
 
 
 #if UNITY_EDITOR
-    private void OnValidate()
+    void OnValidate()
     {
         foreach (Sound sound in allSounds)
         {
@@ -20,7 +20,7 @@ public class SoundPlayer : MonoBehaviour
     }
 #endif
 
-
+    #region Setup
     void Awake()
     {
         foreach (Sound sound in allSounds)
@@ -37,40 +37,59 @@ public class SoundPlayer : MonoBehaviour
         }
     }
 
-    private void Start()
+    void Start()
+    {
+        CheckIfHasParent();
+
+        CheckIfGivenAnySound();
+    }
+
+    #endregion
+
+    #region Initialization Checks
+    void CheckIfHasParent()
     {
         if (transform.parent == null)
             Debug.LogWarning("SoundPlayer " + name + " has no parent.");
+    }
 
+    void CheckIfGivenAnySound()
+    {
         if (allSounds.Length == 0)
             Debug.LogWarning("SoundPlayer " + name + " not given any sounds to play.");
     }
+
+    bool CheckSoundAtIndex(int index)
+    {
+        if (allSounds.Length == 0 || index >= allSounds.Length || allSounds[index].audioSource == null)
+        {
+            Debug.LogWarning("SoundPlayer " + name + " has no sound at index " + index + ".");
+            return false;
+        }
+        else
+            return true;
+    }
+    #endregion
 
 
     #region Play
     public void TryPlay(int indexSoundToPlay)
     {
-        if (allSounds.Length == 0 || indexSoundToPlay >= allSounds.Length || allSounds[indexSoundToPlay].audioSource == null)
-        {
-            Debug.LogWarning("SoundPlayer " + name + " tried playing nonexistent sound at index " + indexSoundToPlay + ".");
+        if (!CheckSoundAtIndex(indexSoundToPlay))
             return;
-        }
 
         Play(indexSoundToPlay);
     }
 
-    private void Play(int indexSoundToPlay) { allSounds[indexSoundToPlay].audioSource.Play(); }
+    void Play(int indexSoundToPlay) { allSounds[indexSoundToPlay].audioSource.Play(); }
     #endregion
 
 
-    #region DetachPlayThenDestroy
+    #region Detach Play Then Destroy
     public void TryDetachPlayThenDestroy(int indexSoundToPlay)
     {
-        if (allSounds.Length == 0 || indexSoundToPlay >= allSounds.Length || allSounds[indexSoundToPlay].audioSource == null)
-        {
-            Debug.LogWarning("SoundPlayer " + name + " tried playing nonexistent sound at index " + indexSoundToPlay + ".");
+        if (!CheckSoundAtIndex(indexSoundToPlay))
             return;
-        }
 
         if (allSounds[indexSoundToPlay].loop)
         {
@@ -82,10 +101,12 @@ public class SoundPlayer : MonoBehaviour
         DetachPlayThenDestroy(indexSoundToPlay);
     }
 
-    private void DetachPlayThenDestroy(int indexSoundToPlay)
+    void DetachPlayThenDestroy(int indexSoundToPlay)
     {
         transform.parent = null;
         allSounds[indexSoundToPlay].audioSource.Play();
+
+        StopAllCoroutines();
         StartCoroutine(DestroyWhenFinished(indexSoundToPlay));
     }
 
@@ -93,12 +114,13 @@ public class SoundPlayer : MonoBehaviour
     {
         while (allSounds[indexSoundToPlay].audioSource.isPlaying)
             yield return null;
+
         Destroy(this.gameObject);
     }
     #endregion
 
 
-    #region Debug
+    #region Debugging
     [ContextMenu("Test Play First Sound")]
     void TestPlayFirst() => TryPlay(0);
     [ContextMenu("Test Detach, Play, then Destroy First Sound")]
