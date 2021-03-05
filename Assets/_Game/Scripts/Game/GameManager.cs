@@ -22,20 +22,21 @@ public class GameManager : MonoBehaviour {
     [Header("Game Stats")]
     public int score;
 
-    [Header("Player Reference")]
-    public static PlayerReferences player = new PlayerReferences();
+	[Header("Player Reference")]
+	public static PlayerReferences player = new PlayerReferences();
 
-    public class PlayerReferences {
-        public GameObject obj;
-        public PlayerMovement movement;
-        public PlayerController controller;
-    }
+	public class PlayerReferences
+	{
+		public GameObject obj;
+		public PlayerMovement movement;
+		public PlayerController controller;
+	}
 
-    // ----------------------------------------------------------------------------------------------------
+	// ----------------------------------------------------------------------------------------------------
 
-    #region Variables
+	#region Variables
 
-    public bool Paused {
+	public bool Paused {
         get {
             return _paused;
         } set {
