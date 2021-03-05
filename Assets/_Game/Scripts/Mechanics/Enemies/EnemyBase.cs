@@ -1,28 +1,37 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using UnityEditor;
 
-public abstract class EnemyBase : MonoBehaviour
+public abstract class EnemyBase : EntityBase
 {
     public enum EnemyState { Arrival, Passive, Attacking, Dead, Flee }
 
     [Header("Enemy State")]
     public EnemyState currentState;
 
-    [Header("Basic Enemy Variables")]
-    public int enemyHealth = 1;
-    public int enemyDamage = 0;
-    public float enemySpeed = 0;
-    public float attackRate = 0;
-    public float playerDetectionRadius = 0;
+    [Header("Additional Enemy Settings")]
+    [SerializeField] private int attackDamage = 0;
+    public int AttackDamage { get { return attackDamage; } }
+
+    [SerializeField] private float attackRate = 0;
+    public float AttackRate { get { return attackRate; } }
+
+    [SerializeField] private float enemyMoveSpeed = 0;
+    public float EnemyMoveSpeed { get { return enemyMoveSpeed; } }
+
+    [SerializeField] private float enemyDetectionRadius = 0;
+    public float EnemyDetectionRadius { get { return enemyDetectionRadius; } }
+
+    [SerializeField] private GameObject bullet;
+
+    float shotTime;
 
     void Start()
     {
         currentState = EnemyState.Arrival;
     }
 
-    public virtual void Update()
+    protected virtual void UpdateState()
     {
         switch (currentState)
         {
@@ -41,36 +50,58 @@ public abstract class EnemyBase : MonoBehaviour
         }
     }
 
+    protected abstract void Arrival();
+
+    protected abstract void Passive();
+
+    protected abstract void Attacking();
+
+    protected abstract void Dead();
+
+    protected abstract void Flee();
+
+    public override void TakeDamage(int damage)
+    {
+        _currentHealth -= damage;
+        if (_currentHealth <= 0)
+        {
+            Died.Invoke();
+            //disable or destroy as needed?
+        }
+        else
+        {
+            Damaged.Invoke();
+            //set up FX + AnimationController from Inspector, using Event
+        }
+    }
+
+    protected void FireProjectile()
+    {
+        if (shotTime <= 0)
+        {
+            shotTime = AttackRate;
+            Instantiate(bullet, transform.position, Quaternion.identity);
+            bullet.GetComponent<EnemyProjectile>().SetDamage(AttackDamage);
+        }
+        else
+        {
+            shotTime -= Time.deltaTime;
+        }
+    }
+
+    private void OnTriggerEnter(Collider col)
+    {
+        if (col.gameObject.layer == LayerMask.NameToLayer("Player"))
+        {
+            TakeDamage(bullet.GetComponent<EnemyProjectile>().projDamage);
+        }
+    }
+
 #if UNITY_EDITOR
     /// Visual radius of enemy detection radius if enemy selected in editor
-    public virtual void OnDrawGizmosSelected()
+    private void OnDrawGizmosSelected()
     {
-        Handles.DrawWireDisc(transform.position, Vector3.up, playerDetectionRadius);
+        Gizmos.DrawSphere(transform.position, EnemyDetectionRadius);
     }
 #endif
-
-    public virtual void Arrival()
-    {
-
-    }
-
-    public virtual void Passive()
-    {
-
-    }
-
-    public virtual void Attacking()
-    {
-
-    }
-
-    public virtual void Dead()
-    {
-
-    }
-
-    public virtual void Flee()
-    {
-
-    }
 }

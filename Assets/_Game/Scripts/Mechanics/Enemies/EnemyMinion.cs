@@ -2,13 +2,18 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class EnemyDrone : EnemyBase
+public class EnemyMinion : EnemyBase
 {
     private GameObject playerReference = null;
 
     private void Start()
     {
-        playerReference = GameManager.player.obj;
+        playerReference = GameObject.FindGameObjectWithTag("Player"); // TEMP
+    }
+
+    private void Update() // TEMP
+    {
+        UpdateState();
     }
 
     protected override void UpdateState()
@@ -46,12 +51,13 @@ public class EnemyDrone : EnemyBase
         if (Vector3.Distance(transform.position, playerReference.transform.position) < EnemyDetectionRadius)
         {
             Debug.Log("Detect range reached");
+            currentState = EnemyState.Attacking;
         }
     }
 
     protected override void Attacking()
     {
-
+        FireProjectile();
     }
 
     protected override void Dead()
