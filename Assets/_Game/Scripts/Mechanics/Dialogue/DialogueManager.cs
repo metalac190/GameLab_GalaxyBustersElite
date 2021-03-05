@@ -2,18 +2,21 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
+using TMPro;
 
 public class DialogueManager : MonoBehaviour
 {
     public Queue<string> sentences;
-    public Text nameText;
-    public Text dialogueText;
+    public GameObject DialoguePopUp;
+    public TextMeshProUGUI nameText;
+    public TextMeshProUGUI dialogueText;
     void Start()
     {
         sentences = new Queue<string>();
     }
     public void StartDialogue(Dialogue dialogue)
     {
+        DialoguePopUp.SetActive(true);
         nameText.text = dialogue.npcName;
         sentences.Clear();
         foreach(string sentence in dialogue.sentences)
@@ -46,6 +49,7 @@ public class DialogueManager : MonoBehaviour
     void EndDialogue()
     {
         Debug.Log("End of Conversation.");
+        DialoguePopUp.SetActive(false);
     }
 
 
