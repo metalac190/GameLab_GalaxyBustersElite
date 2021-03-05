@@ -61,6 +61,7 @@ public class GameManager : MonoBehaviour {
             DontDestroyOnLoad(gameObject);
         } else
             Destroy(gameObject);
+        Time.timeScale = 30;
     }
 
     // ----------------------------------------------------------------------------------------------------
@@ -135,9 +136,11 @@ public class GameManager : MonoBehaviour {
     }
 
     public void LoadScene(Levels scene) {
+        Cursor.visible = true;
         switch(scene) {
             case Levels.MainMenu:
                 currentState = GameState.MainMenu;
+                Cursor.lockState = CursorLockMode.None;
                 LoadScene("Main Menu");
                 break;
             case Levels.Mission1:

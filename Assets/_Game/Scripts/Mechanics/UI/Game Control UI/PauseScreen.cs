@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
-public class MakeshiftPauseScreen : MonoBehaviour {
+public class PauseScreen : MonoBehaviour {
 
     [SerializeField] private Button resume, mainMenu;
 
