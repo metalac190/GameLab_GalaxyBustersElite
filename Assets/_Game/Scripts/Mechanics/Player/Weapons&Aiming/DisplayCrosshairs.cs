@@ -5,7 +5,6 @@ using UnityEngine;
 // Places crosshairs with given sprites in world determined by mouse location
 public class DisplayCrosshairs : MonoBehaviour
 {
-	[SerializeField] Transform cam;
 	[SerializeField] Transform player;
 	[SerializeField] Transform mouse;
 	[SerializeField] Transform nearCrosshair;
@@ -14,7 +13,13 @@ public class DisplayCrosshairs : MonoBehaviour
 	[SerializeField] [Range(0, 2f)] float farCrosshairDistance = 1f;
 	[SerializeField] bool debug = true;
 
+	Transform cam;
 	Vector3 line1, line2, avgLine, avgStart, targetLine;
+
+	private void Start()
+	{
+		cam = Camera.main.transform;
+	}
 
 	void Update()
 	{
@@ -24,12 +29,15 @@ public class DisplayCrosshairs : MonoBehaviour
 		targetLine = mouse.position - avgStart;
 
 		// Set distance of crosshair at percent distance along line
-		nearCrosshair.position = avgStart + (targetLine * nearCrosshairDistance);
-		farCrosshair.position = avgStart + (targetLine * farCrosshairDistance);
+		if (!GameManager.gm.Paused)
+		{
+			nearCrosshair.position = avgStart + (targetLine * nearCrosshairDistance);
+			farCrosshair.position = avgStart + (targetLine * farCrosshairDistance);
+		}
 
 		// Rotate sprite to look at camera
-		nearCrosshair.rotation = Camera.main.transform.rotation;
-		farCrosshair.rotation = Camera.main.transform.rotation;
+		nearCrosshair.rotation = cam.transform.rotation;
+		farCrosshair.rotation = cam.transform.rotation;
 
 		// Draw debug lines for each vector
 		if (debug)

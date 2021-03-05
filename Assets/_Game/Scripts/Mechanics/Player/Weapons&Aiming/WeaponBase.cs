@@ -43,7 +43,7 @@ public class WeaponBase : MonoBehaviour
 	{
 
 		// TODO: Add slight bonus for clicking rapidly over holding fire
-		if (Input.GetButton("Primary Fire") && !overloaded)
+		if (Input.GetButton("Primary Fire") && !overloaded && !GameManager.gm.Paused)
 		{
 			switch (projectileType)
 			{
@@ -62,7 +62,7 @@ public class WeaponBase : MonoBehaviour
 
 		}
 
-		if (Input.GetButton("Overload Fire") && !overloaded)
+		if (Input.GetButton("Overload Fire") && !overloaded && !GameManager.gm.Paused)
 		{
 			// Start the overload countdown
 			StartCoroutine("ActivateOverload");
