@@ -5,12 +5,13 @@ using UnityEngine.Events;
 
 [RequireComponent(typeof(Collider))]
 [RequireComponent(typeof(Rigidbody))]
-public class BossController : MonoBehaviour
+public class BossController : EntityBase
 {
     //Refer to Ben Friedman for QA/Bugfixing on Boss System scripts
 
     //TODO inherit from EnemyBase?
     
+    [Header("Boss Settings")]
     public IntEvent Attacking;
 
     //triggerVolume to recieve body hits
@@ -22,14 +23,12 @@ public class BossController : MonoBehaviour
 
     [Header("Boss Statistics")]
 
-    [Tooltip("Starting Health for Boss Core\n(Second Phase of fight).")]
-    [SerializeField] private int _totalHealth = 100;
     [Tooltip("Starting Health for each Segment.\nTotal Segment Health derived from\nStarting Health * number of Segments")]
     [SerializeField] private int _segmentHealth = 100;
     private BossSegmentController[] _segmentRefs = new BossSegmentController[0];
     bool _segmentsAlive = true;
 
-    [Header("Boss Settings")]
+    [Header("Attack Settings")]
 
     [Tooltip("Time in Seconds to wait during Idle state.")]
     [SerializeField] private float _idleTime = 2f;
@@ -59,8 +58,17 @@ public class BossController : MonoBehaviour
 
     [Tooltip("Reference to Game Object where Ring Attack originates from.")]
     [SerializeField] private Transform _projectileSpawn = null;
-    private Transform _laserEndPoint = null;
-    
+
+    [Tooltip("The Laser's movespeed as a percentage of the Player's movespeed")]
+    [SerializeField] private float _laserSpeedModifier = 0.8f;
+    [SerializeField] private GameObject _laserTracker = null;
+
+    [Tooltip("Time in Seconds for Laser animation to Warm Up\nBefore dealing damage.")]
+    [SerializeField] private float _laserWarmUpTime = 2f;
+    private Vector3 _laserEndPoint = Vector3.zero;
+    private bool _isLaser = false;
+    private BossState _prevNext;
+
     
 
     private void Awake()
@@ -99,6 +107,10 @@ public class BossController : MonoBehaviour
 
     private void Update()
     {
+        //this loop controls the boss's state flow. 
+        //Each state passes a certain amount of time to wait before next state
+        //is there a better implementation? will eventually need to access Animation Time
+        //can this call StateUpdate as an event, after Animation.End.Invoke()? does that exists?
         if (_wait > 0)
         {
             _wait -= Time.deltaTime;
@@ -107,66 +119,93 @@ public class BossController : MonoBehaviour
                 NextBossState();
             }
         }
+
+        //controls laser's position, if using laser attack
+        if (_isLaser)
+        {
+            Debug.Log("Tracking...");
+
+            //laser tracks player position while firing
+            float laserSpeed = _laserSpeedModifier * GameManager.player.movement.MoveSpeed * Time.deltaTime;
+
+            _laserEndPoint = Vector3.MoveTowards(_laserEndPoint, GameManager.player.obj.transform.position, laserSpeed);
+            _laserTracker.transform.position = _laserEndPoint;
+        }
     }
 
     /// <summary> 
     ///     Returns Boss's current health, plus all active Segments' health
     ///
     /// </summary>
-    public int TotalHealth()
+    public int TotalHealth
     {
-        int value = 0;
-        foreach (BossSegmentController segment in _segmentRefs)
+        get
         {
-            if (segment.isActiveAndEnabled)
-                value += segment.Health;
-        }
+            int value = 0;
+            foreach (BossSegmentController segment in _segmentRefs)
+            {
+                if (segment.isActiveAndEnabled)
+                    value += segment.Health;
+            }
 
-        return value + _totalHealth;
+            return value + _currentHealth;
+        }
     }
 
-    //for dev-testing purposes, remove before playtest/final
+#if UNITY_EDITOR
     public void SetBossState(BossState state)
     {
         _wait = 0;
         _nextState = state;
         NextBossState();
     }
+#endif
 
     private void NextBossState()
     {
+        //disable laser tracking, after moving away from Laser Attack state
+        //somewhat repetitive when not using Laser Attack state? better place for this?
+        _isLaser = false;
+        _laserTracker.SetActive(false);
+
         switch (_nextState)
         {
             case BossState.Idle:
 
-                BossIdle();
                 _nextState = BossState.Attack;
 
+                BossIdle();
                 break;
 
             case BossState.Attack:
-
-                GenerateAttack();
 
                 if (_segmentsAlive)
                     _nextState = BossState.Idle;
                 else
                     _nextState = BossState.Move;
 
+                GenerateAttack();
+                break;
+
+            case BossState.WeaponPrimed:
+
+                _nextState = _prevNext;
+
+                FireLaser();
                 break;
 
             case BossState.Move:
 
-                MovePattern();
                 _nextState = (BossState)Random.Range(1, 3); //either 1 or 2
 
+                MovePattern();
                 break;
 
             case BossState.Bloodied:
 
-                Bloodied();
                 _nextState = BossState.Move;
 
+                Bloodied();
                 break;
 
             default:
@@ -245,6 +284,7 @@ public class BossController : MonoBehaviour
             randomAttack = (BossAttacks)Random.Range(0, 2);
 
         //Signals to Segments which Attack is active, to animate/behave accordingly
+        //public facing, accessible by animators, fx, other systems?
         Attacking.Invoke((int)randomAttack);
 
         //Calls Boss animations/behaviors
@@ -257,7 +297,7 @@ public class BossController : MonoBehaviour
                 MissileAttack();
                 break;
             case BossAttacks.LaserAttack:
-                LaserAttack();
+                PrimeLaser();
                 break;
             case BossAttacks.SummonMinions:
                 SummonMinions();
@@ -321,17 +361,34 @@ public class BossController : MonoBehaviour
         }
     }
 
-    private void LaserAttack()
+    private void PrimeLaser()
     {
         //Beam that follows Player position
-        Debug.Log("Activating the Laser");
+        Debug.Log("Priming the Laser");
 
         //laser find's player position
+        _laserEndPoint = GameManager.player.obj.transform.position;
+
         //delay for player to dodge, while animation warms up
+        //wait for N seconds?
+        _wait = _laserWarmUpTime;
+
+        //save next actual state, pass on for later
+        _prevNext = _nextState;
+        _nextState = BossState.WeaponPrimed;
+    }
+
+    //special boss state, after wait "attacking" to prime weapon, run animations, then fire laser for real
+    private void FireLaser()
+    {
+        Debug.Log("Firing the Laser");
+
         //laser starts moving towards player, but slow (or traces player path?)
+        _isLaser = true;
+        _laserTracker.SetActive(true);
 
         //end of time, laser fades over 1 second?
-        _wait = _attackAnimTime;
+        _wait += _attackAnimTime;
     }
 
     /// <summary> 
