@@ -6,6 +6,7 @@ public class SoundPlayer : MonoBehaviour
     [SerializeField] Sound[] allSounds = new Sound[1];
 
 
+// Syncing loop and play on awake variables with Particle System
 #if UNITY_EDITOR
     void OnValidate()
     {
@@ -41,7 +42,7 @@ public class SoundPlayer : MonoBehaviour
     {
         CheckIfHasParent();
 
-        CheckIfGivenAnySound();
+        CheckIfHasAnySounds();
     }
 
     #endregion
@@ -53,13 +54,13 @@ public class SoundPlayer : MonoBehaviour
             Debug.LogWarning("SoundPlayer " + name + " has no parent.");
     }
 
-    void CheckIfGivenAnySound()
+    void CheckIfHasAnySounds()
     {
         if (allSounds.Length == 0)
             Debug.LogWarning("SoundPlayer " + name + " not given any sounds to play.");
     }
 
-    bool CheckSoundAtIndex(int index)
+    bool CheckIfSoundAtIndexIsInitialized(int index)
     {
         if (allSounds.Length == 0 || index >= allSounds.Length || allSounds[index].audioSource == null)
         {
@@ -75,8 +76,7 @@ public class SoundPlayer : MonoBehaviour
     #region Play
     public void TryPlay(int indexSoundToPlay)
     {
-        if (!CheckSoundAtIndex(indexSoundToPlay))
-            return;
+        if (!CheckIfSoundAtIndexIsInitialized(indexSoundToPlay)) return;
 
         Play(indexSoundToPlay);
     }
@@ -84,12 +84,10 @@ public class SoundPlayer : MonoBehaviour
     void Play(int indexSoundToPlay) { allSounds[indexSoundToPlay].audioSource.Play(); }
     #endregion
 
-
     #region Detach Play Then Destroy
     public void TryDetachPlayThenDestroy(int indexSoundToPlay)
     {
-        if (!CheckSoundAtIndex(indexSoundToPlay))
-            return;
+        if (!CheckIfSoundAtIndexIsInitialized(indexSoundToPlay)) return;
 
         if (allSounds[indexSoundToPlay].loop)
         {

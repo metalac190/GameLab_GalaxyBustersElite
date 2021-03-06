@@ -6,6 +6,7 @@ public class ParticlesPlayer : MonoBehaviour
     [SerializeField] Particles[] allParticles = new Particles[1];
 
 
+// Syncing play on awake variables with Particle System
 #if UNITY_EDITOR
     void OnValidate()
     {
@@ -39,7 +40,7 @@ public class ParticlesPlayer : MonoBehaviour
     {
         CheckIfHasParent();
 
-        CheckIfGivenAnyParticles();
+        CheckIfHasAnyParticles();
     }
     #endregion
 
@@ -50,13 +51,13 @@ public class ParticlesPlayer : MonoBehaviour
             Debug.LogWarning("ParticlesPlayer " + name + " has no parent.");
     }
 
-    void CheckIfGivenAnyParticles()
+    void CheckIfHasAnyParticles()
     {
         if (allParticles.Length == 0)
             Debug.LogWarning("ParticlesPlayer " + name + " not given any sounds to play.");
     }
 
-    bool CheckParticlesAtIndex(int index)
+    bool CheckIfParticlesAtIndexAreInitialized(int index)
     {
         if (allParticles.Length == 0 || index >= allParticles.Length)
         {
@@ -72,8 +73,7 @@ public class ParticlesPlayer : MonoBehaviour
     #region Play
     public void TryPlay(int indexParticlesToPlay)
     {
-        if (!CheckParticlesAtIndex(indexParticlesToPlay))
-            return;
+        if (!CheckIfParticlesAtIndexAreInitialized(indexParticlesToPlay)) return;
 
         Play(indexParticlesToPlay);
     }
@@ -81,12 +81,10 @@ public class ParticlesPlayer : MonoBehaviour
     void Play(int indexParticlesToPlay) { allParticles[indexParticlesToPlay].particleSystem.Play(); }
     #endregion
 
-
     #region Detach Play Then Destroy
     public void TryDetachPlayThenDestroy(int indexParticlesToPlay)
     {
-        if (!CheckParticlesAtIndex(indexParticlesToPlay))
-            return;
+        if (!CheckIfParticlesAtIndexAreInitialized(indexParticlesToPlay)) return;
 
         DetachPlayThenDestroy(indexParticlesToPlay);
     }

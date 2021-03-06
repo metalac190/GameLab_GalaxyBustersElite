@@ -15,9 +15,9 @@ public class TestSceneChanger : MonoBehaviour
     IEnumerator LoadScene(string nameOfScene)
     {
         if (fadeOutMusic)
-            FindObjectOfType<MusicPlayer>().FadeOut();
+            MusicPlayer.instance.FadeOut();
 
-        yield return new WaitForSeconds(1);
+        yield return new WaitForSeconds(2.2f);
         SceneManager.LoadScene(nameOfScene);
     }
 }

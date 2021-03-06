@@ -5,15 +5,17 @@ using UnityEngine.SceneManagement;
 public class MusicPlayer : MonoBehaviour
 {
     public static MusicPlayer instance;
+
     [Header("Standard Track")]
-    [SerializeField] MusicTrack music;
+    [SerializeField] MusicTrack standardMusic;
     [SerializeField] bool fadeIn;
     [Range(0.01f, 20)]
     [SerializeField] float fadeInDuration = 0.8f;
-    const float FADE_OUT_DURATION = 2;
+    bool fadingOut; // Used to make sure MusicPlayer doesn't crossfade when in the middle of fading out
+    const float FADE_OUT_DURATION = 2; // Needs to be less than duration of scene transition
 
     [Header("Alternative Track")]
-    [SerializeField] MusicTrack altMusic;
+    [SerializeField] MusicTrack alternativeMusic;
     bool altMusicPlaying = false;
     [Range(0.01f, 20)]
     [SerializeField] float crossFadeDuration = 0.8f;
@@ -23,7 +25,7 @@ public class MusicPlayer : MonoBehaviour
     {
         SingletonChecking();
 
-        if (CheckStandardMusicTrack())
+        if (CheckStandardTrackInitialized())
             MusicTracksSetup();
     }
 
@@ -43,40 +45,39 @@ public class MusicPlayer : MonoBehaviour
 
     private void MusicTracksSetup()
     {
-        if (CheckStandardMusicTrack())
+        if (CheckStandardTrackInitialized())
             StandardMusicTrackSetup();
 
-        if (altMusic.musicTrack != null)
+        if (alternativeMusic.musicTrack != null)
             AlternativeMusicTrackSetup();
     }
 
     private void StandardMusicTrackSetup()
     {
-        music.audioSource = gameObject.AddComponent<AudioSource>();
-        music.audioSource.clip = music.musicTrack;
-        music.audioSource.loop = true;
+        standardMusic.audioSource = gameObject.AddComponent<AudioSource>();
+        standardMusic.audioSource.clip = standardMusic.musicTrack;
+        standardMusic.audioSource.loop = true;
         if (fadeIn)
             FadeIn();
         else
         {
-            music.audioSource.volume = music.volume;
-            music.audioSource.Play();
+            standardMusic.audioSource.volume = standardMusic.volume;
+            standardMusic.audioSource.Play();
         }
     }
 
     private void AlternativeMusicTrackSetup()
     {
-        altMusic.audioSource = gameObject.AddComponent<AudioSource>();
-        altMusic.audioSource.clip = altMusic.musicTrack;
-        altMusic.audioSource.loop = true;
+        alternativeMusic.audioSource = gameObject.AddComponent<AudioSource>();
+        alternativeMusic.audioSource.clip = alternativeMusic.musicTrack;
+        alternativeMusic.audioSource.loop = true;
     }
     #endregion
 
-
     #region Initialization Checks
-    private bool CheckStandardMusicTrack()
+    private bool CheckStandardTrackInitialized()
     {
-        if (music.musicTrack != null)
+        if (standardMusic.musicTrack != null)
             return true;
         else
         {
@@ -85,9 +86,9 @@ public class MusicPlayer : MonoBehaviour
         }
     }
 
-    private bool CheckAlternativeMusicTrack()
+    private bool CheckAlternativeTrackInitialized()
     {
-        if (altMusic.musicTrack != null)
+        if (alternativeMusic.musicTrack != null)
             return true;
         else
         {
@@ -101,30 +102,33 @@ public class MusicPlayer : MonoBehaviour
     #region Fade In
     void FadeIn()
     {
-        if (!CheckStandardMusicTrack()) return;
+        if (!CheckStandardTrackInitialized()) return;
 
         StopAllCoroutines();
         StartCoroutine(FadeInCoroutine());
     }
     IEnumerator FadeInCoroutine()
     {
-        music.audioSource.volume = 0;
-        music.audioSource.Play();
-        while (music.audioSource.volume < music.volume)
+        standardMusic.audioSource.volume = 0;
+        standardMusic.audioSource.Play();
+
+        while (standardMusic.audioSource.volume < standardMusic.volume)
         {
             yield return new WaitForFixedUpdate();
-            music.audioSource.volume += Time.fixedDeltaTime / fadeInDuration * music.volume;
+            standardMusic.audioSource.volume += Time.fixedDeltaTime / fadeInDuration * standardMusic.volume;
         }
-        music.audioSource.volume = music.volume;
+
+        standardMusic.audioSource.volume = standardMusic.volume;
     }
     #endregion
-
 
     #region Fade Out
     public void FadeOut()
     {
-        if (!altMusicPlaying && !CheckStandardMusicTrack()) return;
-        else if (altMusicPlaying && !CheckAlternativeMusicTrack()) return;
+        if (!altMusicPlaying && !CheckStandardTrackInitialized()) return;
+        else if (altMusicPlaying && !CheckAlternativeTrackInitialized()) return;
+
+        fadingOut = true;
 
         StopAllCoroutines();
         StartCoroutine(FadeOutCoroutine(altMusicPlaying));
@@ -133,14 +137,17 @@ public class MusicPlayer : MonoBehaviour
     }
     IEnumerator FadeOutCoroutine(bool alternativeTrack = false)
     {
-        MusicTrack fadingOutMusicTrack = (alternativeTrack) ? altMusic : music;
+        MusicTrack fadingOutMusicTrack = (alternativeTrack) ? alternativeMusic : standardMusic;
+
 
         float startingVolume = fadingOutMusicTrack.audioSource.volume = fadingOutMusicTrack.volume;
+
         while (fadingOutMusicTrack.audioSource.volume > 0)
         {
             yield return new WaitForFixedUpdate();
             fadingOutMusicTrack.audioSource.volume -= Time.fixedDeltaTime / FADE_OUT_DURATION * startingVolume;
         }
+
         fadingOutMusicTrack.audioSource.Stop();
     }
     #endregion
@@ -149,9 +156,11 @@ public class MusicPlayer : MonoBehaviour
     [ContextMenu("Cross Fade Tracks")]
     public void CrossFadeBetweenTracks()
     {
+        if (fadingOut) return; // Don't crossfade if in the process of fading out
+
         if (!altMusicPlaying)
         {
-            if (!CheckAlternativeMusicTrack()) return;
+            if (!CheckAlternativeTrackInitialized()) return;
 
             StopAllCoroutines();
             StartCoroutine(CrossFadeCoroutine(true));
@@ -159,7 +168,7 @@ public class MusicPlayer : MonoBehaviour
         }
         else
         {
-            if (!CheckStandardMusicTrack()) return;
+            if (!CheckStandardTrackInitialized()) return;
 
             StopAllCoroutines();
             StartCoroutine(CrossFadeCoroutine(false));
@@ -168,18 +177,21 @@ public class MusicPlayer : MonoBehaviour
     }
     IEnumerator CrossFadeCoroutine(bool standardToAlternative)
     {
-        MusicTrack startMusicTrack = (standardToAlternative) ? music : altMusic;
-        MusicTrack endMusicTrack = (standardToAlternative) ? altMusic : music;
+        MusicTrack startMusicTrack = (standardToAlternative) ? standardMusic : alternativeMusic;
+        MusicTrack endMusicTrack = (standardToAlternative) ? alternativeMusic : standardMusic;
+
 
         float startingVolume = startMusicTrack.audioSource.volume = startMusicTrack.volume;
         endMusicTrack.audioSource.volume = 0;
         endMusicTrack.audioSource.Play();
+
         while (startMusicTrack.audioSource.volume > 0 || endMusicTrack.audioSource.volume < endMusicTrack.volume)
         {
             yield return new WaitForFixedUpdate();
             startMusicTrack.audioSource.volume -= Time.fixedDeltaTime / crossFadeDuration * startingVolume;
             endMusicTrack.audioSource.volume += Time.fixedDeltaTime / crossFadeDuration * endMusicTrack.volume;
         }
+
         endMusicTrack.audioSource.volume = endMusicTrack.volume;
         startMusicTrack.audioSource.Stop();
     }
