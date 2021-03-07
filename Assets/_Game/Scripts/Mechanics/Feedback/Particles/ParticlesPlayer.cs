@@ -6,8 +6,9 @@ public class ParticlesPlayer : MonoBehaviour
     [SerializeField] Particles[] allParticles = new Particles[1];
 
 
+// Syncing play on awake variables with Particle System
 #if UNITY_EDITOR
-    private void OnValidate()
+    void OnValidate()
     {
         foreach (Particles particles in allParticles)
         {
@@ -20,8 +21,8 @@ public class ParticlesPlayer : MonoBehaviour
     }
 #endif
 
-
-    private void Awake()
+    #region Setup
+    void Awake()
     {
         foreach (Particles particles in allParticles)
         {
@@ -35,48 +36,65 @@ public class ParticlesPlayer : MonoBehaviour
         }
     }
 
-    private void Start()
+    void Start()
+    {
+        CheckIfHasParent();
+
+        CheckIfHasAnyParticles();
+    }
+    #endregion
+
+    #region Initialization Checks
+    void CheckIfHasParent()
     {
         if (transform.parent == null)
             Debug.LogWarning("ParticlesPlayer " + name + " has no parent.");
+    }
 
+    void CheckIfHasAnyParticles()
+    {
         if (allParticles.Length == 0)
             Debug.LogWarning("ParticlesPlayer " + name + " not given any sounds to play.");
     }
+
+    bool CheckIfParticlesAtIndexAreInitialized(int index)
+    {
+        if (allParticles.Length == 0 || index >= allParticles.Length)
+        {
+            Debug.LogWarning("ParticlesPlayer " + name + " has no particles at index " + index + ".");
+            return false;
+        }
+        else
+            return true;
+    }
+    #endregion
 
 
     #region Play
     public void TryPlay(int indexParticlesToPlay)
     {
-        if (allParticles.Length == 0 || indexParticlesToPlay >= allParticles.Length)
-        {
-            Debug.LogWarning("ParticlesPlayer " + name + " tried playing nonexistent particles at index " + indexParticlesToPlay + ".");
-            return;
-        }
+        if (!CheckIfParticlesAtIndexAreInitialized(indexParticlesToPlay)) return;
 
         Play(indexParticlesToPlay);
     }
 
-    private void Play(int indexParticlesToPlay) { allParticles[indexParticlesToPlay].particleSystem.Play(); }
+    void Play(int indexParticlesToPlay) { allParticles[indexParticlesToPlay].particleSystem.Play(); }
     #endregion
 
-
-    #region DetachPlayThenDestroy
+    #region Detach Play Then Destroy
     public void TryDetachPlayThenDestroy(int indexParticlesToPlay)
     {
-        if (allParticles.Length == 0 || indexParticlesToPlay >= allParticles.Length)
-        {
-            Debug.LogWarning("ParticlesPlayer " + name + " tried playing nonexistent particles at index " + indexParticlesToPlay + ".");
-            return;
-        }
+        if (!CheckIfParticlesAtIndexAreInitialized(indexParticlesToPlay)) return;
 
         DetachPlayThenDestroy(indexParticlesToPlay);
     }
 
-    private void DetachPlayThenDestroy(int indexParticlesToPlay)
+    void DetachPlayThenDestroy(int indexParticlesToPlay)
     {
         transform.parent = null;
         allParticles[indexParticlesToPlay].particleSystem.Play();
+
+        StopAllCoroutines();
         StartCoroutine(DestroyWhenFinished(indexParticlesToPlay));
     }
 
@@ -84,12 +102,13 @@ public class ParticlesPlayer : MonoBehaviour
     {
         while (allParticles[indexParticlesToPlay].particleSystem.isPlaying)
             yield return null;
+
         Destroy(this.gameObject);
     }
     #endregion
 
 
-    #region Debug
+    #region Debugging
     [ContextMenu("Test Play First Particles")]
     void TestPlayFirst() => Play(0);
     [ContextMenu("Test Detach, Play, then Destroy First Particles")]
