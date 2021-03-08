@@ -18,6 +18,7 @@ public class GameManager : MonoBehaviour {
 
     [Header("Game Flow")]
     [SerializeField] private GameObject winScreen;
+    [SerializeField] private GameObject loseScreen;
 
     [Header("Game Stats")]
     public int score;
@@ -122,6 +123,10 @@ public class GameManager : MonoBehaviour {
         // TODO
     }
 
+    public void SetLoseScreen(GameObject loseScreen) {
+        this.loseScreen = loseScreen;
+    }
+
     #endregion
 
     // ----------------------------------------------------------------------------------------------------
@@ -150,10 +155,12 @@ public class GameManager : MonoBehaviour {
                 break;
             case Levels.Mission2:
                 currentState = GameState.Gameplay;
+                unlockedLevel = Mathf.Max(unlockedLevel, 2);
                 LoadScene("Mission 2");
                 break;
             case Levels.Mission3:
                 currentState = GameState.Gameplay;
+                unlockedLevel = 3;
                 LoadScene("Mission 3");
                 break;
             default:
