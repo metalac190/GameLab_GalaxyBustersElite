@@ -8,6 +8,8 @@ public class PlayerMovement : MonoBehaviour
 {
     [Header("Move Settings")]
     [SerializeField] float moveSpeed = 20;
+    public float MoveSpeed { get { return moveSpeed; } }
+
     [SerializeField] float rotateSpeed = 1000;
     [SerializeField] float horizontalLean = 50;
 

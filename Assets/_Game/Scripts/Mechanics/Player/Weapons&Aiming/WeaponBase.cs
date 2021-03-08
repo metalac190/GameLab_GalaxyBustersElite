@@ -10,6 +10,7 @@ public class WeaponBase : MonoBehaviour
 	// TODO: Customize editor so only applicable settings will show with each projectile type
 
 	[Header("Weapon Settings")]
+	public string weaponID;
 	public Projectiles projectileType;
 	[SerializeField] GameObject projectile;
 	public Transform[] spawnPoints;
@@ -43,7 +44,7 @@ public class WeaponBase : MonoBehaviour
 	{
 
 		// TODO: Add slight bonus for clicking rapidly over holding fire
-		if (Input.GetButton("Primary Fire") && !overloaded)
+		if (Input.GetButton("Primary Fire") && !overloaded && !GameManager.gm.Paused)
 		{
 			switch (projectileType)
 			{
@@ -62,7 +63,7 @@ public class WeaponBase : MonoBehaviour
 
 		}
 
-		if (Input.GetButton("Overload Fire") && !overloaded)
+		if (Input.GetButton("Overload Fire") && !overloaded && !GameManager.gm.Paused)
 		{
 			// Start the overload countdown
 			StartCoroutine("ActivateOverload");

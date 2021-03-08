@@ -6,6 +6,8 @@ using UnityEngine.Events;
 
 public class BossSegmentController : EntityBase
 {
+    //implement Boss as Singleton?
+    //boss is always prefab, not too much harm rn?
     [SerializeField] private BossController _bossRef = null;
 
     [Tooltip("Reference to Normal Boss Missile Prefab")]

@@ -22,7 +22,8 @@ public class MouseToScreen : MonoBehaviour
 		mousePos = Input.mousePosition;
 		mousePos.z = distance + 10;
 		targetVector = Camera.main.ScreenToWorldPoint(mousePos);
-		transform.position = Vector3.SmoothDamp(transform.position, targetVector, ref mouseRef, moveSpeed);
+		transform.position = targetVector;
+		//transform.position = Vector3.SmoothDamp(transform.position, targetVector, ref mouseRef, moveSpeed);
 	}
 
 

@@ -525,7 +525,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 31c5af56ea767a449afa015f53c8fd33, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  distance: 40
+  distance: 25
 --- !u!1 &334128129
 GameObject:
   m_ObjectHideFlags: 0
@@ -837,13 +837,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8720f138b83e9c44ea695df6fd5e9cb5, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  start: {fileID: 708438155}
+  start: {fileID: 1872608119}
   end: {fileID: 254692933}
   nearCrosshair: {fileID: 668119978}
-  farCrosshair: {fileID: 1932153031}
-  nearCrosshairDistance: 0.8
-  farCrosshairDistance: 1
-  debug: 0
+  farCrosshair: {fileID: 1408099642}
+  nearCrosshairDistance: 1
+  farCrosshairDistance: 1.2
+  debug: 1
 --- !u!1 &524784116
 GameObject:
   m_ObjectHideFlags: 0
@@ -1319,7 +1319,7 @@ SpriteRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
-  m_Sprite: {fileID: 21300000, guid: 2f5d9f2dc3736c8468022943c69c117b, type: 3}
+  m_Sprite: {fileID: 21300000, guid: 23de4685109e211419890e5f43f594a0, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
@@ -2452,6 +2452,36 @@ Transform:
     type: 3}
   m_PrefabInstance: {fileID: 1554756654259986394}
   m_PrefabAsset: {fileID: 0}
+--- !u!1 &1408099641
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1408099642}
+  m_Layer: 0
+  m_Name: GameObject
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &1408099642
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1408099641}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 1872608119}
+  m_RootOrder: 0
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1001 &1430470939
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -3466,7 +3496,8 @@ Transform:
   m_LocalRotation: {x: 0.017364014, y: 0.035640787, z: -0.0006193542, w: 0.99921364}
   m_LocalPosition: {x: 6.48796, y: 0.34744865, z: -9.968564}
   m_LocalScale: {x: 1, y: 1, z: 1}
-  m_Children: []
+  m_Children:
+  - {fileID: 1408099642}
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -3711,6 +3742,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1932153031}
   - component: {fileID: 1932153033}
+  - component: {fileID: 1932153032}
   m_Layer: 0
   m_Name: CrosshairFar
   m_TagString: Untagged
@@ -3727,11 +3759,27 @@ Transform:
   m_GameObject: {fileID: 1932153030}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 2, y: 2, z: 2}
+  m_LocalScale: {x: 6, y: 6, z: 6}
   m_Children: []
   m_Father: {fileID: 470694614}
   m_RootOrder: 2
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1932153032
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1932153030}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1a613db22583b664c8f9c265219fecf7, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  start: {fileID: 708438155}
+  end: {fileID: 254692933}
+  percentageToEnd: 1.5
+  debug: 1
 --- !u!212 &1932153033
 SpriteRenderer:
   m_ObjectHideFlags: 0
@@ -3771,7 +3819,7 @@ SpriteRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
-  m_Sprite: {fileID: 21300000, guid: 0c796d4a32640af4ab9ccbf29a35e812, type: 3}
+  m_Sprite: {fileID: 21300000, guid: 6fba135868d564b4da22546ad4b94989, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
@@ -4270,10 +4318,20 @@ PrefabInstance:
       propertyPath: target
       value: 
       objectReference: {fileID: 254692933}
+    - target: {fileID: 4018402610870719688, guid: 119b9b21cd5f56c48ad3b8bfe3c7348c,
+        type: 3}
+      propertyPath: projectileSpeed
+      value: 300
+      objectReference: {fileID: 0}
     - target: {fileID: 8181699092328756910, guid: 119b9b21cd5f56c48ad3b8bfe3c7348c,
         type: 3}
       propertyPath: target
       value: 
       objectReference: {fileID: 254692933}
+    - target: {fileID: 8181699092328756910, guid: 119b9b21cd5f56c48ad3b8bfe3c7348c,
+        type: 3}
+      propertyPath: speed
+      value: 10
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 119b9b21cd5f56c48ad3b8bfe3c7348c, type: 3}
