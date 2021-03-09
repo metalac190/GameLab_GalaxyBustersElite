@@ -89,7 +89,9 @@ public class BossSegmentController : EntityBase
             missile = PoolUtility.InstantiateFromPool(_missilePool, _missileSpawnPoint, _missileRef);
         }
 
-        //missile.target = player
-        missile.GetComponent<test_bullet>()?.SetTarget(GameManager.player.obj.transform.position);
+        BossMissile bullet = missile.GetComponent<BossMissile>();
+
+        //bullet?.SetTarget(GameManager.player.obj.transform.position);
+        bullet?.SetTarget(GameManager.player.obj);
     }
 }

@@ -284,7 +284,8 @@ public class BossController : EntityBase
         if (_segmentsAlive)
             randomAttack = (BossAttacks)Random.Range(0, 4);
         else
-            randomAttack = (BossAttacks)Random.Range(0, 2);
+            randomAttack = BossAttacks.MisisleAttack;
+            //randomAttack = (BossAttacks)Random.Range(0, 2);
 
         //Signals to Segments which Attack is active, to animate/behave accordingly
         //public facing, accessible by animators, fx, other systems?
@@ -321,15 +322,9 @@ public class BossController : EntityBase
             //Single Ring Attack
             Debug.Log("Firing the normal Ring Attack");
             PoolUtility.InstantiateFromPool(_ringPool, _projectileSpawn, _ringRef);
-
-            //put Boss Animation here.
-            //or have BossAnimator listen to IntEvent Attacked
-            //calculate wait time, defined by Animation
-            yield return new WaitForSeconds(_attackAnimTime);
         }
         else 
         {
-            //TODO
             //Up to 3 Rings?
             Debug.Log("Firing bloodied Ring Attack");
             for (int i=0; i < _bloodiedProjectileCount; i++)
@@ -337,10 +332,12 @@ public class BossController : EntityBase
                 PoolUtility.InstantiateFromPool(_ringPool, _projectileSpawn, _ringRef);
                 yield return new WaitForSeconds(0.2f);
             }
-                
-
-            yield return new WaitForSeconds(_attackAnimTime);
         }
+
+        //put Boss Animation here.
+        //or have BossAnimator listen to IntEvent Attacked
+        //calculate wait time, defined by Animation
+        yield return new WaitForSeconds(_attackAnimTime);
         NextBossState();
     }
 
