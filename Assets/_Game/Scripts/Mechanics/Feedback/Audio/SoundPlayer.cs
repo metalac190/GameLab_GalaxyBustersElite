@@ -12,7 +12,7 @@ public class SoundPlayer : MonoBehaviour
     {
         foreach (Sound sound in allSounds)
         {
-            if (sound.audioSource != null)
+            if (sound != null && sound.audioSource)
             {
                 sound.audioSource.loop = sound.loop;
                 sound.audioSource.playOnAwake = sound.playOnAwake;
@@ -82,6 +82,17 @@ public class SoundPlayer : MonoBehaviour
     }
 
     void Play(int indexSoundToPlay) { allSounds[indexSoundToPlay].audioSource.Play(); }
+    #endregion
+
+    #region Stop
+    public void TryStop(int indexSoundToPlay)
+    {
+        if (!CheckIfSoundAtIndexIsInitialized(indexSoundToPlay)) return;
+
+        Stop(indexSoundToPlay);
+    }
+
+    void Stop(int indexSoundToPlay) { allSounds[indexSoundToPlay].audioSource.Stop(); }
     #endregion
 
     #region Detach Play Then Destroy
