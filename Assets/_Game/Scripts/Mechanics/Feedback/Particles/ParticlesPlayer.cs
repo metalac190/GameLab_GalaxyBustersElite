@@ -12,7 +12,7 @@ public class ParticlesPlayer : MonoBehaviour
     {
         foreach (Particles particles in allParticles)
         {
-            if (particles.particleSystem != null)
+            if (particles != null && particles.particleSystem)
             {
                 var particlesMain = particles.particleSystem.main;
                 particlesMain.playOnAwake = particles.playOnAwake;
