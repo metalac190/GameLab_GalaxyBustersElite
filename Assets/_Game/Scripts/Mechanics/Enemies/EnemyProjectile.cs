@@ -4,9 +4,9 @@ using UnityEngine;
 
 public class EnemyProjectile : MonoBehaviour
 {
-    public int projDamage { get; private set; } = 0;
+    public int ProjDamage { get; private set; } = 0;
 
-    public float bulletSpeed;
+    [SerializeField] private float bulletSpeed;
 
     Transform player;
     Vector3 target;
@@ -30,15 +30,15 @@ public class EnemyProjectile : MonoBehaviour
 
     public void SetDamage(int damage)
     {
-        projDamage = damage; 
+        ProjDamage = damage; 
     }
 
     private void OnCollisionEnter(Collision col)
     {
         if (col.gameObject.layer == LayerMask.NameToLayer("Player"))
         {
-            col.gameObject.GetComponent<EntityBase>().TakeDamage(projDamage);
-            Debug.Log("Player is hit with: " + projDamage);
+            col.gameObject.GetComponent<EntityBase>().TakeDamage(ProjDamage);
+            Debug.Log("Player is hit with: " + ProjDamage);
             /// Eventual hookup to deal damage to player - Would just be TakeDamage with projDamage
         }
     }

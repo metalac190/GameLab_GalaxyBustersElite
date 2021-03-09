@@ -2,18 +2,13 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class EnemyMinion : EnemyBase
+public class EnemyRammer : EnemyBase
 {
     private GameObject playerReference = null;
 
     private void Start()
     {
-        playerReference = GameObject.FindGameObjectWithTag("Player"); // TEMP
-    }
-
-    private void Update() // TEMP
-    {
-        UpdateState();
+        playerReference = GameManager.player.obj;
     }
 
     protected override void UpdateState()
@@ -36,16 +31,18 @@ public class EnemyMinion : EnemyBase
 
     protected override void Passive()
     {
+        Debug.Log("Passive");
+
         if (Vector3.Distance(transform.position, playerReference.transform.position) < EnemyDetectionRadius)
         {
-            Debug.Log("Detect range reached");
+            Debug.LogError("Detect range reached");
             currentState = EnemyState.Attacking;
         }
     }
 
     protected override void Attacking()
     {
-        FireProjectile();
+        transform.position = Vector3.MoveTowards(transform.position, playerReference.transform.position, EnemyMoveSpeed * Time.deltaTime);
     }
 
     protected override void Dead()

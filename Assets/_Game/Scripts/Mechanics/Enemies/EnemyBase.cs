@@ -35,22 +35,16 @@ public abstract class EnemyBase : EntityBase
     {
         switch (currentState)
         {
-            case EnemyState.Arrival:
-                break;
             case EnemyState.Passive:
                 break;
             case EnemyState.Attacking:
                 break;
             case EnemyState.Dead:
                 break;
-            case EnemyState.Flee:
-                break;
             default:
                 break;
         }
     }
-
-    protected abstract void Arrival();
 
     protected abstract void Passive();
 
@@ -58,14 +52,13 @@ public abstract class EnemyBase : EntityBase
 
     protected abstract void Dead();
 
-    protected abstract void Flee();
-
     public override void TakeDamage(int damage)
     {
         _currentHealth -= damage;
         if (_currentHealth <= 0)
         {
             Died.Invoke();
+            Dead();
             //disable or destroy as needed?
         }
         else
@@ -93,7 +86,7 @@ public abstract class EnemyBase : EntityBase
     {
         if (col.gameObject.layer == LayerMask.NameToLayer("Player"))
         {
-            TakeDamage(bullet.GetComponent<EnemyProjectile>().projDamage);
+            Dead();
         }
     }
 
@@ -101,7 +94,7 @@ public abstract class EnemyBase : EntityBase
     /// Visual radius of enemy detection radius if enemy selected in editor
     private void OnDrawGizmosSelected()
     {
-        Gizmos.DrawSphere(transform.position, EnemyDetectionRadius);
+        Gizmos.DrawWireSphere(transform.position, EnemyDetectionRadius);
     }
 #endif
 }
