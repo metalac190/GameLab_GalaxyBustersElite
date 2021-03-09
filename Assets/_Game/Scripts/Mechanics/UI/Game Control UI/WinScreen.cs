@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
-public class MakeshiftWinScreen : MonoBehaviour {
+public class WinScreen : MonoBehaviour {
 
     [SerializeField] private Button mainMenu;
 
