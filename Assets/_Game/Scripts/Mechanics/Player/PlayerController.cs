@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
+[RequireComponent(typeof(PlayerMovement))]
 public class PlayerController : MonoBehaviour
 {
 	[SerializeField] float playerHealth = 10f;
@@ -21,11 +22,9 @@ public class PlayerController : MonoBehaviour
 		SetWeapon(currentWeapon);
 	}
 
-	// Update is called once per frame
 	void Update()
     {
-
-		// Temporary manual weapon switching to demonstrate during pre-alpha
+		// Temporary manual weapon switching for testing purposes
 		if (Input.GetKeyDown(KeyCode.Alpha1))
 		{
 			SetWeapon(weapons[0]);
@@ -38,6 +37,7 @@ public class PlayerController : MonoBehaviour
 		{
 			SetWeapon(weapons[2]);
 		}
+
 	}
 
 	public void DamagePlayer(float amount)
@@ -55,9 +55,10 @@ public class PlayerController : MonoBehaviour
 		// Find and activate/deactivate necessary weapons
 		foreach (GameObject weapon in weapons)
 		{
-			if (GameObject.ReferenceEquals(weapon, newWeapon))
+			if (weapon.GetComponent<WeaponBase>().weaponID == newWeapon.GetComponent<WeaponBase>().weaponID)
 			{
 				weapon.SetActive(true);
+				currentWeapon = newWeapon;
 			}
 			else
 			{

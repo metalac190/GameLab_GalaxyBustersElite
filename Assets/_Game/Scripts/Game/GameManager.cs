@@ -1,4 +1,4 @@
-﻿using System.Collections;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
@@ -18,24 +18,26 @@ public class GameManager : MonoBehaviour {
 
     [Header("Game Flow")]
     [SerializeField] private GameObject winScreen;
+    [SerializeField] private GameObject loseScreen;
 
     [Header("Game Stats")]
     public int score;
 
-    [Header("Player Reference")]
-    public static PlayerReferences player = new PlayerReferences();
+	[Header("Player Reference")]
+	public static PlayerReferences player = new PlayerReferences();
 
-    public class PlayerReferences {
-        public GameObject obj;
-        public PlayerMovement movement;
-        public PlayerController controller;
-    }
+	public class PlayerReferences
+	{
+		public GameObject obj;
+		public PlayerMovement movement;
+		public PlayerController controller;
+	}
 
-    // ----------------------------------------------------------------------------------------------------
+	// ----------------------------------------------------------------------------------------------------
 
-    #region Variables
+	#region Variables
 
-    public bool Paused {
+	public bool Paused {
         get {
             return _paused;
         } set {
@@ -121,6 +123,10 @@ public class GameManager : MonoBehaviour {
         // TODO
     }
 
+    public void SetLoseScreen(GameObject loseScreen) {
+        this.loseScreen = loseScreen;
+    }
+
     #endregion
 
     // ----------------------------------------------------------------------------------------------------
@@ -135,9 +141,11 @@ public class GameManager : MonoBehaviour {
     }
 
     public void LoadScene(Levels scene) {
+        Cursor.visible = true;
         switch(scene) {
             case Levels.MainMenu:
                 currentState = GameState.MainMenu;
+                Cursor.lockState = CursorLockMode.None;
                 LoadScene("Main Menu");
                 break;
             case Levels.Mission1:
@@ -147,10 +155,12 @@ public class GameManager : MonoBehaviour {
                 break;
             case Levels.Mission2:
                 currentState = GameState.Gameplay;
+                unlockedLevel = Mathf.Max(unlockedLevel, 2);
                 LoadScene("Mission 2");
                 break;
             case Levels.Mission3:
                 currentState = GameState.Gameplay;
+                unlockedLevel = 3;
                 LoadScene("Mission 3");
                 break;
             default:
