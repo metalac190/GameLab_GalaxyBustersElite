@@ -7,7 +7,7 @@ public class MoveCrosshair : MonoBehaviour
 {
 	[SerializeField] Transform start;
 	[SerializeField] Transform end;
-	[SerializeField] [Range(0, 1)] float percentageToEnd = 1f;
+	[SerializeField] [Range(0, 1.5f)] float percentageToEnd = 1f;
 	[SerializeField] bool debug = true;
 	Vector3 line;
 

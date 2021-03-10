@@ -17,6 +17,10 @@ public class DialogueTrigger : MonoBehaviour
         {
             TriggerPlayerDamagedDialogue();
         }
+        if (Input.GetKeyDown(KeyCode.Keypad2))          //random player damage test
+        {
+            TriggerEnemyDefeatedDialogue();
+        }
     }
 
 
@@ -35,6 +39,27 @@ public class DialogueTrigger : MonoBehaviour
             else
             {
                 Debug.Log("DialogueListManager's Player Damage Dialogue List is empty.");
+            }
+
+        }
+        else
+        {
+            Debug.Log("No DialogueListManager or Dialogue Manager in scene.");
+        }
+    }
+    static public void TriggerEnemyDefeatedDialogue()
+    {
+        if (FindObjectOfType<DialogueList>() && FindObjectOfType<DialogueManager>())
+        {
+            DialogueList dialogueListInfo = FindObjectOfType<DialogueList>();
+            if (dialogueListInfo.EnemyDefeatedDialogue != null)
+            {
+                int randomDialogue = Random.Range(0, dialogueListInfo.EnemyDefeatedDialogue.Length);
+                FindObjectOfType<DialogueManager>().StartDialogue(dialogueListInfo.EnemyDefeatedDialogue[randomDialogue]);
+            }
+            else
+            {
+                Debug.Log("DialogueListManager's Enemy Defeated Dialogue List is empty.");
             }
 
         }

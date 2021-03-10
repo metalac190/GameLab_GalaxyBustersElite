@@ -186,7 +186,8 @@ Transform:
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0.5, y: 36, z: 114.7}
   m_LocalScale: {x: 1, y: 1, z: 1}
-  m_Children: []
+  m_Children:
+  - {fileID: 8166957096522433669}
   m_Father: {fileID: 1554756654104990144}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -216,7 +217,8 @@ Transform:
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: -3.2, y: 35.7, z: 111.8}
   m_LocalScale: {x: 1, y: 1, z: 1}
-  m_Children: []
+  m_Children:
+  - {fileID: 3876192657600458622}
   m_Father: {fileID: 1554756654842437217}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -237,7 +239,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!4 &1554756655631277004
 Transform:
   m_ObjectHideFlags: 0
@@ -251,6 +253,7 @@ Transform:
   m_Children:
   - {fileID: 1554756654842437217}
   - {fileID: 1554756654104990144}
+  - {fileID: 5540835721198667551}
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -266,6 +269,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9c1e16d6d20b59446a3f00417da8ea14, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  weaponID: Blaster 2
   projectileType: 0
   projectile: {fileID: 7837384869982803700, guid: 7f007536520c2e44e9cb6dc594d42d5b,
     type: 3}
@@ -283,6 +287,78 @@ MonoBehaviour:
   fireRateMultiplier: 4
   meterRequired: 50
   overloadTime: 3
+  OnStandardFire:
+    m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 2071251040917559588}
+        m_MethodName: TryPlay
+        m_Mode: 3
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+      - m_Target: {fileID: 6351011447184519903}
+        m_MethodName: TryPlay
+        m_Mode: 3
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+      - m_Target: {fileID: 3508699072723599169}
+        m_MethodName: TryPlay
+        m_Mode: 3
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+  OnOverloadActivated:
+    m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 2071251040917559588}
+        m_MethodName: TryPlay
+        m_Mode: 3
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 1
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+      - m_Target: {fileID: 6351011447184519903}
+        m_MethodName: TryPlay
+        m_Mode: 3
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 1
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+      - m_Target: {fileID: 3508699072723599169}
+        m_MethodName: TryPlay
+        m_Mode: 3
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 1
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!114 &7419795802843804139
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -303,3 +379,264 @@ MonoBehaviour:
   speed: 8
   debugRays: 0
   debugRayLength: 25
+--- !u!1001 &901284194601430895
+PrefabInstance:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    m_TransformParent: {fileID: 1554756655449818847}
+    m_Modifications:
+    - target: {fileID: 4127832304089612305, guid: c275f7e7867175c47883de3075edefa7,
+        type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4127832304089612305, guid: c275f7e7867175c47883de3075edefa7,
+        type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4127832304089612305, guid: c275f7e7867175c47883de3075edefa7,
+        type: 3}
+      propertyPath: m_LocalPosition.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4127832304089612305, guid: c275f7e7867175c47883de3075edefa7,
+        type: 3}
+      propertyPath: m_LocalRotation.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4127832304089612305, guid: c275f7e7867175c47883de3075edefa7,
+        type: 3}
+      propertyPath: m_LocalRotation.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4127832304089612305, guid: c275f7e7867175c47883de3075edefa7,
+        type: 3}
+      propertyPath: m_LocalRotation.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4127832304089612305, guid: c275f7e7867175c47883de3075edefa7,
+        type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 4127832304089612305, guid: c275f7e7867175c47883de3075edefa7,
+        type: 3}
+      propertyPath: m_RootOrder
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4127832304089612305, guid: c275f7e7867175c47883de3075edefa7,
+        type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4127832304089612305, guid: c275f7e7867175c47883de3075edefa7,
+        type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4127832304089612305, guid: c275f7e7867175c47883de3075edefa7,
+        type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8111525680039778674, guid: c275f7e7867175c47883de3075edefa7,
+        type: 3}
+      propertyPath: m_Name
+      value: Blaster 2's Particles Player
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
+  m_SourcePrefab: {fileID: 100100000, guid: c275f7e7867175c47883de3075edefa7, type: 3}
+--- !u!4 &3876192657600458622 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 4127832304089612305, guid: c275f7e7867175c47883de3075edefa7,
+    type: 3}
+  m_PrefabInstance: {fileID: 901284194601430895}
+  m_PrefabAsset: {fileID: 0}
+--- !u!114 &2071251040917559588 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 1169967139460281931, guid: c275f7e7867175c47883de3075edefa7,
+    type: 3}
+  m_PrefabInstance: {fileID: 901284194601430895}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 2eb81e5a4a8c3e2449d8aa39632b8e93, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!1001 &5197116213929936020
+PrefabInstance:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    m_TransformParent: {fileID: 1554756655244540193}
+    m_Modifications:
+    - target: {fileID: 4127832304089612305, guid: c275f7e7867175c47883de3075edefa7,
+        type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4127832304089612305, guid: c275f7e7867175c47883de3075edefa7,
+        type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4127832304089612305, guid: c275f7e7867175c47883de3075edefa7,
+        type: 3}
+      propertyPath: m_LocalPosition.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4127832304089612305, guid: c275f7e7867175c47883de3075edefa7,
+        type: 3}
+      propertyPath: m_LocalRotation.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4127832304089612305, guid: c275f7e7867175c47883de3075edefa7,
+        type: 3}
+      propertyPath: m_LocalRotation.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4127832304089612305, guid: c275f7e7867175c47883de3075edefa7,
+        type: 3}
+      propertyPath: m_LocalRotation.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4127832304089612305, guid: c275f7e7867175c47883de3075edefa7,
+        type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 4127832304089612305, guid: c275f7e7867175c47883de3075edefa7,
+        type: 3}
+      propertyPath: m_RootOrder
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4127832304089612305, guid: c275f7e7867175c47883de3075edefa7,
+        type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4127832304089612305, guid: c275f7e7867175c47883de3075edefa7,
+        type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4127832304089612305, guid: c275f7e7867175c47883de3075edefa7,
+        type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8111525680039778674, guid: c275f7e7867175c47883de3075edefa7,
+        type: 3}
+      propertyPath: m_Name
+      value: Blaster 2's Particles Player
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
+  m_SourcePrefab: {fileID: 100100000, guid: c275f7e7867175c47883de3075edefa7, type: 3}
+--- !u!4 &8166957096522433669 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 4127832304089612305, guid: c275f7e7867175c47883de3075edefa7,
+    type: 3}
+  m_PrefabInstance: {fileID: 5197116213929936020}
+  m_PrefabAsset: {fileID: 0}
+--- !u!114 &6351011447184519903 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 1169967139460281931, guid: c275f7e7867175c47883de3075edefa7,
+    type: 3}
+  m_PrefabInstance: {fileID: 5197116213929936020}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 2eb81e5a4a8c3e2449d8aa39632b8e93, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!1001 &8071496002252827643
+PrefabInstance:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    m_TransformParent: {fileID: 1554756655631277004}
+    m_Modifications:
+    - target: {fileID: 1464058070388688789, guid: fe3a8e6d18e39d44b8d9c3dc9ad6b831,
+        type: 3}
+      propertyPath: m_Name
+      value: Blaster 2's Sound Player
+      objectReference: {fileID: 0}
+    - target: {fileID: 4388395419690101988, guid: fe3a8e6d18e39d44b8d9c3dc9ad6b831,
+        type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4388395419690101988, guid: fe3a8e6d18e39d44b8d9c3dc9ad6b831,
+        type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4388395419690101988, guid: fe3a8e6d18e39d44b8d9c3dc9ad6b831,
+        type: 3}
+      propertyPath: m_LocalPosition.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4388395419690101988, guid: fe3a8e6d18e39d44b8d9c3dc9ad6b831,
+        type: 3}
+      propertyPath: m_LocalRotation.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4388395419690101988, guid: fe3a8e6d18e39d44b8d9c3dc9ad6b831,
+        type: 3}
+      propertyPath: m_LocalRotation.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4388395419690101988, guid: fe3a8e6d18e39d44b8d9c3dc9ad6b831,
+        type: 3}
+      propertyPath: m_LocalRotation.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4388395419690101988, guid: fe3a8e6d18e39d44b8d9c3dc9ad6b831,
+        type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 4388395419690101988, guid: fe3a8e6d18e39d44b8d9c3dc9ad6b831,
+        type: 3}
+      propertyPath: m_RootOrder
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 4388395419690101988, guid: fe3a8e6d18e39d44b8d9c3dc9ad6b831,
+        type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4388395419690101988, guid: fe3a8e6d18e39d44b8d9c3dc9ad6b831,
+        type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4388395419690101988, guid: fe3a8e6d18e39d44b8d9c3dc9ad6b831,
+        type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
+  m_SourcePrefab: {fileID: 100100000, guid: fe3a8e6d18e39d44b8d9c3dc9ad6b831, type: 3}
+--- !u!4 &5540835721198667551 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 4388395419690101988, guid: fe3a8e6d18e39d44b8d9c3dc9ad6b831,
+    type: 3}
+  m_PrefabInstance: {fileID: 8071496002252827643}
+  m_PrefabAsset: {fileID: 0}
+--- !u!114 &3508699072723599169 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 4662019384568272058, guid: fe3a8e6d18e39d44b8d9c3dc9ad6b831,
+    type: 3}
+  m_PrefabInstance: {fileID: 8071496002252827643}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: bb72c580b0553274b89d7b1db74018c3, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 

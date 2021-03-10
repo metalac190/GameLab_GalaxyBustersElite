@@ -31,6 +31,7 @@ Transform:
   m_Children:
   - {fileID: 4018402609521200948}
   - {fileID: 4018402609996550872}
+  - {fileID: 3311019614660816926}
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -46,6 +47,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9c1e16d6d20b59446a3f00417da8ea14, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  weaponID: Blaster 1
   projectileType: 0
   projectile: {fileID: 7837384869982803700, guid: 7f007536520c2e44e9cb6dc594d42d5b,
     type: 3}
@@ -54,7 +56,7 @@ MonoBehaviour:
   - {fileID: 4018402611035822444}
   clickCooldown: 0.2
   damage: 3
-  projectileSpeed: 100
+  projectileSpeed: 200
   projectileCone: 1
   fireRate: 3
   chargeWeapon: 0
@@ -63,6 +65,78 @@ MonoBehaviour:
   fireRateMultiplier: 4
   meterRequired: 50
   overloadTime: 3
+  OnStandardFire:
+    m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 1246664208161035993}
+        m_MethodName: TryPlay
+        m_Mode: 3
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+      - m_Target: {fileID: 1788410364791677157}
+        m_MethodName: TryPlay
+        m_Mode: 3
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+      - m_Target: {fileID: 2827642710450436544}
+        m_MethodName: TryPlay
+        m_Mode: 3
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+  OnOverloadActivated:
+    m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 1246664208161035993}
+        m_MethodName: TryPlay
+        m_Mode: 3
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 1
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+      - m_Target: {fileID: 1788410364791677157}
+        m_MethodName: TryPlay
+        m_Mode: 3
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 1
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+      - m_Target: {fileID: 2827642710450436544}
+        m_MethodName: TryPlay
+        m_Mode: 3
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 1
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!114 &8181699092328756910
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -269,7 +343,8 @@ Transform:
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: -0.9652361, y: 35.71643, z: 143.7823}
   m_LocalScale: {x: 1, y: 1, z: 1}
-  m_Children: []
+  m_Children:
+  - {fileID: 881956749835528586}
   m_Father: {fileID: 4018402609996550872}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -299,7 +374,269 @@ Transform:
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: -4.0550666, y: 38.57457, z: 140.8823}
   m_LocalScale: {x: 1, y: 1, z: 1}
-  m_Children: []
+  m_Children:
+  - {fileID: 405861919281209270}
   m_Father: {fileID: 4018402609521200948}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1001 &283484078225782367
+PrefabInstance:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    m_TransformParent: {fileID: 4018402611312316131}
+    m_Modifications:
+    - target: {fileID: 454522745984461289, guid: 85075451298d368468cb1f4adea06e35,
+        type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 454522745984461289, guid: 85075451298d368468cb1f4adea06e35,
+        type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 454522745984461289, guid: 85075451298d368468cb1f4adea06e35,
+        type: 3}
+      propertyPath: m_LocalPosition.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 454522745984461289, guid: 85075451298d368468cb1f4adea06e35,
+        type: 3}
+      propertyPath: m_LocalRotation.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 454522745984461289, guid: 85075451298d368468cb1f4adea06e35,
+        type: 3}
+      propertyPath: m_LocalRotation.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 454522745984461289, guid: 85075451298d368468cb1f4adea06e35,
+        type: 3}
+      propertyPath: m_LocalRotation.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 454522745984461289, guid: 85075451298d368468cb1f4adea06e35,
+        type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 454522745984461289, guid: 85075451298d368468cb1f4adea06e35,
+        type: 3}
+      propertyPath: m_RootOrder
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 454522745984461289, guid: 85075451298d368468cb1f4adea06e35,
+        type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 454522745984461289, guid: 85075451298d368468cb1f4adea06e35,
+        type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 454522745984461289, guid: 85075451298d368468cb1f4adea06e35,
+        type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1640403299765546434, guid: 85075451298d368468cb1f4adea06e35,
+        type: 3}
+      propertyPath: m_Name
+      value: Blaster 1's Particles Player
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
+  m_SourcePrefab: {fileID: 100100000, guid: 85075451298d368468cb1f4adea06e35, type: 3}
+--- !u!4 &405861919281209270 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 454522745984461289, guid: 85075451298d368468cb1f4adea06e35,
+    type: 3}
+  m_PrefabInstance: {fileID: 283484078225782367}
+  m_PrefabAsset: {fileID: 0}
+--- !u!114 &1246664208161035993 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 1342680969731219590, guid: 85075451298d368468cb1f4adea06e35,
+    type: 3}
+  m_PrefabInstance: {fileID: 283484078225782367}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 2eb81e5a4a8c3e2449d8aa39632b8e93, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!1001 &753118161289166947
+PrefabInstance:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    m_TransformParent: {fileID: 4018402611035822444}
+    m_Modifications:
+    - target: {fileID: 454522745984461289, guid: 85075451298d368468cb1f4adea06e35,
+        type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 454522745984461289, guid: 85075451298d368468cb1f4adea06e35,
+        type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 454522745984461289, guid: 85075451298d368468cb1f4adea06e35,
+        type: 3}
+      propertyPath: m_LocalPosition.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 454522745984461289, guid: 85075451298d368468cb1f4adea06e35,
+        type: 3}
+      propertyPath: m_LocalRotation.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 454522745984461289, guid: 85075451298d368468cb1f4adea06e35,
+        type: 3}
+      propertyPath: m_LocalRotation.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 454522745984461289, guid: 85075451298d368468cb1f4adea06e35,
+        type: 3}
+      propertyPath: m_LocalRotation.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 454522745984461289, guid: 85075451298d368468cb1f4adea06e35,
+        type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 454522745984461289, guid: 85075451298d368468cb1f4adea06e35,
+        type: 3}
+      propertyPath: m_RootOrder
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 454522745984461289, guid: 85075451298d368468cb1f4adea06e35,
+        type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 454522745984461289, guid: 85075451298d368468cb1f4adea06e35,
+        type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 454522745984461289, guid: 85075451298d368468cb1f4adea06e35,
+        type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1640403299765546434, guid: 85075451298d368468cb1f4adea06e35,
+        type: 3}
+      propertyPath: m_Name
+      value: Blaster 1's Particles Player
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
+  m_SourcePrefab: {fileID: 100100000, guid: 85075451298d368468cb1f4adea06e35, type: 3}
+--- !u!4 &881956749835528586 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 454522745984461289, guid: 85075451298d368468cb1f4adea06e35,
+    type: 3}
+  m_PrefabInstance: {fileID: 753118161289166947}
+  m_PrefabAsset: {fileID: 0}
+--- !u!114 &1788410364791677157 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 1342680969731219590, guid: 85075451298d368468cb1f4adea06e35,
+    type: 3}
+  m_PrefabInstance: {fileID: 753118161289166947}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 2eb81e5a4a8c3e2449d8aa39632b8e93, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!1001 &1181007885041779571
+PrefabInstance:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    m_TransformParent: {fileID: 1362156741809808157}
+    m_Modifications:
+    - target: {fileID: 4436277243381855085, guid: 3f1244c5a52f8f14188c9fe67aa1ca99,
+        type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4436277243381855085, guid: 3f1244c5a52f8f14188c9fe67aa1ca99,
+        type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4436277243381855085, guid: 3f1244c5a52f8f14188c9fe67aa1ca99,
+        type: 3}
+      propertyPath: m_LocalPosition.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4436277243381855085, guid: 3f1244c5a52f8f14188c9fe67aa1ca99,
+        type: 3}
+      propertyPath: m_LocalRotation.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4436277243381855085, guid: 3f1244c5a52f8f14188c9fe67aa1ca99,
+        type: 3}
+      propertyPath: m_LocalRotation.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4436277243381855085, guid: 3f1244c5a52f8f14188c9fe67aa1ca99,
+        type: 3}
+      propertyPath: m_LocalRotation.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4436277243381855085, guid: 3f1244c5a52f8f14188c9fe67aa1ca99,
+        type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 4436277243381855085, guid: 3f1244c5a52f8f14188c9fe67aa1ca99,
+        type: 3}
+      propertyPath: m_RootOrder
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 4436277243381855085, guid: 3f1244c5a52f8f14188c9fe67aa1ca99,
+        type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4436277243381855085, guid: 3f1244c5a52f8f14188c9fe67aa1ca99,
+        type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4436277243381855085, guid: 3f1244c5a52f8f14188c9fe67aa1ca99,
+        type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6739329180463685594, guid: 3f1244c5a52f8f14188c9fe67aa1ca99,
+        type: 3}
+      propertyPath: m_Name
+      value: Blaster 1's Sound Player
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
+  m_SourcePrefab: {fileID: 100100000, guid: 3f1244c5a52f8f14188c9fe67aa1ca99, type: 3}
+--- !u!4 &3311019614660816926 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 4436277243381855085, guid: 3f1244c5a52f8f14188c9fe67aa1ca99,
+    type: 3}
+  m_PrefabInstance: {fileID: 1181007885041779571}
+  m_PrefabAsset: {fileID: 0}
+--- !u!114 &2827642710450436544 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 3989633442106522291, guid: 3f1244c5a52f8f14188c9fe67aa1ca99,
+    type: 3}
+  m_PrefabInstance: {fileID: 1181007885041779571}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: bb72c580b0553274b89d7b1db74018c3, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
