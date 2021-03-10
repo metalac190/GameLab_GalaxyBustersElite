@@ -1,76 +1,81 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using UnityEditor;
 
-public abstract class EnemyBase : MonoBehaviour
+public abstract class EnemyBase : EntityBase
 {
-    public enum EnemyState { Arrival, Passive, Attacking, Dead, Flee }
+    public enum EnemyState { Passive, Attacking }
 
     [Header("Enemy State")]
     public EnemyState currentState;
 
-    [Header("Basic Enemy Variables")]
-    public int enemyHealth = 1;
-    public int enemyDamage = 0;
-    public float enemySpeed = 0;
-    public float attackRate = 0;
-    public float playerDetectionRadius = 0;
+    [Header("Additional Enemy Settings")]
+    [SerializeField] private int attackDamage = 0;
+    public int AttackDamage { get { return attackDamage; } }
+
+    [SerializeField] private float attackRate = 0;
+    public float AttackRate { get { return attackRate; } }
+
+    [SerializeField] private float enemyMoveSpeed = 0;
+    public float EnemyMoveSpeed { get { return enemyMoveSpeed; } }
+
+    [SerializeField] private float enemyDetectionRadius = 0;
+    public float EnemyDetectionRadius { get { return enemyDetectionRadius; } }
 
     void Start()
     {
-        currentState = EnemyState.Arrival;
+        currentState = EnemyState.Passive;
     }
 
-    public virtual void Update()
+    protected virtual void UpdateState()
     {
         switch (currentState)
         {
-            case EnemyState.Arrival:
-                break;
             case EnemyState.Passive:
                 break;
             case EnemyState.Attacking:
-                break;
-            case EnemyState.Dead:
-                break;
-            case EnemyState.Flee:
                 break;
             default:
                 break;
         }
     }
 
+    protected abstract void Passive();
+
+    protected abstract void Attacking();
+
+    protected abstract void Dead();
+
+    public override void TakeDamage(int damage)
+    {
+        _currentHealth -= damage;
+        if (_currentHealth <= 0)
+        {
+            Died.Invoke();
+            Dead();
+            //disable or destroy as needed?
+        }
+        else
+        {
+            Damaged.Invoke();
+            //set up FX + AnimationController from Inspector, using Event
+        }
+    }
+
+    private void OnTriggerEnter(Collider col)
+    {
+        if (col.gameObject.layer == LayerMask.NameToLayer("Player"))
+        {
+            col.gameObject.GetComponent<PlayerController>().DamagePlayer(AttackDamage);
+            Dead();
+        }
+    }
+
 #if UNITY_EDITOR
     /// Visual radius of enemy detection radius if enemy selected in editor
-    public virtual void OnDrawGizmosSelected()
+    private void OnDrawGizmosSelected()
     {
-        Handles.DrawWireDisc(transform.position, Vector3.up, playerDetectionRadius);
+        Gizmos.DrawWireSphere(transform.position, EnemyDetectionRadius);
     }
 #endif
-
-    public virtual void Arrival()
-    {
-
-    }
-
-    public virtual void Passive()
-    {
-
-    }
-
-    public virtual void Attacking()
-    {
-
-    }
-
-    public virtual void Dead()
-    {
-
-    }
-
-    public virtual void Flee()
-    {
-
-    }
 }
