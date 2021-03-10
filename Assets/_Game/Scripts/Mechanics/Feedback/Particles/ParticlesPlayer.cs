@@ -4,9 +4,9 @@ using UnityEngine;
 public class ParticlesPlayer : MonoBehaviour
 {
     [SerializeField] Particles[] allParticles = new Particles[1];
+    bool surpressMissingParticlesWarnings = true;
 
-
-// Syncing play on awake variables with Particle System
+    // Syncing play on awake variables with Particle System
 #if UNITY_EDITOR
     void OnValidate()
     {
@@ -24,6 +24,10 @@ public class ParticlesPlayer : MonoBehaviour
     #region Setup
     void Awake()
     {
+        bool warnedAboutMissingParticlesOnce = false;
+        if (surpressMissingParticlesWarnings)
+            warnedAboutMissingParticlesOnce = true;
+
         foreach (Particles particles in allParticles)
         {
             if (particles.particleSystem != null)
@@ -31,8 +35,11 @@ public class ParticlesPlayer : MonoBehaviour
                 if (particles.particleSystem.isPlaying && !particles.playOnAwake)
                     particles.particleSystem.Stop();
             }
-            else
-                Debug.LogWarning("ParticlesPlayer " + name + " is missing a Particle System in at least one index");
+            else if (!warnedAboutMissingParticlesOnce)
+            {
+                Debug.LogWarning(name + " is missing a Particle System in at least one index");
+                warnedAboutMissingParticlesOnce = true;
+            }
         }
     }
 
@@ -48,20 +55,21 @@ public class ParticlesPlayer : MonoBehaviour
     void CheckIfHasParent()
     {
         if (transform.parent == null)
-            Debug.LogWarning("ParticlesPlayer " + name + " has no parent.");
+            Debug.LogWarning(name + " has no parent.");
     }
 
     void CheckIfHasAnyParticles()
     {
         if (allParticles.Length == 0)
-            Debug.LogWarning("ParticlesPlayer " + name + " not given any sounds to play.");
+            Debug.LogWarning(name + " not given any particles to play.");
     }
 
     bool CheckIfParticlesAtIndexAreInitialized(int index)
     {
-        if (allParticles.Length == 0 || index >= allParticles.Length)
+        if (allParticles.Length == 0 || index >= allParticles.Length || allParticles[index].particleSystem == null)
         {
-            Debug.LogWarning("ParticlesPlayer " + name + " has no particles at index " + index + ".");
+            if (!surpressMissingParticlesWarnings)
+                Debug.LogWarning(name + " tried playing nonexistent particles at index " + index + ".");
             return false;
         }
         else

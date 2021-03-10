@@ -4,9 +4,9 @@ using UnityEngine;
 public class SoundPlayer : MonoBehaviour
 {
     [SerializeField] Sound[] allSounds = new Sound[1];
+    bool surpressMissingSoundWarnings = true;
 
-
-// Syncing loop and play on awake variables with Particle System
+    // Syncing loop and play on awake variables with Particle System
 #if UNITY_EDITOR
     void OnValidate()
     {
@@ -24,6 +24,10 @@ public class SoundPlayer : MonoBehaviour
     #region Setup
     void Awake()
     {
+        bool warnedAboutMissingSoundOnce = false;
+        if (surpressMissingSoundWarnings)
+            warnedAboutMissingSoundOnce = true;
+
         foreach (Sound sound in allSounds)
         {
             if (sound.audioSource != null)
@@ -33,8 +37,11 @@ public class SoundPlayer : MonoBehaviour
                 if (sound.audioSource.isPlaying && !sound.playOnAwake)
                     sound.audioSource.Stop();
             }
-            else
-                Debug.LogWarning("SoundPlayer " + name + " is missing an Audio Source in at least one index");
+            else if (!warnedAboutMissingSoundOnce)
+            {
+                Debug.LogWarning(name + " is missing an Audio Source in at least one index");
+                warnedAboutMissingSoundOnce = true;
+            }
         }
     }
 
@@ -51,20 +58,21 @@ public class SoundPlayer : MonoBehaviour
     void CheckIfHasParent()
     {
         if (transform.parent == null)
-            Debug.LogWarning("SoundPlayer " + name + " has no parent.");
+            Debug.LogWarning(name + " has no parent.");
     }
 
     void CheckIfHasAnySounds()
     {
         if (allSounds.Length == 0)
-            Debug.LogWarning("SoundPlayer " + name + " not given any sounds to play.");
+            Debug.LogWarning(name + " not given any sounds to play.");
     }
 
     bool CheckIfSoundAtIndexIsInitialized(int index)
     {
         if (allSounds.Length == 0 || index >= allSounds.Length || allSounds[index].audioSource == null)
         {
-            Debug.LogWarning("SoundPlayer " + name + " has no sound at index " + index + ".");
+            if (!surpressMissingSoundWarnings)
+                Debug.LogWarning(name + " tried playing/stopping a nonexistent sound at index " + index + ".");
             return false;
         }
         else
@@ -102,7 +110,7 @@ public class SoundPlayer : MonoBehaviour
 
         if (allSounds[indexSoundToPlay].loop)
         {
-            Debug.LogWarning("SoundPlayer " + name + " trying to detach and destroy with a looping sound.");
+            Debug.LogWarning(name + " trying to detach and destroy with a looping sound.");
             Play(indexSoundToPlay);
             return;
         }
