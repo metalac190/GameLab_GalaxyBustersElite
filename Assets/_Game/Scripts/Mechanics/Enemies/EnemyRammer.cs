@@ -35,6 +35,8 @@ public class EnemyRammer : EnemyBase
     {
         if (Vector3.Distance(transform.position, playerReference.transform.position) < EnemyDetectionRadius)
         {
+            transform.LookAt(playerReference.transform.position);
+
             Debug.Log("Detect range reached");
             currentState = EnemyState.Attacking;
         }
@@ -42,6 +44,7 @@ public class EnemyRammer : EnemyBase
 
     protected override void Attacking()
     {
+        transform.LookAt(playerReference.transform.position);
         transform.position = Vector3.MoveTowards(transform.position, playerReference.transform.position, EnemyMoveSpeed * Time.deltaTime);
     }
 

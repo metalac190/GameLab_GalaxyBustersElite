@@ -16,7 +16,15 @@ public class EnemyDrone : EnemyBase
         playerReference = GameManager.player.obj;
     }
 
-    protected override void Passive() { }
+    private void FixedUpdate()
+    {
+        Passive();
+    }
+
+    protected override void Passive()
+    {
+        transform.LookAt(playerReference.transform.position);
+    }
 
     protected override void Attacking() { }
 
@@ -26,6 +34,6 @@ public class EnemyDrone : EnemyBase
 
         OnDead.Invoke();
 
-        Destroy(transform.parent.gameObject);
+        Destroy(gameObject);
     }
 }

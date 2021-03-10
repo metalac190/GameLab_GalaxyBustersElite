@@ -40,6 +40,8 @@ public class EnemyMinion : EnemyBase
     {
         if (Vector3.Distance(transform.position, playerReference.transform.position) < EnemyDetectionRadius)
         {
+            transform.LookAt(playerReference.transform.position);
+
             Debug.Log("Detect range reached");
             currentState = EnemyState.Attacking;
         }
@@ -47,6 +49,7 @@ public class EnemyMinion : EnemyBase
 
     protected override void Attacking()
     {
+        transform.LookAt(playerReference.transform.position);
         bullet.GetComponent<EnemyProjectile>().SetDamage(AttackDamage);
 
         if (shotTime <= 0)
