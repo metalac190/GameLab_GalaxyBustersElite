@@ -31,10 +31,18 @@ public class BossController : EntityBase
     private BossSegmentController[] _segmentRefs = new BossSegmentController[0];
     bool _segmentsAlive = true;
 
+    [Header("Timers")]
+
     [Tooltip("Time in Seconds to wait during Idle state.")]
     [SerializeField] private float _idleTime = 2f;
     [Tooltip("Placeholder.\nAmount of time in Seconds per attack.\nDependant on type of attack chosen.")]
     [SerializeField] private float _attackAnimTime = 2f;
+    [Tooltip("Delay between successive attacks\nEg. Bloodied Missiles rapid fire")]
+    [SerializeField] private float _delaySeconds = 0.2f;
+    [Tooltip("Time in Seconds for Laser animation to Warm Up\nBefore dealing damage.")]
+    [SerializeField] private float _laserWarmUpTime = 2f;
+    private Vector3 _laserEndPoint = Vector3.zero;
+    private bool _isLaser = false;
 
     [Header("Attack Settings")]
 
@@ -49,12 +57,6 @@ public class BossController : EntityBase
     [SerializeField] private float _laserSpeedModifier = 0.8f;
     [Tooltip("For Testing Purposes,\nRemove when FX implemented")]
     [SerializeField] private GameObject _laserTracker = null;
-
-    [Tooltip("Time in Seconds for Laser animation to Warm Up\nBefore dealing damage.")]
-    [SerializeField] private float _laserWarmUpTime = 2f;
-    private Vector3 _laserEndPoint = Vector3.zero;
-    private bool _isLaser = false;
-    private BossState _prevNext;
 
     [Header("Asset References! Do Not Touch!")]
 
@@ -74,7 +76,7 @@ public class BossController : EntityBase
     [SerializeField] private Transform _projectileSpawn = null;
 
     private Coroutine _BossBehavior = null;
-    
+    private BossState _prevNext;
 
     private void Awake()
     {
@@ -88,7 +90,7 @@ public class BossController : EntityBase
         for (int i=0; i < _segmentRefs.Length; i++)
         {
             _segmentRefs[i].SetHealth(_segmentHealth);
-            _segmentRefs[i].SetDelay(i * 0.1f);
+            _segmentRefs[i].SetDelay(i * _delaySeconds);
         }
     }
 
@@ -133,7 +135,10 @@ public class BossController : EntityBase
     public void SetBossState(BossState state)
     {
         _nextState = state;
-        NextBossState();
+        OnSegmentDestroyed();
+
+        if (_BossBehavior == null)
+            NextBossState();
     }
 
     //for testing purposes
@@ -321,26 +326,22 @@ public class BossController : EntityBase
             //Single Ring Attack
             Debug.Log("Firing the normal Ring Attack");
             PoolUtility.InstantiateFromPool(_ringPool, _projectileSpawn, _ringRef);
-
-            //put Boss Animation here.
-            //or have BossAnimator listen to IntEvent Attacked
-            //calculate wait time, defined by Animation
-            yield return new WaitForSeconds(_attackAnimTime);
         }
         else 
         {
-            //TODO
             //Up to 3 Rings?
             Debug.Log("Firing bloodied Ring Attack");
             for (int i=0; i < _bloodiedProjectileCount; i++)
             {
                 PoolUtility.InstantiateFromPool(_ringPool, _projectileSpawn, _ringRef);
-                yield return new WaitForSeconds(0.2f);
+                yield return new WaitForSeconds(_delaySeconds);
             }
-                
-
-            yield return new WaitForSeconds(_attackAnimTime);
         }
+
+        //put Boss Animation here.
+        //or have BossAnimator listen to IntEvent Attacked
+        //calculate wait time, defined by Animation
+        yield return new WaitForSeconds(_attackAnimTime);
         NextBossState();
     }
 
@@ -363,7 +364,7 @@ public class BossController : EntityBase
             //amount of missiles determined by Designer
             for (int i = 0; i < _bloodiedProjectileCount; i++)
             {
-                yield return new WaitForSeconds(0.2f);
+                yield return new WaitForSeconds(_delaySeconds);
                 PoolUtility.InstantiateFromPool(_missilePool, _projectileSpawn, _missileRef);
             }    
         }
@@ -426,7 +427,7 @@ public class BossController : EntityBase
         {
             //reliant on Minions being Disabled when killed, and not Destroyed()
             PoolUtility.InstantiateFromPool(_minionWaveRef, _projectileSpawn, _minionRef);
-            yield return new WaitForSeconds(0.2f);
+            yield return new WaitForSeconds(_delaySeconds);
         }
 
         //put Boss Animation here.
