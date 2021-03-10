@@ -1,10 +1,15 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Events;
 
 public class EnemyDrone : EnemyBase
 {
     private GameObject playerReference = null;
+
+    [Header("Effects")]
+    [SerializeField] UnityEvent OnHit; // Not ever invoked since enemy dies in one hit
+    [SerializeField] UnityEvent OnDead;
 
     private void Start()
     {
@@ -18,6 +23,9 @@ public class EnemyDrone : EnemyBase
     protected override void Dead()
     {
         Debug.Log("Enemy destroyed");
-        Destroy(gameObject);
+
+        OnDead.Invoke();
+
+        Destroy(transform.parent.gameObject);
     }
 }
