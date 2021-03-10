@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Events;
 
 // Base class for creating player weapons and modifying how they behave
 // Refer to Xander Youssef with questions
@@ -34,6 +35,10 @@ public class WeaponBase : MonoBehaviour
 	[SerializeField] float overloadTime = 2.5f;
 	private bool overloaded = false;
 	float chargeMeter = 0f;
+
+	[Header("Effects")]
+	[SerializeField] UnityEvent OnStandardFire;
+	[SerializeField] UnityEvent OnOverloadActivated;
 
 	private void Awake()
 	{
@@ -107,6 +112,8 @@ public class WeaponBase : MonoBehaviour
 				bulletObj.GetComponent<Projectile>().speed = projectileSpeed;
 				bulletObj.GetComponent<Projectile>().damage = damage;
 			}
+
+			OnStandardFire.Invoke();
 		}
 	}
 
@@ -124,6 +131,8 @@ public class WeaponBase : MonoBehaviour
 		//{
 		//	Instantiate(projectile, point.position, point.rotation);
 		//}
+
+		OnStandardFire.Invoke();
 	}
 
 	// TODO: Add raycasts for laser firing
@@ -133,12 +142,17 @@ public class WeaponBase : MonoBehaviour
 		//{
 		//	Instantiate(projectile, point.position, point.rotation);
 		//}
+
+		OnStandardFire.Invoke();
 	}
 
 	IEnumerator ActivateOverload()
 	{
 		overloaded = true;
+		OnOverloadActivated.Invoke();
+
 		yield return new WaitForSeconds(overloadTime);
+
 		overloaded = false;
 	}
 
