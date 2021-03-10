@@ -6,6 +6,9 @@ public class EnemyMinion : EnemyBase
 {
     private GameObject playerReference = null;
 
+    [Header("Enemy Minion Attack Rate")]
+    [SerializeField] private float attackRate = 0;
+
     [Header("Enemy Minion Bullet Prefab")]
     [SerializeField] private GameObject bullet;
 
@@ -54,7 +57,7 @@ public class EnemyMinion : EnemyBase
 
         if (shotTime <= 0)
         {
-            shotTime = AttackRate;
+            shotTime = attackRate;
             Instantiate(bullet, transform.position, Quaternion.identity);
         }
         else
@@ -63,9 +66,9 @@ public class EnemyMinion : EnemyBase
         }
     }
 
-    protected override void Dead()
+    public override void Dead()
     {
         Debug.Log("Enemy destroyed");
-        Destroy(gameObject);
+        Destroy(transform.parent.gameObject);
     }
 }

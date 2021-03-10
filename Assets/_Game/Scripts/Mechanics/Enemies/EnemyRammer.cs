@@ -1,10 +1,18 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Events;
 
 public class EnemyRammer : EnemyBase
 {
     private GameObject playerReference = null;
+
+    [Header("Enemy Rammer Charge Speed")]
+    [SerializeField] private float enemyChargeSpeed = 0;
+
+    [Header("Enemy Rammer Movement Fix - Don't Touch")]
+    [SerializeField] UnityEvent OnRamAttackEnter;
+    [SerializeField] UnityEvent OnRamAttackExit;
 
     private void Start()
     {
@@ -39,18 +47,25 @@ public class EnemyRammer : EnemyBase
 
             Debug.Log("Detect range reached");
             currentState = EnemyState.Attacking;
+
+            OnRamAttackEnter.Invoke();
         }
     }
 
     protected override void Attacking()
     {
-        transform.LookAt(playerReference.transform.position);
-        transform.position = Vector3.MoveTowards(transform.position, playerReference.transform.position, EnemyMoveSpeed * Time.deltaTime);
+        if (Vector3.Distance(transform.position, playerReference.transform.position) < EnemyDetectionRadius)
+        {
+            transform.LookAt(playerReference.transform.position);
+            transform.position = Vector3.MoveTowards(transform.position, playerReference.transform.position, enemyChargeSpeed * Time.deltaTime);
+
+            OnRamAttackExit.Invoke();
+        }
     }
 
-    protected override void Dead()
+    public override void Dead()
     {
         Debug.Log("Enemy destroyed");
-        Destroy(gameObject);
+        Destroy(transform.parent.gameObject);
     }
 }

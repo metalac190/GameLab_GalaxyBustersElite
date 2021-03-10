@@ -13,12 +13,6 @@ public abstract class EnemyBase : EntityBase
     [SerializeField] private int attackDamage = 0;
     public int AttackDamage { get { return attackDamage; } }
 
-    [SerializeField] private float attackRate = 0;
-    public float AttackRate { get { return attackRate; } }
-
-    [SerializeField] private float enemyMoveSpeed = 0;
-    public float EnemyMoveSpeed { get { return enemyMoveSpeed; } }
-
     [SerializeField] private float enemyDetectionRadius = 0;
     public float EnemyDetectionRadius { get { return enemyDetectionRadius; } }
 
@@ -44,7 +38,7 @@ public abstract class EnemyBase : EntityBase
 
     protected abstract void Attacking();
 
-    protected abstract void Dead();
+    public abstract void Dead();
 
     public override void TakeDamage(int damage)
     {

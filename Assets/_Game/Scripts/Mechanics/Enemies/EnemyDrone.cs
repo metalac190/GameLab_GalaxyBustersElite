@@ -28,12 +28,12 @@ public class EnemyDrone : EnemyBase
 
     protected override void Attacking() { }
 
-    protected override void Dead()
+    public override void Dead()
     {
         Debug.Log("Enemy destroyed");
 
         OnDead.Invoke();
 
-        Destroy(gameObject);
+        Destroy(transform.parent.gameObject);
     }
 }
