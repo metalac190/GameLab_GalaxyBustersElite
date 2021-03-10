@@ -11,6 +11,11 @@ public class EnemyRammer : EnemyBase
         playerReference = GameManager.player.obj;
     }
 
+    private void FixedUpdate()
+    {
+        UpdateState();
+    }
+
     protected override void UpdateState()
     {
         switch (currentState)
@@ -21,9 +26,6 @@ public class EnemyRammer : EnemyBase
             case EnemyState.Attacking:
                 Attacking();
                 break;
-            case EnemyState.Dead:
-                Dead();
-                break;
             default:
                 break;
         }
@@ -31,11 +33,9 @@ public class EnemyRammer : EnemyBase
 
     protected override void Passive()
     {
-        Debug.Log("Passive");
-
         if (Vector3.Distance(transform.position, playerReference.transform.position) < EnemyDetectionRadius)
         {
-            Debug.LogError("Detect range reached");
+            Debug.Log("Detect range reached");
             currentState = EnemyState.Attacking;
         }
     }

@@ -6,12 +6,17 @@ public class EnemyMinion : EnemyBase
 {
     private GameObject playerReference = null;
 
+    [Header("Enemy Minion Bullet Prefab")]
+    [SerializeField] private GameObject bullet;
+
+    private float shotTime;
+
     private void Start()
     {
-        playerReference = GameObject.FindGameObjectWithTag("Player"); // TEMP
+        playerReference = GameManager.player.obj;
     }
 
-    private void Update() // TEMP
+    private void FixedUpdate()
     {
         UpdateState();
     }
@@ -25,9 +30,6 @@ public class EnemyMinion : EnemyBase
                 break;
             case EnemyState.Attacking:
                 Attacking();
-                break;
-            case EnemyState.Dead:
-                Dead();
                 break;
             default:
                 break;
@@ -45,7 +47,17 @@ public class EnemyMinion : EnemyBase
 
     protected override void Attacking()
     {
-        FireProjectile();
+        bullet.GetComponent<EnemyProjectile>().SetDamage(AttackDamage);
+
+        if (shotTime <= 0)
+        {
+            shotTime = AttackRate;
+            Instantiate(bullet, transform.position, Quaternion.identity);
+        }
+        else
+        {
+            shotTime -= Time.deltaTime;
+        }
     }
 
     protected override void Dead()

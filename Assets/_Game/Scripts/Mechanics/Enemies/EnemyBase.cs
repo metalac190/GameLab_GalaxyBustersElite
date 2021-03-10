@@ -4,7 +4,7 @@ using UnityEngine;
 
 public abstract class EnemyBase : EntityBase
 {
-    public enum EnemyState { Arrival, Passive, Attacking, Dead, Flee }
+    public enum EnemyState { Passive, Attacking }
 
     [Header("Enemy State")]
     public EnemyState currentState;
@@ -22,13 +22,9 @@ public abstract class EnemyBase : EntityBase
     [SerializeField] private float enemyDetectionRadius = 0;
     public float EnemyDetectionRadius { get { return enemyDetectionRadius; } }
 
-    [SerializeField] private GameObject bullet;
-
-    float shotTime;
-
     void Start()
     {
-        currentState = EnemyState.Arrival;
+        currentState = EnemyState.Passive;
     }
 
     protected virtual void UpdateState()
@@ -38,8 +34,6 @@ public abstract class EnemyBase : EntityBase
             case EnemyState.Passive:
                 break;
             case EnemyState.Attacking:
-                break;
-            case EnemyState.Dead:
                 break;
             default:
                 break;
@@ -68,24 +62,11 @@ public abstract class EnemyBase : EntityBase
         }
     }
 
-    protected void FireProjectile()
-    {
-        if (shotTime <= 0)
-        {
-            shotTime = AttackRate;
-            Instantiate(bullet, transform.position, Quaternion.identity);
-            bullet.GetComponent<EnemyProjectile>().SetDamage(AttackDamage);
-        }
-        else
-        {
-            shotTime -= Time.deltaTime;
-        }
-    }
-
     private void OnTriggerEnter(Collider col)
     {
         if (col.gameObject.layer == LayerMask.NameToLayer("Player"))
         {
+            col.gameObject.GetComponent<PlayerController>().DamagePlayer(AttackDamage);
             Dead();
         }
     }

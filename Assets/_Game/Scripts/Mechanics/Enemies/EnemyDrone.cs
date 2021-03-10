@@ -11,33 +11,9 @@ public class EnemyDrone : EnemyBase
         playerReference = GameManager.player.obj;
     }
 
-    protected override void UpdateState()
-    {
-        switch (currentState)
-        {
-            case EnemyState.Passive:
-                Passive();
-                break;
-            case EnemyState.Attacking:
-                Attacking();
-                break;
-            case EnemyState.Dead:
-                Dead();
-                break;
-            default:
-                break;
-        }
-    }
+    protected override void Passive() { }
 
-    protected override void Passive()
-    {
-
-    }
-
-    protected override void Attacking()
-    {
-
-    }
+    protected override void Attacking() { }
 
     protected override void Dead()
     {

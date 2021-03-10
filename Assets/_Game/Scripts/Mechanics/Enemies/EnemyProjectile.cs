@@ -4,42 +4,46 @@ using UnityEngine;
 
 public class EnemyProjectile : MonoBehaviour
 {
-    public int ProjDamage { get; private set; } = 0;
+    [SerializeField] private int projDamage = 0;
+    public int ProjDamage { get { return projDamage; } }
 
     [SerializeField] private float bulletSpeed;
+    [SerializeField] private float bulletLifetime;
 
-    Transform player;
+    private GameObject player = null;
     Vector3 target;
+
+    private void Awake()
+    {
+        Destroy(gameObject, bulletLifetime);
+    }
 
     void Start()
     {
-        player = GameObject.FindGameObjectWithTag("Player").transform;
+        player = GameManager.player.obj;
 
-        target = new Vector3(player.position.x, player.position.y, player.position.z);
+        target = new Vector3(player.transform.position.x, player.transform.position.y, player.transform.position.z);
     }
 
     void Update()
     {
         transform.position = Vector3.MoveTowards(transform.position, target, bulletSpeed * Time.deltaTime);
-
-        if (transform.position.x == target.x && transform.position.y == target.y)
-        {
-            Destroy(gameObject);
-        }
     }
 
     public void SetDamage(int damage)
     {
-        ProjDamage = damage; 
+        projDamage = damage; 
     }
 
-    private void OnCollisionEnter(Collision col)
+    private void OnTriggerEnter(Collider col)
     {
         if (col.gameObject.layer == LayerMask.NameToLayer("Player"))
         {
-            col.gameObject.GetComponent<EntityBase>().TakeDamage(ProjDamage);
+            //col.gameObject.GetComponent<EntityBase>().TakeDamage(ProjDamage);
+            col.gameObject.GetComponent<PlayerController>().DamagePlayer(ProjDamage);
             Debug.Log("Player is hit with: " + ProjDamage);
-            /// Eventual hookup to deal damage to player - Would just be TakeDamage with projDamage
+
+            Destroy(gameObject);
         }
     }
 }
