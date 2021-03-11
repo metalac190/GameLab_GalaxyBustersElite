@@ -45,6 +45,16 @@ public class EnemyMovement : MonoBehaviour
         onTrack = set;
     }
 
+    public void SetWaypoint(int way) //Make it set a certain waypoint as the next one, so it starts moving towards it
+    {
+        nextWaypoint = way;
+    }
+
+    public void RestartPath() //Start the patrol path all over again
+    {
+        nextWaypoint = 0;
+    }
+
     private void EnterFinalWaypoint()
     {
         OnFinalWaypoint.Invoke(); //Probably just set to delete this enemy
