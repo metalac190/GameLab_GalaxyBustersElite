@@ -2,9 +2,11 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-[RequireComponent(typeof(Collider))]
+[RequireComponent(typeof(Rigidbody))]
 public class BossMissile : EntityBase
 {
+    private Rigidbody rb = null;
+
     [SerializeField] private float _lifetime = 5f;
     [SerializeField] private float _speed = 10f;
     [SerializeField] private float _turnSpeed = 0.25f;
@@ -18,7 +20,12 @@ public class BossMissile : EntityBase
         _time = _lifetime; 
     }
 
-    private void Update()
+    private void Awake()
+    {
+        rb = GetComponent<Rigidbody>();
+    }
+
+    private void FixedUpdate()
     {
         //setactive timer, instead of Destroy(this, delay), usable for Pooling
         _time -= Time.deltaTime;
@@ -26,19 +33,15 @@ public class BossMissile : EntityBase
         {
             gameObject.SetActive(false);
         }
-    }
 
-    private void FixedUpdate()
-    {
-        Vector3 distance = transform.forward * _speed * Time.deltaTime;
-        transform.position = Vector3.MoveTowards(transform.position, transform.position + distance, _speed);
-
+        rb.velocity = transform.forward * _speed;
+        
         //if missile has a playerReference, rotate continuously
         if (playerRef != null)
         {
             //don't return to player once past their "Z" position
             //TODO create dynamic comparison...
-            if (playerRef.transform.position.z < transform.position.z)
+            if (playerRef.transform.position.z > transform.position.z)
                 return;
 
             Vector3 dir = playerRef.transform.position - transform.position;
@@ -68,6 +71,9 @@ public class BossMissile : EntityBase
     {
         EntityBase entity = collision.gameObject.GetComponent<EntityBase>();
         entity?.TakeDamage(_damage);
+
+        PlayerController player = collision.gameObject.GetComponent<PlayerController>();
+        player?.DamagePlayer(_damage);
 
         //self destruct
         TakeDamage(999);
