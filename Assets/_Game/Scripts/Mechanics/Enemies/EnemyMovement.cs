@@ -40,7 +40,7 @@ public class EnemyMovement : MonoBehaviour
         moveSpeed = newSpeed;
     }
 
-    void SetOnTrack(bool set) //If you need to ignore the waypoints, set to 'false' until you're ready to continue
+    public void SetOnTrack(bool set) //If you need to ignore the waypoints, set to 'false' until you're ready to continue
     {
         onTrack = set;
     }
