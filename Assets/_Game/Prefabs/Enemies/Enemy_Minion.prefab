@@ -13,6 +13,7 @@ GameObject:
   - component: {fileID: 7754747742224313564}
   - component: {fileID: 6689900922072749708}
   - component: {fileID: 7543399937238805339}
+  - component: {fileID: 1071172245}
   m_Layer: 0
   m_Name: Minion-Assets
   m_TagString: Untagged
@@ -114,6 +115,23 @@ MonoBehaviour:
     type: 3}
   pointsAwarded: 0
   pointsChance: 0
+--- !u!114 &1071172245
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3034616228409022777}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6e0462ffad8ea244887f9b9b2d8c3071, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  waypoints: []
+  moveSpeed: 0
+  OnFinalWaypoint:
+    m_PersistentCalls:
+      m_Calls: []
 --- !u!1 &4848945947331627374
 GameObject:
   m_ObjectHideFlags: 0
