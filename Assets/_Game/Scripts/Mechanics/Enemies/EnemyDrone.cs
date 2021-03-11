@@ -7,10 +7,6 @@ public class EnemyDrone : EnemyBase
 {
     private GameObject playerReference = null;
 
-    [Header("Effects")]
-    [SerializeField] UnityEvent OnHit; // Not ever invoked since enemy dies in one hit
-    [SerializeField] UnityEvent OnDead;
-
     private void Start()
     {
         playerReference = GameManager.player.obj;
@@ -31,8 +27,6 @@ public class EnemyDrone : EnemyBase
     public override void Dead()
     {
         Debug.Log("Enemy destroyed");
-
-        OnDead.Invoke();
 
         Destroy(transform.parent.gameObject);
     }
