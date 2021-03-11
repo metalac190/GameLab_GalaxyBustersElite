@@ -14,6 +14,7 @@ public class WeaponBase : MonoBehaviour
 	public string weaponID;
 	public Projectiles projectileType;
 	[SerializeField] GameObject projectile;
+    private List<GameObject> projectilePool = new List<GameObject>();
 	public Transform[] spawnPoints;
 
 	[Header("Fire Settings")]
@@ -105,11 +106,21 @@ public class WeaponBase : MonoBehaviour
 				// Create random rotation within cone
 				Quaternion randAng = Quaternion.Euler(Random.Range(projectileCone * -1, projectileCone), Random.Range(projectileCone * -1, projectileCone), 0);
 
-				// Instantiate projectile
-				GameObject bulletObj = Instantiate(projectile, point.position, point.rotation * randAng);
 
-				// Set instantiated projectile's speed and damage
-				bulletObj.GetComponent<Projectile>().speed = projectileSpeed;
+                //object pooling, saves somewhat on resources
+                Quaternion before = point.rotation;
+                point.rotation = point.rotation * randAng;
+
+                GameObject bulletObj = PoolUtility.InstantiateFromPool(projectilePool, point, projectile);
+
+                //small adjustment, spaghettification inbound!
+                point.rotation = before;
+
+                // Instantiate projectile
+                //GameObject bulletObj = Instantiate(projectile, point.position, point.rotation * randAng);
+
+                // Set instantiated projectile's speed and damage
+                bulletObj.GetComponent<Projectile>().speed = projectileSpeed;
 				bulletObj.GetComponent<Projectile>().damage = damage;
 			}
 
