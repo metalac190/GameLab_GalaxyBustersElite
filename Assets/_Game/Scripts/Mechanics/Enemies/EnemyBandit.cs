@@ -2,14 +2,14 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class EnemyMinion : EnemyBase
+public class EnemyBandit : EnemyBase
 {
     private GameObject playerReference = null;
 
-    [Header("Enemy Minion Attack Rate (Higher # = Longer Shot Delay)")]
+    [Header("Enemy Bandit Attack Rate (Higher # = Longer Shot Delay)")]
     [SerializeField] private float attackRate = 0;
 
-    [Header("Enemy Minion Bullet Prefab")]
+    [Header("Enemy Bandit Bullet Prefab")]
     [SerializeField] private GameObject bullet;
 
     private float shotTime;
