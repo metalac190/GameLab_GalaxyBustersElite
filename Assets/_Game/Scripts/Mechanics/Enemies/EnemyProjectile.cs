@@ -4,11 +4,12 @@ using UnityEngine;
 
 public class EnemyProjectile : MonoBehaviour
 {
-    [SerializeField] private int projDamage = 0;
-    public int ProjDamage { get { return projDamage; } }
-
     [SerializeField] private float bulletSpeed;
     [SerializeField] private float bulletLifetime;
+
+    [Header("Set damage in enemy script, leave at 0 here.")]
+    [SerializeField] private int projDamage = 0;
+    public int ProjDamage { get { return projDamage; } }
 
     private GameObject player = null;
     Vector3 target;
@@ -25,7 +26,7 @@ public class EnemyProjectile : MonoBehaviour
         target = new Vector3(player.transform.position.x, player.transform.position.y, player.transform.position.z);
     }
 
-    void Update()
+    void FixedUpdate()
     {
         transform.position = Vector3.MoveTowards(transform.position, target, bulletSpeed * Time.deltaTime);
     }
@@ -39,7 +40,6 @@ public class EnemyProjectile : MonoBehaviour
     {
         if (col.gameObject.layer == LayerMask.NameToLayer("Player"))
         {
-            //col.gameObject.GetComponent<EntityBase>().TakeDamage(ProjDamage);
             col.gameObject.GetComponent<PlayerController>().DamagePlayer(ProjDamage);
             Debug.Log("Player is hit with: " + ProjDamage);
 

@@ -13,6 +13,12 @@ public class PlayerMovement : MonoBehaviour
     [SerializeField] float rotateSpeed = 1000;
     [SerializeField] float horizontalLean = 50;
 
+    [Header("Collision Settings")]
+    [SerializeField] float collDuration;
+    [SerializeField] Vector3 collForce;
+    [SerializeField] Vector3 torqueForce;
+    bool isHit;
+
     [Header("Boundaries")]
     [Tooltip("Limit is the size of the whole rectangle, so player can travel half of x to the left, or half of x to the right")]
     [SerializeField] Vector2 playerLimits = new Vector2(5, 3);
@@ -30,14 +36,24 @@ public class PlayerMovement : MonoBehaviour
     [SerializeField] UnityEvent OnStartedMoving;
     [SerializeField] UnityEvent OnStoppedMoving;
 
+    Rigidbody rb;
+
+    private void Start()
+    {
+        rb = GetComponentInChildren<Rigidbody>();    
+    }
+
     void Update()
     {
         float x = Input.GetAxis("Horizontal");
         float y = Input.GetAxis("Vertical");
 
         LocalMove(x, y);
-        RotateTowardsDir(x, y);
-        HorizontalLean(shipsTransform, x, horizontalLean, 0.1f);
+        if (!isHit)
+        {
+            RotateTowardsDir(x, y);
+            HorizontalLean(shipsTransform, x, horizontalLean, 0.1f);
+        }
 
         Dodge();
 
@@ -94,5 +110,33 @@ public class PlayerMovement : MonoBehaviour
         {
             OnDodge.Invoke();
         }
+    }
+
+    private void OnTriggerEnter(Collider other)
+    {
+        // hit terrain
+        if (other.gameObject.layer == 9)
+        {
+            if (!isHit)
+                StartCoroutine(PlayerCollision());
+        }
+    }
+
+    IEnumerator PlayerCollision()
+    {
+        isHit = true;
+        rb.AddRelativeForce(Random.Range(-collForce.x, collForce.x),
+            Random.Range(-collForce.y, collForce.y),
+            Random.Range(-collForce.z, collForce.z));
+
+        rb.AddRelativeTorque(Random.Range(-torqueForce.x, torqueForce.x), 
+            Random.Range(-torqueForce.y, torqueForce.y), 
+            Random.Range(-torqueForce.z, torqueForce.z));
+
+        yield return new WaitForSeconds(collDuration);
+
+        isHit = false;
+        rb.velocity = Vector3.zero;
+        rb.angularVelocity = Vector3.zero;
     }
 }

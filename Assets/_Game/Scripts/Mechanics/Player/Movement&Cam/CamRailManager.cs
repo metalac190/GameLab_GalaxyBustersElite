@@ -7,18 +7,16 @@ using Cinemachine;
 public class CamRailManager : MonoBehaviour
 {
     [Header("Cam Rail Settings")]
-    public int waypointIndex;
-    public List<float> waypointSpeeds;
+    [SerializeField] int waypointIndex;
+    [SerializeField] List<float> waypointSpeeds;
+    [SerializeField] float increaseMSAmt;
+    [SerializeField] float transitionMSDuration;
 
     // references
     Transform movementTrackerTrans;
     CinemachineDollyCart movementTrackerDollyCart;
     CinemachineDollyCart cineDollyCart;
     CinemachineSmoothPath cineSmoothPath;
-
-    // TODO- remove this
-    [Header("Tester")]
-    public TextMeshProUGUI uiText;
 
     private void Awake()
     {
@@ -64,34 +62,39 @@ public class CamRailManager : MonoBehaviour
         if ((Vector2.Distance(movementTrackerPosXY, nextWaypointPosXY) < 1f || Vector2.Distance(movementTrackerPosYZ, nextWaypointPosYZ) < 1f)
             && waypointIndex < waypointSpeeds.Count - 1)
         {
-            SetCamRailSpeed();
+            StartCoroutine(SetCamRailSpeedCoroutine(waypointSpeeds[waypointIndex]));
 
             waypointIndex++;
         }
     }
 
-    void SetCamRailSpeed()
+    void SetCamRailSpeed(float newMS)
     {
-        movementTrackerDollyCart.m_Speed = waypointSpeeds[waypointIndex];
-        cineDollyCart.m_Speed = waypointSpeeds[waypointIndex];
+        StartCoroutine(SetCamRailSpeedCoroutine(newMS));
     }
 
-    // TODO- remove this
-    public void InvincibleText()
+    // increase rail speed when player destroys an enemy
+    public void IncreaseCamRailSpeed()
     {
-        StartCoroutine(InvincibleTextCoroutine());
+        float newMS = movementTrackerDollyCart.m_Speed + increaseMSAmt;
+
+        StartCoroutine(SetCamRailSpeedCoroutine(newMS));
     }
 
-    // TODO- remove this
-    IEnumerator InvincibleTextCoroutine()
+    IEnumerator SetCamRailSpeedCoroutine(float ms)
     {
-        if (uiText.text == "")
+        float counter = 0;
+        float amt = Mathf.Abs(ms - cineDollyCart.m_Speed) / transitionMSDuration;
+        while (counter < transitionMSDuration)
         {
-            uiText.text = "Invincible";
+            if (ms > cineDollyCart.m_Speed)
+                cineDollyCart.m_Speed += amt;
+            else
+                cineDollyCart.m_Speed -= amt;
+            movementTrackerDollyCart.m_Speed = cineDollyCart.m_Speed;
 
-            yield return new WaitForSeconds(1);
-
-            uiText.text = "";
+            counter += Time.deltaTime;
+            yield return null;
         }
     }
 }
