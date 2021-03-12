@@ -4,11 +4,12 @@ using UnityEngine;
 
 public class EnemyProjectile : MonoBehaviour
 {
-    [SerializeField] private int projDamage = 0;
-    public int ProjDamage { get { return projDamage; } }
-
     [SerializeField] private float bulletSpeed;
     [SerializeField] private float bulletLifetime;
+
+    [Header("Set damage in enemy script, leave at 0 here.")]
+    [SerializeField] private int projDamage = 0;
+    public int ProjDamage { get { return projDamage; } }
 
     private GameObject player = null;
     Vector3 target;
