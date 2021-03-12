@@ -1,67 +1,33 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Events;
 
 public class EnemyDrone : EnemyBase
 {
-    private GameObject playerReference;
+    private GameObject playerReference = null;
 
     private void Start()
     {
-        playerReference = GameObject.FindGameObjectWithTag("Player");
+        playerReference = GameManager.player.obj;
     }
 
-    public override void Update()
+    private void FixedUpdate()
     {
-        switch (currentState)
-        {
-            case EnemyState.Arrival:
-                Arrival();
-                break;
-            case EnemyState.Passive:
-                Passive();
-                break;
-            case EnemyState.Attacking:
-                Attacking();
-                break;
-            case EnemyState.Dead:
-                Dead();
-                break;
-            case EnemyState.Flee:
-                Flee();
-                break;
-            default:
-                break;
-        }
+        Passive();
     }
 
-    public override void Arrival()
+    protected override void Passive()
     {
-        currentState = EnemyState.Passive;
+        transform.LookAt(playerReference.transform.position);
     }
 
-    /// Detection not needed for drones, only done for temp testing purposes
-    public override void Passive()
-    {
-        if (Vector3.Distance(transform.position, playerReference.transform.position) < playerDetectionRadius)
-        {
-            Debug.Log("Detect range reached");
-        }
-    }
-
-    public override void Attacking()
-    {
-
-    }
+    protected override void Attacking() { }
 
     public override void Dead()
     {
         Debug.Log("Enemy destroyed");
+
         Destroy(transform.parent.gameObject);
-    }
-
-    public override void Flee()
-    {
-
     }
 }

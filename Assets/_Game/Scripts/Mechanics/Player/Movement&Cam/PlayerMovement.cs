@@ -22,9 +22,13 @@ public class PlayerMovement : MonoBehaviour
     [SerializeField] Transform rotateTargetTransform;
     [SerializeField] Transform shipsTransform;
 
-    [Header("Unity Events")]
-    public UnityEvent dodge;
-
+    [Header("Effects")]
+    public UnityEvent OnDodge;
+    float lastFrameX, lastFrameY;
+    [Range(0.01f, 0.99f)]
+    [SerializeField] float inputThresholdForMovementFX = 0.01f;
+    [SerializeField] UnityEvent OnStartedMoving;
+    [SerializeField] UnityEvent OnStoppedMoving;
 
     void Update()
     {
@@ -36,6 +40,24 @@ public class PlayerMovement : MonoBehaviour
         HorizontalLean(shipsTransform, x, horizontalLean, 0.1f);
 
         Dodge();
+
+        InvokingStartedOrStoppedMovingEvents(x, y);
+    }
+
+    private void InvokingStartedOrStoppedMovingEvents(float x, float y)
+    {
+        bool currentlyMoving =
+            Mathf.Abs(x) >= inputThresholdForMovementFX || Mathf.Abs(y) >= inputThresholdForMovementFX;
+        bool wasMovingLastFrame =
+            Mathf.Abs(lastFrameX) >= inputThresholdForMovementFX || Mathf.Abs(lastFrameY) >= inputThresholdForMovementFX;
+
+        if (!wasMovingLastFrame && currentlyMoving)
+            OnStartedMoving.Invoke();
+        else if (wasMovingLastFrame && !currentlyMoving)
+            OnStoppedMoving.Invoke();
+
+        lastFrameX = x;
+        lastFrameY = y;
     }
 
     void LocalMove(float x, float y)
@@ -70,7 +92,7 @@ public class PlayerMovement : MonoBehaviour
     {
         if (Input.GetKeyDown(KeyCode.Space))
         {
-            dodge.Invoke();
+            OnDodge.Invoke();
         }
     }
 }

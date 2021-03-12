@@ -18,6 +18,7 @@ public class BossSegmentController : EntityBase
     public int Health { get { return _currentHealth; } }
 
     private List<GameObject> _missilePool = new List<GameObject>();
+    private int _damage = 1;
 
     #region Listeners
     private void OnEnable()
@@ -38,7 +39,11 @@ public class BossSegmentController : EntityBase
         _currentHealth = value;
     }
 
-    //used by BossController for consistent timing for missile attack 
+    public void SetDamage(int value)
+    {
+        _damage = value;
+    }
+
     public void SetDelay(float time)
     {
         _myDelay = time;
@@ -89,7 +94,10 @@ public class BossSegmentController : EntityBase
             missile = PoolUtility.InstantiateFromPool(_missilePool, _missileSpawnPoint, _missileRef);
         }
 
-        //missile.target = player
-        missile.GetComponent<test_bullet>()?.SetTarget(GameManager.player.obj.transform.position);
+        BossMissile bullet = missile.GetComponent<BossMissile>();
+
+        //bullet?.SetTarget(GameManager.player.obj.transform.position);
+        bullet?.SetTarget(GameManager.player.obj);
+        bullet?.SetDamage(_damage);
     }
 }

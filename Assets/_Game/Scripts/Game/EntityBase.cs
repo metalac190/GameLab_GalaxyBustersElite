@@ -6,6 +6,7 @@ using UnityEngine.Events;
 [RequireComponent(typeof(Collider))]
 public class EntityBase : MonoBehaviour
 {
+    [Header("Effects")]
     public UnityEvent Damaged;
     public UnityEvent Died;
 
@@ -26,15 +27,17 @@ public class EntityBase : MonoBehaviour
     public virtual void TakeDamage(int damage)
     {
         _currentHealth -= damage;
+        
         if (_currentHealth <= 0)
         {
             Died.Invoke();
-            //disable or destroy as needed?
+
+            //SetActive False by default. Override to implement other behavior
+            gameObject.SetActive(false);
         }
         else
         {
             Damaged.Invoke();
-            //set up FX + AnimationController from Inspector, using Event
         }
     }
 }
