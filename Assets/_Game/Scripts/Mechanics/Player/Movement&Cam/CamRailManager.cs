@@ -62,7 +62,7 @@ public class CamRailManager : MonoBehaviour
         if ((Vector2.Distance(movementTrackerPosXY, nextWaypointPosXY) < 1f || Vector2.Distance(movementTrackerPosYZ, nextWaypointPosYZ) < 1f)
             && waypointIndex < waypointSpeeds.Count - 1)
         {
-            StartCoroutine(SetCamRailSpeedCoroutine(waypointSpeeds[waypointIndex]));
+            SetCamRailSpeed(waypointSpeeds[waypointIndex]);
 
             waypointIndex++;
         }
@@ -70,12 +70,14 @@ public class CamRailManager : MonoBehaviour
 
     void SetCamRailSpeed(float newMS)
     {
+        StopAllCoroutines();
         StartCoroutine(SetCamRailSpeedCoroutine(newMS));
     }
 
     // increase rail speed when player destroys an enemy
     public void IncreaseCamRailSpeed()
     {
+        StopAllCoroutines();
         float newMS = movementTrackerDollyCart.m_Speed + increaseMSAmt;
 
         StartCoroutine(SetCamRailSpeedCoroutine(newMS));
@@ -84,16 +86,13 @@ public class CamRailManager : MonoBehaviour
     IEnumerator SetCamRailSpeedCoroutine(float ms)
     {
         float counter = 0;
-        float amt = Mathf.Abs(ms - cineDollyCart.m_Speed) / transitionMSDuration;
-        while (counter < transitionMSDuration)
+
+        while (counter < 1)
         {
-            if (ms > cineDollyCart.m_Speed)
-                cineDollyCart.m_Speed += amt;
-            else
-                cineDollyCart.m_Speed -= amt;
+            counter += Time.deltaTime / transitionMSDuration;
+            cineDollyCart.m_Speed = Mathf.Lerp(cineDollyCart.m_Speed, ms, counter);
             movementTrackerDollyCart.m_Speed = cineDollyCart.m_Speed;
 
-            counter += Time.deltaTime;
             yield return null;
         }
     }

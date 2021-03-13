@@ -18,9 +18,6 @@ public abstract class EnemyBase : EntityBase
 
     void Start()
     {
-        CamRailManager camRailManager = FindObjectOfType<CamRailManager>();
-        Died.AddListener(camRailManager.IncreaseCamRailSpeed);
-
         currentState = EnemyState.Passive;
     }
 
