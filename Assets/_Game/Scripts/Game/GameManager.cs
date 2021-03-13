@@ -1,4 +1,4 @@
-﻿using System.Collections;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
@@ -10,6 +10,7 @@ public class GameManager : MonoBehaviour {
     [Header("Overall Game Control")]
     public GameState currentState;
     [Range(1, 3)] public int unlockedLevel = 1;
+    public int currentLevel = 0;
 
     [Header("Pause Control")]
     [SerializeField] private GameObject pauseMenu;
@@ -18,11 +19,18 @@ public class GameManager : MonoBehaviour {
 
     [Header("Game Flow")]
     [SerializeField] private GameObject winScreen;
+    [SerializeField] private GameObject loseScreen;
 
     [Header("Game Stats")]
     public int score;
 
-	[Header("Player Reference")]
+    [Header("Briefing")]
+    [SerializeField] private GameObject missionBriefingGO;
+    [SerializeField] private GameObject missionBriefing1;
+    [SerializeField] private GameObject missionBriefing2;
+    [SerializeField] private GameObject missionBriefing3;
+
+    [Header("Player Reference")]
 	public static PlayerReferences player = new PlayerReferences();
 
 	public class PlayerReferences
@@ -122,6 +130,18 @@ public class GameManager : MonoBehaviour {
         // TODO
     }
 
+    public void SetLoseScreen(GameObject loseScreen) {
+        this.loseScreen = loseScreen;
+    }
+
+    public void SetMissionBriefing(GameObject briefingGO, GameObject briefing1, GameObject briefing2, GameObject briefing3)
+    {
+        this.missionBriefingGO = briefingGO;
+        this.missionBriefing1 = briefing1;
+        this.missionBriefing2 = briefing2;
+        this.missionBriefing3 = briefing3;
+    }
+
     #endregion
 
     // ----------------------------------------------------------------------------------------------------
@@ -136,23 +156,31 @@ public class GameManager : MonoBehaviour {
     }
 
     public void LoadScene(Levels scene) {
+        Cursor.visible = true;
         switch(scene) {
             case Levels.MainMenu:
                 currentState = GameState.MainMenu;
+                Cursor.lockState = CursorLockMode.None;
                 LoadScene("Main Menu");
+                currentLevel = 0;
                 break;
             case Levels.Mission1:
                 currentState = GameState.Gameplay;
                 LoadScene("Pre-Alpha");
                 //LoadScene("Mission 1");
+                currentLevel = 1;
                 break;
             case Levels.Mission2:
                 currentState = GameState.Gameplay;
+                unlockedLevel = Mathf.Max(unlockedLevel, 2);
                 LoadScene("Mission 2");
+                currentLevel = 2;
                 break;
             case Levels.Mission3:
                 currentState = GameState.Gameplay;
+                unlockedLevel = 3;
                 LoadScene("Mission 3");
+                currentLevel = 3;
                 break;
             default:
                 break;
@@ -160,5 +188,6 @@ public class GameManager : MonoBehaviour {
     }
 
     #endregion
+
 
 }
