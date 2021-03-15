@@ -8,8 +8,16 @@ public class PlayerMovement : MonoBehaviour
 {
     [Header("Move Settings")]
     [SerializeField] float moveSpeed = 20;
+    public float MoveSpeed { get { return moveSpeed; } }
+
     [SerializeField] float rotateSpeed = 1000;
     [SerializeField] float horizontalLean = 50;
+
+    [Header("Collision Settings")]
+    [SerializeField] float collDuration;
+    [SerializeField] Vector3 collForce;
+    [SerializeField] Vector3 torqueForce;
+    bool isHit;
 
     [Header("Boundaries")]
     [Tooltip("Limit is the size of the whole rectangle, so player can travel half of x to the left, or half of x to the right")]
@@ -20,9 +28,20 @@ public class PlayerMovement : MonoBehaviour
     [SerializeField] Transform rotateTargetTransform;
     [SerializeField] Transform shipsTransform;
 
-    [Header("Unity Events")]
-    public UnityEvent dodge;
+    [Header("Effects")]
+    public UnityEvent OnDodge;
+    float lastFrameX, lastFrameY;
+    [Range(0.01f, 0.99f)]
+    [SerializeField] float inputThresholdForMovementFX = 0.01f;
+    [SerializeField] UnityEvent OnStartedMoving;
+    [SerializeField] UnityEvent OnStoppedMoving;
 
+    Rigidbody rb;
+
+    private void Start()
+    {
+        rb = GetComponentInChildren<Rigidbody>();    
+    }
 
     void Update()
     {
@@ -30,10 +49,31 @@ public class PlayerMovement : MonoBehaviour
         float y = Input.GetAxis("Vertical");
 
         LocalMove(x, y);
-        RotateTowardsDir(x, y);
-        HorizontalLean(shipsTransform, x, horizontalLean, 0.1f);
+        if (!isHit)
+        {
+            RotateTowardsDir(x, y);
+            HorizontalLean(shipsTransform, x, horizontalLean, 0.1f);
+        }
 
         Dodge();
+
+        InvokingStartedOrStoppedMovingEvents(x, y);
+    }
+
+    private void InvokingStartedOrStoppedMovingEvents(float x, float y)
+    {
+        bool currentlyMoving =
+            Mathf.Abs(x) >= inputThresholdForMovementFX || Mathf.Abs(y) >= inputThresholdForMovementFX;
+        bool wasMovingLastFrame =
+            Mathf.Abs(lastFrameX) >= inputThresholdForMovementFX || Mathf.Abs(lastFrameY) >= inputThresholdForMovementFX;
+
+        if (!wasMovingLastFrame && currentlyMoving)
+            OnStartedMoving.Invoke();
+        else if (wasMovingLastFrame && !currentlyMoving)
+            OnStoppedMoving.Invoke();
+
+        lastFrameX = x;
+        lastFrameY = y;
     }
 
     void LocalMove(float x, float y)
@@ -68,7 +108,35 @@ public class PlayerMovement : MonoBehaviour
     {
         if (Input.GetKeyDown(KeyCode.Space))
         {
-            dodge.Invoke();
+            OnDodge.Invoke();
         }
+    }
+
+    private void OnTriggerEnter(Collider other)
+    {
+        // hit terrain
+        if (other.gameObject.layer == 9)
+        {
+            if (!isHit)
+                StartCoroutine(PlayerCollision());
+        }
+    }
+
+    IEnumerator PlayerCollision()
+    {
+        isHit = true;
+        rb.AddRelativeForce(Random.Range(-collForce.x, collForce.x),
+            Random.Range(-collForce.y, collForce.y),
+            Random.Range(-collForce.z, collForce.z));
+
+        rb.AddRelativeTorque(Random.Range(-torqueForce.x, torqueForce.x), 
+            Random.Range(-torqueForce.y, torqueForce.y), 
+            Random.Range(-torqueForce.z, torqueForce.z));
+
+        yield return new WaitForSeconds(collDuration);
+
+        isHit = false;
+        rb.velocity = Vector3.zero;
+        rb.angularVelocity = Vector3.zero;
     }
 }

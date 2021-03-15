@@ -19,10 +19,11 @@ public class test_bossRemote : MonoBehaviour
     {
         if (Input.GetKeyDown(KeyCode.Space))
         {
-            Debug.Log("Manual Call, Boss Attack");
-            _bossRef?.SetBossState(BossState.Attack);
+            _bossRef?.TestBlooded();
         }
         if (Input.GetKeyDown(KeyCode.Q))
-            Debug.Log("Q Key Works");
+        {
+            _bossRef?.SetBossState(BossState.Idle);
+        }
     }
 }
