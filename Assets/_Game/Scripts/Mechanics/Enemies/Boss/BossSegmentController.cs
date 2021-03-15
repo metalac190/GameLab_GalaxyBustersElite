@@ -4,100 +4,133 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Events;
 
-public class BossSegmentController : EntityBase
+public class BossSegmentController : MonoBehaviour
 {
-    //implement Boss as Singleton?
-    //boss is always prefab, not too much harm rn?
+    public UnityEvent Died;
+
     [SerializeField] private BossController _bossRef = null;
 
-    [Tooltip("Reference to Normal Boss Missile Prefab")]
     [SerializeField] private GameObject _missileRef = null;
     [SerializeField] private Transform _missileSpawnPoint = null;
     [SerializeField] private float _myDelay = 0f;
+    private float _wait = 0f;
 
-    public int Health { get { return _currentHealth; } }
+    private int _health = 0;
+    public int Health { get { return _health; } }
 
-    private List<GameObject> _missilePool = new List<GameObject>();
-    private int _damage = 1;
+    private List<GameObject> missilePool = new List<GameObject>();
 
     #region Listeners
     private void OnEnable()
     {
-        _bossRef.Attacking.AddListener(OnAttack);
+        _bossRef.Attacked.AddListener(OnAttacked);
     }
 
     
     private void OnDisable()
     {
-        _bossRef.Attacking.RemoveListener(OnAttack);
+        _bossRef.Attacked.RemoveListener(OnAttacked);
     }
     #endregion
 
-    //used by BossController for consistent health across all Segments
+    //used exclusivly in conjunction with OnMissileAttack()
+    //used instead of IEnumerator, might change?
+    private void Update()
+    {
+        if (_wait > 0)
+        {
+            _wait -= Time.deltaTime;
+            if (_wait <= 0)
+            {
+                OnMissileAttack();
+            }
+        }
+    }
+
+    //currently unused, inherit from EnemyBase?
     public void SetHealth(int value)
     {
-        _currentHealth = value;
+        _health = value;
+    }
+    
+    public void TakeDamage(int value)
+    {
+        _health -= value;
+        if (_health <= 0)
+        {
+            OnDied();
+        }
     }
 
-    public void SetDamage(int value)
+    private void OnDied()
     {
-        _damage = value;
-    }
+        Died.Invoke();
 
-    public void SetDelay(float time)
-    {
-        _myDelay = time;
+        //play death animation
     }
 
     //BossAttacks type transfered via int type, due to UnityEvents constraints
-    private void OnAttack(int value)
+    private void OnAttacked(int value)
     {
         BossAttacks attackType = (BossAttacks)value;
         
         switch(attackType)
         {
+            case BossAttacks.RingAttack:
+                OnRingAttack();
+                break;
+
             case BossAttacks.MisisleAttack:
-                StartCoroutine(MissileDelay(_myDelay));
+                _wait = _myDelay;
+                break;
+
+            case BossAttacks.LaserAttack:
+                OnLaserAttack();
                 break;
 
             default:
-                //Does not implement Ring, Laser, Minion Attack?
-                //Might have animation triggers from Boss.Attacked.Invoke()
                 break;
         }
     }
 
-    /// <summary> Delays Missile attack, to fire in series with other Segments.
-    /// 
-    /// </summary>
-    /// <param name="time"> Time in Seconds to wait. </param>
-    /// <returns></returns>
-    private IEnumerator MissileDelay(float time)
+    private void OnRingAttack()
     {
-        while (time > 0)
-        {
-            yield return new WaitForEndOfFrame();
-            time -= Time.deltaTime;
-        }
-
-        OnMissileAttack();
+        //ring attack animation
     }
 
     private void OnMissileAttack()
     {
         //missile animation
-        GameObject missile = null;
 
         //instantiate missile
         if (_missileRef != null)
         {
-            missile = PoolUtility.InstantiateFromPool(_missilePool, _missileSpawnPoint, _missileRef);
+            InstantiateMissileFromPool();
         }
 
-        BossMissile bullet = missile.GetComponent<BossMissile>();
+        //missile.target = player
+    }
 
-        //bullet?.SetTarget(GameManager.player.obj.transform.position);
-        bullet?.SetTarget(GameManager.player.obj);
-        bullet?.SetDamage(_damage);
+    //pools missiles instead of instantiating, uses less resources over time
+    private void InstantiateMissileFromPool()
+    {
+        foreach (GameObject missile in missilePool)
+        {
+            if (missile != null && missile.activeInHierarchy == false)
+            {
+                missile.SetActive(true);
+                missile.transform.position = _missileSpawnPoint.position;
+                missile.transform.rotation = _missileSpawnPoint.rotation;
+                return;
+            }
+        }
+
+        GameObject newMissle = Instantiate(_missileRef, _missileSpawnPoint.position, _missileSpawnPoint.rotation, null);
+        missilePool.Add(newMissle);
+    }
+
+    private void OnLaserAttack()
+    {
+        //laster attack animation
     }
 }
