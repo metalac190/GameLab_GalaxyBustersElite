@@ -23,15 +23,46 @@ public class PoolUtility : MonoBehaviour
             if (projectile != null && projectile.activeInHierarchy == false)
             {
                 //Enables and positions projectile, to reuse
-                projectile.SetActive(true);
                 projectile.transform.position = spawnPoint.position;
                 projectile.transform.rotation = spawnPoint.rotation;
+                projectile.SetActive(true);
                 return projectile;
             }
         }
 
         //Worst Case Scenario, instantiates for current and future use
         GameObject newProjectile = Instantiate(projectileReference, spawnPoint.position, spawnPoint.rotation, null);
+        pool.Add(newProjectile);
+        return newProjectile;
+    }
+
+    /// <summary> Instantiates Projectiles from Pool
+    /// <para> Overload to use custom Position/Rotation and not Transform </para>
+    /// </summary>
+    /// <param name="pool"> Pool of references in hierarchy </param>
+    /// <param name="position"> Custom Position to spawn/move projectile </param>
+    /// <param name="rotation"> Custom Rotation to aim projectile </param>
+    /// <param name="projectileReference"> Projectile Prefab to instantiate, if needed </param>
+    /// <returns></returns>
+    public static GameObject InstantiateFromPool(List<GameObject> pool, Vector3 position, Quaternion rotation, GameObject projectileReference)
+    {
+        //Static Function to call from any script
+
+        //First checks for any available, inactive references that already exist
+        foreach (GameObject projectile in pool)
+        {
+            if (projectile != null && projectile.activeInHierarchy == false)
+            {
+                //Enables and positions projectile, to reuse
+                projectile.transform.position = position;
+                projectile.transform.rotation = rotation;
+                projectile.SetActive(true);
+                return projectile;
+            }
+        }
+
+        //Worst Case Scenario, instantiates for current and future use
+        GameObject newProjectile = Instantiate(projectileReference, position, rotation, null);
         pool.Add(newProjectile);
         return newProjectile;
     }
