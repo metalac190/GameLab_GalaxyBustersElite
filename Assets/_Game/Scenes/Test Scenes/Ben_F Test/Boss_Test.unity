@@ -154,6 +154,7 @@ MonoBehaviour:
   unlockedLevel: 1
   pauseMenu: {fileID: 0}
   winScreen: {fileID: 0}
+  loseScreen: {fileID: 0}
   score: 0
 --- !u!4 &266615650
 Transform:
@@ -650,6 +651,11 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 7381139308943059310, guid: ffe797ea1716ec048990994aa3758391,
+        type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 8351936628576988469, guid: ffe797ea1716ec048990994aa3758391,
         type: 3}
       propertyPath: _moveSpeed
@@ -843,13 +849,13 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1508666259}
-  m_LocalRotation: {x: 0.12854315, y: -0.17216265, z: 0.022665637, w: 0.97638255}
-  m_LocalPosition: {x: 8, y: 5, z: -10}
+  m_LocalRotation: {x: 0.13052616, y: 0, z: 0, w: 0.9914449}
+  m_LocalPosition: {x: 0, y: 8, z: -13}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
   m_RootOrder: 0
-  m_LocalEulerAnglesHint: {x: 15, y: -20, z: 0}
+  m_LocalEulerAnglesHint: {x: 15, y: 0, z: 0}
 --- !u!1 &2035180949
 GameObject:
   m_ObjectHideFlags: 0
