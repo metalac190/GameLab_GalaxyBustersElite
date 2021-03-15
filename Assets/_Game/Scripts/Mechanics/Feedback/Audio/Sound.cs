@@ -1,16 +1,14 @@
-﻿using UnityEngine.Audio;
-using System;
-using UnityEngine;
+﻿using UnityEngine;
 
-[Serializable]
+[System.Serializable]
 public class Sound
 {
-    public AudioClip audioClip;
+    // Inspector name
+    [HideInInspector] public string name = "Sound";
+    public string label = "(Write a Description Here)";
 
-    [Range(0, 1)]
-    public float volume = 0.5f;
-    public bool loop = false;
-
-    [HideInInspector]
+    [Space(5)]
     public AudioSource audioSource;
+    public bool playOnAwake = false;
+    public bool loop = false;
 }
