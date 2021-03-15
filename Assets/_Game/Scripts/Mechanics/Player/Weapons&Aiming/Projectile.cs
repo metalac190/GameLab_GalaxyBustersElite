@@ -15,12 +15,12 @@ public class Projectile : MonoBehaviour
     {
         // Move projectile forwards with set speed
         rb = GetComponent<Rigidbody>();
-        rb.velocity = transform.forward * speed;
     }
 
     private void OnEnable()
     {
         _time = 0;
+        rb.velocity = transform.forward * speed;
     }
 
     private void Update()
@@ -39,8 +39,7 @@ public class Projectile : MonoBehaviour
         PlayerController player = collision.gameObject.GetComponent<PlayerController>();
         player?.DamagePlayer(damage);
 
-        if (entity != null || player != null)
-            gameObject.SetActive(false);
+        gameObject.SetActive(false);
     }
 
 }
