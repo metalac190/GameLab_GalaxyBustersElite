@@ -2,7 +2,7 @@
 using System.Collections;
 using System;
 
-public class LootContainer : MonoBehaviour
+public class LootContainer : BreakableBase
 {
     //Refer to Ben Friedman for QA/Bugfixing on LootContainer
 
@@ -40,10 +40,21 @@ public class LootContainer : MonoBehaviour
     [Tooltip("Chance out of 100 to drop any Points")]
     [SerializeField] private float pointsChance = 100f;
 
+
+    /// <summary> Implements LootDropping functionality in addition to Break()
+    ///
+    /// </summary>
+    public override void Break()
+    {
+        RollDropChance();
+
+        base.Break();   //OnBreak.Invoke() + Destroy(this)
+    }
+
     /// <summary> Compares all drop chances, and picks loot (if any) to drop
     /// 
     /// </summary>
-    public void RollDropChance()
+    private void RollDropChance()
     {
         float[] allDrops = { WeaponAChance, WeaponBChance, WeaponCChance, healthChance, pointsChance };
 

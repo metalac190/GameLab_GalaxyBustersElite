@@ -7,28 +7,19 @@ using Cinemachine;
 public class CamRailManager : MonoBehaviour
 {
     [Header("Cam Rail Settings")]
-    [SerializeField] int waypointIndex;
-    [SerializeField] List<float> waypointSpeeds;
-    [SerializeField] float increaseMSAmt;
-    [SerializeField] float transitionMSDuration;
+    public int waypointIndex;
+    public List<float> waypointSpeeds;
 
-    // references
-    Transform movementTrackerTrans;
-    CinemachineDollyCart movementTrackerDollyCart;
-    CinemachineDollyCart cineDollyCart;
-    CinemachineSmoothPath cineSmoothPath;
+    [Header("Inspector References")]
+    public Transform movementTracker;
+    public CinemachineDollyCart trackerDollyCart;
 
-    private void Awake()
-    {
-        movementTrackerTrans = GameObject.Find("Movement Tracker").transform;
-        movementTrackerDollyCart = movementTrackerTrans.GetComponent<CinemachineDollyCart>();
+    public CinemachineDollyCart cineDollyCart;
+    public CinemachineSmoothPath cineSmoothPath;
 
-        cineDollyCart = GameObject.Find("Camera Follower").GetComponent<CinemachineDollyCart>();
-        cineSmoothPath = FindObjectOfType<CinemachineSmoothPath>();
-
-        cineDollyCart.m_Path = cineSmoothPath;
-        movementTrackerDollyCart.m_Path = cineSmoothPath;
-    }
+    // TODO- remove this
+    [Header("Tester")]
+    public TextMeshProUGUI uiText;
 
     private void Start()
     {
@@ -38,7 +29,7 @@ public class CamRailManager : MonoBehaviour
     private void InitCamRailSpeed()
     {
         cineDollyCart.m_Speed = waypointSpeeds[0];
-        movementTrackerDollyCart.m_Speed = cineDollyCart.m_Speed;
+        trackerDollyCart.m_Speed = cineDollyCart.m_Speed;
 
         waypointIndex = 1;
     }
@@ -53,8 +44,8 @@ public class CamRailManager : MonoBehaviour
         }*/
 
         // TODO- prob need to find a better fix
-        Vector2 movementTrackerPosXY = new Vector2(movementTrackerTrans.position.x, movementTrackerTrans.position.y);
-        Vector2 movementTrackerPosYZ = new Vector2(movementTrackerTrans.position.y, movementTrackerTrans.position.z);
+        Vector2 movementTrackerPosXY = new Vector2(movementTracker.position.x, movementTracker.position.y);
+        Vector2 movementTrackerPosYZ = new Vector2(movementTracker.position.y, movementTracker.position.z);
 
         Vector2 nextWaypointPosXY = new Vector2(cineSmoothPath.m_Waypoints[waypointIndex].position.x, cineSmoothPath.m_Waypoints[waypointIndex].position.y);
         Vector2 nextWaypointPosYZ = new Vector2(cineSmoothPath.m_Waypoints[waypointIndex].position.y, cineSmoothPath.m_Waypoints[waypointIndex].position.z);
@@ -62,38 +53,34 @@ public class CamRailManager : MonoBehaviour
         if ((Vector2.Distance(movementTrackerPosXY, nextWaypointPosXY) < 1f || Vector2.Distance(movementTrackerPosYZ, nextWaypointPosYZ) < 1f)
             && waypointIndex < waypointSpeeds.Count - 1)
         {
-            SetCamRailSpeed(waypointSpeeds[waypointIndex]);
+            SetCamRailSpeed();
 
             waypointIndex++;
         }
     }
 
-    void SetCamRailSpeed(float newMS)
+    void SetCamRailSpeed()
     {
-        StopAllCoroutines();
-        StartCoroutine(SetCamRailSpeedCoroutine(newMS));
+        trackerDollyCart.m_Speed = waypointSpeeds[waypointIndex];
+        cineDollyCart.m_Speed = waypointSpeeds[waypointIndex];
     }
 
-    // increase rail speed when player destroys an enemy
-    public void IncreaseCamRailSpeed()
+    // TODO- remove this
+    public void InvincibleText()
     {
-        StopAllCoroutines();
-        float newMS = movementTrackerDollyCart.m_Speed + increaseMSAmt;
-
-        StartCoroutine(SetCamRailSpeedCoroutine(newMS));
+        StartCoroutine(InvincibleTextCoroutine());
     }
 
-    IEnumerator SetCamRailSpeedCoroutine(float ms)
+    // TODO- remove this
+    IEnumerator InvincibleTextCoroutine()
     {
-        float counter = 0;
-
-        while (counter < 1)
+        if (uiText.text == "")
         {
-            counter += Time.deltaTime / transitionMSDuration;
-            cineDollyCart.m_Speed = Mathf.Lerp(cineDollyCart.m_Speed, ms, counter);
-            movementTrackerDollyCart.m_Speed = cineDollyCart.m_Speed;
+            uiText.text = "Invincible";
 
-            yield return null;
+            yield return new WaitForSeconds(1);
+
+            uiText.text = "";
         }
     }
 }
