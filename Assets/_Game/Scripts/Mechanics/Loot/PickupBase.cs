@@ -5,11 +5,11 @@ using UnityEngine.Events;
 [RequireComponent(typeof(Collider))]
 public class PickupBase : MonoBehaviour
 {
-    //Refer to Ben Friedman for QA/Bugfixing on all Pickup related scripts
+    //Refer to Ben Friedman for QA/Bugfixing on PickupBase
 
-    //hookups for FX teams, and other systems
     public UnityEvent PickedUp;
 
+    //ensure that paired Collider is set to Trigger Volume
     private Collider triggerVolume = null;
 
     //do all drops give Points? Do weapons give an ammount? 
@@ -24,17 +24,18 @@ public class PickupBase : MonoBehaviour
 
     private void OnTriggerEnter(Collider other)
     {
+        //TODO implement PlayerBase check
         //LayerMask -> Pickup only collides with Player
-        PlayerController playerReference = other.GetComponent<PlayerController>();
-        if (playerReference != null)
-            ApplyEffect(playerReference);
+        Debug.Log("OnTriggerEnter PickupBase");
+
+        ApplyEffect();
     }
 
-    /// <summary> Baseline ApplyEffect function
-    /// <para> Implements Event.Invoke + Destroy (or disable) this object.</para>
+    /// <summary> Virtual/Abstract function
     /// <para> All children need to override to implement </para>
+    /// 
     /// </summary>
-    protected virtual void ApplyEffect(PlayerController player)
+    protected virtual void ApplyEffect()
     {
         PickedUp.Invoke();
         Destroy(this.gameObject);
