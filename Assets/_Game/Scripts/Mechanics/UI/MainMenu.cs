@@ -18,6 +18,7 @@ public class MainMenu : MonoBehaviour
         else {
             splashScreen.SetActive(true);
             splashScreenDisplayed = true;
+            GameManager.gm.currentLevel = 0;
         }
     }
 
