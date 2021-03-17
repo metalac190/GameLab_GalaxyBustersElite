@@ -66,15 +66,16 @@ MonoBehaviour:
       m_Calls: []
   m_text: 
   m_isRightToLeft: 0
-  m_fontAsset: {fileID: 11400000, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
-  m_sharedMaterial: {fileID: 2180264, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
+  m_fontAsset: {fileID: 11400000, guid: 2d85fee0c5d07ed46ac33a68626da92d, type: 2}
+  m_sharedMaterial: {fileID: -2133893674331855473, guid: 2d85fee0c5d07ed46ac33a68626da92d,
+    type: 2}
   m_fontSharedMaterials: []
   m_fontMaterial: {fileID: 0}
   m_fontMaterials: []
   m_fontColor32:
     serializedVersion: 2
     rgba: 4278190080
-  m_fontColor: {r: 0, g: 0, b: 0, a: 1}
+  m_fontColor: {r: 1, g: 1, b: 1, a: 1}
   m_enableVertexGradient: 0
   m_colorMode: 3
   m_fontColorGradient:
@@ -264,8 +265,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: -121, y: -229}
-  m_SizeDelta: {x: 200, y: 50}
+  m_AnchoredPosition: {x: -100.97, y: -229}
+  m_SizeDelta: {x: 240, y: 50}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &1283210540722479893
 CanvasRenderer:
@@ -296,8 +297,9 @@ MonoBehaviour:
       m_Calls: []
   m_text: 
   m_isRightToLeft: 0
-  m_fontAsset: {fileID: 11400000, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
-  m_sharedMaterial: {fileID: 2180264, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
+  m_fontAsset: {fileID: 11400000, guid: 2d85fee0c5d07ed46ac33a68626da92d, type: 2}
+  m_sharedMaterial: {fileID: -2133893674331855473, guid: 2d85fee0c5d07ed46ac33a68626da92d,
+    type: 2}
   m_fontSharedMaterials: []
   m_fontMaterial: {fileID: 0}
   m_fontMaterials: []
@@ -577,6 +579,9 @@ MonoBehaviour:
   DialoguePopUp: {fileID: 1283210542206010382}
   nameText: {fileID: 1283210540722479892}
   dialogueText: {fileID: 1283210540164553561}
+  NPCImage: {fileID: 1283210540836946844}
+  typingDelay: 0.025
+  conversationEndDelay: 1
 --- !u!1 &1283210541700463066
 GameObject:
   m_ObjectHideFlags: 0
@@ -642,7 +647,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &1283210541919230419
 RectTransform:
   m_ObjectHideFlags: 0
@@ -751,29 +756,30 @@ MonoBehaviour:
   Level2StoryDialogue: []
   Level3StoryDialogue: []
   PlayerDamagedDialogue:
-  - npcName: Ace
+  - npcName: Zip
     sentences:
-    - 'Player Damager: I would recommend not getting hit.'
-    - It typically hurts.
-  - npcName: Bob
+    - Yowzers, that slapped like a bucking bronco.
+  - npcName: Piledrive
     sentences:
-    - Bob says you should dodge.
-  - npcName: Carl
+    - Careful son.
+  - npcName: Matryoshka
     sentences:
-    - you should dodge says CARRLLLLL
-  - npcName: Dante
+    - Raaughra
+  - npcName: MultiSentenceCheck
     sentences:
-    - DANTEEEEE
-  - npcName: Eric
-    sentences:
-    - EEEEEEEEEEEEEEEEEEEEEEEEEEEEEE
+    - This is test sentence number 1.
+    - Following up is test sentence number 2.
+    - Last but not least is test sentence number 3.
   EnemyDefeatedDialogue:
-  - npcName: EnemyDef_A
+  - npcName: Zip
     sentences:
-    - Nice Shot!
-  - npcName: EnemyDef_B
+    - "Woo-hoo! That\u2019s the American way!"
+  - npcName: Zip
     sentences:
-    - Peww Peww Peww
+    - "That ship\u2019s been straight Delaware destroyed!"
+  - npcName: Zip
+    sentences:
+    - "I\u2019m red, white, and blue, but you\u2019re dead, white, and blue."
 --- !u!1 &1283210542206010382
 GameObject:
   m_ObjectHideFlags: 0

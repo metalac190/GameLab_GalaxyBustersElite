@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Events;
 using UnityEngine.SceneManagement;
 
 public class GameManager : MonoBehaviour {
@@ -10,7 +11,7 @@ public class GameManager : MonoBehaviour {
     [Header("Overall Game Control")]
     public GameState currentState;
     [Range(1, 3)] public int unlockedLevel = 1;
-    public int currentLevel = 0;
+    [Range(1, 3)] public int currentLevel = 1;
 
     [Header("Pause Control")]
     [SerializeField] private GameObject pauseMenu;
@@ -20,6 +21,7 @@ public class GameManager : MonoBehaviour {
     [Header("Game Flow")]
     [SerializeField] private GameObject winScreen;
     [SerializeField] private GameObject loseScreen;
+    [HideInInspector] public UnityEvent OnEndLevel;
 
     [Header("Game Stats")]
     public int score;
@@ -114,11 +116,18 @@ public class GameManager : MonoBehaviour {
 
     #region Game Flow
 
-    public void WinGame() {
+    private void EndLevel() {
         Paused = false;
         Time.timeScale = 0;
-        currentState = GameState.Win;
         Cursor.visible = true;
+        OnEndLevel.Invoke();
+    }
+
+    // -----
+
+    public void WinGame() {
+        EndLevel();
+        currentState = GameState.Win;
         winScreen.SetActive(true);
     }
 
@@ -126,20 +135,26 @@ public class GameManager : MonoBehaviour {
         this.winScreen = winScreen;
     }
 
+    // -----
+
     public void LoseGame() {
-        // TODO
+        EndLevel();
+        currentState = GameState.Fail;
+        loseScreen.SetActive(true);
     }
 
     public void SetLoseScreen(GameObject loseScreen) {
         this.loseScreen = loseScreen;
     }
 
+    // -----
+
     public void SetMissionBriefing(GameObject briefingGO, GameObject briefing1, GameObject briefing2, GameObject briefing3)
     {
-        this.missionBriefingGO = briefingGO;
-        this.missionBriefing1 = briefing1;
-        this.missionBriefing2 = briefing2;
-        this.missionBriefing3 = briefing3;
+        missionBriefingGO = briefingGO;
+        missionBriefing1 = briefing1;
+        missionBriefing2 = briefing2;
+        missionBriefing3 = briefing3;
     }
 
     #endregion
@@ -173,13 +188,15 @@ public class GameManager : MonoBehaviour {
             case Levels.Mission2:
                 currentState = GameState.Gameplay;
                 unlockedLevel = Mathf.Max(unlockedLevel, 2);
-                LoadScene("Mission 2");
+                LoadScene("Pre-Alpha");
+                //LoadScene("Mission 2");
                 currentLevel = 2;
                 break;
             case Levels.Mission3:
                 currentState = GameState.Gameplay;
                 unlockedLevel = 3;
-                LoadScene("Mission 3");
+                LoadScene("Pre-Alpha");
+                //LoadScene("Mission 3");
                 currentLevel = 3;
                 break;
             default:
