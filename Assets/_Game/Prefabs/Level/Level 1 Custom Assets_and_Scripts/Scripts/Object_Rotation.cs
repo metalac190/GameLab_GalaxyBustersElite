@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Rotation : MonoBehaviour
+public class Object_Rotation : MonoBehaviour
 {
     //Rotational Speed
     public float speed = 0f;
