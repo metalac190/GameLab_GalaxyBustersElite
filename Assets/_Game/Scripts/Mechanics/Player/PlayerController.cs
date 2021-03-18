@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Events;
 
 [RequireComponent(typeof(PlayerMovement))]
 public class PlayerController : MonoBehaviour
@@ -9,6 +10,18 @@ public class PlayerController : MonoBehaviour
 	[SerializeField] float overloadCharge = 0f;
 	[SerializeField] GameObject currentWeapon;
 	public GameObject[] weapons;
+
+	[Header("Effects")]
+	[Range(0, 5)]
+	[SerializeField] float cameraShakeOnHit = 1;
+	[SerializeField] UnityEvent OnHit;
+	[SerializeField] UnityEvent OnDeath;
+	[SerializeField] UnityEvent OnPickedUpWeapon;
+	[SerializeField] float playerHealthLowThreshold = 1;
+	float lastFramePlayerHealth;
+	[SerializeField] UnityEvent OnHealthStartedBeingLow;
+	[SerializeField] UnityEvent OnHealthStoppedBeingLow;
+
 
     private void Awake() {
 		// Set references in game manager
@@ -24,25 +37,43 @@ public class PlayerController : MonoBehaviour
 
 	void Update()
     {
-		// Temporary manual weapon switching for testing purposes
-		if (Input.GetKeyDown(KeyCode.Alpha1))
-		{
+        // Temporary manual weapon switching for testing purposes
+        if (Input.GetKeyDown(KeyCode.Alpha1))
+        {
 			SetWeapon(weapons[0]);
-		}
-		else if (Input.GetKeyDown(KeyCode.Alpha2))
-		{
-			SetWeapon(weapons[1]);
-		}
-		else if (Input.GetKeyDown(KeyCode.Alpha3))
-		{
-			SetWeapon(weapons[2]);
-		}
+        }
+        else if (Input.GetKeyDown(KeyCode.Alpha2))
+        {
+            SetWeapon(weapons[1]);
+        }
+        else if (Input.GetKeyDown(KeyCode.Alpha3))
+        {
+            SetWeapon(weapons[2]);
+        }
 
-	}
+        InvokingHealthStartedOrStoppedBeingLowEvents();
+    }
 
-	public void DamagePlayer(float amount)
+    private void InvokingHealthStartedOrStoppedBeingLowEvents()
+    {
+        bool currentlyLowHealth = playerHealth < playerHealthLowThreshold;
+        bool lastFrameHealthWasLow = lastFramePlayerHealth < playerHealthLowThreshold;
+
+        if (!lastFrameHealthWasLow && currentlyLowHealth)
+            OnHealthStartedBeingLow.Invoke();
+        else if (lastFrameHealthWasLow && !currentlyLowHealth)
+            OnHealthStoppedBeingLow.Invoke();
+
+        lastFramePlayerHealth = playerHealth;
+    }
+
+    public void DamagePlayer(float amount)
 	{
 		playerHealth -= amount;
+
+		CameraShaker.instance.Shake(cameraShakeOnHit);
+
+		OnHit.Invoke();
 	}
 
 	public void HealPlayer(float amount)
@@ -69,5 +100,7 @@ public class PlayerController : MonoBehaviour
 				weapon.SetActive(false);
 			}
 		}
+
+		OnPickedUpWeapon.Invoke();
 	}
 }

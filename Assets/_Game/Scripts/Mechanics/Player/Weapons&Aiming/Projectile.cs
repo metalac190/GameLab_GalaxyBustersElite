@@ -9,18 +9,26 @@ public class Projectile : MonoBehaviour
 	public int damage = 2;
 	public float lifeTime = 2f;
 	private Rigidbody rb;
+    private float _time = 0;
 
-	private void Start()
-	{
-		// Move projectile forwards with set speed
-		rb = GetComponent<Rigidbody>();
-		rb.velocity = transform.forward * speed;
-	}
+    private void Awake()
+    {
+        // Move projectile forwards with set speed
+        rb = GetComponent<Rigidbody>();
+    }
 
-	private void Awake()
+    private void OnEnable()
+    {
+        _time = 0;
+        rb.velocity = transform.forward * speed;
+    }
+
+    private void Update()
 	{
-		// Destroy projectile after lifetime expires
-		Destroy(gameObject, lifeTime);
+        // Destroy projectile after lifetime expires
+        _time += Time.deltaTime;
+        if (_time > lifeTime)
+            gameObject.SetActive(false);
 	}
 
     private void OnCollisionEnter(Collision collision)
@@ -28,7 +36,10 @@ public class Projectile : MonoBehaviour
         EntityBase entity = collision.gameObject.GetComponent<EntityBase>();
         entity?.TakeDamage(damage);
 
-        Destroy(this.gameObject);
+        PlayerController player = collision.gameObject.GetComponent<PlayerController>();
+        player?.DamagePlayer(damage);
+
+        gameObject.SetActive(false);
     }
 
 }
