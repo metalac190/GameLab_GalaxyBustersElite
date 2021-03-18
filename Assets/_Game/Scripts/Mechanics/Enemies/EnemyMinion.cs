@@ -45,7 +45,6 @@ public class EnemyMinion : EnemyBase
         {
             transform.LookAt(playerReference.transform.position);
 
-            Debug.Log("Detect range reached");
             currentState = EnemyState.Attacking;
         }
     }

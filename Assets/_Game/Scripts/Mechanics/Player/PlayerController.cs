@@ -12,6 +12,8 @@ public class PlayerController : MonoBehaviour
 	public GameObject[] weapons;
 
 	[Header("Effects")]
+	[Range(0, 5)]
+	[SerializeField] float cameraShakeOnHit = 1;
 	[SerializeField] UnityEvent OnHit;
 	[SerializeField] UnityEvent OnDeath;
 	[SerializeField] UnityEvent OnPickedUpWeapon;
@@ -38,7 +40,7 @@ public class PlayerController : MonoBehaviour
         // Temporary manual weapon switching for testing purposes
         if (Input.GetKeyDown(KeyCode.Alpha1))
         {
-            SetWeapon(weapons[0]);
+			SetWeapon(weapons[0]);
         }
         else if (Input.GetKeyDown(KeyCode.Alpha2))
         {
@@ -68,6 +70,8 @@ public class PlayerController : MonoBehaviour
     public void DamagePlayer(float amount)
 	{
 		playerHealth -= amount;
+
+		CameraShaker.instance.Shake(cameraShakeOnHit);
 
 		OnHit.Invoke();
 	}
