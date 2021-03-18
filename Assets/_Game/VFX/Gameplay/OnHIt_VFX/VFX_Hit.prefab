@@ -1,6 +1,6 @@
 %YAML 1.1
 %TAG !u! tag:unity3d.com,2011:
---- !u!1 &1442537197694410486
+--- !u!1 &1001901450042185402
 GameObject:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -8,95 +8,36 @@ GameObject:
   m_PrefabAsset: {fileID: 0}
   serializedVersion: 6
   m_Component:
-  - component: {fileID: 4234064388278411199}
-  - component: {fileID: 8167018122877083882}
+  - component: {fileID: 1001901450042185401}
   m_Layer: 0
-  m_Name: Player's Particles Player
+  m_Name: VFX_Hit
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
---- !u!4 &4234064388278411199
+--- !u!4 &1001901450042185401
 Transform:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1442537197694410486}
+  m_GameObject: {fileID: 1001901450042185402}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalPosition: {x: 8.408223, y: 3.61, z: -1.6498648}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
-  - {fileID: 7146076047453641290}
+  - {fileID: 1001901449788153032}
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &8167018122877083882
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1442537197694410486}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 2eb81e5a4a8c3e2449d8aa39632b8e93, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  allParticles:
-  - name: Particles
-    label: Hit
-    particleSystem: {fileID: 7146076047453641292}
-    playOnAwake: 0
-  - name: Particles
-    label: Death
-    particleSystem: {fileID: 0}
-    playOnAwake: 0
-  - name: Particles
-    label: Pickup Burst (Not Hooked Up)
-    particleSystem: {fileID: 0}
-    playOnAwake: 0
-  - name: Particles
-    label: New Weapon Attached
-    particleSystem: {fileID: 0}
-    playOnAwake: 0
-  - name: Particles
-    label: Invincibility (Not Hooked Up)
-    particleSystem: {fileID: 0}
-    playOnAwake: 0
---- !u!1001 &372436748316029106
+--- !u!1001 &7775367436997047856
 PrefabInstance:
   m_ObjectHideFlags: 0
   serializedVersion: 2
   m_Modification:
-    m_TransformParent: {fileID: 4234064388278411199}
+    m_TransformParent: {fileID: 1001901450042185401}
     m_Modifications:
-    - target: {fileID: 7350120272830179465, guid: d901ee141e524ab4bae696e92f11daba,
-        type: 3}
-      propertyPath: playOnAwake
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 7350120272965794246, guid: d901ee141e524ab4bae696e92f11daba,
-        type: 3}
-      propertyPath: playOnAwake
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 7350120273086679586, guid: d901ee141e524ab4bae696e92f11daba,
-        type: 3}
-      propertyPath: playOnAwake
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 7350120274011272435, guid: d901ee141e524ab4bae696e92f11daba,
-        type: 3}
-      propertyPath: playOnAwake
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 7350120274140255743, guid: d901ee141e524ab4bae696e92f11daba,
-        type: 3}
-      propertyPath: playOnAwake
-      value: 0
-      objectReference: {fileID: 0}
     - target: {fileID: 7350120274446740216, guid: d901ee141e524ab4bae696e92f11daba,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -155,24 +96,13 @@ PrefabInstance:
     - target: {fileID: 7350120274446740217, guid: d901ee141e524ab4bae696e92f11daba,
         type: 3}
       propertyPath: m_Name
-      value: VFX_PlayerHit
-      objectReference: {fileID: 0}
-    - target: {fileID: 7350120274446740222, guid: d901ee141e524ab4bae696e92f11daba,
-        type: 3}
-      propertyPath: playOnAwake
-      value: 0
+      value: BeamOfLight
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: d901ee141e524ab4bae696e92f11daba, type: 3}
---- !u!4 &7146076047453641290 stripped
+--- !u!4 &1001901449788153032 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 7350120274446740216, guid: d901ee141e524ab4bae696e92f11daba,
     type: 3}
-  m_PrefabInstance: {fileID: 372436748316029106}
-  m_PrefabAsset: {fileID: 0}
---- !u!198 &7146076047453641292 stripped
-ParticleSystem:
-  m_CorrespondingSourceObject: {fileID: 7350120274446740222, guid: d901ee141e524ab4bae696e92f11daba,
-    type: 3}
-  m_PrefabInstance: {fileID: 372436748316029106}
+  m_PrefabInstance: {fileID: 7775367436997047856}
   m_PrefabAsset: {fileID: 0}
