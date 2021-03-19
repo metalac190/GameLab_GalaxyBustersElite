@@ -52,9 +52,9 @@ public class HUDManager : MonoBehaviour
         }
         if (referencedPlayer != null)
         {
-            //playerHealth = referencedPlayer.GetComponent<PlayerController>().playerHealth;
-            //overloadMeter = referencedPlayer.GetComponent<PlayerController>().overloadCharge;
-            //currentHUDWeapon = referencedPlayer.GetComponent<PlayerController>().currentWeapon;
+            playerHealth = referencedPlayer.GetComponent<PlayerController>().GetPlayerHealth();
+            overloadMeter = referencedPlayer.GetComponent<PlayerController>().GetOverloadCharge();
+            currentHUDWeapon = referencedPlayer.GetComponent<PlayerController>().GetCurrentWeaponID();
         }
 
         playerHealthSlider.value = playerHealth;
