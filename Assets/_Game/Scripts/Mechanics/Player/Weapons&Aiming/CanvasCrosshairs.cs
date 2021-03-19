@@ -12,8 +12,8 @@ public class CanvasCrosshairs : MonoBehaviour
 
 	public void OnEnable()
 	{
-		playerNear = GameObject.Find("CrosshairNear").transform;
-		playerFar = GameObject.Find("CrosshairFar").transform;
+		playerNear = GameObject.Find("CrosshairNearTransform").transform;
+		playerFar = GameObject.Find("CrosshairFarTransform").transform;
 	}
 
 	void Update()
