@@ -114,8 +114,13 @@ public class PlayerController : MonoBehaviour
 		OnPickedUpWeapon.Invoke();
 	}
 
-	public GameObject GetWeapon()
+	public GameObject GetCurrentWeapon()
 	{
 		return currentWeapon;
+	}
+
+	public string GetCurrentWeaponID()
+	{
+		return currentWeapon.GetComponent<WeaponBase>().weaponID;
 	}
 }

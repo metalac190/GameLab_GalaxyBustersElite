@@ -4,14 +4,19 @@ using UnityEngine;
 
 public class CanvasCrosshairs : MonoBehaviour
 {
-	[Header("Crosshairs in world")]
-	public Transform playerNear;
-	public Transform playerFar;
+	private Transform playerNear;
+	private Transform playerFar;
 	[Header("Crosshairs on canvas")]
 	public RectTransform canvasNear;
 	public RectTransform canvasFar;
 
-    void Update()
+	public void OnEnable()
+	{
+		playerNear = GameObject.Find("CrosshairNearTransform").transform;
+		playerFar = GameObject.Find("CrosshairFarTransform").transform;
+	}
+
+	void Update()
     {
 		Vector3 posNear = Camera.main.WorldToScreenPoint(playerNear.position);
 		Vector3 posFar = Camera.main.WorldToScreenPoint(playerFar.position);
