@@ -9,11 +9,11 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 976279426414310990}
-  - component: {fileID: 371341398330704716}
   - component: {fileID: 7407764473862943828}
-  - component: {fileID: 4992204844157158284}
   - component: {fileID: 1796994892}
-  m_Layer: 0
+  - component: {fileID: 371341398330704716}
+  - component: {fileID: 7204161046364552349}
+  m_Layer: 11
   m_Name: Drone-Assets
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -35,23 +35,10 @@ Transform:
   - {fileID: 6666709009686334754}
   - {fileID: 4256399161685171528}
   - {fileID: 6702033054200007845}
-  - {fileID: 4200423526357770053}
+  - {fileID: 4032164289329707125}
   m_Father: {fileID: 6666709010102455568}
   m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!65 &371341398330704716
-BoxCollider:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 279003710941757610}
-  m_Material: {fileID: 0}
-  m_IsTrigger: 1
-  m_Enabled: 1
-  serializedVersion: 2
-  m_Size: {x: 2.85, y: 1.6, z: 3}
-  m_Center: {x: -0.18576097, y: 0.2994784, z: 0.010814309}
 --- !u!114 &7407764473862943828
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -114,36 +101,21 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
+      - m_Target: {fileID: 4146713424727000990}
+        m_MethodName: RollDropChance
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
   maxHealth: 1
   currentState: 0
   attackDamage: 0
   enemyDetectionRadius: 0
---- !u!114 &4992204844157158284
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 279003710941757610}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: ee1689e295e6e1642b2f01897ed772a2, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  WEAPONREF_ARRAY:
-  - {fileID: 6195826417844601540, guid: 3abfc193df3a10c469ca7b2f4d5147c8, type: 3}
-  - {fileID: 1418737460905681433, guid: f8f2803ce927a364ca9967c37d3ae9df, type: 3}
-  - {fileID: 7571351070088572352, guid: b95653ffbc4c0824a806e8c872370110, type: 3}
-  WeaponAChance: 20
-  WeaponBChance: 20
-  WeaponCChance: 20
-  HEALTHREF: {fileID: 3393478938653242816, guid: 1cdecb874b85dec4cb1e4346ccc1e603,
-    type: 3}
-  healthChance: 0
-  POINTSREF: {fileID: 3604329674517331237, guid: 7783a8297c4a6624ba17a0a5bf6ae112,
-    type: 3}
-  pointsAwarded: 0
-  pointsChance: 0
 --- !u!114 &1796994892
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -172,6 +144,32 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
+--- !u!65 &371341398330704716
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 279003710941757610}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 1
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Size: {x: 2.85, y: 1.6, z: 3}
+  m_Center: {x: -0.18576097, y: 0.2994784, z: 0.010814309}
+--- !u!65 &7204161046364552349
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 279003710941757610}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Size: {x: 2.7, y: 1.4, z: 2.85}
+  m_Center: {x: -0.18576097, y: 0.2994784, z: 0.010814309}
 --- !u!1 &6666709010102455599
 GameObject:
   m_ObjectHideFlags: 0
@@ -181,7 +179,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 6666709010102455568}
-  m_Layer: 0
+  m_Layer: 11
   m_Name: Enemy_Drone
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -299,7 +297,7 @@ CapsuleCollider:
   m_Height: 2
   m_Direction: 1
   m_Center: {x: 0, y: 0, z: 0}
---- !u!1 &7547995961914595385
+--- !u!1 &8376703457707972788
 GameObject:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -307,22 +305,22 @@ GameObject:
   m_PrefabAsset: {fileID: 0}
   serializedVersion: 6
   m_Component:
-  - component: {fileID: 4200423526357770053}
-  - component: {fileID: 4178768613174557416}
-  m_Layer: 11
-  m_Name: Drone-Collision
+  - component: {fileID: 4032164289329707125}
+  - component: {fileID: 4146713424727000990}
+  m_Layer: 0
+  m_Name: LootContainer
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
---- !u!4 &4200423526357770053
+--- !u!4 &4032164289329707125
 Transform:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 7547995961914595385}
+  m_GameObject: {fileID: 8376703457707972788}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
@@ -330,19 +328,32 @@ Transform:
   m_Father: {fileID: 976279426414310990}
   m_RootOrder: 4
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!65 &4178768613174557416
-BoxCollider:
+--- !u!114 &4146713424727000990
+MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 7547995961914595385}
-  m_Material: {fileID: 0}
-  m_IsTrigger: 0
+  m_GameObject: {fileID: 8376703457707972788}
   m_Enabled: 1
-  serializedVersion: 2
-  m_Size: {x: 2.7, y: 1.4, z: 2.85}
-  m_Center: {x: -0.18576097, y: 0.2994784, z: 0.010814309}
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ee1689e295e6e1642b2f01897ed772a2, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  WEAPONREF_ARRAY:
+  - {fileID: 6195826417844601540, guid: 3abfc193df3a10c469ca7b2f4d5147c8, type: 3}
+  - {fileID: 1418737460905681433, guid: f8f2803ce927a364ca9967c37d3ae9df, type: 3}
+  - {fileID: 7571351070088572352, guid: b95653ffbc4c0824a806e8c872370110, type: 3}
+  WeaponAChance: 20
+  WeaponBChance: 20
+  WeaponCChance: 20
+  HEALTHREF: {fileID: 3393478938653242816, guid: 1cdecb874b85dec4cb1e4346ccc1e603,
+    type: 3}
+  healthChance: 0
+  POINTSREF: {fileID: 3604329674517331237, guid: 7783a8297c4a6624ba17a0a5bf6ae112,
+    type: 3}
+  pointsAwarded: 0
+  pointsChance: 0
 --- !u!1001 &1005099110324028449
 PrefabInstance:
   m_ObjectHideFlags: 0

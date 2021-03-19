@@ -106,15 +106,8 @@ public class WeaponBase : MonoBehaviour
 				// Create random rotation within cone
 				Quaternion randAng = Quaternion.Euler(Random.Range(projectileCone * -1, projectileCone), Random.Range(projectileCone * -1, projectileCone), 0);
 
-
-                //object pooling, saves somewhat on resources
-                Quaternion before = point.rotation;
-                point.rotation = point.rotation * randAng;
-
-                GameObject bulletObj = PoolUtility.InstantiateFromPool(projectilePool, point, projectile);
-
-                //small adjustment, spaghettification inbound!
-                point.rotation = before;
+                //Object Pooling instead of Instantiate
+                GameObject bulletObj = PoolUtility.InstantiateFromPool(projectilePool, point.position, point.rotation * randAng, projectile);
 
                 // Instantiate projectile
                 //GameObject bulletObj = Instantiate(projectile, point.position, point.rotation * randAng);

@@ -66,15 +66,16 @@ MonoBehaviour:
       m_Calls: []
   m_text: 
   m_isRightToLeft: 0
-  m_fontAsset: {fileID: 11400000, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
-  m_sharedMaterial: {fileID: 2180264, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
+  m_fontAsset: {fileID: 11400000, guid: 2d85fee0c5d07ed46ac33a68626da92d, type: 2}
+  m_sharedMaterial: {fileID: -2133893674331855473, guid: 2d85fee0c5d07ed46ac33a68626da92d,
+    type: 2}
   m_fontSharedMaterials: []
   m_fontMaterial: {fileID: 0}
   m_fontMaterials: []
   m_fontColor32:
     serializedVersion: 2
     rgba: 4278190080
-  m_fontColor: {r: 0, g: 0, b: 0, a: 1}
+  m_fontColor: {r: 1, g: 1, b: 1, a: 1}
   m_enableVertexGradient: 0
   m_colorMode: 3
   m_fontColorGradient:
@@ -264,8 +265,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: -121, y: -229}
-  m_SizeDelta: {x: 200, y: 50}
+  m_AnchoredPosition: {x: -100.97, y: -229}
+  m_SizeDelta: {x: 240, y: 50}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &1283210540722479893
 CanvasRenderer:
@@ -296,8 +297,9 @@ MonoBehaviour:
       m_Calls: []
   m_text: 
   m_isRightToLeft: 0
-  m_fontAsset: {fileID: 11400000, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
-  m_sharedMaterial: {fileID: 2180264, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
+  m_fontAsset: {fileID: 11400000, guid: 2d85fee0c5d07ed46ac33a68626da92d, type: 2}
+  m_sharedMaterial: {fileID: -2133893674331855473, guid: 2d85fee0c5d07ed46ac33a68626da92d,
+    type: 2}
   m_fontSharedMaterials: []
   m_fontMaterial: {fileID: 0}
   m_fontMaterials: []
@@ -579,6 +581,7 @@ MonoBehaviour:
   dialogueText: {fileID: 1283210540164553561}
   NPCImage: {fileID: 1283210540836946844}
   typingDelay: 0.025
+  speakerTransionDelay: 0.5
   conversationEndDelay: 1
 --- !u!1 &1283210541700463066
 GameObject:
@@ -645,7 +648,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &1283210541919230419
 RectTransform:
   m_ObjectHideFlags: 0
@@ -750,9 +753,171 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: dfd23cc1cd41a0f4cb872087026bbb61, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  Level1StoryDialogue: []
-  Level2StoryDialogue: []
-  Level3StoryDialogue: []
+  StartOfL1Dialogue:
+  - npcName: Piledrive
+    sentences:
+    - "We\u2019re just gonna take it nice and slow, eh?"
+    - Start with blasting those asteroids.
+  - npcName: Pilot
+    sentences:
+    - "I didn\u2019t join the Galaxy Busters Elite to shoot rocks, Piledrive!"
+  - npcName: Matryoshka
+    sentences:
+    - Rawwrgh.
+  - npcName: Piledrive
+    sentences:
+    - Matryoshka has a good point.
+    - "Start with the basics and you\u2019ll be blasting enemies in no time, eh."
+  FirstEnemyAppearsDialogue:
+  - npcName: Pilot
+    sentences:
+    - By the beak of a bald eagle, what are those?!?!?
+  - npcName: Twilight
+    sentences:
+    - Pilots, it appears we are facing a dimensional incursion.
+    - Take every safety precaution.
+  - npcName: 'Matryoshka:'
+    sentences:
+    - GrrRrrRh!
+  - npcName: Pilot
+    sentences: []
+  BreachFirstBecomesVisibleDialogue:
+  - npcName: Piledrive
+    sentences:
+    - "Now would\u2019ya look at that."
+  - npcName: Pilot
+    sentences:
+    - What is that thing!?
+  - npcName: Twilight
+    sentences:
+    - It appears to be a dimensional breach.
+    - That must be where these crystalline creatures, who we have now dubbed Enox,are
+      coming from.
+  Level1EndingDialogue:
+  - npcName: Twilight
+    sentences:
+    - That seems to be the last of them for now.
+    - Pilots, regroup at the station as we discuss what to do next.
+  - npcName: Matryoshka
+    sentences:
+    - Grrrrrrrr
+  - npcName: Piledrive
+    sentences:
+    - Returning now Commander.
+  - npcName: Pilot
+    sentences:
+    - "That\u2019s a negatory Commander Twilight!"
+    - "We need to fly through that breach and stop them from coming back! I\u2019m
+      going in!"
+  - npcName: Twilight
+    sentences:
+    - I order you to regroup pilots!
+  - npcName: Piledrive
+    sentences:
+    - Sorry boss, gotta go with the new guy.
+  StartOfL2Dialogue:
+  - npcName: Piledrive
+    sentences:
+    - What an odd place.
+  - npcName: Pilot
+    sentences:
+    - You can say that again! Where are we?
+    - "This doesn\u2019t look like American Space!"
+  - npcName: Twilight
+    sentences:
+    - It seems you travelled through the breach to a different dimension.
+    - Matryoshka should be able to explain more. She is a quantum physicist.
+  - npcName: Matryoshka
+    sentences:
+    - Grawrghrar!
+  L2MidDialogue:
+  - npcName: Pilot
+    sentences:
+    - 
+  - npcName: Piledrive
+    sentences:
+    - "Pilot, technically, we\u2019re the ones trespassing right now, eh?"
+  - npcName: Pilot
+    sentences:
+    - "It\u2019s the principle of the thing!"
+  ZenoxHackingDialogue:
+  - npcName: Zenox
+    sentences:
+    - Testing, testing, is this thing on?
+  - npcName: Pilot
+    sentences:
+    - Who is that?!?
+  - npcName: Zenox
+    sentences:
+    - Ah, you can hear me!
+    - "I am Acting Supreme Overlord-In-Command, Count Zenox, and you\u2019re in my
+      dimension now. "
+    - Mwahahaha!
+  - npcName: Twilight
+    sentences:
+    - How are you talking to us?
+  - npcName: Zenox
+    sentences:
+    - "I hacked your radio waves! I\u2019m a mad genius!"
+  - npcName: Twilight
+    sentences:
+    - Be on your guard pilots.
+  ZenoxRevealDialogue:
+  - npcName: Pilot
+    sentences:
+    - Holy Maple-Bacon-Guacamole!What is that thing?!?
+  - npcName: Zenox
+    sentences:
+    - It is me, Zenox!
+  - npcName: Piledrive
+    sentences:
+    - "He\u2019s about as ugly as I expected, eh."
+  - npcName: Zenox
+    sentences:
+    - ...
+  - npcName: Pilot
+    sentences:
+    - ...
+  - npcName: Zenox
+    sentences:
+    - "So anyway, I\u2019m going to start blasting."
+  ZenoxFillerDialogue:
+  - npcName: Zenox
+    sentences:
+    - Can I interest you in a laserblast in these trying times?
+  - npcName: Zenox
+    sentences:
+    - Eat lasers you Terrans!
+  AfterBossDialogue:
+  - npcName: Zenox
+    sentences:
+    - Nooooooo!
+    - And I would have gotten away with it too.
+    - "If it weren\u2019t for you meddling pilots and that pesky quantum physicist!"
+  - npcName: Matryoshka
+    sentences:
+    - Rawrgh.
+  - npcName: Twilight
+    sentences:
+    - There pilots, do you see that portal?
+  - npcName: Piledrive
+    sentences:
+    - "Yes ma\u2019am we do."
+  - npcName: Twilight
+    sentences:
+    - 'Fly into it, and may the stars see you home. '
+    - Pilot?
+  - npcName: Pilot
+    sentences:
+    - Yes commander?
+  - npcName: Twilight
+    sentences:
+    - 'You would have made your mother proud. '
+    - You showcased everything she built the GBE around.
+    - Godspeed.
+  - npcName: Pilot
+    sentences:
+    - "We\u2019ll see you soon Commander."
   PlayerDamagedDialogue:
   - npcName: Zip
     sentences:
@@ -763,11 +928,6 @@ MonoBehaviour:
   - npcName: Matryoshka
     sentences:
     - Raaughra
-  - npcName: MultiSentenceCheck
-    sentences:
-    - This is test sentence number 1.
-    - Following up is test sentence number 2.
-    - Last but not least is test sentence number 3.
   EnemyDefeatedDialogue:
   - npcName: Zip
     sentences:
