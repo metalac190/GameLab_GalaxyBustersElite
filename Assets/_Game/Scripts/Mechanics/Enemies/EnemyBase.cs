@@ -45,6 +45,7 @@ public abstract class EnemyBase : EntityBase
         _currentHealth -= damage;
         if (_currentHealth <= 0)
         {
+            DialogueTrigger.TriggerEnemyDefeatedDialogue();
             Died.Invoke();
             Dead();
             //disable or destroy as needed?
@@ -60,6 +61,7 @@ public abstract class EnemyBase : EntityBase
     {
         if (col.gameObject.layer == LayerMask.NameToLayer("Player"))
         {
+            DialogueTrigger.TriggerEnemyDefeatedDialogue();
             col.gameObject.GetComponent<PlayerController>().DamagePlayer(AttackDamage);
             Dead();
         }
