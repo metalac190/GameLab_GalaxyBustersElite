@@ -81,6 +81,16 @@ public class PlayerController : MonoBehaviour
 		playerHealth += amount;
 	}
 
+	public float GetPlayerHealth()
+	{
+		return playerHealth;
+	}
+
+	public float GetOverloadCharge()
+	{
+		return overloadCharge;
+	}
+
 	public void SetWeapon(GameObject newWeapon)
 	{
 		// Find and activate/deactivate necessary weapons
@@ -102,5 +112,15 @@ public class PlayerController : MonoBehaviour
 		}
 
 		OnPickedUpWeapon.Invoke();
+	}
+
+	public GameObject GetCurrentWeapon()
+	{
+		return currentWeapon;
+	}
+
+	public string GetCurrentWeaponID()
+	{
+		return currentWeapon.GetComponent<WeaponBase>().weaponID;
 	}
 }
