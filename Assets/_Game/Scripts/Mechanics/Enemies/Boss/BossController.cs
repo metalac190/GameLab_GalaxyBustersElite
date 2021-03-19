@@ -364,7 +364,7 @@ public class BossController : EntityBase
             Debug.Log("Firing the normal Ring Attack");
             GameObject bullet = PoolUtility.InstantiateFromPool(_ringPool, _projectileSpawn, _ringRef);
             Projectile missile = bullet.GetComponent<Projectile>();
-            missile.damage = _attackDamage;
+            missile.SetDamage(_attackDamage);
         }
         else 
         {
@@ -374,7 +374,7 @@ public class BossController : EntityBase
             {
                 GameObject bullet = PoolUtility.InstantiateFromPool(_ringPool, _projectileSpawn, _ringRef);
                 Projectile missile = bullet.GetComponent<Projectile>();
-                missile.damage = _attackDamage;
+                missile.SetDamage(_attackDamage);
                 yield return new WaitForSeconds(_delaySeconds);
             }
         }

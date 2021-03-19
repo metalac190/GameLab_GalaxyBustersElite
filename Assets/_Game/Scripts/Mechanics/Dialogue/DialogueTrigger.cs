@@ -4,9 +4,11 @@ using UnityEngine;
 
 public class DialogueTrigger : MonoBehaviour
 {
-    /*
+    public static DialogueTrigger instance = new DialogueTrigger();
+    public bool activeDialogue = false;
     public void Update()
     {
+        /*
         if (Input.GetKeyDown(KeyCode.Keypad1))          //random player damage test
         {
             TriggerPlayerDamagedDialogue();
@@ -19,8 +21,9 @@ public class DialogueTrigger : MonoBehaviour
         {
             TriggerL1StartDialogue();
         }
+        */
     }
-    */
+    
     //StaticStoryTriggers
         //level 1
     static public void TriggerL1StartDialogue()
@@ -223,6 +226,10 @@ public class DialogueTrigger : MonoBehaviour
     {
         if (FindObjectOfType<DialogueList>() && FindObjectOfType<DialogueManager>())
         {
+            //random 1 in 10 chance
+            int randomChance = Random.Range(1, 8); ///1 in 7 chance 14 percent chance
+            if (randomChance == 1)
+            {
             DialogueList dialogueListInfo = FindObjectOfType<DialogueList>();
             if (dialogueListInfo.PlayerDamagedDialogue != null)
             {
@@ -233,7 +240,7 @@ public class DialogueTrigger : MonoBehaviour
             {
                 Debug.Log("DialogueListManager's Player Damage Dialogue List is empty.");
             }
-
+            }
         }
         else
         {
@@ -244,6 +251,9 @@ public class DialogueTrigger : MonoBehaviour
     {
         if (FindObjectOfType<DialogueList>() && FindObjectOfType<DialogueManager>())
         {
+            int randomChance = Random.Range(1, 8); ///1 in 7 chance 14 percent chance
+            if (randomChance == 1)
+            {
             DialogueList dialogueListInfo = FindObjectOfType<DialogueList>();
             if (dialogueListInfo.EnemyDefeatedDialogue != null)
             {
@@ -254,7 +264,7 @@ public class DialogueTrigger : MonoBehaviour
             {
                 Debug.Log("DialogueListManager's Enemy Defeated Dialogue List is empty.");
             }
-
+            }
         }
         else
         {
