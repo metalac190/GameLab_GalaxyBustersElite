@@ -67,11 +67,15 @@ public class PlayerController : MonoBehaviour
         lastFramePlayerHealth = playerHealth;
     }
 
-    public void DamagePlayer(float amount)
+	public void DamagePlayer(float amount)
 	{
 		playerHealth -= amount;
 
 		CameraShaker.instance.Shake(cameraShakeOnHit);
+
+		ScoreSystem.ResetCombo();
+
+		DialogueTrigger.TriggerPlayerDamagedDialogue();
 
 		OnHit.Invoke();
 	}
@@ -79,6 +83,16 @@ public class PlayerController : MonoBehaviour
 	public void HealPlayer(float amount)
 	{
 		playerHealth += amount;
+	}
+
+	public void IncreaseOverload(float amount)
+	{
+		overloadCharge += amount;
+	}
+
+	public void SetOverload(float amount)
+	{
+		overloadCharge = amount;
 	}
 
 	public float GetPlayerHealth()

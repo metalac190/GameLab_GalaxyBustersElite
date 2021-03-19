@@ -5,7 +5,8 @@ using UnityEngine;
 // Aims the attached weapons towards a specific point with set speed
 public class AimWeapons : MonoBehaviour
 {
-	[SerializeField] Transform target;
+	GameObject mouse;
+	Transform target;
 	[SerializeField] Transform[] weapons;
 	[SerializeField] float angleClamp = 45f;
 	[SerializeField] float speed = 8f;
@@ -16,9 +17,15 @@ public class AimWeapons : MonoBehaviour
 	Quaternion clampedRotation;
 	float xAngle, yAngle;
 
+	private void OnEnable()
+	{
+		mouse = GameObject.Find("Mouse");
+	}
+
 	void Update()
 	{
 		// Get vector of weapon center to mouse
+		target = mouse.transform;
 		Vector3 targetDir = target.position - transform.position;
 		float step = speed * Time.deltaTime;
 
