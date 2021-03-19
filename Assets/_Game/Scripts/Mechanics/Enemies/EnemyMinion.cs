@@ -11,12 +11,14 @@ public class EnemyMinion : EnemyBase
 
     [Header("Enemy Minion Bullet Prefab")]
     [SerializeField] private GameObject bullet;
+    private List<GameObject> bulletPool = new List<GameObject>();
 
     private float shotTime;
 
     private void Start()
     {
         playerReference = GameManager.player.obj;
+        bullet.GetComponent<EnemyProjectile>().SetDamage(AttackDamage);
     }
 
     private void FixedUpdate()
@@ -51,8 +53,6 @@ public class EnemyMinion : EnemyBase
 
     protected override void Attacking()
     {
-        bullet.GetComponent<EnemyProjectile>().SetDamage(AttackDamage);
-
         if (Vector3.Distance(transform.position, playerReference.transform.position) < EnemyDetectionRadius)
         {
             transform.LookAt(playerReference.transform.position);
@@ -60,7 +60,7 @@ public class EnemyMinion : EnemyBase
             if (shotTime <= 0)
             {
                 shotTime = attackRate;
-                Instantiate(bullet, transform.position, transform.rotation);
+                PoolUtility.InstantiateFromPool(bulletPool, transform, bullet);
             }
             else
             {

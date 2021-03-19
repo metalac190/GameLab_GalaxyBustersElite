@@ -88,12 +88,12 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 3957492208291816269}
+  - component: {fileID: 5779356937614205564}
   - component: {fileID: 4807015716748387567}
   - component: {fileID: 7556523117927665988}
   - component: {fileID: 4060381951869215399}
   - component: {fileID: 5519225567087723407}
   - component: {fileID: 5761461335129212618}
-  - component: {fileID: 6563393048087992015}
   m_Layer: 12
   m_Name: test_ringAttack
   m_TagString: Untagged
@@ -117,6 +117,21 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &5779356937614205564
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1207102664770212819}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4d6d237602fa5cf4f8de54a0ca430d27, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _speed: 20
+  _damage: 2
+  lifeTime: 2
 --- !u!136 &4807015716748387567
 CapsuleCollider:
   m_ObjectHideFlags: 0
@@ -189,21 +204,6 @@ Rigidbody:
   m_Interpolate: 0
   m_Constraints: 112
   m_CollisionDetection: 0
---- !u!114 &6563393048087992015
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1207102664770212819}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 2101f2d89ec5bcc4094caded5480a684, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  speed: 20
-  damage: 2
-  lifeTime: 2
 --- !u!1 &2922091490112486134
 GameObject:
   m_ObjectHideFlags: 0

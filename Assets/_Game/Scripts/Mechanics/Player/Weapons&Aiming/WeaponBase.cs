@@ -113,8 +113,8 @@ public class WeaponBase : MonoBehaviour
                 //GameObject bulletObj = Instantiate(projectile, point.position, point.rotation * randAng);
 
                 // Set instantiated projectile's speed and damage
-                bulletObj.GetComponent<Projectile>().speed = projectileSpeed;
-				bulletObj.GetComponent<Projectile>().damage = damage;
+                bulletObj.GetComponent<Projectile>().SetVelocity(projectileSpeed);
+                bulletObj.GetComponent<Projectile>().SetDamage(damage);
 			}
 
 			OnStandardFire.Invoke();
