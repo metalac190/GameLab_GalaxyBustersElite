@@ -482,4 +482,5 @@ public class BossController : EntityBase
 
     }
     #endregion
+
 }
