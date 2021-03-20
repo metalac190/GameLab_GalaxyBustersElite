@@ -53,10 +53,14 @@ MonoBehaviour:
   HEALTHREF: {fileID: 3393478938653242816, guid: 1cdecb874b85dec4cb1e4346ccc1e603,
     type: 3}
   healthChance: 0
+  _healAmount: 1
+  OVERLOADREF: {fileID: 0}
+  overloadChance: 100
+  _overloadAmount: 10
   POINTSREF: {fileID: 3604329674517331237, guid: 7783a8297c4a6624ba17a0a5bf6ae112,
     type: 3}
-  pointsAwarded: 0
   pointsChance: 0
+  pointsAwarded: 0
 --- !u!1 &1656154533622931641
 GameObject:
   m_ObjectHideFlags: 0
@@ -174,6 +178,7 @@ MonoBehaviour:
   currentState: 0
   attackDamage: 1
   enemyDetectionRadius: 12
+  enemyScore: 0
   enemyChargeSpeed: 15
   OnRamAttackEnter:
     m_PersistentCalls:
@@ -224,9 +229,13 @@ MonoBehaviour:
   WeaponCChance: 0
   HEALTHREF: {fileID: 0}
   healthChance: 100
+  _healAmount: 1
+  OVERLOADREF: {fileID: 0}
+  overloadChance: 100
+  _overloadAmount: 10
   POINTSREF: {fileID: 0}
-  pointsAwarded: 0
   pointsChance: 100
+  pointsAwarded: 0
 --- !u!114 &6945596401856243583
 MonoBehaviour:
   m_ObjectHideFlags: 0
