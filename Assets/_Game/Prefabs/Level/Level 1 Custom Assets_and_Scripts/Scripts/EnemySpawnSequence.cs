@@ -29,13 +29,7 @@ public class EnemySpawnSequence : MonoBehaviour
             {
                 spawnSections[i].SetActive(true);
             }
-
-
         }
-
-
-
-
     }
 
 }
