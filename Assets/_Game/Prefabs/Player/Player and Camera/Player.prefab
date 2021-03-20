@@ -44,6 +44,7 @@ GameObject:
   - component: {fileID: 3471149859103297835}
   - component: {fileID: 2473926700306051209}
   - component: {fileID: 2473926700306051214}
+  - component: {fileID: 1117257636832747641}
   m_Layer: 10
   m_Name: Player
   m_TagString: Player
@@ -84,6 +85,9 @@ MonoBehaviour:
   moveSpeed: 30
   rotateSpeed: 1000
   horizontalLean: 50
+  dodgeSpeed: 50
+  dodgeDuration: 0.4
+  dodgeCooldown: 1
   collDuration: 2
   collForce: {x: 1000, y: 1000, z: 0}
   torqueForce: {x: 1000, y: 1000, z: 1000}
@@ -104,6 +108,45 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
+      - m_Target: {fileID: 3471149859103297835}
+        m_MethodName: ToggleDodging
+        m_Mode: 6
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 3
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 1
+        m_CallState: 2
+      - m_Target: {fileID: 1117257636832747641}
+        m_MethodName: SetTrigger
+        m_Mode: 5
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: Dodge
+          m_BoolArgument: 1
+        m_CallState: 2
+  OnDodgeEnd:
+    m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 3471149859103297835}
+        m_MethodName: ToggleDodging
+        m_Mode: 6
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+  OnDodgeRefresh:
+    m_PersistentCalls:
+      m_Calls: []
   inputThresholdForMovementFX: 0.01
   OnStartedMoving:
     m_PersistentCalls:
@@ -152,6 +195,7 @@ MonoBehaviour:
   - {fileID: 4587364871884471440}
   - {fileID: 4105299738326069021}
   - {fileID: 4105299737162226496}
+  cameraShakeOnHit: 1
   OnHit:
     m_PersistentCalls:
       m_Calls:
@@ -285,6 +329,25 @@ Rigidbody:
   m_Interpolate: 0
   m_Constraints: 0
   m_CollisionDetection: 0
+--- !u!95 &1117257636832747641
+Animator:
+  serializedVersion: 3
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2473926700306051212}
+  m_Enabled: 1
+  m_Avatar: {fileID: 0}
+  m_Controller: {fileID: 9100000, guid: e0ec902741d8d3544abb1caf5ae7c69b, type: 2}
+  m_CullingMode: 0
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 0
+  m_LinearVelocityBlending: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
+  m_KeepAnimatorControllerStateOnDisable: 0
 --- !u!1 &4105299737008336636
 GameObject:
   m_ObjectHideFlags: 0
