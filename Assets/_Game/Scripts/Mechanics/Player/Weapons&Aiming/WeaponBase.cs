@@ -4,7 +4,6 @@ using UnityEngine;
 using UnityEngine.Events;
 
 // Base class for creating player weapons and modifying how they behave
-// Refer to Xander Youssef with questions
 public class WeaponBase : MonoBehaviour
 {
 
@@ -111,9 +110,6 @@ public class WeaponBase : MonoBehaviour
 
                 //Object Pooling instead of Instantiate
                 GameObject bulletObj = PoolUtility.InstantiateFromPool(projectilePool, point.position, point.rotation * randAng, projectile);
-
-                // Instantiate projectile
-                //GameObject bulletObj = Instantiate(projectile, point.position, point.rotation * randAng);
 
                 // Set instantiated projectile's speed and damage
                 bulletObj.GetComponent<Projectile>().SetVelocity(projectileSpeed);
