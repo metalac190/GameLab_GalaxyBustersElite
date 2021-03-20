@@ -60,17 +60,17 @@ public class HUDManager : MonoBehaviour
 
             switch (currentHUDWeapon)
             {
-                case "Blaster 1":
+                case "Blaster":
                     blaster1Image.SetActive(true);
                     blaster2Image.SetActive(false);
                     blaster3Image.SetActive(false);
                     break;
-                case "Blaster 2":
+                case "Energy Burst":
                     blaster1Image.SetActive(false);
                     blaster2Image.SetActive(true);
                     blaster3Image.SetActive(false);
                     break;
-                case "Blaster 3":
+                case "Laser Beam":
                     blaster1Image.SetActive(false);
                     blaster2Image.SetActive(false);
                     blaster3Image.SetActive(true);
