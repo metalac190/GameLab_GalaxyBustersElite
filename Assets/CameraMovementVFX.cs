@@ -19,7 +19,7 @@ public class CameraMovementVFX : MonoBehaviour
 #if UNITY_EDITOR
     void OnValidate()
     {
-        if (wispyParticles != null && wispyParticles)
+        if (wispyParticles)
         {
             var particlesMain = wispyParticles.main;
             particlesMain.playOnAwake = false;
@@ -30,31 +30,30 @@ public class CameraMovementVFX : MonoBehaviour
 
     private void Start()
     {
-        if (speedLinesFrames.Length > 0 && speedLinesRenderer != null)
+        if (speedLinesFrames.Length == 0 || speedLinesRenderer == null)
+        {
+            Debug.Log("No speed lines attached to " + name);
+            this.enabled = false;
+        }
+        else if (wispyParticles == null)
+        {
+            Debug.Log("No wispy particles attached to " + name);
+            this.enabled = false;
+        }
+        else
+        {
+            wispyParticles.Play();
             StartCoroutine(SpeedLinesAnimation());
+        }
     }
 
-    #region Play
-    public void TryPlay()
+    private void Update()
     {
-        if (wispyParticles == null) return;
-
-        Play();
+        if (speeding && !wispyParticles.isPlaying)
+            wispyParticles.Play();
+        else if (!speeding && wispyParticles.isPlaying)
+            wispyParticles.Stop();
     }
-
-    void Play() { wispyParticles.Play(); }
-    #endregion
-
-    #region Stop
-    public void TryStop()
-    {
-        if (wispyParticles == null) return;
-
-        Stop();
-    }
-
-    void Stop() { wispyParticles.Stop(); }
-    #endregion
 
     IEnumerator SpeedLinesAnimation()
     {
