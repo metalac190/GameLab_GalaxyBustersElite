@@ -26,7 +26,7 @@ public class PointsPickup : PickupBase
     /// </summary>
     public void GivePoints()
     {
-        ScoreSystem.IncreaseScore(pointAmount);
+        ScoreSystem.ScorePickup(pointAmount);
         PickedUp.Invoke();
 
         //Destroy self      //is FX child entities (must time out destroy) or non-child entities (destroy after calling)?
