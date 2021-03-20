@@ -173,8 +173,8 @@ MonoBehaviour:
   maxHealth: 1
   currentState: 0
   attackDamage: 1
-  enemyDetectionRadius: 7
-  enemyChargeSpeed: 0
+  enemyDetectionRadius: 12
+  enemyChargeSpeed: 15
   OnRamAttackEnter:
     m_PersistentCalls:
       m_Calls:
@@ -240,10 +240,21 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   waypoints: []
-  moveSpeed: 0
+  moveSpeed: 3
   OnFinalWaypoint:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 4188406809287116984}
+        m_MethodName: Dead
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!65 &3884467504205496399
 BoxCollider:
   m_ObjectHideFlags: 0
