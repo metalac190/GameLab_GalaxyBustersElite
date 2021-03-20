@@ -234,12 +234,12 @@ GameObject:
   - component: {fileID: 1554756656198432438}
   - component: {fileID: 7419795802843804139}
   m_Layer: 0
-  m_Name: Blaster 2
+  m_Name: Energy Burst
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &1554756655631277004
 Transform:
   m_ObjectHideFlags: 0
@@ -247,7 +247,7 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1554756656198432433}
-  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
@@ -269,8 +269,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9c1e16d6d20b59446a3f00417da8ea14, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  weaponID: Blaster 2
-  projectileType: 0
+  weaponID: Energy Burst
+  projectileType: 1
   projectile: {fileID: 7837384869982803700, guid: 7f007536520c2e44e9cb6dc594d42d5b,
     type: 3}
   spawnPoints:
@@ -563,7 +563,7 @@ PrefabInstance:
     - target: {fileID: 1464058070388688789, guid: fe3a8e6d18e39d44b8d9c3dc9ad6b831,
         type: 3}
       propertyPath: m_Name
-      value: Blaster 2's Sound Player
+      value: Energy Burst's Sound Player
       objectReference: {fileID: 0}
     - target: {fileID: 4388395419690101988, guid: fe3a8e6d18e39d44b8d9c3dc9ad6b831,
         type: 3}

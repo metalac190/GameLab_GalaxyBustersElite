@@ -4,7 +4,6 @@ using UnityEngine;
 using UnityEngine.Events;
 
 // Base class for creating player weapons and modifying how they behave
-// Refer to Xander Youssef with questions
 public class WeaponBase : MonoBehaviour
 {
 
@@ -48,6 +47,7 @@ public class WeaponBase : MonoBehaviour
 
 	void Update()
 	{
+		chargeMeter = GameManager.player.controller.GetOverloadCharge();
 
 		// TODO: Add slight bonus for clicking rapidly over holding fire
 		if (Input.GetButton("Primary Fire") && !overloaded && !GameManager.gm.Paused)
@@ -69,8 +69,10 @@ public class WeaponBase : MonoBehaviour
 
 		}
 
-		if (Input.GetButton("Overload Fire") && !overloaded && !GameManager.gm.Paused)
+		if (Input.GetButton("Overload Fire") && chargeMeter >= 100 && !overloaded && !GameManager.gm.Paused)
 		{
+			GameManager.player.controller.SetOverload(0);
+
 			// Start the overload countdown
 			StartCoroutine("ActivateOverload");
 
@@ -109,12 +111,9 @@ public class WeaponBase : MonoBehaviour
                 //Object Pooling instead of Instantiate
                 GameObject bulletObj = PoolUtility.InstantiateFromPool(projectilePool, point.position, point.rotation * randAng, projectile);
 
-                // Instantiate projectile
-                //GameObject bulletObj = Instantiate(projectile, point.position, point.rotation * randAng);
-
                 // Set instantiated projectile's speed and damage
-                bulletObj.GetComponent<Projectile>().speed = projectileSpeed;
-				bulletObj.GetComponent<Projectile>().damage = damage;
+                bulletObj.GetComponent<Projectile>().SetVelocity(projectileSpeed);
+                bulletObj.GetComponent<Projectile>().SetDamage(damage);
 			}
 
 			OnStandardFire.Invoke();

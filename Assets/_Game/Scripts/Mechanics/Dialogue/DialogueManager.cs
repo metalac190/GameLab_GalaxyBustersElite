@@ -31,7 +31,7 @@ public class DialogueManager : MonoBehaviour
         {
             sentences.Enqueue(sentence);
         }
-        DisplayNexySentence();
+        DisplayNextSentence();
     }
     public void startDialogueArrayFunction(Dialogue[] dialogue)
     {
@@ -61,10 +61,10 @@ public class DialogueManager : MonoBehaviour
         {
             sentences.Enqueue(sentence);
         }
-        DisplayNexySentence();
+		DisplayNextSentence();
         yield return null;
     }
-    public void DisplayNexySentence()
+    public void DisplayNextSentence()
     {
         if (sentences.Count == 0)
         {
@@ -87,7 +87,7 @@ public class DialogueManager : MonoBehaviour
             yield return new WaitForSeconds(typingDelay);
         }
         yield return new WaitForSeconds(conversationEndDelay);
-        DisplayNexySentence();
+		DisplayNextSentence();
     }
     void EndDialogue()
     {
