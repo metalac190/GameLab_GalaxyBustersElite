@@ -10,6 +10,8 @@ public class PlayerController : MonoBehaviour
 	[SerializeField] float overloadCharge = 0f;
 	[SerializeField] GameObject currentWeapon;
 	public GameObject[] weapons;
+    bool isDodging = false;
+    bool isInvincible = false;
 
 	[Header("Effects")]
 	[Range(0, 5)]
@@ -69,6 +71,10 @@ public class PlayerController : MonoBehaviour
 
 	public void DamagePlayer(float amount)
 	{
+        if (isDodging || isInvincible) //Not sure if dodging protects form environmental damage; if not, change this
+        {
+            return;
+        }
 		playerHealth -= amount;
 
 		CameraShaker.instance.Shake(cameraShakeOnHit);
@@ -127,6 +133,16 @@ public class PlayerController : MonoBehaviour
 
 		OnPickedUpWeapon.Invoke();
 	}
+
+    public void ToggleDodging(bool dodge)
+    {
+        isDodging = dodge;
+    }
+
+    public void Toggleinvincibility(bool inv)
+    {
+        isInvincible = inv;
+    }
 
 	public GameObject GetCurrentWeapon()
 	{
