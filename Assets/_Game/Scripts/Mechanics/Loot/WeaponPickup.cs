@@ -3,7 +3,7 @@ using System.Collections;
 
 public class WeaponPickup : PickupBase
 {
-    //Refer to Ben Friedman for QA/Bugfixing on all Pickup related scripts
+    //Refer to Ben Friedman for QA/Bugfixing on Loot System scripts
 
     //assigned dynamically when used in LootContainer, 
     //but also manually when placed by LevelDesigner in Level
