@@ -5,22 +5,24 @@ using UnityEngine;
 // Base class for modifying projectiles and how they behave
 public class Projectile : MonoBehaviour
 {
-	public float speed = 20f;
-	public int damage = 2;
-	public float lifeTime = 2f;
-	private Rigidbody rb;
+    [SerializeField] private float _speed = 20f;
+	[SerializeField] protected int _damage = 2;
+
+    [SerializeField] private float lifeTime = 2f;
+
+    private Rigidbody rb;
     private float _time = 0;
 
-    private void Awake()
+    protected virtual void Awake()
     {
         // Move projectile forwards with set speed
         rb = GetComponent<Rigidbody>();
     }
 
-    private void OnEnable()
+    protected virtual void OnEnable()
     {
         _time = 0;
-        rb.velocity = transform.forward * speed;
+        rb.velocity = transform.forward * _speed;
     }
 
     private void Update()
@@ -31,15 +33,23 @@ public class Projectile : MonoBehaviour
             gameObject.SetActive(false);
 	}
 
-    private void OnCollisionEnter(Collision collision)
+    protected virtual void OnCollisionEnter(Collision collision)
     {
         EntityBase entity = collision.gameObject.GetComponent<EntityBase>();
-        entity?.TakeDamage(damage);
-
-        PlayerController player = collision.gameObject.GetComponent<PlayerController>();
-        player?.DamagePlayer(damage);
+        entity?.TakeDamage(_damage);
 
         gameObject.SetActive(false);
     }
+
+    public void SetDamage(int value)
+    {
+        _damage = value;
+    }
+
+    public void SetVelocity(float value)
+    {
+        _speed = value;
+    }
+        
 
 }

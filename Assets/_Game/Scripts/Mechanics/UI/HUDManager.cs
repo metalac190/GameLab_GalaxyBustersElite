@@ -9,7 +9,9 @@ public class HUDManager : MonoBehaviour
     public TextMeshProUGUI hudScoreText;
     public Slider playerHealthSlider;
     public Slider overloadMeterSlider;
-    public Image hudWepImage;
+    public GameObject blaster1Image;
+    public GameObject blaster2Image;
+    public GameObject blaster3Image;
 
 
     [Header("Hud Debugging")]
@@ -55,6 +57,25 @@ public class HUDManager : MonoBehaviour
             playerHealth = referencedPlayer.GetComponent<PlayerController>().GetPlayerHealth();
             overloadMeter = referencedPlayer.GetComponent<PlayerController>().GetOverloadCharge();
             currentHUDWeapon = referencedPlayer.GetComponent<PlayerController>().GetCurrentWeaponID();
+
+            switch (currentHUDWeapon)
+            {
+                case "Blaster":
+                    blaster1Image.SetActive(true);
+                    blaster2Image.SetActive(false);
+                    blaster3Image.SetActive(false);
+                    break;
+                case "Energy Burst":
+                    blaster1Image.SetActive(false);
+                    blaster2Image.SetActive(true);
+                    blaster3Image.SetActive(false);
+                    break;
+                case "Laser Beam":
+                    blaster1Image.SetActive(false);
+                    blaster2Image.SetActive(false);
+                    blaster3Image.SetActive(true);
+                    break;
+            }
         }
 
         playerHealthSlider.value = playerHealth;
