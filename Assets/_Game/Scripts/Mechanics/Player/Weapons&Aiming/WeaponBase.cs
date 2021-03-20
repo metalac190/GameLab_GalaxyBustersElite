@@ -50,7 +50,7 @@ public class WeaponBase : MonoBehaviour
 		chargeMeter = GameManager.player.controller.GetOverloadCharge();
 
 		// TODO: Add slight bonus for clicking rapidly over holding fire
-		if (Input.GetButton("Primary Fire") && !overloaded && !GameManager.gm.Paused)
+		if (Input.GetButton("Primary Fire") && !overloaded && GameManager.gm.currentState == GameState.Gameplay && !GameManager.gm.Paused)
 		{
 			switch (projectileType)
 			{
@@ -69,9 +69,9 @@ public class WeaponBase : MonoBehaviour
 
 		}
 
-		if (Input.GetButton("Overload Fire") && chargeMeter >= 100 && !overloaded && !GameManager.gm.Paused)
+		if (Input.GetButton("Overload Fire") && chargeMeter >= meterRequired && !overloaded && GameManager.gm.currentState == GameState.Gameplay && !GameManager.gm.Paused)
 		{
-			GameManager.player.controller.SetOverload(0);
+			GameManager.player.controller.SetOverload(chargeMeter - meterRequired);
 
 			// Start the overload countdown
 			StartCoroutine("ActivateOverload");
@@ -152,11 +152,13 @@ public class WeaponBase : MonoBehaviour
 	IEnumerator ActivateOverload()
 	{
 		overloaded = true;
+		GameManager.player.controller.TogglePlayerOverloaded(true);
 		OnOverloadActivated.Invoke();
 
 		yield return new WaitForSeconds(overloadTime);
 
 		overloaded = false;
+		GameManager.player.controller.TogglePlayerOverloaded(false);
 	}
 
 	public void DeactivateOverload()

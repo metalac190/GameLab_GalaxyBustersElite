@@ -50,8 +50,8 @@ public abstract class EnemyBase : EntityBase
             DialogueTrigger.TriggerEnemyDefeatedDialogue();
             Died.Invoke();
             Dead();
-			ScoreSystem.IncreaseScore(enemyScore);
 			ScoreSystem.IncreaseCombo();
+			ScoreSystem.IncreaseScore(enemyScore);
 			//disable or destroy as needed?
 		}
         else
