@@ -157,6 +157,14 @@ public class GameManager : MonoBehaviour {
         missionBriefing3 = briefing3;
     }
 
+    public void EndMissionBriefing() {
+        currentState = GameState.Gameplay;
+        Cursor.visible = false;
+        Cursor.lockState = CursorLockMode.Confined;
+
+        Time.timeScale = 1;
+    }
+
     #endregion
 
     // ----------------------------------------------------------------------------------------------------
@@ -167,6 +175,10 @@ public class GameManager : MonoBehaviour {
         score = 0;
         Paused = false;
         Time.timeScale = 1;
+
+        Cursor.visible = true;
+        Cursor.lockState = CursorLockMode.None;
+
         SceneManager.LoadScene(scene);
     }
 
@@ -175,25 +187,24 @@ public class GameManager : MonoBehaviour {
         switch(scene) {
             case Levels.MainMenu:
                 currentState = GameState.MainMenu;
-                Cursor.lockState = CursorLockMode.None;
                 LoadScene("Main Menu");
                 currentLevel = 0;
                 break;
             case Levels.Mission1:
-                currentState = GameState.Gameplay;
+                currentState = GameState.Briefing;
                 LoadScene("Pre-Alpha");
                 //LoadScene("Mission 1");
                 currentLevel = 1;
                 break;
             case Levels.Mission2:
-                currentState = GameState.Gameplay;
+                currentState = GameState.Briefing;
                 unlockedLevel = Mathf.Max(unlockedLevel, 2);
                 LoadScene("Pre-Alpha");
                 //LoadScene("Mission 2");
                 currentLevel = 2;
                 break;
             case Levels.Mission3:
-                currentState = GameState.Gameplay;
+                currentState = GameState.Briefing;
                 unlockedLevel = 3;
                 LoadScene("Pre-Alpha");
                 //LoadScene("Mission 3");

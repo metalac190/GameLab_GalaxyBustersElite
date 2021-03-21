@@ -19,11 +19,7 @@ public class test_bossRemote : MonoBehaviour
     {
         if (Input.GetKeyDown(KeyCode.Space))
         {
-            _bossRef?.TestBlooded();
-        }
-        if (Input.GetKeyDown(KeyCode.Q))
-        {
-            _bossRef?.SetBossState(BossState.Idle);
+            _bossRef?.StartBossFight();
         }
     }
 }
