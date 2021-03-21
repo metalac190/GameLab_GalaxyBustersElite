@@ -254,6 +254,7 @@ Transform:
   - {fileID: 1554756654842437217}
   - {fileID: 1554756654104990144}
   - {fileID: 5540835721198667551}
+  - {fileID: 1715040017786698223}
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -371,7 +372,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0e52331204a8a964ea4903f90e6ed89b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  target: {fileID: 0}
   weapons:
   - {fileID: 1554756654842437217}
   - {fileID: 1554756654104990144}
@@ -444,7 +444,7 @@ PrefabInstance:
     - target: {fileID: 8111525680039778674, guid: c275f7e7867175c47883de3075edefa7,
         type: 3}
       propertyPath: m_Name
-      value: Blaster 2's Particles Player
+      value: Energy Burst's Particles Player
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: c275f7e7867175c47883de3075edefa7, type: 3}
@@ -531,7 +531,7 @@ PrefabInstance:
     - target: {fileID: 8111525680039778674, guid: c275f7e7867175c47883de3075edefa7,
         type: 3}
       propertyPath: m_Name
-      value: Blaster 2's Particles Player
+      value: Energy Burst's Particles Player
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: c275f7e7867175c47883de3075edefa7, type: 3}
@@ -553,6 +553,91 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2eb81e5a4a8c3e2449d8aa39632b8e93, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!1001 &5900440393633161286
+PrefabInstance:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    m_TransformParent: {fileID: 1554756655631277004}
+    m_Modifications:
+    - target: {fileID: 1154127730682599689, guid: ec5f087ab0f62d540873b19fb86267c5,
+        type: 3}
+      propertyPath: m_Enabled
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 1154127730682599689, guid: ec5f087ab0f62d540873b19fb86267c5,
+        type: 3}
+      propertyPath: m_Materials.Array.data[0]
+      value: 
+      objectReference: {fileID: 0}
+    - target: {fileID: 4188878889960498476, guid: ec5f087ab0f62d540873b19fb86267c5,
+        type: 3}
+      propertyPath: m_Name
+      value: Energy Burst's Charged VFX
+      objectReference: {fileID: 0}
+    - target: {fileID: 5057428623072401833, guid: ec5f087ab0f62d540873b19fb86267c5,
+        type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5057428623072401833, guid: ec5f087ab0f62d540873b19fb86267c5,
+        type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5057428623072401833, guid: ec5f087ab0f62d540873b19fb86267c5,
+        type: 3}
+      propertyPath: m_LocalPosition.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5057428623072401833, guid: ec5f087ab0f62d540873b19fb86267c5,
+        type: 3}
+      propertyPath: m_LocalRotation.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5057428623072401833, guid: ec5f087ab0f62d540873b19fb86267c5,
+        type: 3}
+      propertyPath: m_LocalRotation.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5057428623072401833, guid: ec5f087ab0f62d540873b19fb86267c5,
+        type: 3}
+      propertyPath: m_LocalRotation.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5057428623072401833, guid: ec5f087ab0f62d540873b19fb86267c5,
+        type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 5057428623072401833, guid: ec5f087ab0f62d540873b19fb86267c5,
+        type: 3}
+      propertyPath: m_RootOrder
+      value: 3
+      objectReference: {fileID: 0}
+    - target: {fileID: 5057428623072401833, guid: ec5f087ab0f62d540873b19fb86267c5,
+        type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5057428623072401833, guid: ec5f087ab0f62d540873b19fb86267c5,
+        type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5057428623072401833, guid: ec5f087ab0f62d540873b19fb86267c5,
+        type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
+  m_SourcePrefab: {fileID: 100100000, guid: ec5f087ab0f62d540873b19fb86267c5, type: 3}
+--- !u!4 &1715040017786698223 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 5057428623072401833, guid: ec5f087ab0f62d540873b19fb86267c5,
+    type: 3}
+  m_PrefabInstance: {fileID: 5900440393633161286}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1001 &8071496002252827643
 PrefabInstance:
   m_ObjectHideFlags: 0
