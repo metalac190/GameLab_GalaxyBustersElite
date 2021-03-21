@@ -278,17 +278,17 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 41d12a3f68e1cfb48a2469dec136fa6f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  music:
+  standardMusic:
     audioSource: {fileID: 0}
     musicTrack: {fileID: 8300000, guid: 5ab524f233c5e5943bf0a6fd20d46415, type: 3}
-    volume: 1
-  fadeIn: 1
+    volume: 0.4
+  fadeIn: 0
   fadeInDuration: 0.8
-  altMusic:
+  alternativeMusic:
     audioSource: {fileID: 0}
     musicTrack: {fileID: 0}
     volume: 1
-  crossFadeDuration: 0.8
+  crossFadeDuration: 0.01
 --- !u!4 &324861804
 Transform:
   m_ObjectHideFlags: 0
@@ -650,6 +650,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   allSounds:
   - name: 
+    label: (Write a Description Here)
     audioSource: {fileID: 268027317}
     playOnAwake: 0
     loop: 0
@@ -1058,6 +1059,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   allParticles:
   - name: Particles
+    label: (Write a Description Here)
     particleSystem: {fileID: 917254686}
     playOnAwake: 0
 --- !u!4 &840141090
@@ -6072,6 +6074,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   allParticles:
   - name: Particles
+    label: (Write a Description Here)
     particleSystem: {fileID: 1972877525}
     playOnAwake: 0
 --- !u!1 &956329469
@@ -11114,6 +11117,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   allSounds:
   - name: 
+    label: (Write a Description Here)
     audioSource: {fileID: 361789399}
     playOnAwake: 0
     loop: 0
@@ -11435,6 +11439,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   allSounds:
   - name: 
+    label: (Write a Description Here)
     audioSource: {fileID: 487467074}
     playOnAwake: 0
     loop: 0
@@ -11743,6 +11748,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   allParticles:
   - name: Particles
+    label: (Write a Description Here)
     particleSystem: {fileID: 1836435732}
     playOnAwake: 0
 --- !u!1 &1836435729
@@ -21433,6 +21439,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   allSounds:
   - name: 
+    label: (Write a Description Here)
     audioSource: {fileID: 1222228818}
     playOnAwake: 0
     loop: 0
@@ -21482,5 +21489,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   allParticles:
   - name: Particles
+    label: (Write a Description Here)
     particleSystem: {fileID: 956329472}
     playOnAwake: 0

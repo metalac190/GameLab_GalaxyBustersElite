@@ -7,18 +7,16 @@ using Cinemachine;
 public class CamRailManager : MonoBehaviour
 {
     [Header("Cam Rail Settings")]
-    public int waypointIndex;
-    public List<float> waypointSpeeds;
+    [SerializeField] int waypointIndex;
+    [SerializeField] List<float> waypointSpeeds;
+    [SerializeField] float increaseMSAmt;
+    [SerializeField] float transitionMSDuration;
 
     // references
     Transform movementTrackerTrans;
     CinemachineDollyCart movementTrackerDollyCart;
     CinemachineDollyCart cineDollyCart;
     CinemachineSmoothPath cineSmoothPath;
-
-    // TODO- remove this
-    [Header("Tester")]
-    public TextMeshProUGUI uiText;
 
     private void Awake()
     {
@@ -61,37 +59,41 @@ public class CamRailManager : MonoBehaviour
         Vector2 nextWaypointPosXY = new Vector2(cineSmoothPath.m_Waypoints[waypointIndex].position.x, cineSmoothPath.m_Waypoints[waypointIndex].position.y);
         Vector2 nextWaypointPosYZ = new Vector2(cineSmoothPath.m_Waypoints[waypointIndex].position.y, cineSmoothPath.m_Waypoints[waypointIndex].position.z);
 
-        if ((Vector2.Distance(movementTrackerPosXY, nextWaypointPosXY) < 1f || Vector2.Distance(movementTrackerPosYZ, nextWaypointPosYZ) < 1f)
+        if ((Vector2.Distance(movementTrackerPosXY, nextWaypointPosXY) < 10f || Vector2.Distance(movementTrackerPosYZ, nextWaypointPosYZ) < 10f)
             && waypointIndex < waypointSpeeds.Count - 1)
         {
-            SetCamRailSpeed();
+            SetCamRailSpeed(waypointSpeeds[waypointIndex]);
 
             waypointIndex++;
         }
     }
 
-    void SetCamRailSpeed()
+    void SetCamRailSpeed(float newMS)
     {
-        movementTrackerDollyCart.m_Speed = waypointSpeeds[waypointIndex];
-        cineDollyCart.m_Speed = waypointSpeeds[waypointIndex];
+        StopAllCoroutines();
+        StartCoroutine(SetCamRailSpeedCoroutine(newMS));
     }
 
-    // TODO- remove this
-    public void InvincibleText()
+    // increase rail speed when player destroys an enemy
+    public void IncreaseCamRailSpeed()
     {
-        StartCoroutine(InvincibleTextCoroutine());
+        StopAllCoroutines();
+        float newMS = movementTrackerDollyCart.m_Speed + increaseMSAmt;
+
+        StartCoroutine(SetCamRailSpeedCoroutine(newMS));
     }
 
-    // TODO- remove this
-    IEnumerator InvincibleTextCoroutine()
+    IEnumerator SetCamRailSpeedCoroutine(float ms)
     {
-        if (uiText.text == "")
+        float counter = 0;
+
+        while (counter < 1)
         {
-            uiText.text = "Invincible";
+            counter += Time.deltaTime / transitionMSDuration;
+            cineDollyCart.m_Speed = Mathf.Lerp(cineDollyCart.m_Speed, ms, counter);
+            movementTrackerDollyCart.m_Speed = cineDollyCart.m_Speed;
 
-            yield return new WaitForSeconds(1);
-
-            uiText.text = "";
+            yield return null;
         }
     }
 }

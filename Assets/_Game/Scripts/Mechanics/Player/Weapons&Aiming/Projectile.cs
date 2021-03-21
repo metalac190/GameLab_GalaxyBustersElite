@@ -5,30 +5,51 @@ using UnityEngine;
 // Base class for modifying projectiles and how they behave
 public class Projectile : MonoBehaviour
 {
-	public float speed = 20f;
-	public int damage = 2;
-	public float lifeTime = 2f;
-	private Rigidbody rb;
+    [SerializeField] private float _speed = 20f;
+	[SerializeField] protected int _damage = 2;
 
-	private void Start()
+    [SerializeField] private float lifeTime = 2f;
+
+    private Rigidbody rb;
+    private float _time = 0;
+
+    protected virtual void Awake()
+    {
+        // Move projectile forwards with set speed
+        rb = GetComponent<Rigidbody>();
+    }
+
+    protected virtual void OnEnable()
+    {
+        _time = 0;
+        rb.velocity = transform.forward * _speed;
+    }
+
+    private void Update()
 	{
-		// Move projectile forwards with set speed
-		rb = GetComponent<Rigidbody>();
-		rb.velocity = transform.forward * speed;
+        // Destroy projectile after lifetime expires
+        _time += Time.deltaTime;
+        if (_time > lifeTime)
+            gameObject.SetActive(false);
 	}
 
-	private void Awake()
-	{
-		// Destroy projectile after lifetime expires
-		Destroy(gameObject, lifeTime);
-	}
-
-    private void OnCollisionEnter(Collision collision)
+    protected virtual void OnCollisionEnter(Collision collision)
     {
         EntityBase entity = collision.gameObject.GetComponent<EntityBase>();
-        entity?.TakeDamage(damage);
+        entity?.TakeDamage(_damage);
 
-        Destroy(this.gameObject);
+        gameObject.SetActive(false);
     }
+
+    public void SetDamage(int value)
+    {
+        _damage = value;
+    }
+
+    public void SetVelocity(float value)
+    {
+        _speed = value;
+    }
+        
 
 }

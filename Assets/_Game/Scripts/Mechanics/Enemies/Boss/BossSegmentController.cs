@@ -6,18 +6,19 @@ using UnityEngine.Events;
 
 public class BossSegmentController : EntityBase
 {
-    //implement Boss as Singleton?
-    //boss is always prefab, not too much harm rn?
+    //Refer to Ben Friedman for QA/Bugfixing on Boss System scripts
+
     [SerializeField] private BossController _bossRef = null;
 
     [Tooltip("Reference to Normal Boss Missile Prefab")]
     [SerializeField] private GameObject _missileRef = null;
     [SerializeField] private Transform _missileSpawnPoint = null;
     [SerializeField] private float _myDelay = 0f;
-
+    
     public int Health { get { return _currentHealth; } }
 
     private List<GameObject> _missilePool = new List<GameObject>();
+    private int _damage = 1;
 
     #region Listeners
     private void OnEnable()
@@ -32,19 +33,24 @@ public class BossSegmentController : EntityBase
     }
     #endregion
 
-    //used by BossController for consistent health across all Segments
+    #region Public Accessors
     public void SetHealth(int value)
     {
         _currentHealth = value;
     }
 
-    //used by BossController for consistent timing for missile attack 
+    public void SetDamage(int value)
+    {
+        _damage = value;
+    }
+
     public void SetDelay(float time)
     {
         _myDelay = time;
     }
+    #endregion
 
-    //BossAttacks type transfered via int type, due to UnityEvents constraints
+    //BossAttacks type transfered via int type and not enum
     private void OnAttack(int value)
     {
         BossAttacks attackType = (BossAttacks)value;
@@ -61,12 +67,7 @@ public class BossSegmentController : EntityBase
                 break;
         }
     }
-
-    /// <summary> Delays Missile attack, to fire in series with other Segments.
-    /// 
-    /// </summary>
-    /// <param name="time"> Time in Seconds to wait. </param>
-    /// <returns></returns>
+    
     private IEnumerator MissileDelay(float time)
     {
         while (time > 0)
@@ -80,16 +81,15 @@ public class BossSegmentController : EntityBase
 
     private void OnMissileAttack()
     {
-        //missile animation
+        //TODO missile animation
         GameObject missile = null;
 
         //instantiate missile
-        if (_missileRef != null)
-        {
-            missile = PoolUtility.InstantiateFromPool(_missilePool, _missileSpawnPoint, _missileRef);
-        }
+        missile = PoolUtility.InstantiateFromPool(_missilePool, _missileSpawnPoint, _missileRef);
 
-        //missile.target = player
-        missile.GetComponent<test_bullet>()?.SetTarget(GameManager.player.obj.transform.position);
+        BossMissile bullet = missile.GetComponent<BossMissile>();
+
+        bullet.SetTarget(GameManager.player.obj);
+        bullet.SetDamage(_damage);
     }
 }
