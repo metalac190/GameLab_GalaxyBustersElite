@@ -45,24 +45,27 @@ public class EnemyBandit : EnemyBase
         {
             transform.LookAt(playerReference.transform.position);
 
-            Debug.Log("Detect range reached");
             currentState = EnemyState.Attacking;
         }
     }
 
     protected override void Attacking()
     {
-        transform.LookAt(playerReference.transform.position);
         bullet.GetComponent<EnemyProjectile>().SetDamage(AttackDamage);
 
-        if (shotTime <= 0)
+        if (Vector3.Distance(transform.position, playerReference.transform.position) < EnemyDetectionRadius)
         {
-            shotTime = attackRate;
-            Instantiate(bullet, transform.position, transform.rotation);
-        }
-        else
-        {
-            shotTime -= Time.deltaTime;
+            transform.LookAt(playerReference.transform.position);
+
+            if (shotTime <= 0)
+            {
+                shotTime = attackRate;
+                Instantiate(bullet, transform.position, transform.rotation);
+            }
+            else
+            {
+                shotTime -= Time.deltaTime;
+            }
         }
     }
 

@@ -45,7 +45,6 @@ public class EnemyRammer : EnemyBase
         {
             transform.LookAt(playerReference.transform.position);
 
-            Debug.Log("Detect range reached");
             currentState = EnemyState.Attacking;
 
             OnRamAttackEnter.Invoke();
@@ -58,7 +57,9 @@ public class EnemyRammer : EnemyBase
         {
             transform.LookAt(playerReference.transform.position);
             transform.position = Vector3.MoveTowards(transform.position, playerReference.transform.position, enemyChargeSpeed * Time.deltaTime);
-
+        }
+        else if (Vector3.Distance(transform.position, playerReference.transform.position) > EnemyDetectionRadius)
+        {
             OnRamAttackExit.Invoke();
         }
     }

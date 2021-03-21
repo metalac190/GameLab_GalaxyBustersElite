@@ -4,7 +4,6 @@ using UnityEngine;
 using UnityEngine.Events;
 
 // Base class for creating player weapons and modifying how they behave
-// Refer to Xander Youssef with questions
 public class WeaponBase : MonoBehaviour
 {
 
@@ -48,9 +47,10 @@ public class WeaponBase : MonoBehaviour
 
 	void Update()
 	{
+		chargeMeter = GameManager.player.controller.GetOverloadCharge();
 
 		// TODO: Add slight bonus for clicking rapidly over holding fire
-		if (Input.GetButton("Primary Fire") && !overloaded && !GameManager.gm.Paused)
+		if (Input.GetButton("Primary Fire") && !overloaded && GameManager.gm.currentState == GameState.Gameplay && !GameManager.gm.Paused)
 		{
 			switch (projectileType)
 			{
@@ -69,8 +69,10 @@ public class WeaponBase : MonoBehaviour
 
 		}
 
-		if (Input.GetButton("Overload Fire") && !overloaded && !GameManager.gm.Paused)
+		if (Input.GetButton("Overload Fire") && chargeMeter >= meterRequired && !overloaded && GameManager.gm.currentState == GameState.Gameplay && !GameManager.gm.Paused)
 		{
+			GameManager.player.controller.SetOverload(chargeMeter - meterRequired);
+
 			// Start the overload countdown
 			StartCoroutine("ActivateOverload");
 
@@ -106,22 +108,12 @@ public class WeaponBase : MonoBehaviour
 				// Create random rotation within cone
 				Quaternion randAng = Quaternion.Euler(Random.Range(projectileCone * -1, projectileCone), Random.Range(projectileCone * -1, projectileCone), 0);
 
-
-                //object pooling, saves somewhat on resources
-                Quaternion before = point.rotation;
-                point.rotation = point.rotation * randAng;
-
-                GameObject bulletObj = PoolUtility.InstantiateFromPool(projectilePool, point, projectile);
-
-                //small adjustment, spaghettification inbound!
-                point.rotation = before;
-
-                // Instantiate projectile
-                //GameObject bulletObj = Instantiate(projectile, point.position, point.rotation * randAng);
+                //Object Pooling instead of Instantiate
+                GameObject bulletObj = PoolUtility.InstantiateFromPool(projectilePool, point.position, point.rotation * randAng, projectile);
 
                 // Set instantiated projectile's speed and damage
-                bulletObj.GetComponent<Projectile>().speed = projectileSpeed;
-				bulletObj.GetComponent<Projectile>().damage = damage;
+                bulletObj.GetComponent<Projectile>().SetVelocity(projectileSpeed);
+                bulletObj.GetComponent<Projectile>().SetDamage(damage);
 			}
 
 			OnStandardFire.Invoke();
@@ -160,11 +152,13 @@ public class WeaponBase : MonoBehaviour
 	IEnumerator ActivateOverload()
 	{
 		overloaded = true;
+		GameManager.player.controller.TogglePlayerOverloaded(true);
 		OnOverloadActivated.Invoke();
 
 		yield return new WaitForSeconds(overloadTime);
 
 		overloaded = false;
+		GameManager.player.controller.TogglePlayerOverloaded(false);
 	}
 
 	public void DeactivateOverload()

@@ -16,6 +16,8 @@ public abstract class EnemyBase : EntityBase
     [SerializeField] private float enemyDetectionRadius = 0;
     public float EnemyDetectionRadius { get { return enemyDetectionRadius; } }
 
+	[SerializeField] private int enemyScore = 0;
+
     void Start()
     {
         currentState = EnemyState.Passive;
@@ -45,10 +47,13 @@ public abstract class EnemyBase : EntityBase
         _currentHealth -= damage;
         if (_currentHealth <= 0)
         {
+            DialogueTrigger.TriggerEnemyDefeatedDialogue();
             Died.Invoke();
             Dead();
-            //disable or destroy as needed?
-        }
+			ScoreSystem.IncreaseCombo();
+			ScoreSystem.IncreaseScore(enemyScore);
+			//disable or destroy as needed?
+		}
         else
         {
             Damaged.Invoke();
@@ -60,6 +65,7 @@ public abstract class EnemyBase : EntityBase
     {
         if (col.gameObject.layer == LayerMask.NameToLayer("Player"))
         {
+            DialogueTrigger.TriggerEnemyDefeatedDialogue();
             col.gameObject.GetComponent<PlayerController>().DamagePlayer(AttackDamage);
             Dead();
         }
