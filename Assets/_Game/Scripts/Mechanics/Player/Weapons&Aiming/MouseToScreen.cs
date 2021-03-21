@@ -11,11 +11,11 @@ public class MouseToScreen : MonoBehaviour
 	private Vector3 mouseRef = Vector3.zero;
 	[SerializeField] float distance;
 
-	void Start()
+	/*void Start()
 	{
 		Cursor.visible = false;
 		Cursor.lockState = CursorLockMode.Confined;
-	}
+	}*/
 
 	void Update()
 	{

@@ -135,6 +135,7 @@ public class DevConsole : MonoBehaviour
     {
         isFF = !isFF;
         Debug.Log(((isFF)?"2.0x":"1.0x")+" speed");
+        Time.timeScale = isFF ? 2f : 1f;
     }
 
 }
