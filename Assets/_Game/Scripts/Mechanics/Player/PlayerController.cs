@@ -19,6 +19,7 @@ public class PlayerController : MonoBehaviour
 	[Header("Effects")]
 	[Range(0, 5)]
 	[SerializeField] float cameraShakeOnHit = 1;
+	public float CameraShakeOnHit { get => cameraShakeOnHit; }
 	[SerializeField] UnityEvent OnHit;
 	[SerializeField] UnityEvent OnDeath;
 	[SerializeField] UnityEvent OnPickedUpWeapon;

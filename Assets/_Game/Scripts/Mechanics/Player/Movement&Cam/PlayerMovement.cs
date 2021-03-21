@@ -44,11 +44,13 @@ public class PlayerMovement : MonoBehaviour
     [SerializeField] UnityEvent OnStartedMoving;
     [SerializeField] UnityEvent OnStoppedMoving;
 
+    PlayerController pc;
     Rigidbody rb;
 
     private void Start()
     {
-        rb = GetComponentInChildren<Rigidbody>();    
+        pc = GetComponent<PlayerController>();
+        rb = GetComponentInChildren<Rigidbody>();
     }
 
     void Update()
@@ -95,6 +97,11 @@ public class PlayerMovement : MonoBehaviour
         Dodge();
 
         InvokingStartedOrStoppedMovingEvents(x, y);
+    }
+
+    protected void LateUpdate()
+    {
+        transform.localPosition = new Vector3(transform.localPosition.x, transform.localPosition.y, 0);
     }
 
     private void InvokingStartedOrStoppedMovingEvents(float x, float y)
@@ -161,7 +168,7 @@ public class PlayerMovement : MonoBehaviour
         OnDodgeRefresh.Invoke();
     }
 
-    private void OnTriggerEnter(Collider other)
+    private void OnTriggerStay(Collider other)
     {
         // hit terrain
         if (other.gameObject.layer == 9)
@@ -174,13 +181,16 @@ public class PlayerMovement : MonoBehaviour
     IEnumerator PlayerCollision()
     {
         isHit = true;
-        rb.AddRelativeForce(Random.Range(-collForce.x, collForce.x),
+
+        rb.AddRelativeForce(Random.Range(-collForce.x, collForce.x), 
             Random.Range(-collForce.y, collForce.y),
             Random.Range(-collForce.z, collForce.z));
 
         rb.AddRelativeTorque(Random.Range(-torqueForce.x, torqueForce.x), 
             Random.Range(-torqueForce.y, torqueForce.y), 
             Random.Range(-torqueForce.z, torqueForce.z));
+
+        CameraShaker.instance.Shake(pc.CameraShakeOnHit);
 
         yield return new WaitForSeconds(collDuration);
 
