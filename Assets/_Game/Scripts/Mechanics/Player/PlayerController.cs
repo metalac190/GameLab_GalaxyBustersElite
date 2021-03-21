@@ -6,16 +6,20 @@ using UnityEngine.Events;
 [RequireComponent(typeof(PlayerMovement))]
 public class PlayerController : MonoBehaviour
 {
-	[SerializeField] float playerHealth = 10f;
+	[SerializeField] float playerHealth = 100f;
 	[SerializeField] float overloadCharge = 0f;
+	[SerializeField] float tempInvulnTime = 0.1f;
 	[SerializeField] GameObject currentWeapon;
 	public GameObject[] weapons;
     bool isDodging = false;
     bool isInvincible = false;
+	bool isOverloaded = false;
+	private float cdInvuln = 0f;
 
 	[Header("Effects")]
 	[Range(0, 5)]
 	[SerializeField] float cameraShakeOnHit = 1;
+	public float CameraShakeOnHit { get => cameraShakeOnHit; }
 	[SerializeField] UnityEvent OnHit;
 	[SerializeField] UnityEvent OnDeath;
 	[SerializeField] UnityEvent OnPickedUpWeapon;
@@ -75,15 +79,31 @@ public class PlayerController : MonoBehaviour
         {
             return;
         }
-		playerHealth -= amount;
 
-		CameraShaker.instance.Shake(cameraShakeOnHit);
+		// Temporary player invulnerability on taking damage
+		if (Time.time - cdInvuln > tempInvulnTime + 0.01f)
+		{
+			cdInvuln = Time.time;
 
-		ScoreSystem.ResetCombo();
+			playerHealth -= amount;
+			Debug.Log("<color=red>Player took " + amount + " damage!</color>");
+			ScoreSystem.ResetCombo();
 
-		DialogueTrigger.TriggerPlayerDamagedDialogue();
+			if (playerHealth <= 0)
+			{
+				OnDeath.Invoke();
+				Debug.Log("<color=red>Player died!</color>");
+				GameManager.gm.LoseGame();
+			}
+			else
+			{
+				DialogueTrigger.TriggerPlayerDamagedDialogue();
+				CameraShaker.instance.Shake(cameraShakeOnHit);
+				OnHit.Invoke();
+			}
+			
+		}
 
-		OnHit.Invoke();
 	}
 
 	public void HealPlayer(float amount)
@@ -109,6 +129,16 @@ public class PlayerController : MonoBehaviour
 	public float GetOverloadCharge()
 	{
 		return overloadCharge;
+	}
+
+	public void TogglePlayerOverloaded(bool state)
+	{
+		isOverloaded = state;
+	}
+
+	public bool IsPlayerOverloaded()
+	{
+		return isOverloaded;
 	}
 
 	public void SetWeapon(GameObject newWeapon)
