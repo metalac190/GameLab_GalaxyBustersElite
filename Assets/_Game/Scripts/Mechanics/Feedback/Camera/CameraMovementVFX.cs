@@ -17,6 +17,7 @@ public class CameraMovementVFX : MonoBehaviour
 
     [Header("Wispy Particles")]
     [SerializeField] ParticleSystem wispyParticles;
+    [SerializeField] Transform playerShip;
 
     [Header("Speed Lines")]
     [SerializeField] Image speedLinesRenderer;
@@ -53,6 +54,14 @@ public class CameraMovementVFX : MonoBehaviour
             Debug.Log("No speed lines attached to " + name);
         else
             StartCoroutine(SpeedLinesAnimation());
+
+        // Temporary fix for wispy particles following player
+        if (wispyParticles != null && playerShip != null)
+        {
+            wispyParticles.transform.parent = playerShip;
+            wispyParticles.transform.localPosition = Vector3.zero;
+            wispyParticles.transform.localScale = Vector3.one;
+        }
     }
 
     IEnumerator RefreshingSpeedingStatus()
