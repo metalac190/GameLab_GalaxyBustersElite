@@ -16,6 +16,8 @@ public abstract class EnemyBase : EntityBase
     [SerializeField] private float enemyDetectionRadius = 0;
     public float EnemyDetectionRadius { get { return enemyDetectionRadius; } }
 
+	[SerializeField] private int enemyScore = 0;
+
     void Start()
     {
         currentState = EnemyState.Passive;
@@ -48,8 +50,10 @@ public abstract class EnemyBase : EntityBase
             DialogueTrigger.TriggerEnemyDefeatedDialogue();
             Died.Invoke();
             Dead();
-            //disable or destroy as needed?
-        }
+			ScoreSystem.IncreaseCombo();
+			ScoreSystem.IncreaseScore(enemyScore);
+			//disable or destroy as needed?
+		}
         else
         {
             Damaged.Invoke();

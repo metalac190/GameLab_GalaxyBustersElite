@@ -241,6 +241,7 @@ MonoBehaviour:
   currentState: 0
   attackDamage: 0
   enemyDetectionRadius: 0
+  enemyScore: 0
   shotsBeforePauseMax: 1
   attackRate: 1
   vulnerabilityPeriodMax: 1
@@ -344,10 +345,15 @@ MonoBehaviour:
   HEALTHREF: {fileID: 3393478938653242816, guid: 1cdecb874b85dec4cb1e4346ccc1e603,
     type: 3}
   healthChance: 0
+  _healAmount: 1
+  OVERLOADREF: {fileID: 5240054451046245164, guid: 45113c912639ce046b0e158ec171497d,
+    type: 3}
+  overloadChance: 100
+  _overloadAmount: 10
   POINTSREF: {fileID: 3604329674517331237, guid: 7783a8297c4a6624ba17a0a5bf6ae112,
     type: 3}
-  pointsAwarded: 0
   pointsChance: 0
+  pointsAwarded: 0
 --- !u!1001 &1300092876641914051
 PrefabInstance:
   m_ObjectHideFlags: 0

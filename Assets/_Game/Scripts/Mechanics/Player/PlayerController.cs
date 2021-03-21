@@ -6,14 +6,20 @@ using UnityEngine.Events;
 [RequireComponent(typeof(PlayerMovement))]
 public class PlayerController : MonoBehaviour
 {
-	[SerializeField] float playerHealth = 10f;
+	[SerializeField] float playerHealth = 100f;
 	[SerializeField] float overloadCharge = 0f;
+	[SerializeField] float tempInvulnTime = 0.1f;
 	[SerializeField] GameObject currentWeapon;
 	public GameObject[] weapons;
+    bool isDodging = false;
+    bool isInvincible = false;
+	bool isOverloaded = false;
+	private float cdInvuln = 0f;
 
 	[Header("Effects")]
 	[Range(0, 5)]
 	[SerializeField] float cameraShakeOnHit = 1;
+	public float CameraShakeOnHit { get => cameraShakeOnHit; }
 	[SerializeField] UnityEvent OnHit;
 	[SerializeField] UnityEvent OnDeath;
 	[SerializeField] UnityEvent OnPickedUpWeapon;
@@ -67,18 +73,52 @@ public class PlayerController : MonoBehaviour
         lastFramePlayerHealth = playerHealth;
     }
 
-    public void DamagePlayer(float amount)
+	public void DamagePlayer(float amount)
 	{
-		playerHealth -= amount;
+        if (isDodging || isInvincible) //Not sure if dodging protects form environmental damage; if not, change this
+        {
+            return;
+        }
 
-		CameraShaker.instance.Shake(cameraShakeOnHit);
+		// Temporary player invulnerability on taking damage
+		if (Time.time - cdInvuln > tempInvulnTime + 0.01f)
+		{
+			cdInvuln = Time.time;
 
-		OnHit.Invoke();
+			playerHealth -= amount;
+			Debug.Log("<color=red>Player took " + amount + " damage!</color>");
+			ScoreSystem.ResetCombo();
+
+			if (playerHealth <= 0)
+			{
+				OnDeath.Invoke();
+				Debug.Log("<color=red>Player died!</color>");
+				GameManager.gm.LoseGame();
+			}
+			else
+			{
+				DialogueTrigger.TriggerPlayerDamagedDialogue();
+				CameraShaker.instance.Shake(cameraShakeOnHit);
+				OnHit.Invoke();
+			}
+			
+		}
+
 	}
 
 	public void HealPlayer(float amount)
 	{
 		playerHealth += amount;
+	}
+
+	public void IncreaseOverload(float amount)
+	{
+		overloadCharge += amount;
+	}
+
+	public void SetOverload(float amount)
+	{
+		overloadCharge = amount;
 	}
 
 	public float GetPlayerHealth()
@@ -89,6 +129,16 @@ public class PlayerController : MonoBehaviour
 	public float GetOverloadCharge()
 	{
 		return overloadCharge;
+	}
+
+	public void TogglePlayerOverloaded(bool state)
+	{
+		isOverloaded = state;
+	}
+
+	public bool IsPlayerOverloaded()
+	{
+		return isOverloaded;
 	}
 
 	public void SetWeapon(GameObject newWeapon)
@@ -113,6 +163,16 @@ public class PlayerController : MonoBehaviour
 
 		OnPickedUpWeapon.Invoke();
 	}
+
+    public void ToggleDodging(bool dodge)
+    {
+        isDodging = dodge;
+    }
+
+    public void Toggleinvincibility(bool inv)
+    {
+        isInvincible = inv;
+    }
 
 	public GameObject GetCurrentWeapon()
 	{

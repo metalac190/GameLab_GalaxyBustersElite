@@ -6,8 +6,9 @@ using TMPro;
 
 public class HUDManager : MonoBehaviour
 {
-    public TextMeshProUGUI hudScoreText;
-    public Slider playerHealthSlider;
+	public TextMeshProUGUI hudScoreText;
+	public TextMeshProUGUI hudMultiplierText;
+	public Slider playerHealthSlider;
     public Slider overloadMeterSlider;
     public GameObject blaster1Image;
     public GameObject blaster2Image;
@@ -49,9 +50,10 @@ public class HUDManager : MonoBehaviour
         
         if (referencedGM != null)
         {
-            hudScore = referencedGM.GetComponent<GameManager>().score;
-            hudScoreText.text = hudScore.ToString("00000");
-        }
+            hudScore = ScoreSystem.GetScore();
+			hudScoreText.text = hudScore.ToString("00000");
+			hudMultiplierText.text = hudScore.ToString("(x" + ScoreSystem.GetComboMultiplier() + ")");
+		}
         if (referencedPlayer != null)
         {
             playerHealth = referencedPlayer.GetComponent<PlayerController>().GetPlayerHealth();
@@ -60,17 +62,17 @@ public class HUDManager : MonoBehaviour
 
             switch (currentHUDWeapon)
             {
-                case "Blaster 1":
+                case "Blaster":
                     blaster1Image.SetActive(true);
                     blaster2Image.SetActive(false);
                     blaster3Image.SetActive(false);
                     break;
-                case "Blaster 2":
+                case "Energy Burst":
                     blaster1Image.SetActive(false);
                     blaster2Image.SetActive(true);
                     blaster3Image.SetActive(false);
                     break;
-                case "Blaster 3":
+                case "Laser Beam":
                     blaster1Image.SetActive(false);
                     blaster2Image.SetActive(false);
                     blaster3Image.SetActive(true);
