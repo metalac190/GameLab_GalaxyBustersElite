@@ -1,10 +1,19 @@
-﻿using System.Collections;
+﻿using Cinemachine;
+using System.Collections;
 using UnityEngine;
 using UnityEngine.UI;
 
 public class CameraMovementVFX : MonoBehaviour
 {
-    public bool speeding = true;
+    [Header("Is Speeding?")]
+    [SerializeField] CinemachineDollyCart cinemachineDolly;
+    [SerializeField] float speedingThreshold = 10;
+    const float DELAY_BETWEEN_REFRESHING_SPEEDING_VARIABLE = 0.1f;
+
+    [Header("Speeding Status (View Only)")]
+    public bool speeding = false;
+    [SerializeField] float curSpeed;
+
 
     [Header("Wispy Particles")]
     [SerializeField] ParticleSystem wispyParticles;
@@ -30,29 +39,44 @@ public class CameraMovementVFX : MonoBehaviour
 
     private void Start()
     {
-        if (speedLinesFrames.Length == 0 || speedLinesRenderer == null)
-        {
-            Debug.Log("No speed lines attached to " + name);
-            this.enabled = false;
-        }
-        else if (wispyParticles == null)
-        {
-            Debug.Log("No wispy particles attached to " + name);
-            this.enabled = false;
-        }
+        if (cinemachineDolly == null)
+            Debug.Log("No cinemachine dolly cart attached to " + name);
         else
-        {
-            wispyParticles.Play();
+            StartCoroutine(RefreshingSpeedingStatus());
+
+        if (wispyParticles == null)
+            Debug.Log("No wispy particles attached to " + name);
+        else
+            StartCoroutine(PlayingAndStoppingWispyParticles());
+
+        if (speedLinesFrames.Length == 0 || speedLinesRenderer == null)
+            Debug.Log("No speed lines attached to " + name);
+        else
             StartCoroutine(SpeedLinesAnimation());
+    }
+
+    IEnumerator RefreshingSpeedingStatus()
+    {
+        while (true)
+        {
+            yield return new WaitForSeconds(DELAY_BETWEEN_REFRESHING_SPEEDING_VARIABLE);
+
+            curSpeed = cinemachineDolly.m_Speed;
+            speeding = curSpeed >= speedingThreshold;
         }
     }
 
-    private void Update()
+    IEnumerator PlayingAndStoppingWispyParticles()
     {
-        if (speeding && !wispyParticles.isPlaying)
-            wispyParticles.Play();
-        else if (!speeding && wispyParticles.isPlaying)
-            wispyParticles.Stop();
+        while (true)
+        {
+            if (speeding && !wispyParticles.isPlaying)
+                wispyParticles.Play();
+            else if (!speeding && wispyParticles.isPlaying)
+                wispyParticles.Stop();
+
+            yield return null;
+        }
     }
 
     IEnumerator SpeedLinesAnimation()
