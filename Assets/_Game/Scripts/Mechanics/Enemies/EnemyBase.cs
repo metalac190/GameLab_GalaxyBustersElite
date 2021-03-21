@@ -17,6 +17,7 @@ public abstract class EnemyBase : EntityBase
     public float EnemyDetectionRadius { get { return enemyDetectionRadius; } }
 
 	[SerializeField] private int enemyScore = 0;
+	private float cdInvuln;
 
     void Start()
     {
@@ -44,21 +45,28 @@ public abstract class EnemyBase : EntityBase
 
     public override void TakeDamage(int damage)
     {
-        _currentHealth -= damage;
-        if (_currentHealth <= 0)
-        {
-            DialogueTrigger.TriggerEnemyDefeatedDialogue();
-            Died.Invoke();
-            Dead();
-			ScoreSystem.IncreaseCombo();
-			ScoreSystem.IncreaseScore(enemyScore);
-			//disable or destroy as needed?
+		// Prevent enemies from taking damage multiple times in the same frame
+		if (Time.time - cdInvuln > 0.01f)
+		{
+			cdInvuln = Time.time;
+
+			_currentHealth -= damage;
+			if (_currentHealth <= 0)
+			{
+				DialogueTrigger.TriggerEnemyDefeatedDialogue();
+				Died.Invoke();
+				Dead();
+				ScoreSystem.IncreaseCombo();
+				ScoreSystem.IncreaseScore(enemyScore);
+				//disable or destroy as needed?
+			}
+			else
+			{
+				Damaged.Invoke();
+				//set up FX + AnimationController from Inspector, using Event
+			}
+
 		}
-        else
-        {
-            Damaged.Invoke();
-            //set up FX + AnimationController from Inspector, using Event
-        }
     }
 
     private void OnTriggerEnter(Collider col)

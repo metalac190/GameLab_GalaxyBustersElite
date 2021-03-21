@@ -898,6 +898,18 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 3d684ceb4d37d4141a898f27fcedc69d, type: 3}
+--- !u!114 &143826094 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 803509437750548745, guid: 882771eb9178a0b41a339202b7b6e8b6,
+    type: 3}
+  m_PrefabInstance: {fileID: 628018176}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 2eb81e5a4a8c3e2449d8aa39632b8e93, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!4 &146163385 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 1095739278812962919, guid: 7deb6c67966b2ef45bf968ba28387d60,
@@ -910,6 +922,84 @@ GameObject:
     type: 3}
   m_PrefabInstance: {fileID: 628018176}
   m_PrefabAsset: {fileID: 0}
+--- !u!114 &150561322
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 150561318}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 62aab38ae102ea34e8d56caec0b4d7f7, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  weaponID: Energy Burst
+  projectileType: 1
+  projectile: {fileID: 9165934621370101705, guid: d9d7eedd2b5591e4892473dee466de43,
+    type: 3}
+  spawnPoints:
+  - {fileID: 1649357826}
+  damage: 2
+  projectileSpeed: 50
+  projectileCone: 0
+  meterRequired: 50
+  overloadTime: 2.5
+  OnStandardFire:
+    m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 143826094}
+        m_MethodName: TryPlay
+        m_Mode: 3
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+      - m_Target: {fileID: 466590186}
+        m_MethodName: TryPlay
+        m_Mode: 3
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+  OnOverloadActivated:
+    m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 143826094}
+        m_MethodName: TryPlay
+        m_Mode: 3
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 1
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+      - m_Target: {fileID: 466590186}
+        m_MethodName: TryPlay
+        m_Mode: 3
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 1
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+  chargeTime: 0.5
+  damageMultiplier: 1
+  OnWeaponCharged:
+    m_PersistentCalls:
+      m_Calls: []
 --- !u!1001 &175159843
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -3234,6 +3324,18 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 7deb6c67966b2ef45bf968ba28387d60, type: 3}
+--- !u!114 &466590186 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 2821869645679148908, guid: 882771eb9178a0b41a339202b7b6e8b6,
+    type: 3}
+  m_PrefabInstance: {fileID: 628018176}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: bb72c580b0553274b89d7b1db74018c3, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1001 &486063701
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -3796,6 +3898,11 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.y
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 147412324555601563, guid: 882771eb9178a0b41a339202b7b6e8b6,
+        type: 3}
+      propertyPath: projectileType
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 147412324825139572, guid: 882771eb9178a0b41a339202b7b6e8b6,
         type: 3}
       propertyPath: m_Layer
@@ -3816,6 +3923,16 @@ PrefabInstance:
       propertyPath: m_Name
       value: Blaster
       objectReference: {fileID: 0}
+    - target: {fileID: 393918044509452993, guid: 882771eb9178a0b41a339202b7b6e8b6,
+        type: 3}
+      propertyPath: spawnPoints.Array.data[0]
+      value: 
+      objectReference: {fileID: 1513193866}
+    - target: {fileID: 393918044509452993, guid: 882771eb9178a0b41a339202b7b6e8b6,
+        type: 3}
+      propertyPath: spawnPoints.Array.data[1]
+      value: 
+      objectReference: {fileID: 1171103688}
     - target: {fileID: 783417986134608042, guid: 882771eb9178a0b41a339202b7b6e8b6,
         type: 3}
       propertyPath: weapons.Array.size
@@ -4104,9 +4221,15 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.y
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 7749499620611962416, guid: 882771eb9178a0b41a339202b7b6e8b6,
+        type: 3}
+      propertyPath: m_Name
+      value: Energy Burst's Particles Player
+      objectReference: {fileID: 0}
     m_RemovedComponents:
     - {fileID: 4243709831514906855, guid: 882771eb9178a0b41a339202b7b6e8b6, type: 3}
     - {fileID: 4243709832797848450, guid: 882771eb9178a0b41a339202b7b6e8b6, type: 3}
+    - {fileID: 147412324555601563, guid: 882771eb9178a0b41a339202b7b6e8b6, type: 3}
   m_SourcePrefab: {fileID: 100100000, guid: 882771eb9178a0b41a339202b7b6e8b6, type: 3}
 --- !u!1001 &632436244
 PrefabInstance:
@@ -7231,6 +7354,12 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 5795289208042cd4a8fe3e7889575a55, type: 3}
+--- !u!4 &1171103688 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 147412324825139571, guid: 882771eb9178a0b41a339202b7b6e8b6,
+    type: 3}
+  m_PrefabInstance: {fileID: 628018176}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1001 &1177074082
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -9408,22 +9537,22 @@ PrefabInstance:
     - target: {fileID: 4155207946002037837, guid: ce4f0ed27f3c92043a60cd88a6df1d9e,
         type: 3}
       propertyPath: m_textInfo.characterCount
-      value: 0
+      value: 5
       objectReference: {fileID: 0}
     - target: {fileID: 4155207946002037837, guid: ce4f0ed27f3c92043a60cd88a6df1d9e,
         type: 3}
       propertyPath: m_textInfo.wordCount
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 4155207946002037837, guid: ce4f0ed27f3c92043a60cd88a6df1d9e,
         type: 3}
       propertyPath: m_textInfo.lineCount
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 4155207946002037837, guid: ce4f0ed27f3c92043a60cd88a6df1d9e,
         type: 3}
       propertyPath: m_textInfo.pageCount
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 4317679156521846542, guid: ce4f0ed27f3c92043a60cd88a6df1d9e,
         type: 3}
@@ -9598,22 +9727,22 @@ PrefabInstance:
     - target: {fileID: 6399796915163875988, guid: ce4f0ed27f3c92043a60cd88a6df1d9e,
         type: 3}
       propertyPath: m_textInfo.characterCount
-      value: 0
+      value: 5
       objectReference: {fileID: 0}
     - target: {fileID: 6399796915163875988, guid: ce4f0ed27f3c92043a60cd88a6df1d9e,
         type: 3}
       propertyPath: m_textInfo.wordCount
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 6399796915163875988, guid: ce4f0ed27f3c92043a60cd88a6df1d9e,
         type: 3}
       propertyPath: m_textInfo.lineCount
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 6399796915163875988, guid: ce4f0ed27f3c92043a60cd88a6df1d9e,
         type: 3}
       propertyPath: m_textInfo.pageCount
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 6690053273734087243, guid: ce4f0ed27f3c92043a60cd88a6df1d9e,
         type: 3}
@@ -9665,11 +9794,6 @@ PrefabInstance:
       propertyPath: m_IsActive
       value: 1
       objectReference: {fileID: 0}
-    - target: {fileID: 8029458594496668564, guid: ce4f0ed27f3c92043a60cd88a6df1d9e,
-        type: 3}
-      propertyPath: hudMultiplierText
-      value: 
-      objectReference: {fileID: 1368308615}
     - target: {fileID: 8067949511877262648, guid: ce4f0ed27f3c92043a60cd88a6df1d9e,
         type: 3}
       propertyPath: playerNear
@@ -9683,22 +9807,22 @@ PrefabInstance:
     - target: {fileID: 8343853441182198693, guid: ce4f0ed27f3c92043a60cd88a6df1d9e,
         type: 3}
       propertyPath: m_textInfo.characterCount
-      value: 0
+      value: 4
       objectReference: {fileID: 0}
     - target: {fileID: 8343853441182198693, guid: ce4f0ed27f3c92043a60cd88a6df1d9e,
         type: 3}
       propertyPath: m_textInfo.wordCount
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 8343853441182198693, guid: ce4f0ed27f3c92043a60cd88a6df1d9e,
         type: 3}
       propertyPath: m_textInfo.lineCount
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 8343853441182198693, guid: ce4f0ed27f3c92043a60cd88a6df1d9e,
         type: 3}
       propertyPath: m_textInfo.pageCount
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: ce4f0ed27f3c92043a60cd88a6df1d9e, type: 3}
@@ -10605,6 +10729,12 @@ Transform:
     type: 3}
   m_PrefabInstance: {fileID: 1508661559}
   m_PrefabAsset: {fileID: 0}
+--- !u!4 &1513193866 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 147412324548386556, guid: 882771eb9178a0b41a339202b7b6e8b6,
+    type: 3}
+  m_PrefabInstance: {fileID: 628018176}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1001 &1523402330
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -11292,6 +11422,12 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 4678966240133329371, guid: 3d684ceb4d37d4141a898f27fcedc69d,
     type: 3}
   m_PrefabInstance: {fileID: 1643306347}
+  m_PrefabAsset: {fileID: 0}
+--- !u!4 &1649357826 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 147412323941074674, guid: 882771eb9178a0b41a339202b7b6e8b6,
+    type: 3}
+  m_PrefabInstance: {fileID: 628018176}
   m_PrefabAsset: {fileID: 0}
 --- !u!1 &1654346348
 GameObject:

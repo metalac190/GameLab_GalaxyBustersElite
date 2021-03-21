@@ -1,85 +1,5 @@
 %YAML 1.1
 %TAG !u! tag:unity3d.com,2011:
---- !u!1 &1554756654104990147
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 1554756654104990144}
-  - component: {fileID: 1554756654104990151}
-  - component: {fileID: 1554756654104990150}
-  m_Layer: 0
-  m_Name: GBE_weapons_blaster_right
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!4 &1554756654104990144
-Transform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1554756654104990147}
-  m_LocalRotation: {x: -0, y: -0, z: -0.258819, w: 0.9659259}
-  m_LocalPosition: {x: 0.9262182, y: -0.26329386, z: 0.043647528}
-  m_LocalScale: {x: 0.01534, y: 0.0064699, z: 0.00960901}
-  m_Children:
-  - {fileID: 1554756655244540193}
-  m_Father: {fileID: 1554756655631277004}
-  m_RootOrder: 1
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: -30}
---- !u!33 &1554756654104990151
-MeshFilter:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1554756654104990147}
-  m_Mesh: {fileID: -2742317565668382133, guid: 0f2f5242ed2cef440bf1d9042413babc, type: 3}
---- !u!23 &1554756654104990150
-MeshRenderer:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1554756654104990147}
-  m_Enabled: 1
-  m_CastShadows: 1
-  m_ReceiveShadows: 1
-  m_DynamicOccludee: 1
-  m_MotionVectors: 1
-  m_LightProbeUsage: 1
-  m_ReflectionProbeUsage: 1
-  m_RayTracingMode: 2
-  m_RenderingLayerMask: 1
-  m_RendererPriority: 0
-  m_Materials:
-  - {fileID: 2100000, guid: 288f5bdb01629f24b8b74847a20f122b, type: 2}
-  m_StaticBatchInfo:
-    firstSubMesh: 0
-    subMeshCount: 0
-  m_StaticBatchRoot: {fileID: 0}
-  m_ProbeAnchor: {fileID: 0}
-  m_LightProbeVolumeOverride: {fileID: 0}
-  m_ScaleInLightmap: 1
-  m_ReceiveGI: 1
-  m_PreserveUVs: 0
-  m_IgnoreNormalsForChartDetection: 0
-  m_ImportantGI: 0
-  m_StitchLightmapSeams: 1
-  m_SelectedEditorRenderState: 3
-  m_MinimumChartSize: 4
-  m_AutoUVMaxDistance: 0.5
-  m_AutoUVMaxAngle: 89
-  m_LightmapParameters: {fileID: 0}
-  m_SortingLayerID: 0
-  m_SortingLayer: 0
-  m_SortingOrder: 0
 --- !u!1 &1554756654842437216
 GameObject:
   m_ObjectHideFlags: 0
@@ -92,7 +12,7 @@ GameObject:
   - component: {fileID: 1554756654842437220}
   - component: {fileID: 1554756654842437223}
   m_Layer: 0
-  m_Name: GBE_weapons_blaster_left
+  m_Name: GBE_weapons_blaster
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -105,14 +25,14 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1554756654842437216}
-  m_LocalRotation: {x: -0, y: -0, z: 0.2588191, w: 0.9659258}
-  m_LocalPosition: {x: -0.9689595, y: -0.267994, z: -0.0915485}
-  m_LocalScale: {x: 0.01534, y: 0.0064699, z: 0.00960901}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: -0, y: 0, z: 0.789}
+  m_LocalScale: {x: 0.03618527, y: 0.0064699, z: 0.00960901}
   m_Children:
   - {fileID: 1554756655449818847}
   m_Father: {fileID: 1554756655631277004}
   m_RootOrder: 0
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 30}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!33 &1554756654842437220
 MeshFilter:
   m_ObjectHideFlags: 0
@@ -160,37 +80,6 @@ MeshRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
---- !u!1 &1554756655244540192
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 1554756655244540193}
-  m_Layer: 0
-  m_Name: FirePointR
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!4 &1554756655244540193
-Transform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1554756655244540192}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0.5, y: 36, z: 114.7}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_Children:
-  - {fileID: 8166957096522433669}
-  m_Father: {fileID: 1554756654104990144}
-  m_RootOrder: 0
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1554756655449818846
 GameObject:
   m_ObjectHideFlags: 0
@@ -201,7 +90,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1554756655449818847}
   m_Layer: 0
-  m_Name: FirePointL
+  m_Name: FirePoint
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -231,8 +120,8 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1554756655631277004}
-  - component: {fileID: 1554756656198432438}
   - component: {fileID: 7419795802843804139}
+  - component: {fileID: 5386123523495093522}
   m_Layer: 0
   m_Name: Energy Burst
   m_TagString: Untagged
@@ -252,12 +141,11 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 1554756654842437217}
-  - {fileID: 1554756654104990144}
   - {fileID: 5540835721198667551}
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &1554756656198432438
+--- !u!114 &7419795802843804139
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -266,42 +154,42 @@ MonoBehaviour:
   m_GameObject: {fileID: 1554756656198432433}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 9c1e16d6d20b59446a3f00417da8ea14, type: 3}
+  m_Script: {fileID: 11500000, guid: 0e52331204a8a964ea4903f90e6ed89b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  weapons:
+  - {fileID: 1554756654842437217}
+  angleClamp: 75
+  speed: 8
+  debugRays: 0
+  debugRayLength: 25
+--- !u!114 &5386123523495093522
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1554756656198432433}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 62aab38ae102ea34e8d56caec0b4d7f7, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   weaponID: Energy Burst
   projectileType: 1
-  projectile: {fileID: 7837384869982803700, guid: 7f007536520c2e44e9cb6dc594d42d5b,
+  projectile: {fileID: 9165934621370101705, guid: d9d7eedd2b5591e4892473dee466de43,
     type: 3}
   spawnPoints:
   - {fileID: 1554756655449818847}
-  - {fileID: 1554756655244540193}
-  clickCooldown: 0.2
   damage: 2
-  projectileSpeed: 80
-  projectileCone: 6
-  fireRate: 5
-  chargeWeapon: 0
-  tickDamage: 0
-  damageMultiplier: 1
-  fireRateMultiplier: 4
+  projectileSpeed: 50
+  projectileCone: 0
   meterRequired: 50
-  overloadTime: 3
+  overloadTime: 2.5
   OnStandardFire:
     m_PersistentCalls:
       m_Calls:
       - m_Target: {fileID: 2071251040917559588}
-        m_MethodName: TryPlay
-        m_Mode: 3
-        m_Arguments:
-          m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 0
-          m_FloatArgument: 0
-          m_StringArgument: 
-          m_BoolArgument: 0
-        m_CallState: 2
-      - m_Target: {fileID: 6351011447184519903}
         m_MethodName: TryPlay
         m_Mode: 3
         m_Arguments:
@@ -337,17 +225,6 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
-      - m_Target: {fileID: 6351011447184519903}
-        m_MethodName: TryPlay
-        m_Mode: 3
-        m_Arguments:
-          m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 1
-          m_FloatArgument: 0
-          m_StringArgument: 
-          m_BoolArgument: 0
-        m_CallState: 2
       - m_Target: {fileID: 3508699072723599169}
         m_MethodName: TryPlay
         m_Mode: 3
@@ -359,26 +236,11 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
---- !u!114 &7419795802843804139
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1554756656198432433}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 0e52331204a8a964ea4903f90e6ed89b, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  target: {fileID: 0}
-  weapons:
-  - {fileID: 1554756654842437217}
-  - {fileID: 1554756654104990144}
-  angleClamp: 75
-  speed: 8
-  debugRays: 0
-  debugRayLength: 25
+  chargeTime: 0.5
+  damageMultiplier: 1
+  OnWeaponCharged:
+    m_PersistentCalls:
+      m_Calls: []
 --- !u!1001 &901284194601430895
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -466,93 +328,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2eb81e5a4a8c3e2449d8aa39632b8e93, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
---- !u!1001 &5197116213929936020
-PrefabInstance:
-  m_ObjectHideFlags: 0
-  serializedVersion: 2
-  m_Modification:
-    m_TransformParent: {fileID: 1554756655244540193}
-    m_Modifications:
-    - target: {fileID: 4127832304089612305, guid: c275f7e7867175c47883de3075edefa7,
-        type: 3}
-      propertyPath: m_LocalPosition.x
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 4127832304089612305, guid: c275f7e7867175c47883de3075edefa7,
-        type: 3}
-      propertyPath: m_LocalPosition.y
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 4127832304089612305, guid: c275f7e7867175c47883de3075edefa7,
-        type: 3}
-      propertyPath: m_LocalPosition.z
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 4127832304089612305, guid: c275f7e7867175c47883de3075edefa7,
-        type: 3}
-      propertyPath: m_LocalRotation.x
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 4127832304089612305, guid: c275f7e7867175c47883de3075edefa7,
-        type: 3}
-      propertyPath: m_LocalRotation.y
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 4127832304089612305, guid: c275f7e7867175c47883de3075edefa7,
-        type: 3}
-      propertyPath: m_LocalRotation.z
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 4127832304089612305, guid: c275f7e7867175c47883de3075edefa7,
-        type: 3}
-      propertyPath: m_LocalRotation.w
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 4127832304089612305, guid: c275f7e7867175c47883de3075edefa7,
-        type: 3}
-      propertyPath: m_RootOrder
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 4127832304089612305, guid: c275f7e7867175c47883de3075edefa7,
-        type: 3}
-      propertyPath: m_LocalEulerAnglesHint.x
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 4127832304089612305, guid: c275f7e7867175c47883de3075edefa7,
-        type: 3}
-      propertyPath: m_LocalEulerAnglesHint.y
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 4127832304089612305, guid: c275f7e7867175c47883de3075edefa7,
-        type: 3}
-      propertyPath: m_LocalEulerAnglesHint.z
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 8111525680039778674, guid: c275f7e7867175c47883de3075edefa7,
-        type: 3}
-      propertyPath: m_Name
-      value: Blaster 2's Particles Player
-      objectReference: {fileID: 0}
-    m_RemovedComponents: []
-  m_SourcePrefab: {fileID: 100100000, guid: c275f7e7867175c47883de3075edefa7, type: 3}
---- !u!4 &8166957096522433669 stripped
-Transform:
-  m_CorrespondingSourceObject: {fileID: 4127832304089612305, guid: c275f7e7867175c47883de3075edefa7,
-    type: 3}
-  m_PrefabInstance: {fileID: 5197116213929936020}
-  m_PrefabAsset: {fileID: 0}
---- !u!114 &6351011447184519903 stripped
-MonoBehaviour:
-  m_CorrespondingSourceObject: {fileID: 1169967139460281931, guid: c275f7e7867175c47883de3075edefa7,
-    type: 3}
-  m_PrefabInstance: {fileID: 5197116213929936020}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 2eb81e5a4a8c3e2449d8aa39632b8e93, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!1001 &8071496002252827643
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -603,7 +378,7 @@ PrefabInstance:
     - target: {fileID: 4388395419690101988, guid: fe3a8e6d18e39d44b8d9c3dc9ad6b831,
         type: 3}
       propertyPath: m_RootOrder
-      value: 2
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 4388395419690101988, guid: fe3a8e6d18e39d44b8d9c3dc9ad6b831,
         type: 3}
