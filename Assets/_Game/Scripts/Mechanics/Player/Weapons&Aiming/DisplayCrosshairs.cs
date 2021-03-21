@@ -29,7 +29,7 @@ public class DisplayCrosshairs : MonoBehaviour
 		targetLine = mouse.position - avgStart;
 
 		// Set distance of crosshair at percent distance along line
-		if (!GameManager.gm.Paused)
+		if (GameManager.gm.currentState == GameState.Gameplay && !GameManager.gm.Paused)
 		{
 			nearCrosshair.position = avgStart + (targetLine * nearCrosshairDistance);
 			farCrosshair.position = avgStart + (targetLine * farCrosshairDistance);
