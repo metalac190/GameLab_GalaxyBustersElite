@@ -21,6 +21,10 @@ public class DialogueTrigger : MonoBehaviour
         {
             TriggerEnemyDefeatedDialogue();
         }
+        if (Input.GetKeyDown(KeyCode.Keypad5))          //random player damage test
+        {
+            FindObjectOfType<DialogueManager>().DisplayNexySentence();
+        }
     }
 
 

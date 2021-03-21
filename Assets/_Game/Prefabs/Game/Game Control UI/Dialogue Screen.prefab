@@ -577,6 +577,9 @@ MonoBehaviour:
   DialoguePopUp: {fileID: 1283210542206010382}
   nameText: {fileID: 1283210540722479892}
   dialogueText: {fileID: 1283210540164553561}
+  NPCImage: {fileID: 1283210540836946844}
+  typingDelay: 0.025
+  conversationEndDelay: 1
 --- !u!1 &1283210541700463066
 GameObject:
   m_ObjectHideFlags: 0
@@ -751,29 +754,30 @@ MonoBehaviour:
   Level2StoryDialogue: []
   Level3StoryDialogue: []
   PlayerDamagedDialogue:
-  - npcName: Ace
+  - npcName: Zip
     sentences:
-    - 'Player Damager: I would recommend not getting hit.'
-    - It typically hurts.
-  - npcName: Bob
+    - Yowzers, that slapped like a bucking bronco.
+  - npcName: Piledrive
     sentences:
-    - Bob says you should dodge.
-  - npcName: Carl
+    - Careful son.
+  - npcName: Matryoshka
     sentences:
-    - you should dodge says CARRLLLLL
-  - npcName: Dante
+    - Raaughra
+  - npcName: MultiSentenceCheck
     sentences:
-    - DANTEEEEE
-  - npcName: Eric
-    sentences:
-    - EEEEEEEEEEEEEEEEEEEEEEEEEEEEEE
+    - This is test sentence number 1.
+    - Following up is test sentence number 2.
+    - Last but not least is test sentence number 3.
   EnemyDefeatedDialogue:
-  - npcName: EnemyDef_A
+  - npcName: Zip
     sentences:
-    - Nice Shot!
-  - npcName: EnemyDef_B
+    - "Woo-hoo! That\u2019s the American way!"
+  - npcName: Zip
     sentences:
-    - Peww Peww Peww
+    - "That ship\u2019s been straight Delaware destroyed!"
+  - npcName: Zip
+    sentences:
+    - "I\u2019m red, white, and blue, but you\u2019re dead, white, and blue."
 --- !u!1 &1283210542206010382
 GameObject:
   m_ObjectHideFlags: 0

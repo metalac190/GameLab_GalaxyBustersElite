@@ -6,10 +6,16 @@ using TMPro;
 
 public class DialogueManager : MonoBehaviour
 {
-    public Queue<string> sentences;
+
+    private Queue<string> sentences;
+    private Queue<string> dialogueQueue;
     public GameObject DialoguePopUp;
     public TextMeshProUGUI nameText;
     public TextMeshProUGUI dialogueText;
+    public Image NPCImage;
+    public float typingDelay = .05f;
+    public float conversationEndDelay = 1.5f;
+
     void Start()
     {
         sentences = new Queue<string>();
@@ -43,8 +49,10 @@ public class DialogueManager : MonoBehaviour
         foreach(char letter in sentence.ToCharArray())
         {
             dialogueText.text += letter;
-            yield return null;
+            yield return new WaitForSeconds(typingDelay);
         }
+        yield return new WaitForSeconds(conversationEndDelay);
+        DisplayNexySentence();
     }
     void EndDialogue()
     {
