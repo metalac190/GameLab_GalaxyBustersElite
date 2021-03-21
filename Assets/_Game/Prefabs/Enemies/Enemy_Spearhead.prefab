@@ -238,7 +238,7 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
-  maxHealth: 1
+  maxHealth: 50
   currentState: 0
   attackDamage: 0
   enemyDetectionRadius: 0
@@ -368,16 +368,16 @@ MonoBehaviour:
   WeaponCChance: 20
   HEALTHREF: {fileID: 3393478938653242816, guid: 1cdecb874b85dec4cb1e4346ccc1e603,
     type: 3}
-  healthChance: 0
-  _healAmount: 1
+  healthChance: 25
+  _healAmount: 20
   OVERLOADREF: {fileID: 5240054451046245164, guid: 45113c912639ce046b0e158ec171497d,
     type: 3}
   overloadChance: 100
   _overloadAmount: 10
   POINTSREF: {fileID: 3604329674517331237, guid: 7783a8297c4a6624ba17a0a5bf6ae112,
     type: 3}
-  pointsChance: 0
-  pointsAwarded: 0
+  pointsChance: 100
+  pointsAwarded: 150
 --- !u!1001 &1423640054484351891
 PrefabInstance:
   m_ObjectHideFlags: 0
