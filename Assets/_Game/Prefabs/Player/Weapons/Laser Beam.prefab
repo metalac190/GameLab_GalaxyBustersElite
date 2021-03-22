@@ -12,12 +12,12 @@ GameObject:
   - component: {fileID: 2065207819672571435}
   - component: {fileID: 6463819016718391435}
   m_Layer: 0
-  m_Name: Blaster 3
+  m_Name: Laser Beam
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &617434267887059737
 Transform:
   m_ObjectHideFlags: 0
@@ -89,6 +89,11 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 617434267887059737}
     m_Modifications:
+    - target: {fileID: 4745468032087436964, guid: 844100ac014ceab4cb471339ac07d51c,
+        type: 3}
+      propertyPath: m_Materials.Array.data[0]
+      value: 
+      objectReference: {fileID: 2100000, guid: 8de01e5061c8f7e4b8cfafa4c5c4dc87, type: 2}
     - target: {fileID: 5877310578557769163, guid: 844100ac014ceab4cb471339ac07d51c,
         type: 3}
       propertyPath: m_LocalPosition.x
