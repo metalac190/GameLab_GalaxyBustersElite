@@ -50,7 +50,7 @@ public abstract class EnemyBase : EntityBase
 
     public abstract void Dead();
 
-    public override void TakeDamage(int damage)
+    public override void TakeDamage(float damage)
     {
         _currentHealth -= damage;
         if (_currentHealth <= 0)

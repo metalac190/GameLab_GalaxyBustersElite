@@ -4,19 +4,10 @@ using UnityEngine;
 
 public class EnemyProjectile : Projectile
 {
-    private GameObject player = null;
-    Vector3 target;
-
-    protected override void Awake()
-    {
-        base.Awake();
-        player = GameManager.player.obj;
-    }
-
     protected override void OnEnable()
     {
         base.OnEnable();
-        transform.LookAt(player.transform);
+        transform.LookAt(GameManager.player.obj.transform);
     }
 
     protected override void OnCollisionEnter(Collision collision)

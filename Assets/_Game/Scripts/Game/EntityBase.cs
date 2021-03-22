@@ -11,8 +11,8 @@ public class EntityBase : MonoBehaviour
     public UnityEvent Died;
 
     [Header("Settings")]
-    [SerializeField] protected int maxHealth = 1;
-    protected int _currentHealth = 0;
+    [SerializeField] protected float maxHealth = 1f;
+    protected float _currentHealth = 0f;
 
     // Start is called before the first frame update
     void Start()
@@ -24,7 +24,7 @@ public class EntityBase : MonoBehaviour
     /// 
     /// </summary>
     /// <param name="damage"> Value passed from Projectile/Source. Amount of Damage.</param>
-    public virtual void TakeDamage(int damage)
+    public virtual void TakeDamage(float damage)
     {
         _currentHealth -= damage;
         
