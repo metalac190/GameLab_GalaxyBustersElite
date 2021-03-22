@@ -242,11 +242,26 @@ MonoBehaviour:
   attackDamage: 0
   enemyDetectionRadius: 0
   enemyScore: 0
+  givesPlayerMS: 1
   shotsBeforePauseMax: 1
   attackRate: 1
   vulnerabilityPeriodMax: 1
   bullet: {fileID: 4817155437395576068, guid: e82c437c58d75354c9f99879dd39c338, type: 3}
   invulnToggle: {fileID: 3236874500608460054}
+  OnShotFired:
+    m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 351589238403785319}
+        m_MethodName: TryPlay
+        m_Mode: 3
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 2
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
   invuln: {fileID: 2100000, guid: e47ce4880e3dab84798ca8d0e376bf77, type: 2}
   vuln: {fileID: 2100000, guid: 0255c99a4b0b2384587a72600f4ccf01, type: 2}
 --- !u!114 &268216710914515146

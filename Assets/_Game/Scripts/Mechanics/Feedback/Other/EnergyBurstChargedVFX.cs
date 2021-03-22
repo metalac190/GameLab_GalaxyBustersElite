@@ -55,7 +55,7 @@ public class EnergyBurstChargedVFX : MonoBehaviour
 
     void SetCharged(bool setCharged)
     {
-        if (playerShipMeshRenderer)
+        if (playerShipMeshRenderer && playerShipChargedMaterial)
             playerShipMeshRenderer.material = (setCharged) ? playerShipChargedMaterial : playerShipStandardMaterial;
 
         if (chargedParticles)

@@ -7,12 +7,8 @@ public class EnemyDrone : EnemyBase
 {
     private GameObject playerReference = null;
 
-    CamRailManager camRailManager;
-
     private void Start()
     {
-        camRailManager = FindObjectOfType<CamRailManager>();
-
         playerReference = GameManager.player.obj;
     }
 
@@ -31,7 +27,9 @@ public class EnemyDrone : EnemyBase
     public override void Dead()
     {
         Debug.Log("Enemy destroyed");
-        camRailManager.IncreaseCamRailSpeed();
+
+        if (givesPlayerMS)
+            camRailManager.IncreaseCamRailSpeed();
 
         Destroy(transform.parent.gameObject);
     }
