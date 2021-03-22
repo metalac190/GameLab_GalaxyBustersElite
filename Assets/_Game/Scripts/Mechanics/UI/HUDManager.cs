@@ -33,8 +33,8 @@ public class HUDManager : MonoBehaviour
     }
     public void OnEnable()
     {
-        referencedGM = GameObject.Find("Game Manager");
-        referencedPlayer = GameObject.FindGameObjectWithTag("Player");
+        referencedGM = GameManager.gm.gameObject;
+        referencedPlayer = GameManager.player.obj;
         if (GameManager.gm.currentState == GameState.Gameplay)
         {
             //its good to stay active
@@ -42,6 +42,7 @@ public class HUDManager : MonoBehaviour
         else
         {
             gameObject.SetActive(false);
+            GameManager.gm.OnBriefingEnd.AddListener(() => gameObject.SetActive(true));
         }
     }
     void Update()
