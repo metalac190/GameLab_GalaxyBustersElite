@@ -18,6 +18,14 @@ public abstract class EnemyBase : EntityBase
 
 	[SerializeField] private int enemyScore = 0;
 
+    [SerializeField] protected bool givesPlayerMS;
+    protected CamRailManager camRailManager;
+
+    private void Awake()
+    {
+        camRailManager = FindObjectOfType<CamRailManager>();
+    }
+
     void Start()
     {
         currentState = EnemyState.Passive;
