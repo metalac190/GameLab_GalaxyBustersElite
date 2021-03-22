@@ -6,31 +6,67 @@ using UnityEngine.Events;
 public class EnergyBurst : WeaponBase
 {
 	private List<GameObject> projectilePool = new List<GameObject>();
+	private List<GameObject> chargedProjectilePool = new List<GameObject>();
 	private float cdTime = 0f;
+	private float chargeTimer = 0f;
+	private bool fireReady;
+
+	[Header("Primary Fire Settings")]
+	[SerializeField] float projectileSpeed = 40f;
+	[SerializeField] float fireRate = 2f;
 
 	[Header("Hold Fire Settings")]
-	[SerializeField] float chargeTime = 0.5f;
-	[SerializeField] float damageMultiplier = 1f;
+	[SerializeField] GameObject chargedProjectile;
+	[SerializeField] float chargeUpTime = 0.5f;
+	[SerializeField] float damageMultiplier = 2f;
+	[SerializeField] float speedMultiplier = 1.5f;
+	[SerializeField] private bool weaponCharged;
 
 	[Header("Effects")]
 	[SerializeField] UnityEvent OnWeaponCharged;
+	[SerializeField] UnityEvent OnChargedFire;
 
-	private void Awake()
+	private void OnEnable()
 	{
 		overloaded = false;
+		weaponCharged = false;
+
+		// Set instantiated projectile's speed and damage
+		projectile.GetComponent<Projectile>().SetVelocity(projectileSpeed);
+		projectile.GetComponent<Projectile>().SetDamage(damage);
+
+		// Set charged projectile's speed and damage
+		chargedProjectile.GetComponent<Projectile>().SetVelocity(projectileSpeed * speedMultiplier);
+		chargedProjectile.GetComponent<Projectile>().SetDamage(damage * damageMultiplier);
 	}
 
 	void Update()
 	{
+		fireReady = (GameManager.gm.currentState == GameState.Gameplay && !GameManager.gm.Paused);
 		chargeMeter = GameManager.player.controller.GetOverloadCharge();
 
-		// TODO: Add slight bonus for clicking rapidly over holding fire
-		if (Input.GetButton("Primary Fire") && !overloaded && GameManager.gm.currentState == GameState.Gameplay && !GameManager.gm.Paused)
+		if (Input.GetButton("Primary Fire") && !overloaded && fireReady)
 		{
-			FireEnergy();
+			chargeTimer += Time.deltaTime;
 		}
 
-		if (Input.GetButton("Overload Fire") && chargeMeter >= meterRequired && !overloaded && GameManager.gm.currentState == GameState.Gameplay && !GameManager.gm.Paused)
+		if(chargeTimer >= chargeUpTime && !overloaded && !weaponCharged)
+		{
+			weaponCharged = true;
+			OnWeaponCharged.Invoke();
+		}
+		else if (chargeTimer <= chargeUpTime && !overloaded)
+		{
+			weaponCharged = false;
+		}
+
+		if (Input.GetButtonUp("Primary Fire") && fireReady)
+		{
+			FireEnergy();
+			chargeTimer = 0;
+		}
+
+		if (Input.GetButton("Overload Fire") && chargeMeter >= meterRequired && !overloaded && fireReady)
 		{
 			GameManager.player.controller.SetOverload(chargeMeter - meterRequired);
 
@@ -44,35 +80,46 @@ public class EnergyBurst : WeaponBase
 
 	void FireEnergy()
 	{
-		// Set fire rate based on a cooldown/overload multiplier
-		if (Time.time - cdTime > 1 / (overloaded ? 2f : 1f))
+		// Set fire rate based on a cooldown
+		if (Time.time - cdTime > 1 / fireRate)
 		{
 			cdTime = Time.time;
 
-			// Instantiate projectile at each spawn point
-			foreach (Transform point in spawnPoints)
+			if (weaponCharged)
 			{
-				// Create random rotation within cone
-				Quaternion randAng = Quaternion.Euler(Random.Range(projectileCone * -1, projectileCone), Random.Range(projectileCone * -1, projectileCone), 0);
+				// Instantiate projectile at each spawn point
+				foreach (Transform point in spawnPoints)
+				{
+					//Object Pooling instead of Instantiate
+					GameObject bulletObj = PoolUtility.InstantiateFromPool(chargedProjectilePool, point.position, point.rotation, chargedProjectile);
+				}
 
-				//Object Pooling instead of Instantiate
-				//GameObject bulletObj = Instantiate(projectile, point.position, point.rotation);
-				GameObject bulletObj = PoolUtility.InstantiateFromPool(projectilePool, point.position, point.rotation * randAng, projectile);
-
-				// Set instantiated projectile's speed and damage
-				bulletObj.GetComponent<Projectile>().SetVelocity(projectileSpeed);
-				bulletObj.GetComponent<Projectile>().SetDamage(damage);
+				OnStandardFire.Invoke();
 			}
+			else
+			{
+				// Instantiate projectile at each spawn point
+				foreach (Transform point in spawnPoints)
+				{
+					//Object Pooling instead of Instantiate
+					GameObject bulletObj = PoolUtility.InstantiateFromPool(projectilePool, point.position, point.rotation, projectile);
+				}
 
-			OnStandardFire.Invoke();
+				OnStandardFire.Invoke();
+			}
 		}
+	}
+
+	public bool IsWeaponCharged()
+	{
+		return weaponCharged;
 	}
 
 	IEnumerator EnergyOverload()
 	{
-		InvokeRepeating("FireEnergy", 0f, 0.05f);
+		weaponCharged = true;
 		yield return new WaitForSeconds(overloadTime);
-		CancelInvoke();
+		weaponCharged = false;
 	}
 
 	public override void DeactivateOverload()

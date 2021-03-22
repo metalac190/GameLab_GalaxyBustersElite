@@ -13,10 +13,8 @@ public class WeaponBase : MonoBehaviour
 	[SerializeField] protected GameObject projectile;
 	public Transform[] spawnPoints;
 
-	[Header("Fire Settings")]
-	[SerializeField] protected int damage = 3;
-	[SerializeField] protected float projectileSpeed = 40f;
-	[SerializeField] [Range(0, 45)] protected float projectileCone = 6f;
+	[Header("Primary Fire Settings")]
+	[SerializeField] protected float damage = 3;
 
 	[Header("Overload Settings")]
 	[SerializeField] protected float meterRequired = 50f;

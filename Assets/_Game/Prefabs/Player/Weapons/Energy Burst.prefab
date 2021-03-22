@@ -182,10 +182,8 @@ MonoBehaviour:
   spawnPoints:
   - {fileID: 1554756655449818847}
   damage: 2
-  projectileSpeed: 50
-  projectileCone: 0
   meterRequired: 50
-  overloadTime: 2.5
+  overloadTime: 4
   OnStandardFire:
     m_PersistentCalls:
       m_Calls:
@@ -236,9 +234,18 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
-  chargeTime: 0.5
-  damageMultiplier: 1
+  projectileSpeed: 50
+  fireRate: 3
+  chargedProjectile: {fileID: 2642568059696232079, guid: ce1ad958971df8540bbf5253ffef1172,
+    type: 3}
+  chargeUpTime: 0.5
+  damageMultiplier: 2
+  speedMultiplier: 1.5
+  weaponCharged: 0
   OnWeaponCharged:
+    m_PersistentCalls:
+      m_Calls: []
+  OnChargedFire:
     m_PersistentCalls:
       m_Calls: []
 --- !u!1001 &901284194601430895
@@ -306,7 +313,7 @@ PrefabInstance:
     - target: {fileID: 8111525680039778674, guid: c275f7e7867175c47883de3075edefa7,
         type: 3}
       propertyPath: m_Name
-      value: Blaster 2's Particles Player
+      value: Energy Burst's Particles Player
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: c275f7e7867175c47883de3075edefa7, type: 3}

@@ -74,8 +74,6 @@ MonoBehaviour:
   - {fileID: 4018402611312316131}
   - {fileID: 4018402611035822444}
   damage: 3
-  projectileSpeed: 200
-  projectileCone: 1
   meterRequired: 50
   overloadTime: 3
   OnStandardFire:
@@ -150,6 +148,9 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
+  projectileSpeed: 200
+  projectileCone: 1
+  clickCooldown: 0.5
   fireRate: 3
   fireRateMultiplier: 4
 --- !u!1 &4018402609521200947
@@ -439,7 +440,7 @@ PrefabInstance:
     - target: {fileID: 1640403299765546434, guid: 85075451298d368468cb1f4adea06e35,
         type: 3}
       propertyPath: m_Name
-      value: Blaster 1's Particles Player
+      value: Blaster's Particles Player
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 85075451298d368468cb1f4adea06e35, type: 3}
@@ -526,7 +527,7 @@ PrefabInstance:
     - target: {fileID: 1640403299765546434, guid: 85075451298d368468cb1f4adea06e35,
         type: 3}
       propertyPath: m_Name
-      value: Blaster 1's Particles Player
+      value: Blaster's Particles Player
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 85075451298d368468cb1f4adea06e35, type: 3}

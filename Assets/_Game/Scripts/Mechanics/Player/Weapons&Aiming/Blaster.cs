@@ -7,9 +7,12 @@ public class Blaster : WeaponBase
 {
 	private List<GameObject> projectilePool = new List<GameObject>();
 	private float cdTime = 0f;
+	private bool fireReady;
 
-	//[Header("Fire Settings")]
-	//[SerializeField] float clickCooldown = 0.5f;
+	[Header("Primary Fire Settings")]
+	[SerializeField] float projectileSpeed = 200f;
+	[SerializeField] [Range(0, 45)] float projectileCone = 1f;
+	[SerializeField] float clickCooldown = 0.5f;
 
 	[Header("Hold Fire Settings")]
 	[SerializeField] float fireRate = 3f;
@@ -17,22 +20,27 @@ public class Blaster : WeaponBase
 	[Header("Overload Settings")]
 	[SerializeField] float fireRateMultiplier = 2f;
 
-	private void Awake()
+	private void OnEnable()
 	{
 		overloaded = false;
+
+		// Set instantiated projectile's speed and damage
+		projectile.GetComponent<Projectile>().SetVelocity(projectileSpeed);
+		projectile.GetComponent<Projectile>().SetDamage(damage);
 	}
 
 	void Update()
 	{
+		fireReady = (!overloaded && GameManager.gm.currentState == GameState.Gameplay && !GameManager.gm.Paused);
 		chargeMeter = GameManager.player.controller.GetOverloadCharge();
 
 		// TODO: Add slight bonus for clicking rapidly over holding fire
-		if (Input.GetButton("Primary Fire") && !overloaded && GameManager.gm.currentState == GameState.Gameplay && !GameManager.gm.Paused)
+		if (Input.GetButton("Primary Fire") && fireReady)
 		{
 			FireBullet();
 		}
 
-		if (Input.GetButton("Overload Fire") && chargeMeter >= meterRequired && !overloaded && GameManager.gm.currentState == GameState.Gameplay && !GameManager.gm.Paused)
+		if (Input.GetButton("Overload Fire") && chargeMeter >= meterRequired && fireReady)
 		{
 			GameManager.player.controller.SetOverload(chargeMeter - meterRequired);
 
@@ -58,12 +66,7 @@ public class Blaster : WeaponBase
 				Quaternion randAng = Quaternion.Euler(Random.Range(projectileCone * -1, projectileCone), Random.Range(projectileCone * -1, projectileCone), 0);
 
 				//Object Pooling instead of Instantiate
-				//GameObject bulletObj = Instantiate(projectile, point.position, point.rotation);
 				GameObject bulletObj = PoolUtility.InstantiateFromPool(projectilePool, point.position, point.rotation * randAng, projectile);
-
-				// Set instantiated projectile's speed and damage
-				bulletObj.GetComponent<Projectile>().SetVelocity(projectileSpeed);
-				bulletObj.GetComponent<Projectile>().SetDamage(damage);
 			}
 
 			OnStandardFire.Invoke();

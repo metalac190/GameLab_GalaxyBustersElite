@@ -43,7 +43,7 @@ public abstract class EnemyBase : EntityBase
 
     public abstract void Dead();
 
-    public override void TakeDamage(int damage)
+    public override void TakeDamage(float damage)
     {
 		// Prevent enemies from taking damage multiple times in the same frame
 		if (Time.time - cdInvuln > 0.01f)
