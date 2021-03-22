@@ -9,8 +9,8 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 617434267887059737}
-  - component: {fileID: 617434269015297115}
   - component: {fileID: 2065207819672571435}
+  - component: {fileID: 1651572105437718961}
   m_Layer: 0
   m_Name: Laser Beam
   m_TagString: Untagged
@@ -33,41 +33,6 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &617434269015297115
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 617434269015297114}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 9c1e16d6d20b59446a3f00417da8ea14, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  weaponID: Laser Beam
-  projectileType: 2
-  projectile: {fileID: 7837384869982803700, guid: 7f007536520c2e44e9cb6dc594d42d5b,
-    type: 3}
-  spawnPoints:
-  - {fileID: 6451234272814644003}
-  clickCooldown: 0.2
-  damage: 3
-  projectileSpeed: 150
-  projectileCone: 1
-  fireRate: 2
-  chargeWeapon: 0
-  tickDamage: 0
-  damageMultiplier: 1
-  fireRateMultiplier: 4
-  meterRequired: 50
-  overloadTime: 3
-  OnStandardFire:
-    m_PersistentCalls:
-      m_Calls: []
-  OnOverloadActivated:
-    m_PersistentCalls:
-      m_Calls: []
 --- !u!114 &2065207819672571435
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -80,13 +45,43 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0e52331204a8a964ea4903f90e6ed89b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  target: {fileID: 0}
   weapons:
   - {fileID: 9142818359018757282}
   angleClamp: 75
   speed: 8
   debugRays: 0
   debugRayLength: 25
+--- !u!114 &1651572105437718961
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 617434269015297114}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 50e08a11cb06b9247b8c6c5bfb8dc4c0, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  weaponID: Laser Beam
+  projectileType: 2
+  projectile: {fileID: 0}
+  spawnPoints:
+  - {fileID: 6451234272814644003}
+  damage: 3
+  meterRequired: 50
+  overloadTime: 2.5
+  OnStandardFire:
+    m_PersistentCalls:
+      m_Calls: []
+  OnOverloadActivated:
+    m_PersistentCalls:
+      m_Calls: []
+  tickRate: 0.2
+  damageMultiplier: 1.3
+  OnLaserStop:
+    m_PersistentCalls:
+      m_Calls: []
 --- !u!1001 &3418713770421078377
 PrefabInstance:
   m_ObjectHideFlags: 0
