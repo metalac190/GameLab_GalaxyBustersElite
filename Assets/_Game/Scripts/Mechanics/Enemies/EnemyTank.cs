@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Events;
 
 public class EnemyTank : EnemyBase
 {
@@ -24,6 +25,9 @@ public class EnemyTank : EnemyBase
     private float shotTime;
     private float currentVulnerabilityPeriod;
     private int currentShotsCount;
+
+    [Header("Effects")]
+    [SerializeField] UnityEvent OnShotFired;
 
     //TEMP
     [Header("Temporary Visual Reference (Black = Vulnerable)")]
@@ -85,6 +89,9 @@ public class EnemyTank : EnemyBase
                     shotTime = attackRate;
                     Instantiate(bullet, transform.position, transform.rotation);
                     currentShotsCount--;
+
+                    OnShotFired.Invoke();
+
                     Debug.Log(currentShotsCount);
                 }
                 else
