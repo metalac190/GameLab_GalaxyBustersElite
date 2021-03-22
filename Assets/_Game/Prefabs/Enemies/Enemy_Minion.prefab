@@ -114,11 +114,37 @@ MonoBehaviour:
         m_CallState: 2
   maxHealth: 1
   currentState: 0
-  attackDamage: 0
-  enemyDetectionRadius: 0
+  attackDamage: 1
+  enemyDetectionRadius: 20
   enemyScore: 0
+  givesPlayerMS: 1
   attackRate: 0
   bullet: {fileID: 4817155437395576068, guid: e82c437c58d75354c9f99879dd39c338, type: 3}
+  OnShotFired:
+    m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 4071024876391912190}
+        m_MethodName: TryPlay
+        m_Mode: 3
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 1
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+      - m_Target: {fileID: 2132983922320770203}
+        m_MethodName: TryPlay
+        m_Mode: 3
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 2
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!114 &1071172245
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -273,21 +299,21 @@ MonoBehaviour:
   - {fileID: 6195826417844601540, guid: 3abfc193df3a10c469ca7b2f4d5147c8, type: 3}
   - {fileID: 1418737460905681433, guid: f8f2803ce927a364ca9967c37d3ae9df, type: 3}
   - {fileID: 7571351070088572352, guid: b95653ffbc4c0824a806e8c872370110, type: 3}
-  WeaponAChance: 20
-  WeaponBChance: 20
-  WeaponCChance: 20
+  WeaponAChance: 0
+  WeaponBChance: 0
+  WeaponCChance: 0
   HEALTHREF: {fileID: 3393478938653242816, guid: 1cdecb874b85dec4cb1e4346ccc1e603,
     type: 3}
   healthChance: 0
   _healAmount: 1
   OVERLOADREF: {fileID: 5240054451046245164, guid: 45113c912639ce046b0e158ec171497d,
     type: 3}
-  overloadChance: 100
-  _overloadAmount: 10
+  overloadChance: 0
+  _overloadAmount: 0
   POINTSREF: {fileID: 3604329674517331237, guid: 7783a8297c4a6624ba17a0a5bf6ae112,
     type: 3}
-  pointsChance: 0
-  pointsAwarded: 0
+  pointsChance: 100
+  pointsAwarded: 50
 --- !u!1001 &582471653607349159
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -600,6 +626,18 @@ Transform:
     type: 3}
   m_PrefabInstance: {fileID: 2482563901706147924}
   m_PrefabAsset: {fileID: 0}
+--- !u!114 &4071024876391912190 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 1877149169667885738, guid: fee38de40d4cc574a991cbe16dae138c,
+    type: 3}
+  m_PrefabInstance: {fileID: 2482563901706147924}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: bb72c580b0553274b89d7b1db74018c3, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1001 &2866300186991648231
 PrefabInstance:
   m_ObjectHideFlags: 0
