@@ -85,7 +85,7 @@ public class BossController : EntityBase
         }
     }
 
-    public override void TakeDamage(int damage)
+    public override void TakeDamage(float damage)
     {
         //when no Segments are left, allow Boss to TakeDamage()
         if (!_segmentsAlive)
@@ -123,11 +123,11 @@ public class BossController : EntityBase
     ///     Returns Boss's current health, plus all active Segments' health
     ///
     /// </summary>
-    public int TotalHealth
+    public float TotalHealth
     {
         get
         {
-            int value = 0;
+            float value = 0;
             foreach (BossSegmentController segment in _segmentRefs)
             {
                 if (segment.isActiveAndEnabled)

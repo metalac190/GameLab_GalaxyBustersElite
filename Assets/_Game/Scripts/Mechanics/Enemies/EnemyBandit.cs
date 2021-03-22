@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Events;
 
 public class EnemyBandit : EnemyBase
 {
@@ -13,6 +14,9 @@ public class EnemyBandit : EnemyBase
     [SerializeField] private GameObject bullet;
 
     private float shotTime;
+
+    [Header("Effects")]
+    [SerializeField] UnityEvent OnShotFired;
 
     private void Start()
     {
@@ -61,6 +65,8 @@ public class EnemyBandit : EnemyBase
             {
                 shotTime = attackRate;
                 Instantiate(bullet, transform.position, transform.rotation);
+
+                OnShotFired.Invoke();
             }
             else
             {
@@ -72,6 +78,10 @@ public class EnemyBandit : EnemyBase
     public override void Dead()
     {
         Debug.Log("Enemy destroyed");
+
+        if (givesPlayerMS)
+            camRailManager.IncreaseCamRailSpeed();
+
         Destroy(transform.parent.gameObject);
     }
 }

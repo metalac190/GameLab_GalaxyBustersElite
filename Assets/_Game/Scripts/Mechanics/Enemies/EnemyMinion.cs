@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Events;
 
 public class EnemyMinion : EnemyBase
 {
@@ -14,6 +15,9 @@ public class EnemyMinion : EnemyBase
     private List<GameObject> bulletPool = new List<GameObject>();
 
     private float shotTime;
+
+    [Header("Effects")]
+    [SerializeField] UnityEvent OnShotFired;
 
     private void Start()
     {
@@ -61,6 +65,8 @@ public class EnemyMinion : EnemyBase
             {
                 shotTime = attackRate;
                 PoolUtility.InstantiateFromPool(bulletPool, transform, bullet);
+
+                OnShotFired.Invoke();
             }
             else
             {
@@ -72,6 +78,10 @@ public class EnemyMinion : EnemyBase
     public override void Dead()
     {
         Debug.Log("Enemy destroyed");
+
+        if (givesPlayerMS)
+            camRailManager.IncreaseCamRailSpeed();
+
         Destroy(transform.parent.gameObject);
     }
 }
