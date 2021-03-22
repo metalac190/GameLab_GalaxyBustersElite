@@ -80,6 +80,9 @@ public class GameManager : MonoBehaviour {
     private void Update() {
         if(Input.GetButtonDown("Pause"))
             Paused = !Paused;
+
+        if(currentState == GameState.Gameplay && Input.GetKey(KeyCode.LeftControl) && Input.GetKey(KeyCode.K))
+            WinGame();
     }
 
     // ----------------------------------------------------------------------------------------------------
@@ -187,8 +190,7 @@ public class GameManager : MonoBehaviour {
                 break;
             case Levels.Mission1:
                 currentState = GameState.Briefing;
-                LoadScene("Pre-Alpha");
-                //LoadScene("Mission 1");
+                LoadScene("Level1_Alpha");
                 currentLevel = 1;
                 break;
             case Levels.Mission2:
@@ -200,8 +202,7 @@ public class GameManager : MonoBehaviour {
             case Levels.Mission3:
                 currentState = GameState.Briefing;
                 unlockedLevel = 3;
-                LoadScene("Pre-Alpha");
-                //LoadScene("Mission 3");
+                LoadScene("Level3_Alpha");
                 currentLevel = 3;
                 break;
             default:
