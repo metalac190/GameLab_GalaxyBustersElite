@@ -78,6 +78,10 @@ public class EnemyMinion : EnemyBase
     public override void Dead()
     {
         Debug.Log("Enemy destroyed");
+
+        if (givesPlayerMS)
+            camRailManager.IncreaseCamRailSpeed();
+
         Destroy(transform.parent.gameObject);
     }
 }

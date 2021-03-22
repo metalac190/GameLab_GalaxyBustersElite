@@ -78,6 +78,7 @@ public class CamRailManager : MonoBehaviour
     public void IncreaseCamRailSpeed()
     {
         StopAllCoroutines();
+
         float newMS = movementTrackerDollyCart.m_Speed + increaseMSAmt;
 
         StartCoroutine(SetCamRailSpeedCoroutine(newMS));
