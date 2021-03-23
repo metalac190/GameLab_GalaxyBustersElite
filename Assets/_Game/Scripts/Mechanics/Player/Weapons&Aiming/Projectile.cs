@@ -6,7 +6,7 @@ using UnityEngine;
 public class Projectile : MonoBehaviour
 {
     [SerializeField] private float _speed = 20f;
-	[SerializeField] protected int _damage = 2;
+	[SerializeField] protected float _damage = 2;
 
     [SerializeField] private float lifeTime = 2f;
 
@@ -17,7 +17,8 @@ public class Projectile : MonoBehaviour
     {
         // Move projectile forwards with set speed
         rb = GetComponent<Rigidbody>();
-    }
+		rb.velocity = transform.forward * _speed;
+	}
 
     protected virtual void OnEnable()
     {
@@ -41,7 +42,7 @@ public class Projectile : MonoBehaviour
         gameObject.SetActive(false);
     }
 
-    public void SetDamage(int value)
+    public void SetDamage(float value)
     {
         _damage = value;
     }

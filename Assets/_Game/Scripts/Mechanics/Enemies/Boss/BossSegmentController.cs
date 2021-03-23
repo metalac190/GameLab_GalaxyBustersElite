@@ -15,7 +15,7 @@ public class BossSegmentController : EntityBase
     [SerializeField] private Transform _missileSpawnPoint = null;
     [SerializeField] private float _myDelay = 0f;
     
-    public int Health { get { return _currentHealth; } }
+    public float Health { get { return _currentHealth; } }
 
     private List<GameObject> _missilePool = new List<GameObject>();
     private int _damage = 1;

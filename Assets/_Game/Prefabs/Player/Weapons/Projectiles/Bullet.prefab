@@ -62,7 +62,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: fbb21912d3ffcc44bab3e0844351206e, type: 2}
+  - {fileID: 2100000, guid: 2fc11be0ecd1d8944bc4a90618c3a377, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -106,7 +106,7 @@ Rigidbody:
   serializedVersion: 2
   m_Mass: 1
   m_Drag: 0
-  m_AngularDrag: 0.05
+  m_AngularDrag: 100
   m_UseGravity: 0
   m_IsKinematic: 0
   m_Interpolate: 0
@@ -124,8 +124,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2101f2d89ec5bcc4094caded5480a684, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _speed: 20
-  _damage: 2
+  _speed: 200
+  _damage: 3
   lifeTime: 2
 --- !u!1001 &6805186144115818332
 PrefabInstance:

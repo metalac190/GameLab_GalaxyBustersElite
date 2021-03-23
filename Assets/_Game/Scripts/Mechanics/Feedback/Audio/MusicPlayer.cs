@@ -102,7 +102,7 @@ public class MusicPlayer : MonoBehaviour
     #region Fade In
     public void FadeIn()
     {
-        if (!CheckStandardTrackInitialized()) return;
+        if (!CheckStandardTrackInitialized()) return; // Don't fade in if no standard track
 
         StopAllCoroutines();
         StartCoroutine(FadeInCoroutine());
@@ -125,15 +125,16 @@ public class MusicPlayer : MonoBehaviour
     #region Fade Out
     public void FadeOut()
     {
-        if (!altMusicPlaying && !CheckStandardTrackInitialized()) return;
-        else if (altMusicPlaying && !CheckAlternativeTrackInitialized()) return;
+        if (!altMusicPlaying && !CheckStandardTrackInitialized()) return; // Don't fade out if no standard track
+        else if (altMusicPlaying && !CheckAlternativeTrackInitialized()) return; // Don't fade out if no alt track
 
         fadingOut = true;
 
         StopAllCoroutines();
         StartCoroutine(FadeOutCoroutine(altMusicPlaying));
 
-        //SceneManager.MoveGameObjectToScene(this.gameObject, SceneManager.GetActiveScene());
+        // Allows music player to be destroyed and not carry over to the next scene
+        SceneManager.MoveGameObjectToScene(this.gameObject, SceneManager.GetActiveScene());
     }
     IEnumerator FadeOutCoroutine(bool alternativeTrack = false)
     {
@@ -144,8 +145,6 @@ public class MusicPlayer : MonoBehaviour
 
         while (fadingOutMusicTrack.audioSource.volume > 0)
         {
-            //yield return new WaitForFixedUpdate();
-            //fadingOutMusicTrack.audioSource.volume -= Time.fixedDeltaTime / FADE_OUT_DURATION * startingVolume;
             yield return new WaitForSecondsRealtime(0.05f);
             fadingOutMusicTrack.audioSource.volume -= 0.05f / FADE_OUT_DURATION * startingVolume;
         }
@@ -162,7 +161,7 @@ public class MusicPlayer : MonoBehaviour
 
         if (!altMusicPlaying)
         {
-            if (!CheckAlternativeTrackInitialized()) return;
+            if (!CheckAlternativeTrackInitialized()) return; // Don't crossfade to alt track if no alt track
 
             StopAllCoroutines();
             StartCoroutine(CrossFadeCoroutine(true));
@@ -170,7 +169,7 @@ public class MusicPlayer : MonoBehaviour
         }
         else
         {
-            if (!CheckStandardTrackInitialized()) return;
+            if (!CheckStandardTrackInitialized()) return; // Don't crossfade to standard track if no standard track
 
             StopAllCoroutines();
             StartCoroutine(CrossFadeCoroutine(false));
