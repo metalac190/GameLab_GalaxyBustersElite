@@ -11,7 +11,9 @@ public class EnemyBandit : EnemyBase
     [SerializeField] private float attackRate = 0;
 
     [Header("Enemy Bandit Bullet Prefab")]
-    [SerializeField] private GameObject bullet;
+    [SerializeField] private GameObject bulletPrefab;
+    [SerializeField] private Transform _spawnPoint;
+    private List<GameObject> _bulletPool = new List<GameObject>();
 
     private float shotTime;
 
@@ -53,19 +55,27 @@ public class EnemyBandit : EnemyBase
         }
     }
 
+    //behavior
     protected override void Attacking()
     {
-        bullet.GetComponent<EnemyProjectile>().SetDamage(AttackDamage);
-
+        //player in range
         if (Vector3.Distance(transform.position, playerReference.transform.position) < EnemyDetectionRadius)
         {
-            transform.LookAt(playerReference.transform.position);
-
+            //attack cooldown
             if (shotTime <= 0)
             {
-                shotTime = attackRate;
-                Instantiate(bullet, transform.position, transform.rotation);
+                //when firing, aim at player
+                _spawnPoint.LookAt(playerReference.transform.position);
 
+                //fire projectile
+                GameObject tempBullet = PoolUtility.InstantiateFromPool(_bulletPool, _spawnPoint, bulletPrefab);
+                EnemyProjectile tempProjectile = tempBullet.GetComponent<EnemyProjectile>();
+
+                //set damage
+                tempProjectile.SetDamage(AttackDamage);
+
+                //set cooldown, invoke
+                shotTime = attackRate;
                 OnShotFired.Invoke();
             }
             else
