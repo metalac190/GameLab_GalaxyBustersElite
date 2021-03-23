@@ -9,9 +9,12 @@ public class LaserBeam : WeaponBase
 	private bool fireReady, targetFound;
 	private LineRenderer line;
 	private Transform target;
+	private List<GameObject> overloadTargets = new List<GameObject>();
 	private float tickDamage;
+	private Transform firePoint;
 
 	[Header("Hold Fire Settings")]
+	[SerializeField] float trackingDistance = 50f;
 	[SerializeField] float aimAssistRadius = 2f;
 	[SerializeField] float tickRate = 0.2f;
 	[SerializeField] float damageMultiplier = 1.3f;
@@ -24,11 +27,13 @@ public class LaserBeam : WeaponBase
 
 	private void OnEnable()
 	{
+		firePoint = spawnPoints[0];
 		overloaded = false;
 		laserActive = false;
 		tickDamage = damage;
 		line = GetComponent<LineRenderer>();
 		line.positionCount = 1;
+		SetupOverloadCollider();
 	}
 
 	void Update()
@@ -37,13 +42,13 @@ public class LaserBeam : WeaponBase
 		chargeMeter = GameManager.player.controller.GetOverloadCharge();
 		line.SetPosition(0, spawnPoints[0].position);
 
-		if (Input.GetButton("Primary Fire") && fireReady)
+		if (Input.GetButton("Primary Fire") && !overloaded && fireReady)
 		{
 			TrackTarget();
 			FireLaser();
 		}
 
-		if(Input.GetButtonUp("Primary Fire") && fireReady && laserActive)
+		if(Input.GetButtonUp("Primary Fire") && !overloaded && fireReady && laserActive)
 		{
 			laserActive = false;
 			line.positionCount = 1;
@@ -82,10 +87,30 @@ public class LaserBeam : WeaponBase
 		}
 	}
 
+	void FireLaserOverload()
+	{
+		overloadTargets = firePoint.GetComponent<GroupTargetDetector>().targets;
+
+		if (overloadTargets.Count > 0)
+		{
+			laserActive = true;
+
+			foreach (GameObject enemy in overloadTargets)
+			{
+				enemy.GetComponent<EnemyBase>().TakeDamage(50);
+			}
+
+			overloadTargets.Clear();
+		}
+
+		laserActive = false;
+		line.positionCount = 1;
+	}
+
 	void TrackTarget()
 	{
 		RaycastHit hit = new RaycastHit();
-		targetFound = Physics.SphereCast(spawnPoints[0].position, aimAssistRadius, spawnPoints[0].forward, out hit, 50f, targetLayers);
+		targetFound = Physics.SphereCast(firePoint.position, aimAssistRadius, firePoint.forward, out hit, 50f, targetLayers);
 
 		if (targetFound)
 		{
@@ -101,18 +126,27 @@ public class LaserBeam : WeaponBase
 		}
 	}
 
-	// TODO: Add laser overload behavior
 	IEnumerator LaserOverload()
 	{
+		firePoint.GetComponent<GroupTargetDetector>().SetCollider(true);
 		yield return new WaitForSeconds(overloadTime);
+		FireLaserOverload();
+		firePoint.GetComponent<GroupTargetDetector>().SetCollider(false);
 	}
 
 	public override void DeactivateOverload()
 	{
 		overloaded = false;
 		StopCoroutine("ActivateOverload");
-		StopCoroutine("LaserOverload");
 		CancelInvoke();
+	}
+
+	void SetupOverloadCollider()
+	{
+		CapsuleCollider collider = firePoint.GetComponent<CapsuleCollider>();
+		collider.height = trackingDistance;
+		collider.center = new Vector3(0, 0, trackingDistance / 2);
+		collider.radius = aimAssistRadius;
 	}
 
 }
