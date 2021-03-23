@@ -12,7 +12,8 @@ public class Projectile : MonoBehaviour
         set
         {
             _speed = value;
-            rb.velocity = transform.forward * _speed;
+            if(rb)
+                rb.velocity = transform.forward * _speed;
         }
     }
 	[SerializeField] protected float _damage = 2;
@@ -50,7 +51,7 @@ public class Projectile : MonoBehaviour
 
         if (entity != null)
         {
-            Debug.Log("Playter shot " + entity.gameObject.name);
+            Debug.Log("Player shot " + entity.gameObject.name);
         }
         else
         {
@@ -64,6 +65,9 @@ public class Projectile : MonoBehaviour
     {
         _damage = value;
     }
-        
+     
+    public void SetVelocity(float value) {
+        Speed = value;
+    }
 
 }

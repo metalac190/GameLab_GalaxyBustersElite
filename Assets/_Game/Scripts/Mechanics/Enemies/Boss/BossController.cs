@@ -1,4 +1,4 @@
-﻿using System.Collections;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Events;
@@ -92,6 +92,9 @@ public class BossController : EntityBase
             _segmentRefs[i].SetDelay(i * _delaySeconds);
             _segmentRefs[i].SetDamage(_attackDamage);
         }
+
+        // End game when defeated
+        Died.AddListener(() => GameManager.gm.WinGame());
     }
 
     public override void TakeDamage(float damage)
