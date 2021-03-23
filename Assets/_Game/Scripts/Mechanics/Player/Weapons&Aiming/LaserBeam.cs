@@ -101,6 +101,8 @@ public class LaserBeam : WeaponBase
 		}
 	}
 
+	public bool GetIsLaserActive() { return laserActive; }
+
 	// TODO: Add laser overload behavior
 	IEnumerator LaserOverload()
 	{
