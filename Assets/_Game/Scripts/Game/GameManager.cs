@@ -214,18 +214,16 @@ public class GameManager : MonoBehaviour {
         if(MusicPlayer.instance)
             MusicPlayer.instance.FadeOut();
         yield return new WaitForSecondsRealtime(1f);
-        // Insert fade to black here
+        // TODO - Insert fade to black here
 
         score = 0;
-        Paused = false;
+        _paused = false;
         Time.timeScale = 1;
 
         Cursor.visible = true;
         Cursor.lockState = CursorLockMode.None;
 
         SceneManager.LoadScene(scene);
-        if(MusicPlayer.instance)
-            MusicPlayer.instance.FadeIn();
     }
 
     #endregion

@@ -114,8 +114,8 @@ public class MusicPlayer : MonoBehaviour
 
         while (standardMusic.audioSource.volume < standardMusic.volume)
         {
-            yield return new WaitForFixedUpdate();
-            standardMusic.audioSource.volume += Time.fixedDeltaTime / fadeInDuration * standardMusic.volume;
+            yield return new WaitForSecondsRealtime(0.05f);
+            standardMusic.audioSource.volume += 0.05f / fadeInDuration * standardMusic.volume;
         }
 
         standardMusic.audioSource.volume = standardMusic.volume;
@@ -134,6 +134,7 @@ public class MusicPlayer : MonoBehaviour
         StartCoroutine(FadeOutCoroutine(altMusicPlaying));
 
         // Allows music player to be destroyed and not carry over to the next scene
+        transform.parent = null;
         SceneManager.MoveGameObjectToScene(this.gameObject, SceneManager.GetActiveScene());
     }
     IEnumerator FadeOutCoroutine(bool alternativeTrack = false)
