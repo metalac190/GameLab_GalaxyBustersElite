@@ -10,6 +10,7 @@ public class Blaster : WeaponBase
 	private bool fireReady;
 
 	[Header("Primary Fire Settings")]
+	[SerializeField] GameObject projectile;
 	[SerializeField] float projectileSpeed = 200f;
 	[SerializeField] [Range(0, 45)] float projectileCone = 1f;
 	[SerializeField] float clickCooldown = 0.5f;

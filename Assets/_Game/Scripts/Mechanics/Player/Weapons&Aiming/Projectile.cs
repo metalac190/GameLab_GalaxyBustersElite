@@ -6,6 +6,16 @@ using UnityEngine;
 public class Projectile : MonoBehaviour
 {
     [SerializeField] private float _speed = 20f;
+    public float Speed
+    {
+        get { return _speed; }
+        set
+        {
+            _speed = value;
+            if(rb)
+                rb.velocity = transform.forward * _speed;
+        }
+    }
 	[SerializeField] protected float _damage = 2;
 
     [SerializeField] private float lifeTime = 2f;
@@ -39,6 +49,15 @@ public class Projectile : MonoBehaviour
         EntityBase entity = collision.gameObject.GetComponent<EntityBase>();
         entity?.TakeDamage(_damage);
 
+        if (entity != null)
+        {
+            Debug.Log("Player shot " + entity.gameObject.name);
+        }
+        else
+        {
+            Debug.Log("Player hit " + collision.gameObject.name);
+        }
+
         gameObject.SetActive(false);
     }
 
@@ -46,11 +65,9 @@ public class Projectile : MonoBehaviour
     {
         _damage = value;
     }
-
-    public void SetVelocity(float value)
-    {
-        _speed = value;
+     
+    public void SetVelocity(float value) {
+        Speed = value;
     }
-        
 
 }

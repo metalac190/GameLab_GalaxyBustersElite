@@ -68,12 +68,10 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   weaponID: Blaster
   projectileType: 0
-  projectile: {fileID: 7837384869982803700, guid: 7f007536520c2e44e9cb6dc594d42d5b,
-    type: 3}
   spawnPoints:
   - {fileID: 4018402611312316131}
   - {fileID: 4018402611035822444}
-  damage: 3
+  damage: 4
   meterRequired: 50
   overloadTime: 3
   OnStandardFire:
@@ -148,6 +146,8 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
+  projectile: {fileID: 7837384869982803700, guid: 7f007536520c2e44e9cb6dc594d42d5b,
+    type: 3}
   projectileSpeed: 200
   projectileCone: 1
   clickCooldown: 0.5

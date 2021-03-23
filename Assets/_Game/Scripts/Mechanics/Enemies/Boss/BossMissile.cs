@@ -17,7 +17,8 @@ public class BossMissile : EntityBase
     
     private void OnEnable()
     {
-        _time = _lifetime; 
+        _time = _lifetime;
+        rb.velocity = transform.forward * _speed;
     }
 
     private void Awake()
@@ -33,20 +34,21 @@ public class BossMissile : EntityBase
         {
             gameObject.SetActive(false);
         }
-
-        rb.velocity = transform.forward * _speed;
         
         //if missile has a playerReference, rotate continuously
         if (playerRef != null)
-        {
+        {   
+            /*
             //don't return to player once past their "Z" position
             //TODO create dynamic comparison...
-            if (playerRef.transform.position.z > transform.position.z)
+            if (playerRef.transform.position.z < transform.position.z)
                 return;
+            */
 
             Vector3 dir = playerRef.transform.position - transform.position;
             Quaternion rot = Quaternion.LookRotation(dir);
             transform.rotation = Quaternion.Slerp(transform.rotation, rot, _turnSpeed * Time.deltaTime);
+            rb.velocity = transform.forward * _speed;
         }
     }
 
@@ -59,6 +61,7 @@ public class BossMissile : EntityBase
 
     public void SetTarget(GameObject player)
     {
+        Debug.Log("Missile Found Player");
         playerRef = player;
     }
 
@@ -69,13 +72,23 @@ public class BossMissile : EntityBase
 
     private void OnCollisionEnter(Collision collision)
     {
-        EntityBase entity = collision.gameObject.GetComponent<EntityBase>();
-        entity?.TakeDamage(_damage);
-
         PlayerController player = collision.gameObject.GetComponent<PlayerController>();
         player?.DamagePlayer(_damage);
 
         //self destruct
         TakeDamage(999);
+    }
+
+    private void OnTriggerEnter(Collider other)
+    {
+        PlayerController player = other.gameObject.GetComponent<PlayerController>();
+
+        if (player != null)
+        {
+            player?.DamagePlayer(_damage);
+
+            //self destruct
+            TakeDamage(999);
+        }
     }
 }

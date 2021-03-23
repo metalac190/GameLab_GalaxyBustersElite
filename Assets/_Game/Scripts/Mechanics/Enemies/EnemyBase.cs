@@ -24,7 +24,8 @@ public abstract class EnemyBase : EntityBase
 
     private void Awake()
     {
-        camRailManager = FindObjectOfType<CamRailManager>();
+		_currentHealth = maxHealth;
+		camRailManager = FindObjectOfType<CamRailManager>();
     }
 
     void Start()
