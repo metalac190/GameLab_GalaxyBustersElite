@@ -78,4 +78,17 @@ public class BossMissile : EntityBase
         //self destruct
         TakeDamage(999);
     }
+
+    private void OnTriggerEnter(Collider other)
+    {
+        PlayerController player = other.gameObject.GetComponent<PlayerController>();
+
+        if (player != null)
+        {
+            player?.DamagePlayer(_damage);
+
+            //self destruct
+            TakeDamage(999);
+        }
+    }
 }

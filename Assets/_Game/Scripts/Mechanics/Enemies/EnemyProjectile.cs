@@ -17,4 +17,15 @@ public class EnemyProjectile : Projectile
 
         gameObject.SetActive(false);
     }
+
+    private void OnTriggerEnter(Collider other)
+    {
+        PlayerController player = other.gameObject.GetComponent<PlayerController>();
+        
+        if (player != null)
+        {
+            player.DamagePlayer(_damage);
+            gameObject.SetActive(false);
+        }
+    }
 }
