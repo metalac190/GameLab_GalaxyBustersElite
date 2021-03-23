@@ -219,7 +219,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c46c5a661c47d49458872ec2226d48d5, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  playerHealth: 10
+  playerHealth: 100
   overloadCharge: 0
   tempInvulnTime: 0.1
   currentWeapon: {fileID: 4587364871884471440}
@@ -850,6 +850,16 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: Laser Beam
+      objectReference: {fileID: 0}
+    - target: {fileID: 617434269015297114, guid: a8777f99d15e12f429e089b0540e0faf,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2065207819672571435, guid: a8777f99d15e12f429e089b0540e0faf,
+        type: 3}
+      propertyPath: weapons.Array.size
+      value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: a8777f99d15e12f429e089b0540e0faf, type: 3}

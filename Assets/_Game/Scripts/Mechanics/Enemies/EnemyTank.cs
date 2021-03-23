@@ -18,6 +18,8 @@ public class EnemyTank : EnemyBase
 
     [Header("Enemy Tank Bullet Prefab")]
     [SerializeField] private GameObject bullet;
+    [SerializeField] private Transform _spawnPoint;
+    private List<GameObject> _bulletPool = new List<GameObject>();
 
     [Header("Enemy Collider Ref (Don't Touch)")]
     [SerializeField] private BoxCollider invulnToggle;
@@ -84,15 +86,22 @@ public class EnemyTank : EnemyBase
 
             if (currentShotsCount > 0)
             {
+                //attack cooldown
                 if (shotTime <= 0)
                 {
+                    //when firing, aim at player
+                    _spawnPoint.LookAt(playerReference.transform.position);
+
+                    //fire projectile
+                    GameObject tempBullet = PoolUtility.InstantiateFromPool(_bulletPool, _spawnPoint, bullet);
+                    EnemyProjectile tempProjectile = tempBullet.GetComponent<EnemyProjectile>();
+
+                    //set damage
+                    tempProjectile.SetDamage(AttackDamage);
+
+                    //set cooldown, invoke
                     shotTime = attackRate;
-                    Instantiate(bullet, transform.position, transform.rotation);
-                    currentShotsCount--;
-
                     OnShotFired.Invoke();
-
-                    Debug.Log(currentShotsCount);
                 }
                 else
                 {

@@ -11,7 +11,7 @@ GameObject:
   - component: {fileID: 8692356127783066560}
   - component: {fileID: 4127606600576355584}
   - component: {fileID: 8981814376625977817}
-  m_Layer: 12
+  m_Layer: 11
   m_Name: Capsule
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -91,8 +91,7 @@ GameObject:
   - component: {fileID: 1661147625270605929}
   - component: {fileID: 2833973470039596800}
   - component: {fileID: 2708371893527810738}
-  - component: {fileID: -1617832903119162776}
-  m_Layer: 12
+  m_Layer: 11
   m_Name: BossMissile
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -131,18 +130,7 @@ MonoBehaviour:
       m_Calls: []
   Died:
     m_PersistentCalls:
-      m_Calls:
-      - m_Target: {fileID: -1617832903119162776}
-        m_MethodName: RollDropChance
-        m_Mode: 1
-        m_Arguments:
-          m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 0
-          m_FloatArgument: 0
-          m_StringArgument: 
-          m_BoolArgument: 0
-        m_CallState: 2
+      m_Calls: []
   maxHealth: 1
   _lifetime: 5
   _speed: 15
@@ -177,25 +165,3 @@ Rigidbody:
   m_Interpolate: 0
   m_Constraints: 112
   m_CollisionDetection: 0
---- !u!114 &-1617832903119162776
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1207102664770212819}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: ee1689e295e6e1642b2f01897ed772a2, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  WEAPONREF_ARRAY: []
-  WeaponAChance: 0
-  WeaponBChance: 0
-  WeaponCChance: 0
-  HEALTHREF: {fileID: 0}
-  healthChance: 0
-  POINTSREF: {fileID: 3604329674517331237, guid: 7783a8297c4a6624ba17a0a5bf6ae112,
-    type: 3}
-  pointsAwarded: 0
-  pointsChance: 0

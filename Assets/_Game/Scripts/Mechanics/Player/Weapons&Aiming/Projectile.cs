@@ -6,7 +6,17 @@ using UnityEngine;
 public class Projectile : MonoBehaviour
 {
     [SerializeField] private float _speed = 20f;
-	[SerializeField] protected int _damage = 2;
+    public float Speed
+    {
+        get { return _speed; }
+        set
+        {
+            _speed = value;
+            if(rb)
+                rb.velocity = transform.forward * _speed;
+        }
+    }
+	[SerializeField] protected float _damage = 2;
 
     [SerializeField] private float lifeTime = 2f;
 
@@ -17,7 +27,8 @@ public class Projectile : MonoBehaviour
     {
         // Move projectile forwards with set speed
         rb = GetComponent<Rigidbody>();
-    }
+		rb.velocity = transform.forward * _speed;
+	}
 
     protected virtual void OnEnable()
     {
@@ -38,18 +49,25 @@ public class Projectile : MonoBehaviour
         EntityBase entity = collision.gameObject.GetComponent<EntityBase>();
         entity?.TakeDamage(_damage);
 
+        if (entity != null)
+        {
+            Debug.Log("Player shot " + entity.gameObject.name);
+        }
+        else
+        {
+            Debug.Log("Player hit " + collision.gameObject.name);
+        }
+
         gameObject.SetActive(false);
     }
 
-    public void SetDamage(int value)
+    public void SetDamage(float value)
     {
         _damage = value;
     }
-
-    public void SetVelocity(float value)
-    {
-        _speed = value;
+     
+    public void SetVelocity(float value) {
+        Speed = value;
     }
-        
 
 }
