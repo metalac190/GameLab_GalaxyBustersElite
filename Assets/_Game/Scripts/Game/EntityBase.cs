@@ -14,8 +14,7 @@ public class EntityBase : MonoBehaviour
     [SerializeField] protected float maxHealth = 1;
     protected float _currentHealth = 0;
 
-    // Start is called before the first frame update
-    void Start()
+    protected virtual void Start()
     {
         _currentHealth = maxHealth;
     }

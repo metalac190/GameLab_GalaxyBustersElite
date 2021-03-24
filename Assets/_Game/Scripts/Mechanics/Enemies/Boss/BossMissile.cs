@@ -19,6 +19,7 @@ public class BossMissile : EntityBase
     {
         _time = _lifetime;
         rb.velocity = transform.forward * _speed;
+
     }
 
     private void Awake()
@@ -34,22 +35,6 @@ public class BossMissile : EntityBase
         {
             gameObject.SetActive(false);
         }
-        
-        //if missile has a playerReference, rotate continuously
-        if (playerRef != null)
-        {   
-            /*
-            //don't return to player once past their "Z" position
-            //TODO create dynamic comparison...
-            if (playerRef.transform.position.z < transform.position.z)
-                return;
-            */
-
-            Vector3 dir = playerRef.transform.position - transform.position;
-            Quaternion rot = Quaternion.LookRotation(dir);
-            transform.rotation = Quaternion.Slerp(transform.rotation, rot, _turnSpeed * Time.deltaTime);
-            rb.velocity = transform.forward * _speed;
-        }
     }
 
     //set values when Instantiated, able to adjust on the fly
@@ -63,6 +48,10 @@ public class BossMissile : EntityBase
     {
         Debug.Log("Missile Found Player");
         playerRef = player;
+
+        HeatSeeker seeker = GetComponent<HeatSeeker>();
+        seeker?.StartFollowing();
+        seeker?.SetRotationSpeed(_turnSpeed);
     }
 
     public void SetDamage(int value)

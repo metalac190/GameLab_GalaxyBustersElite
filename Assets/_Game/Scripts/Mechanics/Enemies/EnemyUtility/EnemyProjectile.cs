@@ -10,15 +10,7 @@ public class EnemyProjectile : Projectile
         transform.LookAt(GameManager.player.obj.transform);
     }
 
-    protected override void OnCollisionEnter(Collision collision)
-    {
-        PlayerController player = collision.gameObject.GetComponent<PlayerController>();
-        player?.DamagePlayer(_damage);
-
-        gameObject.SetActive(false);
-    }
-
-    private void OnTriggerEnter(Collider other)
+    protected override void OnTriggerEnter(Collider other)
     {
         PlayerController player = other.gameObject.GetComponent<PlayerController>();
         
