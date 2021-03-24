@@ -16,8 +16,20 @@ public abstract class EnemyBase : EntityBase
     [SerializeField] private float enemyDetectionRadius = 0;
     public float EnemyDetectionRadius { get { return enemyDetectionRadius; } }
 
-    void Start()
+	[SerializeField] private int enemyScore = 0;
+	private float cdInvuln;
+
+    [SerializeField] protected bool givesPlayerMS;
+    protected CamRailManager camRailManager;
+
+    private void Awake()
     {
+		camRailManager = FindObjectOfType<CamRailManager>();
+    }
+
+    protected override void Start()
+    {
+        base.Start();
         currentState = EnemyState.Passive;
     }
 
@@ -40,26 +52,37 @@ public abstract class EnemyBase : EntityBase
 
     public abstract void Dead();
 
-    public override void TakeDamage(int damage)
+    public override void TakeDamage(float damage)
     {
-        _currentHealth -= damage;
-        if (_currentHealth <= 0)
-        {
-            Died.Invoke();
-            Dead();
-            //disable or destroy as needed?
-        }
-        else
-        {
-            Damaged.Invoke();
-            //set up FX + AnimationController from Inspector, using Event
-        }
+		// Prevent enemies from taking damage multiple times in the same frame
+		if (Time.time - cdInvuln > 0.01f)
+		{
+			cdInvuln = Time.time;
+
+			_currentHealth -= damage;
+			if (_currentHealth <= 0)
+			{
+				DialogueTrigger.TriggerEnemyDefeatedDialogue();
+				Died.Invoke();
+				Dead();
+				ScoreSystem.IncreaseCombo();
+				ScoreSystem.IncreaseScore(enemyScore);
+				//disable or destroy as needed?
+			}
+			else
+			{
+				Damaged.Invoke();
+				//set up FX + AnimationController from Inspector, using Event
+			}
+
+		}
     }
 
     private void OnTriggerEnter(Collider col)
     {
         if (col.gameObject.layer == LayerMask.NameToLayer("Player"))
         {
+            DialogueTrigger.TriggerEnemyDefeatedDialogue();
             col.gameObject.GetComponent<PlayerController>().DamagePlayer(AttackDamage);
             Dead();
         }

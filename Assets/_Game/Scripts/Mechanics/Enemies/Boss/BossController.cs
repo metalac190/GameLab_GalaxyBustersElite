@@ -1,4 +1,4 @@
-﻿using System.Collections;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Events;
@@ -7,22 +7,23 @@ public class BossController : EntityBase
 {
     //Refer to Ben Friedman for QA/Bugfixing on Boss System scripts
 
-    [Header("Boss Settings")]
+    [Header("Boss Events")]
     public UnityEvent InvulnerableHit;
     public IntEvent Attacking;
 
-    //triggerVolume to recieve body hits
-    private Collider _triggerVolume = null;
-    private Rigidbody _rb = null;
-
-    [Header("Boss Statistics")]
+    [Header("Boss Settings")]
 
     [SerializeField] private float _moveSpeed = 10f;
+    [Tooltip("Distance for how far the Boss can move from its center")]
+    [SerializeField] private float _moveMax = 20f;
     [Tooltip("Number of times to Move when Bloodied,\nInclusive Min, Exclusive Max")]
     [SerializeField] private Vector2 _numberOfMoves = new Vector2(1, 3);
+    
+    [Header("Segment Settings")]
+
     [Tooltip("Starting Health for each Segment.\nTotal Segment Health derived from\nStarting Health * number of Segments")]
-    [SerializeField] private int _segmentHealth = 100;
-    private BossSegmentController[] _segmentRefs = new BossSegmentController[0];
+    [SerializeField] private float _segmentHealth = 10;
+    [SerializeField] private BossSegmentController[] _segmentRefs = new BossSegmentController[0];
 
     [Header("Timers")]
 
@@ -35,7 +36,6 @@ public class BossController : EntityBase
     [Tooltip("Time in Seconds for Laser animation to Warm Up\nBefore dealing damage.")]
     [SerializeField] private float _laserWarmUpTime = 2f;
     private Vector3 _laserEndPoint = Vector3.zero;
-    private bool _isLaser = false;
 
     [Header("Attack Settings")]
 
@@ -71,7 +71,11 @@ public class BossController : EntityBase
     [Tooltip("Tracks and Damages player during Laser Attack")]
     [SerializeField] private GameObject _laserTracker = null;
 
-    bool _segmentsAlive = true;
+    [Tooltip("Parent Transform for all Collision + Art")]
+    [SerializeField] private GameObject _bossRoot = null;
+
+    public bool isReady = false;
+    private bool _segmentsAlive = true;
     private Coroutine _BossBehavior = null;
     private BossState _nextState = BossState.Idle;
     private Vector3 _startPosition = Vector3.zero;
@@ -79,18 +83,21 @@ public class BossController : EntityBase
     private void Awake()
     {
         //save position to create bounds during movement behavior
-        _startPosition = transform.position;
-        
-        _segmentRefs = GetComponentsInChildren<BossSegmentController>();
+        _startPosition = _bossRoot.transform.position;
+        _laserTracker.SetActive(false);
+
         for (int i=0; i < _segmentRefs.Length; i++)
         {
             _segmentRefs[i].SetHealth(_segmentHealth);
             _segmentRefs[i].SetDelay(i * _delaySeconds);
             _segmentRefs[i].SetDamage(_attackDamage);
         }
+
+        // End game when defeated
+        Died.AddListener(() => GameManager.gm.WinGame());
     }
 
-    public override void TakeDamage(int damage)
+    public override void TakeDamage(float damage)
     {
         //when no Segments are left, allow Boss to TakeDamage()
         if (!_segmentsAlive)
@@ -101,6 +108,7 @@ public class BossController : EntityBase
         {
             //while Segments are alive, play Invulnerable FX isntead.
             InvulnerableHit.Invoke();
+            Debug.Log("Boss Invunlerable");
         }
         
     }
@@ -128,11 +136,11 @@ public class BossController : EntityBase
     ///     Returns Boss's current health, plus all active Segments' health
     ///
     /// </summary>
-    public int TotalHealth
+    public float TotalHealth
     {
         get
         {
-            int value = 0;
+            float value = 0;
             foreach (BossSegmentController segment in _segmentRefs)
             {
                 if (segment.isActiveAndEnabled)
@@ -150,31 +158,18 @@ public class BossController : EntityBase
     /// </summary>
     public void StartBossFight()
     {
+        Debug.Log("Fight Invoked");
+
         if (_BossBehavior == null)
         {
+            Debug.Log("Fight Started");
+            isReady = true;
             _nextState = BossState.Idle;
             NextBossState();
         }
     }
 
     #endregion
-
-    //for testing purposes. TODO: Remove
-    public void SetBossState(BossState state)
-    {
-        _nextState = state;
-        OnSegmentDestroyed();
-
-        if (_BossBehavior == null)
-            NextBossState();
-    }
-
-    //for testing purposes
-    public void TestBlooded()
-    {
-        _segmentsAlive = false;
-        SetBossState(BossState.Move);
-    }
 
     #region State Machine Controllers
 
@@ -186,8 +181,6 @@ public class BossController : EntityBase
     /// </summary>
     private void OnSegmentDestroyed()
     {
-        Debug.Log("Segment Destroyed, Boss Updating");
-
         //If current or previous check returned any alive segments
         if (_segmentsAlive)
         {
@@ -200,10 +193,9 @@ public class BossController : EntityBase
             }
 
             //If previous check returned alive, but now check returns false, call Bloodied state
-            if (!_segmentsAlive)
+            if (_segmentsAlive == false)
             {
-                if (!_segmentsAlive)
-                    _nextState = BossState.Bloodied;
+                _nextState = BossState.Bloodied;
             }
         }
         //Function should not be able to be called once all segments are destroyed, but if state is false, can called again, nothing happens
@@ -212,11 +204,6 @@ public class BossController : EntityBase
 
     private void NextBossState()
     {
-        //disable laser tracking, after moving away from Laser Attack state
-        //somewhat repetitive when not using Laser Attack state? better place for this?
-        _isLaser = false;
-        _laserTracker.SetActive(false);
-
         switch (_nextState)
         {
             case BossState.Idle:
@@ -295,10 +282,11 @@ public class BossController : EntityBase
     #region Behaviors
 
     private IEnumerator BossIdle()
-    {
-        Debug.Log("Boss is Idle");
-
+    {   
         //wait predetermined amount of time
+        //TODO Idle Animation?
+
+        //run check each idle loop to catch an errors
         OnSegmentDestroyed();
         yield return new WaitForSeconds(_idleTime);
 
@@ -307,12 +295,10 @@ public class BossController : EntityBase
 
     private IEnumerator Bloodied()
     {
-        Debug.Log("Boss is Bloodied");
-        //play animation
+        ////TODO Bloodied Animation
         //set invulnerable
-        //dependant on EnemyBase implementation
-
-        //wait for animation to end
+        
+        //get animation time
         yield return new WaitForSeconds(_idleTime);
 
         NextBossState();
@@ -330,21 +316,29 @@ public class BossController : EntityBase
         }
         else
         {
+            //TODO Move Animation?
+            float moveTime = _idleTime;
+
             //identifies points on X/Y plane, at Z distance from player
-            Vector3 moveAmount = new Vector3(Random.Range(0f, 10f), Random.Range(0f, 10f), 0);
+            Vector3 moveAmount = new Vector3(Random.Range(0f, _moveMax), Random.Range(0f, _moveMax), 0);
             Vector3 point = new Vector3(_startPosition.x + moveAmount.x, _startPosition.y + moveAmount.y, _startPosition.z);
 
             //moveTowards those points, at speed
-            while (transform.position != point)
+            while (_bossRoot.transform.position != point)
             {
                 //will eventually perfectly equal Point, due to MoveTowards()?
-                transform.position = Vector3.MoveTowards(transform.position, point, _moveSpeed);
+                _bossRoot.transform.position = Vector3.MoveTowards(_bossRoot.transform.position, point, _moveSpeed * Time.deltaTime);
+                moveTime -= Time.deltaTime;
                 yield return new WaitForEndOfFrame();
             }
 
-            //wait at point, for (small)time
-            yield return new WaitForSeconds(_idleTime * _delaySeconds);
-
+            //calculate difference in time between actual time spent moveing and minimum wait time
+            //wait for difference (if greater than 0), or don't wait if move time is excess of wait time
+            if (moveTime > 0)
+            {
+                yield return new WaitForSeconds(_idleTime - moveTime);
+            }
+            
             //recursive until 0
             StartCoroutine(MovePattern(count - 1));
         }
@@ -355,6 +349,8 @@ public class BossController : EntityBase
 
     private IEnumerator RingAttack()
     {
+        //TODO Ring Attack Animation
+
         _projectileSpawn.LookAt(GameManager.player.obj.transform);
 
         //RingAttack behavior dependant on Bloodied state
@@ -364,44 +360,40 @@ public class BossController : EntityBase
             Debug.Log("Firing the normal Ring Attack");
             GameObject bullet = PoolUtility.InstantiateFromPool(_ringPool, _projectileSpawn, _ringRef);
             Projectile missile = bullet.GetComponent<Projectile>();
-            missile.damage = _attackDamage;
+            missile.SetDamage(_attackDamage);
         }
         else 
         {
+            //TODO Bloodied??Ring Attack Animation?
+
             //Up to 3 Rings?
             Debug.Log("Firing bloodied Ring Attack");
             for (int i=0; i < _bloodiedProjectileCount; i++)
             {
                 GameObject bullet = PoolUtility.InstantiateFromPool(_ringPool, _projectileSpawn, _ringRef);
                 Projectile missile = bullet.GetComponent<Projectile>();
-                missile.damage = _attackDamage;
+                missile.SetDamage(_attackDamage);
                 yield return new WaitForSeconds(_delaySeconds);
             }
         }
 
-        //put Boss Animation here.
-        //or have BossAnimator listen to IntEvent Attacked
-        //calculate wait time, defined by Animation
+        //pass animation time as wait
+        //can we get a event for when animation ends, and listen?
         yield return new WaitForSeconds(_attackAnimTime);
         NextBossState();
     }
 
     private IEnumerator MissileAttack()
     {
+        //TODO Missile Attack Animation
+
         _projectileSpawn.LookAt(GameManager.player.obj.transform);
 
         //Dependant on Bloodied state
-        if (_segmentsAlive)
+        if (!_segmentsAlive)
         {
-            //Segments each fire a missile to track player
-            Debug.Log("Triggering the normal Missile Attack");
-
-            //functionality driven by BossSegmentController
-        }
-        else
-        {
-            Debug.Log("Triggering bloodied Missile Attack");
-
+            //TODO Bloodied??Missile Attack Animation
+            
             //amount of missiles determined by Designer
             for (int i = 0; i < _bloodiedProjectileCount; i++)
             {
@@ -412,9 +404,7 @@ public class BossController : EntityBase
             }    
         }
 
-        //put Boss Animation here.
-        //or have BossAnimator listen to IntEvent Attacked
-        //calculate wait time, defined by Animation
+        //get animation time
         yield return new WaitForSeconds(_attackAnimTime);
 
         NextBossState();
@@ -422,24 +412,27 @@ public class BossController : EntityBase
 
     private IEnumerator LaserAttack()
     {
-        //Beam that follows Player position
-        Debug.Log("Priming the Laser");
+        //TODO Laser Warm Up Animation
 
         //laser find's player position
         _laserEndPoint = GameManager.player.obj.transform.position;
 
         //delay for player to dodge, while animation warms up
+        //set by designer, animation needs to cut short or shrink with warm up time
         yield return new WaitForSeconds(_laserWarmUpTime);
-        
-        Debug.Log("Firing the Laser");
+
+        //TODO Laser ATTACK Animation
 
         //laser starts moving towards player, but slow (or traces player path?)
-        _laserTracker.SetActive(true);
+        _laserTracker.SetActive(true);  //TODO Laser VFX?    
+        
+        //can I have an inactive object just track for Transform purposes, or should I use collision?
         _laserTracker.GetComponent<LaserDamage>().SetDamage(_attackDamage);
-        float timeCount = 0;
 
+        float timeCount = 0;
         while (timeCount < _attackAnimTime)
         {
+            
             //laser tracks player position while firing
             float laserSpeed = _laserSpeedModifier * GameManager.player.movement.MoveSpeed * Time.deltaTime;
 
@@ -450,6 +443,8 @@ public class BossController : EntityBase
             yield return new WaitForEndOfFrame();
         }
 
+        //attack time set by designers, needs to cut off or shrink any long attack animations, player should be focused on laser VFX though
+        _laserTracker.SetActive(false);
         NextBossState();
     }
 
@@ -458,12 +453,13 @@ public class BossController : EntityBase
         //Dependant if Minions are active
         //Refills current wave, stacks multiple waves if earlier waves are not defeated
         //Summons up to 5 Minions?
-        Debug.Log("Summoning Minions");
+
+        //TODO Summon Animation? Replay Idle?
 
         int waveCount = 0;
         foreach (GameObject minion in _minionWaveRef)
         {
-            if (minion.activeInHierarchy)
+            if (minion != null && minion.activeInHierarchy)
                 waveCount++;
         }
 
@@ -474,12 +470,10 @@ public class BossController : EntityBase
             yield return new WaitForSeconds(_delaySeconds);
         }
 
-        //put Boss Animation here.
-        //calculate wait time, defined by Animation
+        //get animation time
         yield return new WaitForSeconds(_idleTime);
 
         NextBossState();
-
     }
     #endregion
 }

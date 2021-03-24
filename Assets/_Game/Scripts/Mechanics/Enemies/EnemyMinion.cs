@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Events;
 
 public class EnemyMinion : EnemyBase
 {
@@ -11,12 +12,18 @@ public class EnemyMinion : EnemyBase
 
     [Header("Enemy Minion Bullet Prefab")]
     [SerializeField] private GameObject bullet;
+    [SerializeField] private Transform _spawnPoint;
+    private List<GameObject> _bulletPool = new List<GameObject>();
 
     private float shotTime;
+
+    [Header("Effects")]
+    [SerializeField] UnityEvent OnShotFired;
 
     private void Start()
     {
         playerReference = GameManager.player.obj;
+        bullet.GetComponent<EnemyProjectile>().SetDamage(AttackDamage);
     }
 
     private void FixedUpdate()
@@ -45,30 +52,47 @@ public class EnemyMinion : EnemyBase
         {
             transform.LookAt(playerReference.transform.position);
 
-            Debug.Log("Detect range reached");
             currentState = EnemyState.Attacking;
         }
     }
 
+    //behavior
     protected override void Attacking()
     {
-        transform.LookAt(playerReference.transform.position);
-        bullet.GetComponent<EnemyProjectile>().SetDamage(AttackDamage);
+        //player in range
+        if (Vector3.Distance(transform.position, playerReference.transform.position) < EnemyDetectionRadius)
+        {
+            //attack cooldown
+            if (shotTime <= 0)
+            {
+                //when firing, aim at player
+                _spawnPoint.LookAt(playerReference.transform.position);
 
-        if (shotTime <= 0)
-        {
-            shotTime = attackRate;
-            Instantiate(bullet, transform.position, transform.rotation);
-        }
-        else
-        {
-            shotTime -= Time.deltaTime;
+                //fire projectile
+                GameObject tempBullet = PoolUtility.InstantiateFromPool(_bulletPool, _spawnPoint, bullet);
+                EnemyProjectile tempProjectile = tempBullet.GetComponent<EnemyProjectile>();
+
+                //set damage
+                tempProjectile.SetDamage(AttackDamage);
+
+                //set cooldown, invoke
+                shotTime = attackRate;
+                OnShotFired.Invoke();
+            }
+            else
+            {
+                shotTime -= Time.deltaTime;
+            }
         }
     }
 
     public override void Dead()
     {
         Debug.Log("Enemy destroyed");
+
+        if (givesPlayerMS)
+            camRailManager.IncreaseCamRailSpeed();
+
         Destroy(transform.parent.gameObject);
     }
 }
