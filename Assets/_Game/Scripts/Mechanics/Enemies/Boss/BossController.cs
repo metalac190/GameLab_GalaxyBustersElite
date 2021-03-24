@@ -53,7 +53,12 @@ public class BossController : EntityBase
     //Minion Pooling
     [Tooltip("Reference to Minion Prefab.")]
     [SerializeField] private GameObject _minionRef = null;
-    private List<GameObject> _minionWaveRef = new List<GameObject>();
+    [Tooltip("Staring Group of Minions, with Waypoints")]
+    [SerializeField] private List<GameObject> _minionWaveRef = new List<GameObject>();
+    [Tooltip("Variable Spawn Points\nDefault to 2")]
+    [SerializeField] private Transform[] _minionSpawns = new Transform[2];
+    [Tooltip("Middle Waypoint Idenfitied, for Minions that spawn in secondary Position[s]")]
+    [SerializeField] private int[] _minionMidpoint = new int[1];
 
     //Ring Attack Pooling
     [Tooltip("Reference to Ring Attack Prefab.")]
@@ -466,7 +471,15 @@ public class BossController : EntityBase
         for (int i = waveCount; i < _minionWaveSize; i++)
         {
             //reliant on Minions being Disabled when killed, and not Destroyed()
-            PoolUtility.InstantiateFromPool(_minionWaveRef, _projectileSpawn, _minionRef);
+            int spawnRand = Random.Range(0, _minionSpawns.Length);
+            GameObject minionObject = PoolUtility.InstantiateFromPool(_minionWaveRef, _minionSpawns[spawnRand], _minionRef);
+            EnemyMovement minionMove = minionObject.GetComponentInChildren<EnemyMovement>();
+            minionMove?.RestartPath();
+
+            //if minion in spawned in spawnpoint "2", set minion's next waypoint to "Midpoint"
+            if (spawnRand > 0)
+                minionMove.SetWaypoint(_minionMidpoint[spawnRand - 1]);
+
             yield return new WaitForSeconds(_delaySeconds);
         }
 

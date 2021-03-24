@@ -20,40 +20,16 @@ public class EnemyMinion : EnemyBase
     [Header("Effects")]
     [SerializeField] UnityEvent OnShotFired;
 
-    private void Start()
+    protected override void Start()
     {
-        playerReference = GameManager.player.obj;
+        base.Start();
         bullet.GetComponent<EnemyProjectile>().SetDamage(AttackDamage);
     }
 
-    private void FixedUpdate()
+    private void OnEnable()
     {
-        UpdateState();
-    }
-
-    protected override void UpdateState()
-    {
-        switch (currentState)
-        {
-            case EnemyState.Passive:
-                Passive();
-                break;
-            case EnemyState.Attacking:
-                Attacking();
-                break;
-            default:
-                break;
-        }
-    }
-
-    protected override void Passive()
-    {
-        if (Vector3.Distance(transform.position, playerReference.transform.position) < EnemyDetectionRadius)
-        {
-            transform.LookAt(playerReference.transform.position);
-
-            currentState = EnemyState.Attacking;
-        }
+        _currentHealth = maxHealth;
+        currentState = EnemyState.Passive;
     }
 
     //behavior
@@ -84,15 +60,5 @@ public class EnemyMinion : EnemyBase
                 shotTime -= Time.deltaTime;
             }
         }
-    }
-
-    public override void Dead()
-    {
-        Debug.Log("Enemy destroyed");
-
-        if (givesPlayerMS)
-            camRailManager.IncreaseCamRailSpeed();
-
-        Destroy(transform.parent.gameObject);
     }
 }

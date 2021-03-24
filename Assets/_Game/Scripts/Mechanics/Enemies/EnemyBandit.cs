@@ -5,8 +5,6 @@ using UnityEngine.Events;
 
 public class EnemyBandit : EnemyBase
 {
-    private GameObject playerReference = null;
-
     [Header("Enemy Bandit Attack Rate (Higher # = Longer Shot Delay)")]
     [SerializeField] private float attackRate = 0;
 
@@ -19,41 +17,6 @@ public class EnemyBandit : EnemyBase
 
     [Header("Effects")]
     [SerializeField] UnityEvent OnShotFired;
-
-    private void Start()
-    {
-        playerReference = GameManager.player.obj;
-    }
-
-    private void FixedUpdate()
-    {
-        UpdateState();
-    }
-
-    protected override void UpdateState()
-    {
-        switch (currentState)
-        {
-            case EnemyState.Passive:
-                Passive();
-                break;
-            case EnemyState.Attacking:
-                Attacking();
-                break;
-            default:
-                break;
-        }
-    }
-
-    protected override void Passive()
-    {
-        if (Vector3.Distance(transform.position, playerReference.transform.position) < EnemyDetectionRadius)
-        {
-            transform.LookAt(playerReference.transform.position);
-
-            currentState = EnemyState.Attacking;
-        }
-    }
 
     //behavior
     protected override void Attacking()
