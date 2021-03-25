@@ -26,10 +26,12 @@ public class DevConsole : MonoBehaviour
             if (isActive)
             {
                 Deactivate();
+                Cursor.visible = false;
             }
             else
             {
                 Activate();
+                Cursor.visible = true;
             }
             isActive = !isActive;
         }
@@ -134,7 +136,8 @@ public class DevConsole : MonoBehaviour
     public void ToggleFastForward()
     {
         isFF = !isFF;
-        Debug.Log(((isFF)?"2.0x":"1.0x")+" speed");
+        Debug.Log(((isFF)?"5.0x":"1.0x")+" speed");
+        Time.timeScale = isFF ? 5f : 1f;
     }
 
 }

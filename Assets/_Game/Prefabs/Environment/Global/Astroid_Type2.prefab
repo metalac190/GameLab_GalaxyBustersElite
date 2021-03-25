@@ -31,6 +31,19 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!135 &5028300268149351630
+SphereCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7065699790548738227}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 1
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Radius: 0.49706402
+  m_Center: {x: 0, y: 0, z: -0.000000007450581}
 --- !u!1001 &7984602141773307362
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -103,8 +116,19 @@ PrefabInstance:
       propertyPath: m_Name
       value: GBE_astroidShape01_proxy
       objectReference: {fileID: 0}
+    - target: {fileID: 919132149155446097, guid: cc426ddb3bae9bd4ab1167658d9a6e06,
+        type: 3}
+      propertyPath: m_Layer
+      value: 9
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: cc426ddb3bae9bd4ab1167658d9a6e06, type: 3}
+--- !u!1 &7065699790548738227 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 919132149155446097, guid: cc426ddb3bae9bd4ab1167658d9a6e06,
+    type: 3}
+  m_PrefabInstance: {fileID: 7984602141773307362}
+  m_PrefabAsset: {fileID: 0}
 --- !u!4 &7585671640110201353 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: -8679921383154817045, guid: cc426ddb3bae9bd4ab1167658d9a6e06,
