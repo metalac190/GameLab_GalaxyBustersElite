@@ -12,6 +12,7 @@ public class LaserBeam : WeaponBase
 	private List<GameObject> overloadTargets = new List<GameObject>();
 	private float tickDamage;
 	private Transform firePoint;
+	private List<GameObject> beamPool = new List<GameObject>();
 
 	[Header("Hold Fire Settings")]
 	[SerializeField] float trackingDistance = 50f;
@@ -31,7 +32,7 @@ public class LaserBeam : WeaponBase
 		overloaded = false;
 		laserActive = false;
 		tickDamage = damage;
-		line = GetComponent<LineRenderer>();
+		line = projectile.GetComponent<LineRenderer>();
 		line.positionCount = 1;
 		SetupOverloadCollider();
 	}
@@ -76,10 +77,9 @@ public class LaserBeam : WeaponBase
 
 			if (targetFound)
 			{
-				line.positionCount = 2;
-				line.SetPosition(1, target.position);
+				projectile.GetComponent<Beam>().SetTarget(target.gameObject);
 				tickDamage *= damageMultiplier;
-				target.GetComponent<EnemyBase>().TakeDamage(tickDamage);
+				target.GetComponent<EntityBase>().TakeDamage(tickDamage);
 				Debug.Log(tickDamage);
 				OnStandardFire.Invoke();
 			}
@@ -89,7 +89,6 @@ public class LaserBeam : WeaponBase
 
 	void FireLaserOverload()
 	{
-		overloadTargets = firePoint.GetComponent<GroupTargetDetector>().targets;
 
 		if (overloadTargets.Count > 0)
 		{
@@ -97,7 +96,7 @@ public class LaserBeam : WeaponBase
 
 			foreach (GameObject enemy in overloadTargets)
 			{
-				enemy.GetComponent<EnemyBase>().TakeDamage(50);
+				enemy.GetComponent<EntityBase>().TakeDamage(50);
 			}
 
 			overloadTargets.Clear();
@@ -126,10 +125,40 @@ public class LaserBeam : WeaponBase
 		}
 	}
 
+	void DrawLasers(bool drawing)
+	{
+		if (overloadTargets.Count > 0)
+		{
+			if (drawing)
+			{
+				// Create all overload beams
+				foreach (GameObject enemy in overloadTargets)
+				{
+					// Create line renderers with object pooling
+					GameObject beamObj = PoolUtility.InstantiateFromPool(beamPool, projectile, projectile.transform.parent);
+					beamObj.GetComponent<Beam>().SetTarget(enemy);
+				}
+			}
+			// Deactivate all beams
+			else
+			{
+				foreach (GameObject beam in beamPool)
+				{
+					beam.GetComponent<LineRenderer>().positionCount = 1;
+					beam.SetActive(false);
+				}
+			}
+		}
+	}
+
 	IEnumerator LaserOverload()
 	{
 		firePoint.GetComponent<GroupTargetDetector>().SetCollider(true);
-		yield return new WaitForSeconds(overloadTime);
+		yield return new WaitForSeconds(overloadTime - 0.5f);
+		overloadTargets = firePoint.GetComponent<GroupTargetDetector>().targets;
+		DrawLasers(true);
+		yield return new WaitForSeconds(0.5f);
+		DrawLasers(false);
 		FireLaserOverload();
 		firePoint.GetComponent<GroupTargetDetector>().SetCollider(false);
 	}

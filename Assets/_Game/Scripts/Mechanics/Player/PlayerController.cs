@@ -13,7 +13,7 @@ public class PlayerController : MonoBehaviour
 	public GameObject[] weapons;
     bool isDodging = false;
     bool isInvincible = false;
-	bool isOverloaded = false;
+	[SerializeField] bool isOverloaded = false;
 	private float cdInvuln = 0f;
 
 	[Header("Effects")]

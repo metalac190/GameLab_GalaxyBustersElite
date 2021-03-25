@@ -10,6 +10,7 @@ public class WeaponBase : MonoBehaviour
 	[Header("Weapon Settings")]
 	public string weaponID;
 	public Projectiles projectileType;
+	[SerializeField] protected GameObject projectile;
 	public Transform[] spawnPoints;
 
 	[Header("Primary Fire Settings")]
