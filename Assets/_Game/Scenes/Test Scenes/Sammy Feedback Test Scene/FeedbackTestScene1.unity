@@ -153,14 +153,14 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   standardMusic:
     audioSource: {fileID: 0}
-    musicTrack: {fileID: 0}
-    volume: 1
+    musicTrack: {fileID: 8300000, guid: 3553686e0aab8a24a9b927e9fa65f0b9, type: 3}
+    volume: 0.25
   fadeIn: 1
   fadeInDuration: 0.8
   alternativeMusic:
     audioSource: {fileID: 0}
-    musicTrack: {fileID: 0}
-    volume: 1
+    musicTrack: {fileID: 8300000, guid: 5ab524f233c5e5943bf0a6fd20d46415, type: 3}
+    volume: 0.3
   crossFadeDuration: 0.8
 --- !u!4 &324861804
 Transform:
@@ -755,6 +755,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   allParticles:
   - name: Particles
+    label: (Write a Description Here)
     particleSystem: {fileID: 917254686}
     playOnAwake: 0
 --- !u!4 &840141090
@@ -5811,7 +5812,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   allSounds:
-  - name: 
+  - name: Sound
+    label: (Write a Description Here)
     audioSource: {fileID: 361789399}
     playOnAwake: 0
     loop: 0

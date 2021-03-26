@@ -5,21 +5,29 @@ using UnityEngine.Events;
 [RequireComponent(typeof(Collider))]
 public class PickupBase : MonoBehaviour
 {
-    //Refer to Ben Friedman for QA/Bugfixing on all Pickup related scripts
+    //Refer to Ben Friedman for QA/Bugfixing on Loot System scripts
 
     //hookups for FX teams, and other systems
     public UnityEvent PickedUp;
+
+    [SerializeField] private Vector3 _spinAngles = Vector3.one;
+    [SerializeField] private float _spinSpeed = 1f;
 
     private Collider triggerVolume = null;
 
     //do all drops give Points? Do weapons give an ammount? 
     //Can we re-use PickupBase as Points-Default?
-    //private GameManger manager = GameManger.STATICMANAGER;
 
     private void Awake()
     {
         triggerVolume = GetComponent<Collider>();
-        //PickedUp.AddListener(manager);    //?
+        triggerVolume.isTrigger = true;
+    }
+
+    private void FixedUpdate()
+    {
+    	Vector3 spin = _spinAngles.normalized * _spinSpeed;
+        transform.Rotate(spin);
     }
 
     private void OnTriggerEnter(Collider other)
