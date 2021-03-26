@@ -10,6 +10,7 @@ public class MissionBriefing : MonoBehaviour
         GameManager.gm.SetMissionBriefing(gameObject, debrief1, debrief2, debrief3);
         if(GameManager.gm.currentState == GameState.Briefing)
         {
+            Time.timeScale = 0;
             switch (GameManager.gm.currentLevel)
             {
                 case 1:
@@ -30,4 +31,9 @@ public class MissionBriefing : MonoBehaviour
             gameObject.SetActive(false);
         }
     }
+
+    public void EndBriefing() {
+        GameManager.gm.EndMissionBriefing();
+    }
+
 }

@@ -13,6 +13,13 @@ public class PlayerMovement : MonoBehaviour
     [SerializeField] float rotateSpeed = 1000;
     [SerializeField] float horizontalLean = 50;
 
+    [SerializeField] float dodgeSpeed = 40;
+    public float dodgeDuration = .5f;
+    public float dodgeCooldown = 1f; //Timed after dodge ends
+    public bool infiniteDodge = false;
+    float dodgeDurationRemaining = 0;
+    float dodgeCooldownRemaining = 0;
+
     [Header("Collision Settings")]
     [SerializeField] float collDuration;
     [SerializeField] Vector3 collForce;
@@ -30,23 +37,56 @@ public class PlayerMovement : MonoBehaviour
 
     [Header("Effects")]
     public UnityEvent OnDodge;
+    public UnityEvent OnDodgeEnd;
+    public UnityEvent OnDodgeRefresh;
     float lastFrameX, lastFrameY;
     [Range(0.01f, 0.99f)]
     [SerializeField] float inputThresholdForMovementFX = 0.01f;
     [SerializeField] UnityEvent OnStartedMoving;
     [SerializeField] UnityEvent OnStoppedMoving;
 
+    PlayerController pc;
     Rigidbody rb;
 
     private void Start()
     {
-        rb = GetComponentInChildren<Rigidbody>();    
+        pc = GetComponent<PlayerController>();
+        rb = GetComponentInChildren<Rigidbody>();
     }
 
     void Update()
     {
         float x = Input.GetAxis("Horizontal");
         float y = Input.GetAxis("Vertical");
+
+        if (dodgeDurationRemaining > 0) //Maintain x and y values until dodge is completed
+        {
+            if (dodgeDurationRemaining == dodgeDuration) //On first frame of dodge, lock in velocity
+            {
+                x = Input.GetAxisRaw("Horizontal");
+                y = Input.GetAxisRaw("Vertical");
+            }
+            else
+            {
+                x = lastFrameX;
+                y = lastFrameY;
+            }
+            dodgeDurationRemaining -= Time.deltaTime;
+            if (dodgeDurationRemaining <= 0)
+            {
+                DodgeEnd();
+                dodgeDurationRemaining = 0;
+            }
+        }
+
+        if (dodgeCooldownRemaining > 0)
+        {
+            dodgeCooldownRemaining -= Time.deltaTime;
+            if (dodgeCooldownRemaining <= 0)
+            {
+                DodgeRefresh();
+            }
+        }
 
         LocalMove(x, y);
         if (!isHit)
@@ -58,6 +98,11 @@ public class PlayerMovement : MonoBehaviour
         Dodge();
 
         InvokingStartedOrStoppedMovingEvents(x, y);
+    }
+
+    protected void LateUpdate()
+    {
+        transform.localPosition = new Vector3(transform.localPosition.x, transform.localPosition.y, 0);
     }
 
     private void InvokingStartedOrStoppedMovingEvents(float x, float y)
@@ -78,7 +123,7 @@ public class PlayerMovement : MonoBehaviour
 
     void LocalMove(float x, float y)
     {
-        transform.localPosition += new Vector3(x, y, 0) * moveSpeed * Time.deltaTime;
+        transform.localPosition += new Vector3(x, y, 0) * ((dodgeDurationRemaining<=0)?moveSpeed:dodgeSpeed) * Time.deltaTime;
 
         // clamp within boundary
         transform.localPosition = new Vector3(
@@ -106,13 +151,28 @@ public class PlayerMovement : MonoBehaviour
 
     void Dodge()
     {
-        if (Input.GetKeyDown(KeyCode.Space))
+        if (Input.GetKeyDown(KeyCode.Space) && dodgeCooldownRemaining <= 0)
         {
             OnDodge.Invoke();
+            dodgeDurationRemaining = dodgeDuration;
+            if (!infiniteDodge)
+            {
+                dodgeCooldownRemaining = dodgeDuration + dodgeCooldown; //Duration of dodge is not included in cooldown value
+            }
         }
     }
 
-    private void OnTriggerEnter(Collider other)
+    void DodgeEnd()
+    {
+        OnDodgeEnd.Invoke();
+    }
+
+    void DodgeRefresh() //Procs when the cooldown ends, if we have any feedback of dodge being available again
+    {
+        OnDodgeRefresh.Invoke();
+    }
+
+    private void OnTriggerStay(Collider other)
     {
         // hit terrain
         if (other.gameObject.layer == 9)
@@ -125,13 +185,16 @@ public class PlayerMovement : MonoBehaviour
     IEnumerator PlayerCollision()
     {
         isHit = true;
-        rb.AddRelativeForce(Random.Range(-collForce.x, collForce.x),
+
+        rb.AddRelativeForce(Random.Range(-collForce.x, collForce.x), 
             Random.Range(-collForce.y, collForce.y),
             Random.Range(-collForce.z, collForce.z));
 
         rb.AddRelativeTorque(Random.Range(-torqueForce.x, torqueForce.x), 
             Random.Range(-torqueForce.y, torqueForce.y), 
             Random.Range(-torqueForce.z, torqueForce.z));
+
+        CameraShaker.instance.Shake(pc.CameraShakeOnHit);
 
         yield return new WaitForSeconds(collDuration);
 

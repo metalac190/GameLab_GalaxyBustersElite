@@ -238,10 +238,12 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
-  maxHealth: 1
+  maxHealth: 15
   currentState: 0
   attackDamage: 0
   enemyDetectionRadius: 0
+  enemyScore: 0
+  givesPlayerMS: 1
   chargingSpeed: 0
   chargeTimerMax: 1
   OnChargeAttackEnter:
@@ -367,11 +369,16 @@ MonoBehaviour:
   WeaponCChance: 20
   HEALTHREF: {fileID: 3393478938653242816, guid: 1cdecb874b85dec4cb1e4346ccc1e603,
     type: 3}
-  healthChance: 0
+  healthChance: 25
+  _healAmount: 20
+  OVERLOADREF: {fileID: 5240054451046245164, guid: 45113c912639ce046b0e158ec171497d,
+    type: 3}
+  overloadChance: 100
+  _overloadAmount: 10
   POINTSREF: {fileID: 3604329674517331237, guid: 7783a8297c4a6624ba17a0a5bf6ae112,
     type: 3}
-  pointsAwarded: 0
-  pointsChance: 0
+  pointsChance: 100
+  pointsAwarded: 150
 --- !u!1001 &1423640054484351891
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -508,6 +515,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4206016010622949756, guid: dde184ba4458a364c84f3793f6a63fa2,
+        type: 3}
+      propertyPath: allParticles.Array.size
+      value: 2
       objectReference: {fileID: 0}
     - target: {fileID: 5589552062276809437, guid: dde184ba4458a364c84f3793f6a63fa2,
         type: 3}

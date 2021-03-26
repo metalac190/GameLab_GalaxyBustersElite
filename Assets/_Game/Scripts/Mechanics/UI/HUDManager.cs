@@ -6,8 +6,9 @@ using TMPro;
 
 public class HUDManager : MonoBehaviour
 {
-    public TextMeshProUGUI hudScoreText;
-    public Slider playerHealthSlider;
+	public TextMeshProUGUI hudScoreText;
+	public TextMeshProUGUI hudMultiplierText;
+	public Slider playerHealthSlider;
     public Slider overloadMeterSlider;
     public GameObject blaster1Image;
     public GameObject blaster2Image;
@@ -32,8 +33,8 @@ public class HUDManager : MonoBehaviour
     }
     public void OnEnable()
     {
-        referencedGM = GameObject.Find("Game Manager");
-        referencedPlayer = GameObject.FindGameObjectWithTag("Player");
+        referencedGM = GameManager.gm.gameObject;
+        referencedPlayer = GameManager.player.obj;
         if (GameManager.gm.currentState == GameState.Gameplay)
         {
             //its good to stay active
@@ -41,6 +42,7 @@ public class HUDManager : MonoBehaviour
         else
         {
             gameObject.SetActive(false);
+            GameManager.gm.OnBriefingEnd.AddListener(() => gameObject.SetActive(true));
         }
     }
     void Update()
@@ -49,9 +51,10 @@ public class HUDManager : MonoBehaviour
         
         if (referencedGM != null)
         {
-            hudScore = referencedGM.GetComponent<GameManager>().score;
-            hudScoreText.text = hudScore.ToString("00000");
-        }
+            hudScore = ScoreSystem.GetScore();
+			hudScoreText.text = hudScore.ToString("00000");
+			hudMultiplierText.text = hudScore.ToString("(x" + ScoreSystem.GetComboMultiplier() + ")");
+		}
         if (referencedPlayer != null)
         {
             playerHealth = referencedPlayer.GetComponent<PlayerController>().GetPlayerHealth();

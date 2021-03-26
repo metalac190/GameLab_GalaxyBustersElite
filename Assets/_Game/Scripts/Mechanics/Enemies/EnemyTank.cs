@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Events;
 
 public class EnemyTank : EnemyBase
 {
@@ -17,6 +18,8 @@ public class EnemyTank : EnemyBase
 
     [Header("Enemy Tank Bullet Prefab")]
     [SerializeField] private GameObject bullet;
+    [SerializeField] private Transform _spawnPoint;
+    private List<GameObject> _bulletPool = new List<GameObject>();
 
     [Header("Enemy Collider Ref (Don't Touch)")]
     [SerializeField] private BoxCollider invulnToggle;
@@ -24,6 +27,9 @@ public class EnemyTank : EnemyBase
     private float shotTime;
     private float currentVulnerabilityPeriod;
     private int currentShotsCount;
+
+    [Header("Effects")]
+    [SerializeField] UnityEvent OnShotFired;
 
     //TEMP
     [Header("Temporary Visual Reference (Black = Vulnerable)")]
@@ -80,12 +86,22 @@ public class EnemyTank : EnemyBase
 
             if (currentShotsCount > 0)
             {
+                //attack cooldown
                 if (shotTime <= 0)
                 {
+                    //when firing, aim at player
+                    _spawnPoint.LookAt(playerReference.transform.position);
+
+                    //fire projectile
+                    GameObject tempBullet = PoolUtility.InstantiateFromPool(_bulletPool, _spawnPoint, bullet);
+                    EnemyProjectile tempProjectile = tempBullet.GetComponent<EnemyProjectile>();
+
+                    //set damage
+                    tempProjectile.SetDamage(AttackDamage);
+
+                    //set cooldown, invoke
                     shotTime = attackRate;
-                    Instantiate(bullet, transform.position, transform.rotation);
-                    currentShotsCount--;
-                    Debug.Log(currentShotsCount);
+                    OnShotFired.Invoke();
                 }
                 else
                 {
@@ -116,6 +132,10 @@ public class EnemyTank : EnemyBase
     public override void Dead()
     {
         Debug.Log("Enemy destroyed");
+
+        if (givesPlayerMS)
+            camRailManager.IncreaseCamRailSpeed();
+
         Destroy(transform.parent.gameObject);
     }
 }

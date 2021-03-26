@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Events;
 
 public class EnemyMinion : EnemyBase
 {
@@ -11,9 +12,13 @@ public class EnemyMinion : EnemyBase
 
     [Header("Enemy Minion Bullet Prefab")]
     [SerializeField] private GameObject bullet;
-    private List<GameObject> bulletPool = new List<GameObject>();
+    [SerializeField] private Transform _spawnPoint;
+    private List<GameObject> _bulletPool = new List<GameObject>();
 
     private float shotTime;
+
+    [Header("Effects")]
+    [SerializeField] UnityEvent OnShotFired;
 
     private void Start()
     {
@@ -51,16 +56,28 @@ public class EnemyMinion : EnemyBase
         }
     }
 
+    //behavior
     protected override void Attacking()
     {
+        //player in range
         if (Vector3.Distance(transform.position, playerReference.transform.position) < EnemyDetectionRadius)
         {
-            transform.LookAt(playerReference.transform.position);
-
+            //attack cooldown
             if (shotTime <= 0)
             {
+                //when firing, aim at player
+                _spawnPoint.LookAt(playerReference.transform.position);
+
+                //fire projectile
+                GameObject tempBullet = PoolUtility.InstantiateFromPool(_bulletPool, _spawnPoint, bullet);
+                EnemyProjectile tempProjectile = tempBullet.GetComponent<EnemyProjectile>();
+
+                //set damage
+                tempProjectile.SetDamage(AttackDamage);
+
+                //set cooldown, invoke
                 shotTime = attackRate;
-                PoolUtility.InstantiateFromPool(bulletPool, transform, bullet);
+                OnShotFired.Invoke();
             }
             else
             {
@@ -72,6 +89,10 @@ public class EnemyMinion : EnemyBase
     public override void Dead()
     {
         Debug.Log("Enemy destroyed");
+
+        if (givesPlayerMS)
+            camRailManager.IncreaseCamRailSpeed();
+
         Destroy(transform.parent.gameObject);
     }
 }

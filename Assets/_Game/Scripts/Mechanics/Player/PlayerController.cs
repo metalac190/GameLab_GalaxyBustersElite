@@ -6,16 +6,22 @@ using UnityEngine.Events;
 [RequireComponent(typeof(PlayerMovement))]
 public class PlayerController : MonoBehaviour
 {
-	[SerializeField] float playerHealth = 10f;
+	[SerializeField] float playerHealth = 100f;
 	[SerializeField] float overloadCharge = 0f;
+	[SerializeField] float tempInvulnTime = 0.1f;
 	[SerializeField] GameObject currentWeapon;
 	public GameObject[] weapons;
+    public bool isDodging = false;
+    public bool isInvincible = false;
+	public bool isOverloaded = false;
+	private float cdInvuln = 0f;
 
 	[Header("Effects")]
 	[Range(0, 5)]
 	[SerializeField] float cameraShakeOnHit = 1;
+	public float CameraShakeOnHit { get => cameraShakeOnHit; }
 	[SerializeField] UnityEvent OnHit;
-	[SerializeField] UnityEvent OnDeath;
+	public UnityEvent OnDeath;
 	[SerializeField] UnityEvent OnPickedUpWeapon;
 	[SerializeField] float playerHealthLowThreshold = 1;
 	float lastFramePlayerHealth;
@@ -69,15 +75,35 @@ public class PlayerController : MonoBehaviour
 
 	public void DamagePlayer(float amount)
 	{
-		playerHealth -= amount;
+        if (isDodging || isInvincible) //Not sure if dodging protects form environmental damage; if not, change this
+        {
+            return;
+        }
 
-		CameraShaker.instance.Shake(cameraShakeOnHit);
+		// Temporary player invulnerability on taking damage
+		if (Time.time - cdInvuln > tempInvulnTime + 0.01f)
+		{
+			cdInvuln = Time.time;
 
-		ScoreSystem.ResetCombo();
+			playerHealth -= amount;
+			Debug.Log("<color=red>Player took " + amount + " damage!</color>");
+			ScoreSystem.ResetCombo();
 
-		DialogueTrigger.TriggerPlayerDamagedDialogue();
+			if (playerHealth <= 0)
+			{
+				OnDeath.Invoke();
+				Debug.Log("<color=red>Player died!</color>");
+				GameManager.gm.LoseGame();
+			}
+			else
+			{
+				DialogueTrigger.TriggerPlayerDamagedDialogue();
+				CameraShaker.instance.Shake(cameraShakeOnHit);
+				OnHit.Invoke();
+			}
+			
+		}
 
-		OnHit.Invoke();
 	}
 
 	public void HealPlayer(float amount)
@@ -105,6 +131,16 @@ public class PlayerController : MonoBehaviour
 		return overloadCharge;
 	}
 
+	public void TogglePlayerOverloaded(bool state)
+	{
+		isOverloaded = state;
+	}
+
+	public bool IsPlayerOverloaded()
+	{
+		return isOverloaded;
+	}
+
 	public void SetWeapon(GameObject newWeapon)
 	{
 		// Find and activate/deactivate necessary weapons
@@ -127,6 +163,16 @@ public class PlayerController : MonoBehaviour
 
 		OnPickedUpWeapon.Invoke();
 	}
+
+    public void ToggleDodging(bool dodge)
+    {
+        isDodging = dodge;
+    }
+
+    public void Toggleinvincibility(bool inv)
+    {
+        isInvincible = inv;
+    }
 
 	public GameObject GetCurrentWeapon()
 	{
