@@ -1,4 +1,4 @@
-﻿using System.Collections;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Events;
@@ -11,14 +11,19 @@ public class BossController : EntityBase
     public UnityEvent InvulnerableHit;
     public IntEvent Attacking;
 
-    [Header("Boss Statistics")]
+    [Header("Boss Settings")]
 
     [SerializeField] private float _moveSpeed = 10f;
+    [Tooltip("Distance for how far the Boss can move from its center")]
+    [SerializeField] private float _moveMax = 20f;
     [Tooltip("Number of times to Move when Bloodied,\nInclusive Min, Exclusive Max")]
     [SerializeField] private Vector2 _numberOfMoves = new Vector2(1, 3);
+    
+    [Header("Segment Settings")]
+
     [Tooltip("Starting Health for each Segment.\nTotal Segment Health derived from\nStarting Health * number of Segments")]
-    [SerializeField] private int _segmentHealth = 100;
-    private BossSegmentController[] _segmentRefs = new BossSegmentController[0];
+    [SerializeField] private float _segmentHealth = 10;
+    [SerializeField] private BossSegmentController[] _segmentRefs = new BossSegmentController[0];
 
     [Header("Timers")]
 
@@ -48,7 +53,12 @@ public class BossController : EntityBase
     //Minion Pooling
     [Tooltip("Reference to Minion Prefab.")]
     [SerializeField] private GameObject _minionRef = null;
-    private List<GameObject> _minionWaveRef = new List<GameObject>();
+    [Tooltip("Staring Group of Minions, with Waypoints")]
+    [SerializeField] private List<GameObject> _minionWaveRef = new List<GameObject>();
+    [Tooltip("Variable Spawn Points\nDefault to 2")]
+    [SerializeField] private Transform[] _minionSpawns = new Transform[2];
+    [Tooltip("Middle Waypoint Idenfitied, for Minions that spawn in secondary Position[s]")]
+    [SerializeField] private int[] _minionMidpoint = new int[1];
 
     //Ring Attack Pooling
     [Tooltip("Reference to Ring Attack Prefab.")]
@@ -66,7 +76,11 @@ public class BossController : EntityBase
     [Tooltip("Tracks and Damages player during Laser Attack")]
     [SerializeField] private GameObject _laserTracker = null;
 
-    bool _segmentsAlive = true;
+    [Tooltip("Parent Transform for all Collision + Art")]
+    [SerializeField] private GameObject _bossRoot = null;
+
+    public bool isReady = false;
+    private bool _segmentsAlive = true;
     private Coroutine _BossBehavior = null;
     private BossState _nextState = BossState.Idle;
     private Vector3 _startPosition = Vector3.zero;
@@ -74,15 +88,18 @@ public class BossController : EntityBase
     private void Awake()
     {
         //save position to create bounds during movement behavior
-        _startPosition = transform.position;
-        
-        _segmentRefs = GetComponentsInChildren<BossSegmentController>();
+        _startPosition = _bossRoot.transform.position;
+        _laserTracker.SetActive(false);
+
         for (int i=0; i < _segmentRefs.Length; i++)
         {
             _segmentRefs[i].SetHealth(_segmentHealth);
             _segmentRefs[i].SetDelay(i * _delaySeconds);
             _segmentRefs[i].SetDamage(_attackDamage);
         }
+
+        // End game when defeated
+        Died.AddListener(() => GameManager.gm.WinGame());
     }
 
     public override void TakeDamage(float damage)
@@ -96,6 +113,7 @@ public class BossController : EntityBase
         {
             //while Segments are alive, play Invulnerable FX isntead.
             InvulnerableHit.Invoke();
+            Debug.Log("Boss Invunlerable");
         }
         
     }
@@ -145,8 +163,12 @@ public class BossController : EntityBase
     /// </summary>
     public void StartBossFight()
     {
+        Debug.Log("Fight Invoked");
+
         if (_BossBehavior == null)
         {
+            Debug.Log("Fight Started");
+            isReady = true;
             _nextState = BossState.Idle;
             NextBossState();
         }
@@ -164,8 +186,6 @@ public class BossController : EntityBase
     /// </summary>
     private void OnSegmentDestroyed()
     {
-        Debug.Log("Segment Destroyed, Boss Updating");
-
         //If current or previous check returned any alive segments
         if (_segmentsAlive)
         {
@@ -178,7 +198,7 @@ public class BossController : EntityBase
             }
 
             //If previous check returned alive, but now check returns false, call Bloodied state
-            if (!_segmentsAlive)
+            if (_segmentsAlive == false)
             {
                 _nextState = BossState.Bloodied;
             }
@@ -302,23 +322,28 @@ public class BossController : EntityBase
         else
         {
             //TODO Move Animation?
+            float moveTime = _idleTime;
 
             //identifies points on X/Y plane, at Z distance from player
-            Vector3 moveAmount = new Vector3(Random.Range(0f, 10f), Random.Range(0f, 10f), 0);
+            Vector3 moveAmount = new Vector3(Random.Range(0f, _moveMax), Random.Range(0f, _moveMax), 0);
             Vector3 point = new Vector3(_startPosition.x + moveAmount.x, _startPosition.y + moveAmount.y, _startPosition.z);
 
             //moveTowards those points, at speed
-            while (transform.position != point)
+            while (_bossRoot.transform.position != point)
             {
                 //will eventually perfectly equal Point, due to MoveTowards()?
-                transform.position = Vector3.MoveTowards(transform.position, point, _moveSpeed);
+                _bossRoot.transform.position = Vector3.MoveTowards(_bossRoot.transform.position, point, _moveSpeed * Time.deltaTime);
+                moveTime -= Time.deltaTime;
                 yield return new WaitForEndOfFrame();
             }
 
-            //calculate difference in time between move animation and time it takes to move
-            //wait for difference (if greater than 0)
-            yield return new WaitForSeconds(_idleTime * _delaySeconds);
-
+            //calculate difference in time between actual time spent moveing and minimum wait time
+            //wait for difference (if greater than 0), or don't wait if move time is excess of wait time
+            if (moveTime > 0)
+            {
+                yield return new WaitForSeconds(_idleTime - moveTime);
+            }
+            
             //recursive until 0
             StartCoroutine(MovePattern(count - 1));
         }
@@ -439,14 +464,22 @@ public class BossController : EntityBase
         int waveCount = 0;
         foreach (GameObject minion in _minionWaveRef)
         {
-            if (minion.activeInHierarchy)
+            if (minion != null && minion.activeInHierarchy)
                 waveCount++;
         }
 
         for (int i = waveCount; i < _minionWaveSize; i++)
         {
             //reliant on Minions being Disabled when killed, and not Destroyed()
-            PoolUtility.InstantiateFromPool(_minionWaveRef, _projectileSpawn, _minionRef);
+            int spawnRand = Random.Range(0, _minionSpawns.Length);
+            GameObject minionObject = PoolUtility.InstantiateFromPool(_minionWaveRef, _minionSpawns[spawnRand], _minionRef);
+            EnemyMovement minionMove = minionObject.GetComponentInChildren<EnemyMovement>();
+            minionMove?.RestartPath();
+
+            //if minion in spawned in spawnpoint "2", set minion's next waypoint to "Midpoint"
+            if (spawnRand > 0)
+                minionMove.SetWaypoint(_minionMidpoint[spawnRand - 1]);
+
             yield return new WaitForSeconds(_delaySeconds);
         }
 

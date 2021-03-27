@@ -5,8 +5,6 @@ using UnityEngine.Events;
 
 public class EnemyTank : EnemyBase
 {
-    private GameObject playerReference = null;
-
     [Header("Enemy Tank Shots Before Vulnerability Pause")]
     [SerializeField] private int shotsBeforePauseMax = 1;
 
@@ -18,6 +16,8 @@ public class EnemyTank : EnemyBase
 
     [Header("Enemy Tank Bullet Prefab")]
     [SerializeField] private GameObject bullet;
+    [SerializeField] private Transform _spawnPoint;
+    private List<GameObject> _bulletPool = new List<GameObject>();
 
     [Header("Enemy Collider Ref (Don't Touch)")]
     [SerializeField] private BoxCollider invulnToggle;
@@ -34,44 +34,13 @@ public class EnemyTank : EnemyBase
     [SerializeField] private Material invuln;
     [SerializeField] private Material vuln;
 
-    private void Start()
+    protected override void Start()
     {
-        playerReference = GameManager.player.obj;
-
+        base.Start();
         currentShotsCount = shotsBeforePauseMax;
         currentVulnerabilityPeriod = vulnerabilityPeriodMax;
 
         invulnToggle.enabled = false;
-    }
-
-    private void FixedUpdate()
-    {
-        UpdateState();
-    }
-
-    protected override void UpdateState()
-    {
-        switch (currentState)
-        {
-            case EnemyState.Passive:
-                Passive();
-                break;
-            case EnemyState.Attacking:
-                Attacking();
-                break;
-            default:
-                break;
-        }
-    }
-
-    protected override void Passive()
-    {
-        if (Vector3.Distance(transform.position, playerReference.transform.position) < EnemyDetectionRadius)
-        {
-            transform.LookAt(playerReference.transform.position);
-
-            currentState = EnemyState.Attacking;
-        }
     }
 
     protected override void Attacking()
@@ -84,15 +53,22 @@ public class EnemyTank : EnemyBase
 
             if (currentShotsCount > 0)
             {
+                //attack cooldown
                 if (shotTime <= 0)
                 {
+                    //when firing, aim at player
+                    _spawnPoint.LookAt(playerReference.transform.position);
+
+                    //fire projectile
+                    GameObject tempBullet = PoolUtility.InstantiateFromPool(_bulletPool, _spawnPoint, bullet);
+                    EnemyProjectile tempProjectile = tempBullet.GetComponent<EnemyProjectile>();
+
+                    //set damage
+                    tempProjectile.SetDamage(AttackDamage);
+
+                    //set cooldown, invoke
                     shotTime = attackRate;
-                    Instantiate(bullet, transform.position, transform.rotation);
-                    currentShotsCount--;
-
                     OnShotFired.Invoke();
-
-                    Debug.Log(currentShotsCount);
                 }
                 else
                 {
@@ -118,15 +94,5 @@ public class EnemyTank : EnemyBase
                 }
             }
         }
-    }
-
-    public override void Dead()
-    {
-        Debug.Log("Enemy destroyed");
-
-        if (givesPlayerMS)
-            camRailManager.IncreaseCamRailSpeed();
-
-        Destroy(transform.parent.gameObject);
     }
 }

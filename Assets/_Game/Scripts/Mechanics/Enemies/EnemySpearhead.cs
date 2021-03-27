@@ -5,8 +5,6 @@ using UnityEngine.Events;
 
 public class EnemySpearhead : EnemyBase
 {
-    private GameObject playerReference = null;
-
     [Header("Enemy Spearhead Charge Speed")]
     [SerializeField] private float chargingSpeed = 0;
 
@@ -21,30 +19,10 @@ public class EnemySpearhead : EnemyBase
 
     private Vector3 positionToChargeTowards;
 
-    private void Start()
+    protected override void Start()
     {
-        playerReference = GameManager.player.obj;
+        base.Start();
         chargeTimer = chargeTimerMax;
-    }
-
-    private void FixedUpdate()
-    {
-        UpdateState();
-    }
-
-    protected override void UpdateState()
-    {
-        switch (currentState)
-        {
-            case EnemyState.Passive:
-                Passive();
-                break;
-            case EnemyState.Attacking:
-                Attacking();
-                break;
-            default:
-                break;
-        }
     }
 
     protected override void Passive()
@@ -66,16 +44,15 @@ public class EnemySpearhead : EnemyBase
             if (chargeTimer <= 0 && Vector3.Distance(transform.position, playerReference.transform.position) < EnemyDetectionRadius)
             {
                 positionToChargeTowards = playerReference.transform.position;
-                isCharging = true;
+                transform.LookAt(positionToChargeTowards);
+
                 chargeTimer = chargeTimerMax;
 
-                transform.LookAt(playerReference.transform.position);
+                isCharging = true;
             }
             else if (chargeTimer != 0 && Vector3.Distance(transform.position, playerReference.transform.position) < EnemyDetectionRadius)
             {
                 chargeTimer -= Time.deltaTime;
-
-                transform.LookAt(playerReference.transform.position);
             }
         }
         else
@@ -98,15 +75,5 @@ public class EnemySpearhead : EnemyBase
         {
             isCharging = false;
         }
-    }
-
-    public override void Dead()
-    {
-        Debug.Log("Enemy destroyed");
-
-        if (givesPlayerMS)
-            camRailManager.IncreaseCamRailSpeed();
-
-        Destroy(transform.parent.gameObject);
     }
 }

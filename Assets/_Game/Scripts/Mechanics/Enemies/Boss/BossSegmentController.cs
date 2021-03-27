@@ -33,9 +33,40 @@ public class BossSegmentController : EntityBase
     }
     #endregion
 
-    #region Public Accessors
-    public void SetHealth(int value)
+    public override void TakeDamage(float damage)
     {
+        if (!_bossRef.isReady)
+        {
+            _bossRef.InvulnerableHit.Invoke();
+            return;
+        }
+            
+
+        _currentHealth -= damage;
+
+        if (_currentHealth <= 0)
+        {
+            Died.Invoke();
+
+            //SetActive False by default. Override to implement other behavior
+            Debug.Log(gameObject.name + " has died");
+            gameObject.SetActive(false);
+        }
+        else
+        {
+            Damaged.Invoke();
+
+            Debug.Log(gameObject.name + " has taken damage" +
+                "\nNew Health: " + Health);
+        }
+    }
+
+    #region Public Accessors
+    public void SetHealth(float value)
+    {
+        if (value > maxHealth)
+            maxHealth = value;
+
         _currentHealth = value;
     }
 
@@ -82,10 +113,7 @@ public class BossSegmentController : EntityBase
     private void OnMissileAttack()
     {
         //TODO missile animation
-        GameObject missile = null;
-
-        //instantiate missile
-        missile = PoolUtility.InstantiateFromPool(_missilePool, _missileSpawnPoint, _missileRef);
+        GameObject missile = PoolUtility.InstantiateFromPool(_missilePool, _missileSpawnPoint, _missileRef);
 
         BossMissile bullet = missile.GetComponent<BossMissile>();
 

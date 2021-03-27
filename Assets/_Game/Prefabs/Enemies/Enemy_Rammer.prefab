@@ -72,10 +72,10 @@ GameObject:
   m_Component:
   - component: {fileID: 5892482954972556089}
   - component: {fileID: 4188406809287116984}
-  - component: {fileID: 4119121962320575728}
   - component: {fileID: 6945596401856243583}
+  - component: {fileID: 7203790071827712705}
   - component: {fileID: 3884467504205496399}
-  - component: {fileID: 4919885627989326621}
+  - component: {fileID: 6812764698134458447}
   m_Layer: 11
   m_Name: Rammer-Assets
   m_TagString: Untagged
@@ -175,13 +175,13 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
-  maxHealth: 30
+  maxHealth: 7
   currentState: 0
-  attackDamage: 1
+  attackDamage: 10
   enemyDetectionRadius: 12
   enemyScore: 0
   givesPlayerMS: 1
-  enemyChargeSpeed: 15
+  ramSpeed: 15
   OnRamAttackEnter:
     m_PersistentCalls:
       m_Calls:
@@ -210,34 +210,6 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 1
         m_CallState: 2
---- !u!114 &4119121962320575728
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1656154533622931641}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: ee1689e295e6e1642b2f01897ed772a2, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  WEAPONREF_ARRAY:
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  WeaponAChance: 0
-  WeaponBChance: 0
-  WeaponCChance: 0
-  HEALTHREF: {fileID: 0}
-  healthChance: 100
-  _healAmount: 1
-  OVERLOADREF: {fileID: 0}
-  overloadChance: 100
-  _overloadAmount: 10
-  POINTSREF: {fileID: 0}
-  pointsChance: 100
-  pointsAwarded: 0
 --- !u!114 &6945596401856243583
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -266,6 +238,18 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
+--- !u!114 &7203790071827712705
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1656154533622931641}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 81ab69e5615454f4a85157eab30a6cb3, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!65 &3884467504205496399
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -279,19 +263,22 @@ BoxCollider:
   serializedVersion: 2
   m_Size: {x: 2.9907298, y: 1.8910937, z: 3}
   m_Center: {x: -0.029635012, y: 0.15393162, z: -0.36}
---- !u!65 &4919885627989326621
-BoxCollider:
+--- !u!54 &6812764698134458447
+Rigidbody:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1656154533622931641}
-  m_Material: {fileID: 0}
-  m_IsTrigger: 0
-  m_Enabled: 1
   serializedVersion: 2
-  m_Size: {x: 2.8482015, y: 1.7174908, z: 2.883319}
-  m_Center: {x: -0.025899291, y: 0.140733, z: -0.3566594}
+  m_Mass: 1
+  m_Drag: 0
+  m_AngularDrag: 0.05
+  m_UseGravity: 0
+  m_IsKinematic: 0
+  m_Interpolate: 0
+  m_Constraints: 0
+  m_CollisionDetection: 0
 --- !u!1 &8039653927728995427
 GameObject:
   m_ObjectHideFlags: 0

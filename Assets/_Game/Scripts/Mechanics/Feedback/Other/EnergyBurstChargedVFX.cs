@@ -2,8 +2,11 @@
 
 public class EnergyBurstChargedVFX : MonoBehaviour
 {
-    [Header("For testing, since not hooked-up")]
-    public bool charged;
+    [Header("Energy Blaster Reference")]
+    [SerializeField] EnergyBurst energyBurst;
+
+    [Header("(View Only)")]
+    [SerializeField] bool charged;
     bool chargedLastFrame;
 
     [Header("Charged Glowing Effect")]
@@ -28,7 +31,8 @@ public class EnergyBurstChargedVFX : MonoBehaviour
 
     private void Awake()
     {
-        playerShipStandardMaterial = playerShipMeshRenderer.material;
+        if (playerShipMeshRenderer)
+            playerShipStandardMaterial = playerShipMeshRenderer.material;
     }
 
     private void Start()
@@ -42,8 +46,7 @@ public class EnergyBurstChargedVFX : MonoBehaviour
 
     private void Update()
     {
-        // No hookup yet because energy burst not implemented
-        //charged = true;
+        charged = energyBurst.IsWeaponCharged();
 
         if (charged && !chargedLastFrame)
             SetCharged(true);

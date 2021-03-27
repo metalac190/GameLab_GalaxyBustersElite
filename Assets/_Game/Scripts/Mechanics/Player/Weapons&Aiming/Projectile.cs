@@ -6,6 +6,16 @@ using UnityEngine;
 public class Projectile : MonoBehaviour
 {
     [SerializeField] private float _speed = 20f;
+    public float Speed
+    {
+        get { return _speed; }
+        set
+        {
+            _speed = value;
+            if(rb)
+                rb.velocity = transform.forward * _speed;
+        }
+    }
 	[SerializeField] protected float _damage = 2;
 
     [SerializeField] private float lifeTime = 2f;
@@ -34,23 +44,30 @@ public class Projectile : MonoBehaviour
             gameObject.SetActive(false);
 	}
 
-    protected virtual void OnCollisionEnter(Collision collision)
-    {
-        EntityBase entity = collision.gameObject.GetComponent<EntityBase>();
-        entity?.TakeDamage(_damage);
-
-        gameObject.SetActive(false);
-    }
-
     public void SetDamage(float value)
     {
         _damage = value;
     }
-
-    public void SetVelocity(float value)
-    {
-        _speed = value;
+     
+    public void SetVelocity(float value) {
+        Speed = value;
     }
-        
+    
+    private void OnCollisionEnter(Collision collision)
+    {
+        //when colliding with any Phsyical Collision, disable projectile
+        gameObject.SetActive(false);
+    }
+
+    protected virtual void OnTriggerEnter(Collider other)
+    {
+        //when hitting an Entity, damage it and disable projectile
+        EntityBase entity = other.gameObject.GetComponent<EntityBase>();
+        if (entity != null)
+        {
+            entity?.TakeDamage(_damage);
+            gameObject.SetActive(false);
+        }
+    }
 
 }
