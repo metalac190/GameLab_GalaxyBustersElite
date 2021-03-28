@@ -19,6 +19,9 @@ public class UtilityEvent : MonoBehaviour
     {
         //validate, other is Player, probably a better method somewhere
         if (other.CompareTag("Player"))
+        {
             Triggered.Invoke();
+        }
+            
     }
 }

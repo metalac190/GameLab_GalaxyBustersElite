@@ -6,6 +6,19 @@ using UnityEngine;
 //cannot be static AND monobehavior?
 public class PoolUtility : MonoBehaviour
 {
+    private static Transform projectileGroup;
+    public static Transform ProjectileGroup
+    {
+        get
+        {
+            if (projectileGroup == null)
+                projectileGroup = new GameObject().GetComponent<Transform>();
+
+            return projectileGroup;
+        }
+            
+    }
+
     /// <summary> Instantiates Projectiles from Pool
     /// <para>  Takes most recent inactive reference in hierarchy to set active and enable. If no availalbe inactive reference, instantiates a new reference and enables. </para>
     /// <para>   Abstracted to work with Any projectile type. </para>
@@ -23,6 +36,7 @@ public class PoolUtility : MonoBehaviour
             if (projectile != null && projectile.activeInHierarchy == false)
             {
                 //Enables and positions projectile, to reuse
+                projectile.transform.parent = ProjectileGroup;
                 projectile.transform.position = spawnPoint.position;
                 projectile.transform.rotation = spawnPoint.rotation;
                 projectile.SetActive(true);

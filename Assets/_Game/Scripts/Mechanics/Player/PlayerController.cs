@@ -11,9 +11,9 @@ public class PlayerController : MonoBehaviour
 	[SerializeField] float tempInvulnTime = 0.1f;
 	[SerializeField] GameObject currentWeapon;
 	public GameObject[] weapons;
-    bool isDodging = false;
-    bool isInvincible = false;
-	bool isOverloaded = false;
+    public bool isDodging = false;
+    public bool isInvincible = false;
+	public bool isOverloaded = false;
 	private float cdInvuln = 0f;
 
 	[Header("Effects")]
@@ -21,7 +21,7 @@ public class PlayerController : MonoBehaviour
 	[SerializeField] float cameraShakeOnHit = 1;
 	public float CameraShakeOnHit { get => cameraShakeOnHit; }
 	[SerializeField] UnityEvent OnHit;
-	[SerializeField] UnityEvent OnDeath;
+	public UnityEvent OnDeath;
 	[SerializeField] UnityEvent OnPickedUpWeapon;
 	[SerializeField] float playerHealthLowThreshold = 1;
 	float lastFramePlayerHealth;

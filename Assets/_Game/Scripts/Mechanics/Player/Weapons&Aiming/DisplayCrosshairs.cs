@@ -5,7 +5,6 @@ using UnityEngine;
 // Places crosshairs with given sprites in world determined by mouse location
 public class DisplayCrosshairs : MonoBehaviour
 {
-	[SerializeField] Transform player;
 	[SerializeField] Transform mouse;
 	[SerializeField] Transform nearCrosshair;
 	[SerializeField] Transform farCrosshair;
@@ -13,12 +12,13 @@ public class DisplayCrosshairs : MonoBehaviour
 	[SerializeField] [Range(0, 2f)] float farCrosshairDistance = 1f;
 	[SerializeField] bool debug = true;
 
-	Transform cam;
+	Transform cam, player;
 	Vector3 line1, line2, avgLine, avgStart, targetLine;
 
 	private void Start()
 	{
 		cam = Camera.main.transform;
+		player = GameManager.player.obj.transform.Find("Weapon Mount").transform;
 	}
 
 	void Update()

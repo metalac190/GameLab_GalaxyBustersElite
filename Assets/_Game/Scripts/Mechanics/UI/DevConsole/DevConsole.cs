@@ -14,10 +14,6 @@ public class DevConsole : MonoBehaviour
     private bool isFF = false;
 
 
-    void Awake()
-    {
-        //Find references
-    }
     
     void Update()
     {
@@ -26,12 +22,19 @@ public class DevConsole : MonoBehaviour
             if (isActive)
             {
                 Deactivate();
+                Cursor.visible = false;
             }
             else
             {
                 Activate();
+                Cursor.visible = true;
             }
             isActive = !isActive;
+        }
+
+        if (infOverload)
+        {
+            GameManager.player.controller.SetOverload(100);
         }
     }
 
@@ -51,11 +54,25 @@ public class DevConsole : MonoBehaviour
     {
         isInvincible = !isInvincible;
         Debug.Log("Invincibility: " + isInvincible);
+        GameManager.player.controller.isInvincible = isInvincible;
+    }
+    public void ToggleInvincibility(bool inv)
+    {
+        isInvincible = inv;
+        GameManager.player.controller.isInvincible = isInvincible;
     }
 
     public void ModifyHP(int mod)
     {
         Debug.Log("HP Change: " + mod);
+        if (mod >= 0)
+        {
+            GameManager.player.controller.HealPlayer(mod);
+        }
+        else
+        {
+            GameManager.player.controller.DamagePlayer(-mod);
+        }
     }
 
     public void SpawnEnemy(int enemy)
@@ -86,6 +103,7 @@ public class DevConsole : MonoBehaviour
     public void SetLevel(string level)
     {
         Debug.Log("Entering level: " + level);
+        GameManager.gm.LoadScene(level);
     }
 
     public void SetWeapon(int weapon)
@@ -102,6 +120,7 @@ public class DevConsole : MonoBehaviour
                 Debug.Log("Swapping to Laser");
                 break;
         }
+        GameManager.player.controller.SetWeapon(GameManager.player.controller.weapons[weapon]);
     }
 
     public void ToggleInfOverload()
@@ -114,16 +133,20 @@ public class DevConsole : MonoBehaviour
     {
         infDodge = !infDodge;
         Debug.Log("Infinite dodge: " + infDodge);
+        GameManager.player.movement.infiniteDodge = infDodge;
     }
 
     public void SelfDestruct()
     {
         Debug.Log("Self-destruct initiated");
+        GameManager.player.controller.OnDeath.Invoke();
+        GameManager.gm.LoseGame();
     }
 
     public void ModifyScore(int mod)
     {
         Debug.Log("Score Change: " + mod);
+        GameManager.gm.score += mod;
     }
 
     public void ClearEnemies()
@@ -134,8 +157,9 @@ public class DevConsole : MonoBehaviour
     public void ToggleFastForward()
     {
         isFF = !isFF;
-        Debug.Log(((isFF)?"2.0x":"1.0x")+" speed");
-        Time.timeScale = isFF ? 2f : 1f;
+        Debug.Log(((isFF)?"5.0x":"1.0x")+" speed");
+        Time.timeScale = isFF ? 5f : 1f;
+        ToggleInvincibility(isFF); //If fast-forwarding, become invincible so you don't die along the way
     }
 
 }
