@@ -18,7 +18,6 @@ public class HeatStopper : MonoBehaviour
             //trying to not be too redundant
             if (seeker.isFollowing)
             {
-                Debug.Log("Found Heat Seeker");
                 seeker.StopFollowing();
             }
         }

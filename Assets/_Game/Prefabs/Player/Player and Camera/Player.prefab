@@ -120,6 +120,7 @@ MonoBehaviour:
   dodgeSpeed: 50
   dodgeDuration: 0.4
   dodgeCooldown: 1
+  infiniteDodge: 0
   collDuration: 2
   collForce: {x: 1000, y: 1000, z: 0}
   torqueForce: {x: 1000, y: 1000, z: 1000}
@@ -228,6 +229,9 @@ MonoBehaviour:
   - {fileID: 4587364871884471440}
   - {fileID: 4105299738326069021}
   - {fileID: 4105299737162226496}
+  isDodging: 0
+  isInvincible: 0
+  isOverloaded: 0
   cameraShakeOnHit: 1
   OnHit:
     m_PersistentCalls:
