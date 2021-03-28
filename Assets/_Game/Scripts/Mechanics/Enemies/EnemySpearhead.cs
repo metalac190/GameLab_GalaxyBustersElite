@@ -12,6 +12,7 @@ public class EnemySpearhead : EnemyBase
     [SerializeField] private float chargeTimerMax = 1;
     private float chargeTimer;
     private bool isCharging;
+    private bool singleChargeDone;
 
     [Header("Enemy Spearhead Movement Fix - Don't Touch")]
     [SerializeField] UnityEvent OnChargeAttackEnter;
@@ -27,9 +28,9 @@ public class EnemySpearhead : EnemyBase
 
     protected override void Passive()
     {
-        if (Vector3.Distance(transform.position, playerReference.transform.position) < EnemyDetectionRadius)
+        if (Vector3.Distance(transform.position, GameManager.player.obj.transform.position) < EnemyDetectionRadius)
         {
-            transform.LookAt(playerReference.transform.position);
+            transform.LookAt(GameManager.player.obj.transform.position);
 
             currentState = EnemyState.Attacking;
 
@@ -41,18 +42,21 @@ public class EnemySpearhead : EnemyBase
     {
         if (!isCharging)
         {
-            if (chargeTimer <= 0 && Vector3.Distance(transform.position, playerReference.transform.position) < EnemyDetectionRadius)
+            if (!singleChargeDone)
             {
-                positionToChargeTowards = playerReference.transform.position;
-                transform.LookAt(positionToChargeTowards);
+                if (chargeTimer <= 0 && Vector3.Distance(transform.position, GameManager.player.obj.transform.position) < EnemyDetectionRadius)
+                {
+                    positionToChargeTowards = GameManager.player.obj.transform.position;
+                    transform.LookAt(positionToChargeTowards);
 
-                chargeTimer = chargeTimerMax;
+                    chargeTimer = chargeTimerMax;
 
-                isCharging = true;
-            }
-            else if (chargeTimer != 0 && Vector3.Distance(transform.position, playerReference.transform.position) < EnemyDetectionRadius)
-            {
-                chargeTimer -= Time.deltaTime;
+                    isCharging = true;
+                }
+                else if (chargeTimer != 0 && Vector3.Distance(transform.position, GameManager.player.obj.transform.position) < EnemyDetectionRadius)
+                {
+                    chargeTimer -= Time.deltaTime;
+                }
             }
         }
         else
@@ -60,7 +64,7 @@ public class EnemySpearhead : EnemyBase
             Charge();
         }
 
-        if (Vector3.Distance(transform.position, playerReference.transform.position) > EnemyDetectionRadius)
+        if (Vector3.Distance(transform.position, GameManager.player.obj.transform.position) > EnemyDetectionRadius)
         {
             chargeTimer = chargeTimerMax;
             OnChargeAttackExit.Invoke();
@@ -74,6 +78,17 @@ public class EnemySpearhead : EnemyBase
         if (Vector3.Distance(transform.position, positionToChargeTowards) == 0)
         {
             isCharging = false;
+            singleChargeDone = true;
+        }
+    }
+
+    private void OnTriggerEnter(Collider col)
+    {
+        // Two spearheads hitting each other will destroy each other, keep this in mind
+        if (col.gameObject.layer == LayerMask.NameToLayer("Enemies"))
+        {
+            DialogueTrigger.TriggerEnemyDefeatedDialogue();
+            col.gameObject.GetComponent<EnemyBase>().Dead();
         }
     }
 }

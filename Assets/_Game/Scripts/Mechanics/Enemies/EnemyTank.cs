@@ -47,9 +47,9 @@ public class EnemyTank : EnemyBase
     {
         bullet.GetComponent<EnemyProjectile>().SetDamage(AttackDamage);
 
-        if (Vector3.Distance(transform.position, playerReference.transform.position) < EnemyDetectionRadius)
+        if (Vector3.Distance(transform.position, GameManager.player.obj.transform.position) < EnemyDetectionRadius)
         {
-            transform.LookAt(playerReference.transform.position);
+            transform.LookAt(GameManager.player.obj.transform.position);
 
             if (currentShotsCount > 0)
             {
@@ -57,7 +57,7 @@ public class EnemyTank : EnemyBase
                 if (shotTime <= 0)
                 {
                     //when firing, aim at player
-                    _spawnPoint.LookAt(playerReference.transform.position);
+                    _spawnPoint.LookAt(GameManager.player.obj.transform.position);
 
                     //fire projectile
                     GameObject tempBullet = PoolUtility.InstantiateFromPool(_bulletPool, _spawnPoint, bullet);

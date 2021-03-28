@@ -15,9 +15,9 @@ public class EnemyRammer : EnemyBase
 
     protected override void Passive()
     {
-        if (Vector3.Distance(transform.position, playerReference.transform.position) < EnemyDetectionRadius)
+        if (Vector3.Distance(transform.position, GameManager.player.obj.transform.position) < EnemyDetectionRadius)
         {
-            transform.LookAt(playerReference.transform.position);
+            transform.LookAt(GameManager.player.obj.transform.position);
 
             //when changing state, enable heat seeking behavior
             currentState = EnemyState.Attacking;
@@ -32,12 +32,12 @@ public class EnemyRammer : EnemyBase
 
     protected override void Attacking()
     {
-        if (Vector3.Distance(transform.position, playerReference.transform.position) < EnemyDetectionRadius)
+        if (Vector3.Distance(transform.position, GameManager.player.obj.transform.position) < EnemyDetectionRadius)
         {
             //behavior moved to HeatSeeker behavior
             GetComponent<Rigidbody>().velocity = transform.forward * ramSpeed;
         }
-        else if (Vector3.Distance(transform.position, playerReference.transform.position) > EnemyDetectionRadius)
+        else if (Vector3.Distance(transform.position, GameManager.player.obj.transform.position) > EnemyDetectionRadius)
         {
             OnRamAttackExit.Invoke();
         }

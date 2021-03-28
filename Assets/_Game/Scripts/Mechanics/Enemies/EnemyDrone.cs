@@ -7,7 +7,7 @@ public class EnemyDrone : EnemyBase
 {
     protected override void Passive()
     {
-        transform.LookAt(playerReference.transform.position);
+        transform.LookAt(GameManager.player.obj.transform.position);
     }
     
     protected override void Attacking()

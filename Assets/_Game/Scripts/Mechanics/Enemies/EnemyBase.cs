@@ -22,12 +22,9 @@ public abstract class EnemyBase : EntityBase
     [SerializeField] protected bool givesPlayerMS;
     protected CamRailManager camRailManager;
 
-    protected GameObject playerReference = null;
-
     protected virtual void Awake()
     {
         camRailManager = FindObjectOfType<CamRailManager>();
-        playerReference = GameManager.player.obj;
     }
 
     protected override void Start()
@@ -58,9 +55,9 @@ public abstract class EnemyBase : EntityBase
 
     protected virtual void Passive()
     {
-        if (Vector3.Distance(transform.position, playerReference.transform.position) < EnemyDetectionRadius)
+        if (Vector3.Distance(transform.position, GameManager.player.obj.transform.position) < EnemyDetectionRadius)
         {
-            transform.LookAt(playerReference.transform.position);
+            transform.LookAt(GameManager.player.obj.transform.position);
 
             currentState = EnemyState.Attacking;
         }
