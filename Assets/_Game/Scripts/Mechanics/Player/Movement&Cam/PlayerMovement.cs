@@ -16,6 +16,7 @@ public class PlayerMovement : MonoBehaviour
     [SerializeField] float dodgeSpeed = 40;
     public float dodgeDuration = .5f;
     public float dodgeCooldown = 1f; //Timed after dodge ends
+    public bool infiniteDodge = false;
     float dodgeDurationRemaining = 0;
     float dodgeCooldownRemaining = 0;
 
@@ -154,7 +155,10 @@ public class PlayerMovement : MonoBehaviour
         {
             OnDodge.Invoke();
             dodgeDurationRemaining = dodgeDuration;
-            dodgeCooldownRemaining = dodgeDuration + dodgeCooldown; //Duration of dodge is not included in cooldown value
+            if (!infiniteDodge)
+            {
+                dodgeCooldownRemaining = dodgeDuration + dodgeCooldown; //Duration of dodge is not included in cooldown value
+            }
         }
     }
 

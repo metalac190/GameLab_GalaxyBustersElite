@@ -24,12 +24,12 @@ public abstract class EnemyBase : EntityBase
 
     private void Awake()
     {
-		_currentHealth = maxHealth;
 		camRailManager = FindObjectOfType<CamRailManager>();
     }
 
-    void Start()
+    protected override void Start()
     {
+        base.Start();
         currentState = EnemyState.Passive;
     }
 
