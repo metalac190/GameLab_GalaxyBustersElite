@@ -5,20 +5,6 @@ using UnityEngine;
 [RequireComponent(typeof(Rigidbody))]
 public class HeatSeeker : MonoBehaviour
 {
-    //behavior:
-    /* Missile + Rammer + Spearhead have this component
-        * 
-        * Missile sets a rb.velocity = transform.forward 
-        * Missile updates it's look direction every Update to follow a GameObject reference
-        * Missile updates it rb.velocity to the new Forward
-        *   Missile also has "non-reference" option to just fly straight? Should missile always track player?
-        *   
-        * Rammer uses vector3.moveTowards(playerReference)
-        * Rammer sets tranform.lookAt(playerReference)
-        * 
-        * Update Rammer to use rb?
-     */
-
     [SerializeField] public bool isFollowing { get; private set; } = false;
     [SerializeField] public float RotationSpeed { get; private set; } = 5f;
 
@@ -51,7 +37,6 @@ public class HeatSeeker : MonoBehaviour
 
     public void StartFollowing()
     {
-        Debug.Log("Called Stop");
         isFollowing = true;
     }
 
