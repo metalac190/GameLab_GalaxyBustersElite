@@ -7,17 +7,19 @@ public class LaserDamage : MonoBehaviour
 {
     private int _damage = 1;
 
+    private void Awake()
+    {
+        GetComponent<Collider>().isTrigger = true;
+    }
+
     public void SetDamage(int value)
     {
         _damage = value;
     }
 
-    private void OnCollisionEnter(Collision collision)
+    private void OnTriggerEnter(Collider other)
     {
-        PlayerController player = collision.gameObject.GetComponent<PlayerController>();
+        PlayerController player = other.gameObject.GetComponent<PlayerController>();
         player?.DamagePlayer(_damage);
-
-        if (player != null)
-            gameObject.SetActive(false);
     }
 }
