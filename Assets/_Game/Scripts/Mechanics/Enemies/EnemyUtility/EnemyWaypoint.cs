@@ -7,8 +7,7 @@ public class EnemyWaypoint : MonoBehaviour
 {
     [Header("Effects")]
     [SerializeField] UnityEvent OnEnter;
-
-
+    
     [SerializeField] Renderer renderer;
 
     private void Start()

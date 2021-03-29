@@ -18,12 +18,12 @@ public class DialogueList : MonoBehaviour
 
     [Header("Level 3 Story Dialogue")]
     public Dialogue[] ZenoxRevealDialogue;
-    public Dialogue[] ZenoxFillerDialogue;
     public Dialogue[] AfterBossDialogue;
 
     [Header("Reaction Dialogue")]
     public Dialogue[] PlayerDamagedDialogue;
     public Dialogue[] EnemyDefeatedDialogue;
+    public Dialogue[] ZenoxFillerDialogue;
 
 
 
