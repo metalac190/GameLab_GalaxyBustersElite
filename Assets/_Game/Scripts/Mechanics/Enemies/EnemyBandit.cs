@@ -1,74 +1,90 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Events;
 
 public class EnemyBandit : EnemyBase
 {
-    private GameObject playerReference = null;
+    [Header("Enemy Bandit Burst Shot Amount")]
+    [SerializeField] private int burstShotAmt = 0;
+    private float currentBurstShots;
 
-    [Header("Enemy Bandit Attack Rate (Higher # = Longer Shot Delay)")]
+    [Header("Enemy Bandit Time Between Burst Shots (Ideal Range Below 1 - Ex: 0.##)")]
     [SerializeField] private float attackRate = 0;
+    private float burstTimer;
+
+    [Header("Enemy Bandit Time Until Next Burst (Higher # = Longer Delay)")]
+    [SerializeField] private float nextBurstMin = 0;
+    [SerializeField] private float nextBurstMax = 0;
+    private float nextBurstTime = 0;
+    private float nextBurst;
 
     [Header("Enemy Bandit Bullet Prefab")]
-    [SerializeField] private GameObject bullet;
+    [SerializeField] private GameObject bulletPrefab;
+    [SerializeField] private Transform _spawnPoint;
+    private List<GameObject> _bulletPool = new List<GameObject>();
 
-    private float shotTime;
+    [Header("Effects")]
+    [SerializeField] UnityEvent OnShotFired;
 
-    private void Start()
-    {
-        playerReference = GameManager.player.obj;
-    }
-
-    private void FixedUpdate()
-    {
-        UpdateState();
-    }
-
-    protected override void UpdateState()
-    {
-        switch (currentState)
-        {
-            case EnemyState.Passive:
-                Passive();
-                break;
-            case EnemyState.Attacking:
-                Attacking();
-                break;
-            default:
-                break;
-        }
-    }
-
-    protected override void Passive()
-    {
-        if (Vector3.Distance(transform.position, playerReference.transform.position) < EnemyDetectionRadius)
-        {
-            transform.LookAt(playerReference.transform.position);
-
-            Debug.Log("Detect range reached");
-            currentState = EnemyState.Attacking;
-        }
-    }
-
+    //behavior
     protected override void Attacking()
     {
-        transform.LookAt(playerReference.transform.position);
-        bullet.GetComponent<EnemyProjectile>().SetDamage(AttackDamage);
+        //player in range
+        if (Vector3.Distance(transform.position, GameManager.player.obj.transform.position) < EnemyDetectionRadius)
+        {
+            //constantly looks to player's position, doing it here to make it less choppy
+            transform.LookAt(GameManager.player.obj.transform.position);
 
-        if (shotTime <= 0)
-        {
-            shotTime = attackRate;
-            Instantiate(bullet, transform.position, transform.rotation);
-        }
-        else
-        {
-            shotTime -= Time.deltaTime;
+            if (currentBurstShots > 0)
+            {
+                //attack cooldown
+                if (burstTimer <= 0)
+                {
+                    //fire projectile
+                    GameObject tempBullet = PoolUtility.InstantiateFromPool(_bulletPool, _spawnPoint, bulletPrefab);
+                    EnemyProjectile tempProjectile = tempBullet.GetComponent<EnemyProjectile>();
+
+                    //set damage
+                    tempProjectile.SetDamage(AttackDamage);
+
+                    //set cooldown, invoke
+                    burstTimer = attackRate;
+                    currentBurstShots -= 1;
+                    OnShotFired.Invoke();
+                }
+                else
+                {
+                    burstTimer -= Time.deltaTime;
+                }
+            }
+            else
+            {
+                if (nextBurst <= 0)
+                {
+                    //adjust RNG attackRate, restrict to 2 decimal places
+                    nextBurstTime = Random.Range(nextBurstMin, nextBurstMax);
+                    nextBurstTime -= (nextBurstTime % 0.01f);
+
+                    //set cooldown
+                    nextBurst = nextBurstTime;
+                    currentBurstShots = burstShotAmt;
+                }
+                else
+                {
+                    nextBurst -= Time.deltaTime;
+                }
+            }
         }
     }
 
     public override void Dead()
     {
         Debug.Log("Enemy destroyed");
+
+        if (givesPlayerMS)
+            camRailManager.IncreaseCamRailSpeed();
+
         Destroy(transform.parent.gameObject);
     }
 }

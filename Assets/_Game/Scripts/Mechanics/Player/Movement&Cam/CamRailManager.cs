@@ -59,7 +59,7 @@ public class CamRailManager : MonoBehaviour
         Vector2 nextWaypointPosXY = new Vector2(cineSmoothPath.m_Waypoints[waypointIndex].position.x, cineSmoothPath.m_Waypoints[waypointIndex].position.y);
         Vector2 nextWaypointPosYZ = new Vector2(cineSmoothPath.m_Waypoints[waypointIndex].position.y, cineSmoothPath.m_Waypoints[waypointIndex].position.z);
 
-        if ((Vector2.Distance(movementTrackerPosXY, nextWaypointPosXY) < 1f || Vector2.Distance(movementTrackerPosYZ, nextWaypointPosYZ) < 1f)
+        if ((Vector2.Distance(movementTrackerPosXY, nextWaypointPosXY) < 10f || Vector2.Distance(movementTrackerPosYZ, nextWaypointPosYZ) < 10f)
             && waypointIndex < waypointSpeeds.Count - 1)
         {
             SetCamRailSpeed(waypointSpeeds[waypointIndex]);
@@ -78,6 +78,7 @@ public class CamRailManager : MonoBehaviour
     public void IncreaseCamRailSpeed()
     {
         StopAllCoroutines();
+
         float newMS = movementTrackerDollyCart.m_Speed + increaseMSAmt;
 
         StartCoroutine(SetCamRailSpeedCoroutine(newMS));

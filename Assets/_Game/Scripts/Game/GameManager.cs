@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Events;
 using UnityEngine.SceneManagement;
 
 public class GameManager : MonoBehaviour {
@@ -10,7 +11,7 @@ public class GameManager : MonoBehaviour {
     [Header("Overall Game Control")]
     public GameState currentState;
     [Range(1, 3)] public int unlockedLevel = 1;
-    public int currentLevel = 0;
+    [Range(1, 3)] public int currentLevel = 1;
 
     [Header("Pause Control")]
     [SerializeField] private GameObject pauseMenu;
@@ -20,6 +21,7 @@ public class GameManager : MonoBehaviour {
     [Header("Game Flow")]
     [SerializeField] private GameObject winScreen;
     [SerializeField] private GameObject loseScreen;
+    [HideInInspector] public UnityEvent OnEndLevel;
 
     [Header("Game Stats")]
     public int score;
@@ -29,6 +31,7 @@ public class GameManager : MonoBehaviour {
     [SerializeField] private GameObject missionBriefing1;
     [SerializeField] private GameObject missionBriefing2;
     [SerializeField] private GameObject missionBriefing3;
+    [HideInInspector] public UnityEvent OnBriefingEnd;
 
     [Header("Player Reference")]
 	public static PlayerReferences player = new PlayerReferences();
@@ -77,6 +80,9 @@ public class GameManager : MonoBehaviour {
     private void Update() {
         if(Input.GetButtonDown("Pause"))
             Paused = !Paused;
+
+        if(currentState == GameState.Gameplay && Input.GetKey(KeyCode.LeftControl) && Input.GetKey(KeyCode.K))
+            WinGame();
     }
 
     // ----------------------------------------------------------------------------------------------------
@@ -114,11 +120,18 @@ public class GameManager : MonoBehaviour {
 
     #region Game Flow
 
-    public void WinGame() {
+    private void EndLevel() {
         Paused = false;
         Time.timeScale = 0;
-        currentState = GameState.Win;
         Cursor.visible = true;
+        OnEndLevel.Invoke();
+    }
+
+    // -----
+
+    public void WinGame() {
+        EndLevel();
+        currentState = GameState.Win;
         winScreen.SetActive(true);
     }
 
@@ -126,20 +139,35 @@ public class GameManager : MonoBehaviour {
         this.winScreen = winScreen;
     }
 
+    // -----
+
     public void LoseGame() {
-        // TODO
+        EndLevel();
+        currentState = GameState.Fail;
+        loseScreen.SetActive(true);
     }
 
     public void SetLoseScreen(GameObject loseScreen) {
         this.loseScreen = loseScreen;
     }
 
+    // -----
+
     public void SetMissionBriefing(GameObject briefingGO, GameObject briefing1, GameObject briefing2, GameObject briefing3)
     {
-        this.missionBriefingGO = briefingGO;
-        this.missionBriefing1 = briefing1;
-        this.missionBriefing2 = briefing2;
-        this.missionBriefing3 = briefing3;
+        missionBriefingGO = briefingGO;
+        missionBriefing1 = briefing1;
+        missionBriefing2 = briefing2;
+        missionBriefing3 = briefing3;
+    }
+
+    public void EndMissionBriefing() {
+        currentState = GameState.Gameplay;
+        Cursor.visible = false;
+        Cursor.lockState = CursorLockMode.Confined;
+        OnBriefingEnd.Invoke();
+
+        Time.timeScale = 1;
     }
 
     #endregion
@@ -149,10 +177,7 @@ public class GameManager : MonoBehaviour {
     #region Scene Management
 
     public void LoadScene(string scene) {
-        score = 0;
-        Paused = false;
-        Time.timeScale = 1;
-        SceneManager.LoadScene(scene);
+        StartCoroutine(LoadSceneCoroutine(scene));
     }
 
     public void LoadScene(Levels scene) {
@@ -160,31 +185,45 @@ public class GameManager : MonoBehaviour {
         switch(scene) {
             case Levels.MainMenu:
                 currentState = GameState.MainMenu;
-                Cursor.lockState = CursorLockMode.None;
                 LoadScene("Main Menu");
                 currentLevel = 0;
                 break;
             case Levels.Mission1:
-                currentState = GameState.Gameplay;
-                LoadScene("Pre-Alpha");
-                //LoadScene("Mission 1");
+                currentState = GameState.Briefing;
+                LoadScene("Level1_Alpha");
                 currentLevel = 1;
                 break;
             case Levels.Mission2:
-                currentState = GameState.Gameplay;
+                currentState = GameState.Briefing;
                 unlockedLevel = Mathf.Max(unlockedLevel, 2);
-                LoadScene("Mission 2");
+                LoadScene("Level2_Alpha");
                 currentLevel = 2;
                 break;
             case Levels.Mission3:
-                currentState = GameState.Gameplay;
+                currentState = GameState.Briefing;
                 unlockedLevel = 3;
-                LoadScene("Mission 3");
+                LoadScene("Level3_Alpha");
                 currentLevel = 3;
                 break;
             default:
                 break;
         }
+    }
+
+    private IEnumerator LoadSceneCoroutine(string scene) {
+        if(MusicPlayer.instance)
+            MusicPlayer.instance.FadeOut();
+        yield return new WaitForSecondsRealtime(1f);
+        // TODO - Insert fade to black here
+
+        score = 0;
+        _paused = false;
+        Time.timeScale = 1;
+
+        Cursor.visible = true;
+        Cursor.lockState = CursorLockMode.None;
+
+        SceneManager.LoadScene(scene);
     }
 
     #endregion
