@@ -12,7 +12,6 @@ GameObject:
   - component: {fileID: 7407764473862943828}
   - component: {fileID: 1796994892}
   - component: {fileID: 371341398330704716}
-  - component: {fileID: 7204161046364552349}
   m_Layer: 11
   m_Name: Drone-Assets
   m_TagString: Untagged
@@ -112,11 +111,12 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
-  maxHealth: 1
+  maxHealth: 10
   currentState: 0
-  attackDamage: 10
+  attackDamage: 15
   enemyDetectionRadius: 0
-  enemyScore: 15
+  enemyScore: 100
+  givesPlayerMS: 1
 --- !u!114 &1796994892
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -157,19 +157,6 @@ BoxCollider:
   m_Enabled: 1
   serializedVersion: 2
   m_Size: {x: 2.85, y: 1.6, z: 3}
-  m_Center: {x: -0.18576097, y: 0.2994784, z: 0.010814309}
---- !u!65 &7204161046364552349
-BoxCollider:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 279003710941757610}
-  m_Material: {fileID: 0}
-  m_IsTrigger: 0
-  m_Enabled: 1
-  serializedVersion: 2
-  m_Size: {x: 2.7, y: 1.4, z: 2.85}
   m_Center: {x: -0.18576097, y: 0.2994784, z: 0.010814309}
 --- !u!1 &6666709010102455599
 GameObject:
@@ -358,8 +345,8 @@ MonoBehaviour:
   _overloadAmount: 10
   POINTSREF: {fileID: 3604329674517331237, guid: 7783a8297c4a6624ba17a0a5bf6ae112,
     type: 3}
-  pointsChance: 100
-  pointsAwarded: 5
+  pointsChance: 0
+  pointsAwarded: 0
 --- !u!1001 &1005099110324028449
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -421,6 +408,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4206016010622949756, guid: dde184ba4458a364c84f3793f6a63fa2,
+        type: 3}
+      propertyPath: allParticles.Array.size
+      value: 2
       objectReference: {fileID: 0}
     - target: {fileID: 5589552062276809437, guid: dde184ba4458a364c84f3793f6a63fa2,
         type: 3}

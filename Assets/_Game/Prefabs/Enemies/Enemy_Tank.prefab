@@ -126,6 +126,36 @@ CapsuleCollider:
   m_Height: 2
   m_Direction: 1
   m_Center: {x: 0, y: 0, z: 0}
+--- !u!1 &2880894505050079788
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 8674614298075421539}
+  m_Layer: 11
+  m_Name: projectile_spawnPoint
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &8674614298075421539
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2880894505050079788}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 3}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 2108437693947293221}
+  m_RootOrder: 4
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &8502903108457884929
 GameObject:
   m_ObjectHideFlags: 0
@@ -161,6 +191,7 @@ Transform:
   - {fileID: 2274991803785872085}
   - {fileID: 602582841801187954}
   - {fileID: 6805946719179039138}
+  - {fileID: 8674614298075421539}
   m_Father: {fileID: 354318188913335509}
   m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -237,16 +268,32 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
-  maxHealth: 1
+  maxHealth: 20
   currentState: 0
   attackDamage: 0
   enemyDetectionRadius: 0
   enemyScore: 0
+  givesPlayerMS: 1
   shotsBeforePauseMax: 1
   attackRate: 1
   vulnerabilityPeriodMax: 1
   bullet: {fileID: 4817155437395576068, guid: e82c437c58d75354c9f99879dd39c338, type: 3}
+  _spawnPoint: {fileID: 8674614298075421539}
   invulnToggle: {fileID: 3236874500608460054}
+  OnShotFired:
+    m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 351589238403785319}
+        m_MethodName: TryPlay
+        m_Mode: 3
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 2
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
   invuln: {fileID: 2100000, guid: e47ce4880e3dab84798ca8d0e376bf77, type: 2}
   vuln: {fileID: 2100000, guid: 0255c99a4b0b2384587a72600f4ccf01, type: 2}
 --- !u!114 &268216710914515146

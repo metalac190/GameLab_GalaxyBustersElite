@@ -16,6 +16,7 @@ public class PlayerMovement : MonoBehaviour
     [SerializeField] float dodgeSpeed = 40;
     public float dodgeDuration = .5f;
     public float dodgeCooldown = 1f; //Timed after dodge ends
+    public bool infiniteDodge = false;
     float dodgeDurationRemaining = 0;
     float dodgeCooldownRemaining = 0;
 
@@ -102,6 +103,8 @@ public class PlayerMovement : MonoBehaviour
     protected void LateUpdate()
     {
         transform.localPosition = new Vector3(transform.localPosition.x, transform.localPosition.y, 0);
+        if (!isHit)
+            transform.localRotation = Quaternion.Euler(Vector3.zero);
     }
 
     private void InvokingStartedOrStoppedMovingEvents(float x, float y)
@@ -154,7 +157,10 @@ public class PlayerMovement : MonoBehaviour
         {
             OnDodge.Invoke();
             dodgeDurationRemaining = dodgeDuration;
-            dodgeCooldownRemaining = dodgeDuration + dodgeCooldown; //Duration of dodge is not included in cooldown value
+            if (!infiniteDodge)
+            {
+                dodgeCooldownRemaining = dodgeDuration + dodgeCooldown; //Duration of dodge is not included in cooldown value
+            }
         }
     }
 
