@@ -16,7 +16,7 @@ public class EnemyMovement : MonoBehaviour
     private void OnDrawGizmos()
     {
         Gizmos.color = Color.white;
-        if (waypoints[0] != null)
+        if (waypoints.Length >= 1)
         {
             Gizmos.DrawLine(gameObject.transform.position, waypoints[0].transform.position);
         }
