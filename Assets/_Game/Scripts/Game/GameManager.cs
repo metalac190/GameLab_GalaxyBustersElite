@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Events;
 using UnityEngine.SceneManagement;
+using UnityEngine.UI;
 
 public class GameManager : MonoBehaviour {
 
@@ -21,6 +22,7 @@ public class GameManager : MonoBehaviour {
     [Header("Game Flow")]
     [SerializeField] private GameObject winScreen;
     [SerializeField] private GameObject loseScreen;
+    [SerializeField] private Image blackScreen;
     [HideInInspector] public UnityEvent OnEndLevel;
 
     [Header("Game Stats")]
@@ -124,6 +126,7 @@ public class GameManager : MonoBehaviour {
         Paused = false;
         Time.timeScale = 0;
         Cursor.visible = true;
+        Cursor.lockState = CursorLockMode.None;
         OnEndLevel.Invoke();
     }
 
@@ -213,17 +216,38 @@ public class GameManager : MonoBehaviour {
     private IEnumerator LoadSceneCoroutine(string scene) {
         if(MusicPlayer.instance)
             MusicPlayer.instance.FadeOut();
-        yield return new WaitForSecondsRealtime(1f);
-        // TODO - Insert fade to black here
 
+        // Fade to black
+        blackScreen.raycastTarget = true;
+        float fraction;
+        for(float i = 0f; i <= 0.9f; i += 0.05f) {
+            fraction = i / 0.9f;
+            blackScreen.color = new Color32(0, 0, 0, (byte)(255 * fraction));
+            yield return new WaitForSecondsRealtime(0.05f);
+        }
+        blackScreen.color = new Color32(0, 0, 0, 255);
+        yield return new WaitForSecondsRealtime(0.1f);
+
+        // Set variables
         score = 0;
         _paused = false;
         Time.timeScale = 1;
-
         Cursor.visible = true;
         Cursor.lockState = CursorLockMode.None;
 
-        SceneManager.LoadScene(scene);
+        // Load scene
+        AsyncOperation asyncLoad = SceneManager.LoadSceneAsync(scene, LoadSceneMode.Single);
+        while(!asyncLoad.isDone)
+            yield return null;
+
+        // Fade out
+        for(float i = 0f; i <= 0.6f; i += 0.05f) {
+            fraction = 1 - (i / 0.6f);
+            blackScreen.color = new Color32(0, 0, 0, (byte)(255 * fraction));
+            yield return new WaitForSecondsRealtime(0.05f);
+        }
+        blackScreen.raycastTarget = false;
+        blackScreen.color = new Color32(0, 0, 0, 0);
     }
 
     #endregion
