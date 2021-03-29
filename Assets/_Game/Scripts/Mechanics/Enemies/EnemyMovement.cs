@@ -13,6 +13,19 @@ public class EnemyMovement : MonoBehaviour
     [Header("Effects")]
     [SerializeField] UnityEvent OnFinalWaypoint;
 
+    private void OnDrawGizmos()
+    {
+        Gizmos.color = Color.white;
+        if (waypoints[0] != null)
+        {
+            Gizmos.DrawLine(gameObject.transform.position, waypoints[0].transform.position);
+        }
+        for (int i = 0; i < waypoints.Length - 1; i++)
+        {
+            Gizmos.DrawLine(waypoints[i].transform.position, waypoints[i + 1].transform.position);
+        }
+    }
+
     private void FixedUpdate()
     {
         if (onTrack && nextWaypoint<waypoints.Length)
