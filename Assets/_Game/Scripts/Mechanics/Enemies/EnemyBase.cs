@@ -16,21 +16,26 @@ public abstract class EnemyBase : EntityBase
     [SerializeField] private float enemyDetectionRadius = 0;
     public float EnemyDetectionRadius { get { return enemyDetectionRadius; } }
 
-	[SerializeField] private int enemyScore = 0;
-	private float cdInvuln;
+    [SerializeField] private int enemyScore = 0;
+    private float cdInvuln;
 
     [SerializeField] protected bool givesPlayerMS;
     protected CamRailManager camRailManager;
 
-    private void Awake()
+    protected virtual void Awake()
     {
-		_currentHealth = maxHealth;
-		camRailManager = FindObjectOfType<CamRailManager>();
+        camRailManager = FindObjectOfType<CamRailManager>();
     }
 
-    void Start()
+    protected override void Start()
     {
+        base.Start();
         currentState = EnemyState.Passive;
+    }
+
+    private void FixedUpdate()
+    {
+        UpdateState();
     }
 
     protected virtual void UpdateState()
@@ -38,27 +43,41 @@ public abstract class EnemyBase : EntityBase
         switch (currentState)
         {
             case EnemyState.Passive:
+                Passive();
                 break;
             case EnemyState.Attacking:
+                Attacking();
                 break;
             default:
                 break;
         }
     }
 
-    protected abstract void Passive();
+    protected virtual void Passive()
+    {
+        if (Vector3.Distance(transform.position, GameManager.player.obj.transform.position) < EnemyDetectionRadius)
+        {
+            transform.LookAt(GameManager.player.obj.transform.position);
+
+            currentState = EnemyState.Attacking;
+        }
+    }
 
     protected abstract void Attacking();
 
-    public abstract void Dead();
+    public virtual void Dead()
+    {
+        if (givesPlayerMS)
+            camRailManager.IncreaseCamRailSpeed();
+
+        transform.parent.gameObject.SetActive(false);
+    }
 
     public override void TakeDamage(float damage)
     {
 		// Prevent enemies from taking damage multiple times in the same frame
 		if (Time.time - cdInvuln > 0.01f)
 		{
-			cdInvuln = Time.time;
-
 			_currentHealth -= damage;
 			if (_currentHealth <= 0)
 			{
@@ -71,10 +90,11 @@ public abstract class EnemyBase : EntityBase
 			}
 			else
 			{
-				Damaged.Invoke();
+                cdInvuln = Time.time;
+
+                Damaged.Invoke();
 				//set up FX + AnimationController from Inspector, using Event
 			}
-
 		}
     }
 
