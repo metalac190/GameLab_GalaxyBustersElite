@@ -79,7 +79,9 @@ MonoBehaviour:
   PickedUp:
     m_PersistentCalls:
       m_Calls: []
-  weaponReference: {fileID: 0}
+  _spinSpeed: {x: 1, y: 1, z: 1}
+  weaponReference: {fileID: 3500800723739833614, guid: 119b9b21cd5f56c48ad3b8bfe3c7348c,
+    type: 3}
 --- !u!65 &2366510582994239610
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -88,10 +90,10 @@ BoxCollider:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 6195826417844601540}
   m_Material: {fileID: 0}
-  m_IsTrigger: 0
+  m_IsTrigger: 1
   m_Enabled: 1
   serializedVersion: 2
-  m_Size: {x: 1, y: 1, z: 1}
+  m_Size: {x: 2, y: 2, z: 2}
   m_Center: {x: 0, y: 0, z: 0}
 --- !u!1 &7737343781853932193
 GameObject:

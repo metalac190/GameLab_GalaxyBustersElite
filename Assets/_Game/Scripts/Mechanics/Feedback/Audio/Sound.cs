@@ -5,16 +5,10 @@ public class Sound
 {
     // Inspector name
     [HideInInspector] public string name = "Sound";
+    public string label = "(Write a Description Here)";
 
-
-
-    public AudioClip audioClip;
-
-    [Space(10)]
-    [Range(0, 1)]
-    public float volume = 0.5f;
+    [Space(5)]
+    public AudioSource audioSource;
     public bool playOnAwake = false;
     public bool loop = false;
-
-    [HideInInspector] public AudioSource audioSource;
 }

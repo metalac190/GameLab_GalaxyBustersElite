@@ -5,11 +5,9 @@ public class Particles
 {
     // Inspector name
     [HideInInspector] public string name = "Particles";
+    public string label = "(Write a Description Here)";
 
-
-
+    [Space(5)]
     public ParticleSystem particleSystem;
-
-    [Space(10)]
     public bool playOnAwake;
 }
