@@ -6,16 +6,16 @@ using UnityEngine.Events;
 
 public class BossSegmentController : EntityBase
 {
-    //implement Boss as Singleton?
-    //boss is always prefab, not too much harm rn?
+    //Refer to Ben Friedman for QA/Bugfixing on Boss System scripts
+
     [SerializeField] private BossController _bossRef = null;
 
     [Tooltip("Reference to Normal Boss Missile Prefab")]
     [SerializeField] private GameObject _missileRef = null;
     [SerializeField] private Transform _missileSpawnPoint = null;
     [SerializeField] private float _myDelay = 0f;
-
-    public int Health { get { return _currentHealth; } }
+    
+    public float Health { get { return _currentHealth; } }
 
     private List<GameObject> _missilePool = new List<GameObject>();
     private int _damage = 1;
@@ -33,9 +33,40 @@ public class BossSegmentController : EntityBase
     }
     #endregion
 
-    //used by BossController for consistent health across all Segments
-    public void SetHealth(int value)
+    public override void TakeDamage(float damage)
     {
+        if (!_bossRef.isReady)
+        {
+            _bossRef.InvulnerableHit.Invoke();
+            return;
+        }
+            
+
+        _currentHealth -= damage;
+
+        if (_currentHealth <= 0)
+        {
+            Died.Invoke();
+
+            //SetActive False by default. Override to implement other behavior
+            Debug.Log(gameObject.name + " has died");
+            gameObject.SetActive(false);
+        }
+        else
+        {
+            Damaged.Invoke();
+
+            Debug.Log(gameObject.name + " has taken damage" +
+                "\nNew Health: " + Health);
+        }
+    }
+
+    #region Public Accessors
+    public void SetHealth(float value)
+    {
+        if (value > maxHealth)
+            maxHealth = value;
+
         _currentHealth = value;
     }
 
@@ -48,8 +79,9 @@ public class BossSegmentController : EntityBase
     {
         _myDelay = time;
     }
+    #endregion
 
-    //BossAttacks type transfered via int type, due to UnityEvents constraints
+    //BossAttacks type transfered via int type and not enum
     private void OnAttack(int value)
     {
         BossAttacks attackType = (BossAttacks)value;
@@ -66,12 +98,7 @@ public class BossSegmentController : EntityBase
                 break;
         }
     }
-
-    /// <summary> Delays Missile attack, to fire in series with other Segments.
-    /// 
-    /// </summary>
-    /// <param name="time"> Time in Seconds to wait. </param>
-    /// <returns></returns>
+    
     private IEnumerator MissileDelay(float time)
     {
         while (time > 0)
@@ -85,19 +112,12 @@ public class BossSegmentController : EntityBase
 
     private void OnMissileAttack()
     {
-        //missile animation
-        GameObject missile = null;
-
-        //instantiate missile
-        if (_missileRef != null)
-        {
-            missile = PoolUtility.InstantiateFromPool(_missilePool, _missileSpawnPoint, _missileRef);
-        }
+        //TODO missile animation
+        GameObject missile = PoolUtility.InstantiateFromPool(_missilePool, _missileSpawnPoint, _missileRef);
 
         BossMissile bullet = missile.GetComponent<BossMissile>();
 
-        //bullet?.SetTarget(GameManager.player.obj.transform.position);
-        bullet?.SetTarget(GameManager.player.obj);
-        bullet?.SetDamage(_damage);
+        bullet.SetTarget(GameManager.player.obj);
+        bullet.SetDamage(_damage);
     }
 }

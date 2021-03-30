@@ -16,9 +16,26 @@ public abstract class EnemyBase : EntityBase
     [SerializeField] private float enemyDetectionRadius = 0;
     public float EnemyDetectionRadius { get { return enemyDetectionRadius; } }
 
-    void Start()
+    [SerializeField] private int enemyScore = 0;
+    private float cdInvuln;
+
+    [SerializeField] protected bool givesPlayerMS;
+    protected CamRailManager camRailManager;
+
+    protected virtual void Awake()
     {
+        camRailManager = FindObjectOfType<CamRailManager>();
+    }
+
+    protected override void Start()
+    {
+        base.Start();
         currentState = EnemyState.Passive;
+    }
+
+    private void FixedUpdate()
+    {
+        UpdateState();
     }
 
     protected virtual void UpdateState()
@@ -26,40 +43,66 @@ public abstract class EnemyBase : EntityBase
         switch (currentState)
         {
             case EnemyState.Passive:
+                Passive();
                 break;
             case EnemyState.Attacking:
+                Attacking();
                 break;
             default:
                 break;
         }
     }
 
-    protected abstract void Passive();
+    protected virtual void Passive()
+    {
+        if (Vector3.Distance(transform.position, GameManager.player.obj.transform.position) < EnemyDetectionRadius)
+        {
+            transform.LookAt(GameManager.player.obj.transform.position);
+
+            currentState = EnemyState.Attacking;
+        }
+    }
 
     protected abstract void Attacking();
 
-    public abstract void Dead();
-
-    public override void TakeDamage(int damage)
+    public virtual void Dead()
     {
-        _currentHealth -= damage;
-        if (_currentHealth <= 0)
-        {
-            Died.Invoke();
-            Dead();
-            //disable or destroy as needed?
-        }
-        else
-        {
-            Damaged.Invoke();
-            //set up FX + AnimationController from Inspector, using Event
-        }
+        if (givesPlayerMS)
+            camRailManager.IncreaseCamRailSpeed();
+
+        transform.parent.gameObject.SetActive(false);
+    }
+
+    public override void TakeDamage(float damage)
+    {
+		// Prevent enemies from taking damage multiple times in the same frame
+		if (Time.time - cdInvuln > 0.01f)
+		{
+			_currentHealth -= damage;
+			if (_currentHealth <= 0)
+			{
+				DialogueTrigger.TriggerEnemyDefeatedDialogue();
+				Died.Invoke();
+				Dead();
+				ScoreSystem.IncreaseCombo();
+				ScoreSystem.IncreaseScore(enemyScore);
+				//disable or destroy as needed?
+			}
+			else
+			{
+                cdInvuln = Time.time;
+
+                Damaged.Invoke();
+				//set up FX + AnimationController from Inspector, using Event
+			}
+		}
     }
 
     private void OnTriggerEnter(Collider col)
     {
         if (col.gameObject.layer == LayerMask.NameToLayer("Player"))
         {
+            DialogueTrigger.TriggerEnemyDefeatedDialogue();
             col.gameObject.GetComponent<PlayerController>().DamagePlayer(AttackDamage);
             Dead();
         }

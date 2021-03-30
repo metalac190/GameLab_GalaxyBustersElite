@@ -16,6 +16,7 @@ public class PlayerMovement : MonoBehaviour
     [SerializeField] float dodgeSpeed = 40;
     public float dodgeDuration = .5f;
     public float dodgeCooldown = 1f; //Timed after dodge ends
+    public bool infiniteDodge = false;
     float dodgeDurationRemaining = 0;
     float dodgeCooldownRemaining = 0;
 
@@ -44,11 +45,13 @@ public class PlayerMovement : MonoBehaviour
     [SerializeField] UnityEvent OnStartedMoving;
     [SerializeField] UnityEvent OnStoppedMoving;
 
+    PlayerController pc;
     Rigidbody rb;
 
     private void Start()
     {
-        rb = GetComponentInChildren<Rigidbody>();    
+        pc = GetComponent<PlayerController>();
+        rb = GetComponentInChildren<Rigidbody>();
     }
 
     void Update()
@@ -95,6 +98,13 @@ public class PlayerMovement : MonoBehaviour
         Dodge();
 
         InvokingStartedOrStoppedMovingEvents(x, y);
+    }
+
+    protected void LateUpdate()
+    {
+        transform.localPosition = new Vector3(transform.localPosition.x, transform.localPosition.y, 0);
+        if (!isHit)
+            transform.localRotation = Quaternion.Euler(Vector3.zero);
     }
 
     private void InvokingStartedOrStoppedMovingEvents(float x, float y)
@@ -147,7 +157,10 @@ public class PlayerMovement : MonoBehaviour
         {
             OnDodge.Invoke();
             dodgeDurationRemaining = dodgeDuration;
-            dodgeCooldownRemaining = dodgeDuration + dodgeCooldown; //Duration of dodge is not included in cooldown value
+            if (!infiniteDodge)
+            {
+                dodgeCooldownRemaining = dodgeDuration + dodgeCooldown; //Duration of dodge is not included in cooldown value
+            }
         }
     }
 
@@ -161,7 +174,7 @@ public class PlayerMovement : MonoBehaviour
         OnDodgeRefresh.Invoke();
     }
 
-    private void OnTriggerEnter(Collider other)
+    private void OnTriggerStay(Collider other)
     {
         // hit terrain
         if (other.gameObject.layer == 9)
@@ -174,13 +187,16 @@ public class PlayerMovement : MonoBehaviour
     IEnumerator PlayerCollision()
     {
         isHit = true;
-        rb.AddRelativeForce(Random.Range(-collForce.x, collForce.x),
+
+        rb.AddRelativeForce(Random.Range(-collForce.x, collForce.x), 
             Random.Range(-collForce.y, collForce.y),
             Random.Range(-collForce.z, collForce.z));
 
         rb.AddRelativeTorque(Random.Range(-torqueForce.x, torqueForce.x), 
             Random.Range(-torqueForce.y, torqueForce.y), 
             Random.Range(-torqueForce.z, torqueForce.z));
+
+        CameraShaker.instance.Shake(pc.CameraShakeOnHit);
 
         yield return new WaitForSeconds(collDuration);
 
