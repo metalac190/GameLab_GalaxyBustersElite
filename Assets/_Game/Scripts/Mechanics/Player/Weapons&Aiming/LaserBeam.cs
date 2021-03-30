@@ -13,18 +13,19 @@ public class LaserBeam : WeaponBase
 	private float tickDamage;
 	private Transform firePoint;
 	private List<GameObject> beamPool = new List<GameObject>();
+	float trackingDistance = 50f;
+	float aimAssistRadius = 2f;
+	LayerMask targetLayers;
 
 	[Header("Hold Fire Settings")]
-	[SerializeField] float trackingDistance = 50f;
-	[SerializeField] float aimAssistRadius = 2f;
-	[SerializeField] float tickRate = 0.2f;
+	[SerializeField] float tickRate = 0.1f;
 	[SerializeField] float damageMultiplier = 1.3f;
+	[SerializeField] float damageCap = 5f;
 
 	[Header("Effects")]
 	[SerializeField] UnityEvent OnLaserStop;
 
 	[SerializeField] bool laserActive;
-	[SerializeField] LayerMask targetLayers;
 
 	private void OnEnable()
 	{
@@ -35,6 +36,9 @@ public class LaserBeam : WeaponBase
 		line = projectile.GetComponent<LineRenderer>();
 		line.positionCount = 1;
 		SetupOverloadCollider();
+		trackingDistance = GetComponent<AimWeapons>().aimAssistDistance;
+		aimAssistRadius = GetComponent<AimWeapons>().aimAssistWidth;
+		targetLayers = GetComponent<AimWeapons>().targetMask;
 	}
 
 	void Update()
@@ -78,7 +82,7 @@ public class LaserBeam : WeaponBase
 			if (targetFound)
 			{
 				projectile.GetComponent<Beam>().SetTarget(target.gameObject);
-				tickDamage *= damageMultiplier;
+				tickDamage = (tickDamage * damageMultiplier >= damageCap) ? damageCap : tickDamage * damageMultiplier;
 				target.GetComponent<EntityBase>().TakeDamage(tickDamage);
 				Debug.Log(tickDamage);
 				OnStandardFire.Invoke();

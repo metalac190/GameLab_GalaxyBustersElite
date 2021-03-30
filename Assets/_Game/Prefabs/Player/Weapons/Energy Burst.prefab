@@ -163,6 +163,11 @@ MonoBehaviour:
   speed: 8
   debugRays: 0
   debugRayLength: 25
+  aimAssistDistance: 50
+  aimAssistWidth: 1
+  targetMask:
+    serializedVersion: 2
+    m_Bits: 2048
 --- !u!114 &5386123523495093522
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -182,7 +187,7 @@ MonoBehaviour:
   spawnPoints:
   - {fileID: 1554756655449818847}
   damage: 5
-  meterRequired: 50
+  meterRequired: 100
   overloadTime: 4
   OnStandardFire:
     m_PersistentCalls:
