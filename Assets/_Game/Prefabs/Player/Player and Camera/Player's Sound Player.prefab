@@ -106,7 +106,7 @@ AudioSource:
     type: 2}
   m_audioClip: {fileID: 8300000, guid: 61065f7fbaadb45418e4f65ac4282508, type: 3}
   m_PlayOnAwake: 0
-  m_Volume: 1
+  m_Volume: 0.698
   m_Pitch: 1
   Loop: 0
   Mute: 0
@@ -375,51 +375,81 @@ MonoBehaviour:
     audioSource: {fileID: 0}
     playOnAwake: 0
     loop: 0
+    soundPoolSize: 1
+    curPoolIteration: 0
+    audioSourcePool: []
   - name: Sound
     label: Death
     audioSource: {fileID: 0}
     playOnAwake: 0
     loop: 0
+    soundPoolSize: 1
+    curPoolIteration: 0
+    audioSourcePool: []
   - name: Sound
     label: Moving
     audioSource: {fileID: 304263323764274551}
     playOnAwake: 0
     loop: 0
+    soundPoolSize: 1
+    curPoolIteration: 0
+    audioSourcePool: []
   - name: Sound
     label: Dodge
     audioSource: {fileID: 1488691449908335926}
     playOnAwake: 0
     loop: 0
+    soundPoolSize: 1
+    curPoolIteration: 0
+    audioSourcePool: []
   - name: Sound
     label: Boost (Not Hooked Up)
     audioSource: {fileID: 4340445153652205311}
     playOnAwake: 0
     loop: 0
+    soundPoolSize: 1
+    curPoolIteration: 0
+    audioSourcePool: []
   - name: Sound
     label: New Gun Pickup
     audioSource: {fileID: 2307285801312247983}
     playOnAwake: 0
     loop: 0
+    soundPoolSize: 1
+    curPoolIteration: 0
+    audioSourcePool: []
   - name: Sound
     label: Portal Enter (Not Hooked Up)
     audioSource: {fileID: 0}
     playOnAwake: 0
     loop: 0
+    soundPoolSize: 1
+    curPoolIteration: 0
+    audioSourcePool: []
   - name: Sound
     label: Health Pickup (Not Hooked Up)
     audioSource: {fileID: 5632084654270921834}
     playOnAwake: 0
     loop: 0
+    soundPoolSize: 1
+    curPoolIteration: 0
+    audioSourcePool: []
   - name: Sound
     label: Health Low
     audioSource: {fileID: 1883617371567708917}
     playOnAwake: 0
     loop: 1
+    soundPoolSize: 1
+    curPoolIteration: 0
+    audioSourcePool: []
   - name: Sound
     label: Charge Bar Pickup (Not Hooked Up)
     audioSource: {fileID: 0}
     playOnAwake: 0
     loop: 0
+    soundPoolSize: 1
+    curPoolIteration: 0
+    audioSourcePool: []
 --- !u!1 &4366015976017601849
 GameObject:
   m_ObjectHideFlags: 0
