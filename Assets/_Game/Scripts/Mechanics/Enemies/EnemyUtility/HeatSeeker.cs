@@ -10,6 +10,10 @@ public class HeatSeeker : MonoBehaviour
 
     private Rigidbody rb = null;
 
+    private bool _timeOut = false;
+    private float _currTime = 0;
+    private float _dieTime = 2f;
+
     private void Awake()
     {
         rb = GetComponent<Rigidbody>();
@@ -33,6 +37,13 @@ public class HeatSeeker : MonoBehaviour
             //changing the angle of movement to match the new forward angle, at speed
             rb.velocity = transform.forward * rb.velocity.magnitude;
         }
+
+        if (_timeOut)
+        {
+            _currTime+= Time.deltaTime;
+            if (_currTime > _dieTime)
+                gameObject.SetActive(false);
+        }
     }
 
     public void StartFollowing()
@@ -43,6 +54,7 @@ public class HeatSeeker : MonoBehaviour
     public void StopFollowing()
     {
         isFollowing = false;
+        _timeOut = true;
     }
 
     public void SetRotationSpeed(float value)
