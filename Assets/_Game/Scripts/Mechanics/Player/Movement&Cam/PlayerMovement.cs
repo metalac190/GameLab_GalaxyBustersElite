@@ -101,7 +101,7 @@ public class PlayerMovement : MonoBehaviour
 		if (!isHit)
 			transform.localRotation = Quaternion.Euler(Vector3.zero);
 
-		Dodge();
+		Dodge(x);
 
         InvokingStartedOrStoppedMovingEvents(x, y);
     }
