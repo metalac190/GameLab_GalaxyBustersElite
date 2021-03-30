@@ -52,7 +52,7 @@ public class MainMenu : MonoBehaviour
 
     private void FadeOutMusic()
     {
-        if (MusicPlayer.instance != null)
-            MusicPlayer.instance.FadeOut();
+        /*if (MusicPlayer.instance != null)
+            MusicPlayer.instance.FadeOut();*/
     }
 }

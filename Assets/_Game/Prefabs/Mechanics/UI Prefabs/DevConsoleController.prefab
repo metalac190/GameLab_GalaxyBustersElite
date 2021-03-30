@@ -31,7 +31,7 @@ RectTransform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 1256845342626649641}
-  m_Father: {fileID: 8583103316096791632}
+  m_Father: {fileID: 192710192973183219}
   m_RootOrder: 10
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 1, y: 1}
@@ -848,8 +848,8 @@ RectTransform:
   m_Children:
   - {fileID: 8583103317418880397}
   - {fileID: 8583103317098537037}
-  m_Father: {fileID: 8583103316096791632}
-  m_RootOrder: 2
+  m_Father: {fileID: 192710192973183219}
+  m_RootOrder: 4
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 1, y: 1}
   m_AnchorMax: {x: 1, y: 1}
@@ -1230,7 +1230,7 @@ RectTransform:
   m_Children:
   - {fileID: 8583103315788531589}
   - {fileID: 8583103317348267950}
-  m_Father: {fileID: 8583103316096791632}
+  m_Father: {fileID: 192710192973183219}
   m_RootOrder: 8
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 1, y: 1}
@@ -1402,8 +1402,8 @@ RectTransform:
   m_Children:
   - {fileID: 8583103317300528062}
   - {fileID: 8583103317570303865}
-  m_Father: {fileID: 8583103316096791632}
-  m_RootOrder: 4
+  m_Father: {fileID: 192710192973183219}
+  m_RootOrder: 3
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 1, y: 1}
   m_AnchorMax: {x: 1, y: 1}
@@ -1632,7 +1632,7 @@ GameObject:
   - component: {fileID: 8583103315896567142}
   - component: {fileID: 8583103315896567145}
   m_Layer: 5
-  m_Name: -20
+  m_Name: -100
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -1685,7 +1685,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: 21300000, guid: 13e9ca1dda58d7d40a8d65c95de944f5, type: 3}
+  m_Sprite: {fileID: 21300000, guid: b85076dbb8185c6438962686d2b9605c, type: 3}
   m_Type: 0
   m_PreserveAspect: 0
   m_FillCenter: 1
@@ -1744,7 +1744,7 @@ MonoBehaviour:
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
           m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: -20
+          m_IntArgument: -100
           m_FloatArgument: 0
           m_StringArgument: 
           m_BoolArgument: 0
@@ -1918,7 +1918,7 @@ GameObject:
   - component: {fileID: 8583103316019784873}
   - component: {fileID: 8583103316019784872}
   m_Layer: 5
-  m_Name: Tutorial
+  m_Name: Lv1
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -1971,7 +1971,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: 21300000, guid: eb7ef939283665f41aac95ef4846fbcc, type: 3}
+  m_Sprite: {fileID: 21300000, guid: f9f891ada3ae9f24cabe7015262fc940, type: 3}
   m_Type: 0
   m_PreserveAspect: 0
   m_FillCenter: 1
@@ -2032,7 +2032,7 @@ MonoBehaviour:
           m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
           m_IntArgument: 0
           m_FloatArgument: 0
-          m_StringArgument: Tutorial
+          m_StringArgument: Level1_Alpha
           m_BoolArgument: 0
         m_CallState: 2
 --- !u!1 &8583103316029547071
@@ -2196,7 +2196,7 @@ RectTransform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 8583103317549357836}
-  m_Father: {fileID: 8583103316096791632}
+  m_Father: {fileID: 192710192973183219}
   m_RootOrder: 9
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 1, y: 1}
@@ -2303,7 +2303,7 @@ GameObject:
   m_PrefabAsset: {fileID: 0}
   serializedVersion: 6
   m_Component:
-  - component: {fileID: 8583103316096791632}
+  - component: {fileID: 192710192973183219}
   m_Layer: 0
   m_Name: Buttons
   m_TagString: Untagged
@@ -2311,8 +2311,8 @@ GameObject:
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 0
---- !u!4 &8583103316096791632
-Transform:
+--- !u!224 &192710192973183219
+RectTransform:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
@@ -2320,22 +2320,27 @@ Transform:
   m_GameObject: {fileID: 8583103316096791635}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_LocalScale: {x: 1.5, y: 1.5, z: 1.5}
   m_Children:
   - {fileID: 8583103316799330549}
   - {fileID: 8583103317313007255}
-  - {fileID: 8583103315812136576}
   - {fileID: 8583103317123750767}
   - {fileID: 8583103315851598071}
+  - {fileID: 8583103315812136576}
   - {fileID: 8583103316650732753}
   - {fileID: 8583103316548568322}
   - {fileID: 8583103316596540475}
   - {fileID: 8583103315849283575}
   - {fileID: 8583103316090278915}
   - {fileID: 7468496645113597904}
-  m_Father: {fileID: 8583103317375896990}
+  m_Father: {fileID: 703012487996867838}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_AnchorMin: {x: 1, y: 1}
+  m_AnchorMax: {x: 1, y: 1}
+  m_AnchoredPosition: {x: 0, y: 0}
+  m_SizeDelta: {x: 100, y: 100}
+  m_Pivot: {x: 1, y: 1}
 --- !u!1 &8583103316178962845
 GameObject:
   m_ObjectHideFlags: 0
@@ -2925,7 +2930,7 @@ GameObject:
   - component: {fileID: 8583103316414908919}
   - component: {fileID: 8583103316414908918}
   m_Layer: 5
-  m_Name: -1
+  m_Name: -5
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -2978,7 +2983,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: 21300000, guid: 903f1c3c360f12943af06ea38a560792, type: 3}
+  m_Sprite: {fileID: 21300000, guid: e6df13bb346e9dc4d81ca2d77573824a, type: 3}
   m_Type: 0
   m_PreserveAspect: 0
   m_FillCenter: 1
@@ -3037,7 +3042,7 @@ MonoBehaviour:
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
           m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: -1
+          m_IntArgument: -5
           m_FloatArgument: 0
           m_StringArgument: 
           m_BoolArgument: 0
@@ -3055,7 +3060,7 @@ GameObject:
   - component: {fileID: 8583103316445209489}
   - component: {fileID: 8583103316445209488}
   m_Layer: 5
-  m_Name: +5
+  m_Name: +20
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -3108,7 +3113,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: 21300000, guid: b532301491e1f03488c7d28be260ef32, type: 3}
+  m_Sprite: {fileID: 21300000, guid: 32ec8646b0d0ffe42811501b1ad6f3c5, type: 3}
   m_Type: 0
   m_PreserveAspect: 0
   m_FillCenter: 1
@@ -3167,7 +3172,7 @@ MonoBehaviour:
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
           m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 5
+          m_IntArgument: 20
           m_FloatArgument: 0
           m_StringArgument: 
           m_BoolArgument: 0
@@ -3281,7 +3286,7 @@ RectTransform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 8583103316792630936}
-  m_Father: {fileID: 8583103316096791632}
+  m_Father: {fileID: 192710192973183219}
   m_RootOrder: 6
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 1, y: 1}
@@ -3621,7 +3626,7 @@ RectTransform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 8583103317159405778}
-  m_Father: {fileID: 8583103316096791632}
+  m_Father: {fileID: 192710192973183219}
   m_RootOrder: 7
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 1, y: 1}
@@ -4039,7 +4044,7 @@ RectTransform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 8583103316629206842}
-  m_Father: {fileID: 8583103316096791632}
+  m_Father: {fileID: 192710192973183219}
   m_RootOrder: 5
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 1, y: 1}
@@ -4281,7 +4286,7 @@ GameObject:
   - component: {fileID: 8583103316685213901}
   - component: {fileID: 8583103316685213900}
   m_Layer: 5
-  m_Name: -5
+  m_Name: -20
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -4334,7 +4339,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: 21300000, guid: e6df13bb346e9dc4d81ca2d77573824a, type: 3}
+  m_Sprite: {fileID: 21300000, guid: 13e9ca1dda58d7d40a8d65c95de944f5, type: 3}
   m_Type: 0
   m_PreserveAspect: 0
   m_FillCenter: 1
@@ -4393,7 +4398,7 @@ MonoBehaviour:
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
           m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: -5
+          m_IntArgument: -20
           m_FloatArgument: 0
           m_StringArgument: 
           m_BoolArgument: 0
@@ -4411,7 +4416,7 @@ GameObject:
   - component: {fileID: 8583103316723429077}
   - component: {fileID: 8583103316723429076}
   m_Layer: 5
-  m_Name: +20
+  m_Name: +100
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -4464,7 +4469,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: 21300000, guid: 32ec8646b0d0ffe42811501b1ad6f3c5, type: 3}
+  m_Sprite: {fileID: 21300000, guid: 1bbd82d70081e6546b0a302c73ca52d2, type: 3}
   m_Type: 0
   m_PreserveAspect: 0
   m_FillCenter: 1
@@ -4523,7 +4528,7 @@ MonoBehaviour:
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
           m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 20
+          m_IntArgument: 100
           m_FloatArgument: 0
           m_StringArgument: 
           m_BoolArgument: 0
@@ -4639,7 +4644,7 @@ RectTransform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 8583103316551676819}
-  m_Father: {fileID: 8583103316096791632}
+  m_Father: {fileID: 192710192973183219}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 1, y: 1}
@@ -5205,7 +5210,7 @@ GameObject:
   - component: {fileID: 8583103317037173754}
   - component: {fileID: 8583103317037173757}
   m_Layer: 5
-  m_Name: Lvl1
+  m_Name: Lvl2
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -5258,7 +5263,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: 21300000, guid: f9f891ada3ae9f24cabe7015262fc940, type: 3}
+  m_Sprite: {fileID: 21300000, guid: 7230ebff3dcc24249a6bd3b9725ed713, type: 3}
   m_Type: 0
   m_PreserveAspect: 0
   m_FillCenter: 1
@@ -5319,7 +5324,7 @@ MonoBehaviour:
           m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
           m_IntArgument: 1
           m_FloatArgument: 0
-          m_StringArgument: One
+          m_StringArgument: Level2_Alpha
           m_BoolArgument: 0
         m_CallState: 2
 --- !u!1 &8583103317044261020
@@ -5465,7 +5470,7 @@ GameObject:
   - component: {fileID: 8583103317048004415}
   - component: {fileID: 8583103317048004414}
   m_Layer: 5
-  m_Name: Lvl2
+  m_Name: Lvl3
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -5518,7 +5523,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: 21300000, guid: 7230ebff3dcc24249a6bd3b9725ed713, type: 3}
+  m_Sprite: {fileID: 21300000, guid: bae1348e5eff3e346a6764e67c434e35, type: 3}
   m_Type: 0
   m_PreserveAspect: 0
   m_FillCenter: 1
@@ -5579,7 +5584,7 @@ MonoBehaviour:
           m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
           m_IntArgument: 2
           m_FloatArgument: 0
-          m_StringArgument: Two
+          m_StringArgument: Level3_Alpha
           m_BoolArgument: 0
         m_CallState: 2
 --- !u!1 &8583103317048891458
@@ -5884,8 +5889,8 @@ RectTransform:
   m_Children:
   - {fileID: 8583103315690009906}
   - {fileID: 8583103315625604193}
-  m_Father: {fileID: 8583103316096791632}
-  m_RootOrder: 3
+  m_Father: {fileID: 192710192973183219}
+  m_RootOrder: 2
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 1, y: 1}
   m_AnchorMax: {x: 1, y: 1}
@@ -6500,7 +6505,7 @@ RectTransform:
   m_Children:
   - {fileID: 8583103316451565071}
   - {fileID: 8583103317013827846}
-  m_Father: {fileID: 8583103316096791632}
+  m_Father: {fileID: 192710192973183219}
   m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 1, y: 1}
@@ -6683,7 +6688,7 @@ GameObject:
   m_PrefabAsset: {fileID: 0}
   serializedVersion: 6
   m_Component:
-  - component: {fileID: 8583103317375896990}
+  - component: {fileID: 703012487996867838}
   - component: {fileID: 8583103317375896961}
   m_Layer: 0
   m_Name: DevConsoleController
@@ -6692,21 +6697,26 @@ GameObject:
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
---- !u!4 &8583103317375896990
-Transform:
+--- !u!224 &703012487996867838
+RectTransform:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 8583103317375896960}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -420.5, y: -236.5, z: 0}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
-  - {fileID: 8583103316096791632}
+  - {fileID: 192710192973183219}
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_AnchorMin: {x: 1, y: 1}
+  m_AnchorMax: {x: 1, y: 1}
+  m_AnchoredPosition: {x: -892.5, y: -461.5}
+  m_SizeDelta: {x: 100, y: 100}
+  m_Pivot: {x: 1, y: 1}
 --- !u!114 &8583103317375896961
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -7366,7 +7376,7 @@ GameObject:
   - component: {fileID: 8583103317609464369}
   - component: {fileID: 8583103317609464368}
   m_Layer: 5
-  m_Name: +1
+  m_Name: +5
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -7419,7 +7429,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: 21300000, guid: 05219b0aec8592c4ba9d136a904da5d0, type: 3}
+  m_Sprite: {fileID: 21300000, guid: b532301491e1f03488c7d28be260ef32, type: 3}
   m_Type: 0
   m_PreserveAspect: 0
   m_FillCenter: 1
@@ -7478,7 +7488,7 @@ MonoBehaviour:
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
           m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 1
+          m_IntArgument: 5
           m_FloatArgument: 0
           m_StringArgument: 
           m_BoolArgument: 0

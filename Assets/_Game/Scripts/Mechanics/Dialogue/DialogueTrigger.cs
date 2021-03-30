@@ -5,7 +5,6 @@ using UnityEngine;
 public class DialogueTrigger : MonoBehaviour
 {
     public static DialogueTrigger instance = new DialogueTrigger();
-    public bool activeDialogue = false;
     public void Update()
     {
         /*
@@ -16,10 +15,6 @@ public class DialogueTrigger : MonoBehaviour
         if (Input.GetKeyDown(KeyCode.Keypad2))          //random player damage test
         {
             TriggerEnemyDefeatedDialogue();
-        }
-        if (Input.GetKeyDown(KeyCode.Keypad3))          //random player damage test
-        {
-            TriggerL1StartDialogue();
         }
         */
     }
@@ -226,7 +221,6 @@ public class DialogueTrigger : MonoBehaviour
     {
         if (FindObjectOfType<DialogueList>() && FindObjectOfType<DialogueManager>())
         {
-            //random 1 in 10 chance
             int randomChance = Random.Range(1, 8); ///1 in 7 chance 14 percent chance
             if (randomChance == 1)
             {

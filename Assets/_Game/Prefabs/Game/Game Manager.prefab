@@ -43,12 +43,15 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 549bc0f521d77524cbfa7e85289f96d7, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  currentState: 2
+  currentState: 1
   unlockedLevel: 1
   currentLevel: 1
   pauseMenu: {fileID: 0}
   winScreen: {fileID: 0}
   loseScreen: {fileID: 0}
+  OnEndLevel:
+    m_PersistentCalls:
+      m_Calls: []
   score: 0
   missionBriefingGO: {fileID: 0}
   missionBriefing1: {fileID: 0}

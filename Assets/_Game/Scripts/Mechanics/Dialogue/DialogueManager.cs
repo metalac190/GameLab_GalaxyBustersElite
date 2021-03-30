@@ -12,11 +12,14 @@ public class DialogueManager : MonoBehaviour
     public GameObject DialoguePopUp;
     public TextMeshProUGUI nameText;
     public TextMeshProUGUI dialogueText;
-    public Image NPCImage;
+    public GameObject PilotImage;
+    public GameObject RandomImage;
     public float typingDelay = .05f;
     public float speakerTransionDelay = .5f;
     public float conversationEndDelay = 1.5f;
     private bool next = false;
+    public int dialoguePriority = 0;  //0 is not active, 1 is reaction. 2 is dialogue
+    public bool activeDialogue = false;
 
     void Start()
     {
@@ -24,19 +27,49 @@ public class DialogueManager : MonoBehaviour
     }
     public void StartDialogue(Dialogue dialogue)
     {
-        DialoguePopUp.SetActive(true);
-        nameText.text = dialogue.npcName;
-        sentences.Clear();
-        foreach(string sentence in dialogue.sentences)
+        //add dialogue active/priority check            //reaction dialogue
+        if (activeDialogue == false && dialoguePriority == 0)
         {
-            sentences.Enqueue(sentence);
+            activeDialogue = true;
+            DialoguePopUp.SetActive(true);
+            dialoguePriority = 1;
+            nameText.text = dialogue.npcName;
+            //set portrait
+            switch (nameText.text)
+            {
+                case "Pilot":
+                    PilotImage.SetActive(true);
+                    RandomImage.SetActive(false);
+                    break;
+                default:
+                    PilotImage.SetActive(false);
+                    RandomImage.SetActive(true);
+                    break;
+            }
+
+
+            sentences.Clear();
+            foreach (string sentence in dialogue.sentences)
+            {
+                sentences.Enqueue(sentence);
+            }
+            DisplayNextSentence();
         }
-        DisplayNextSentence();
     }
     public void startDialogueArrayFunction(Dialogue[] dialogue)
     {
-        //StartCoroutine(StartDialogueArray(dialogue));
-        StartCoroutine(StartDialogueStepping(dialogue));
+        //add dialogue active/priority check
+        if (dialoguePriority < 2)
+        {
+            StopAllCoroutines();
+            dialogueText.text = "";
+            next = false;
+            sentences.Clear();         
+
+            activeDialogue = true;
+            dialoguePriority = 2;
+            StartCoroutine(StartDialogueStepping(dialogue));
+        }
     }
     public IEnumerator StartDialogueStepping(Dialogue[] dialogue)
     {
@@ -50,25 +83,33 @@ public class DialogueManager : MonoBehaviour
             next = false;
             yield return new WaitForSeconds(speakerTransionDelay);
         }
+        activeDialogue = false;
+        dialoguePriority = 0;
         yield return null;
     }
     public IEnumerator StartDialogueCoroutine(Dialogue dialogue)
     {
         DialoguePopUp.SetActive(true);
         nameText.text = dialogue.npcName;
+
         sentences.Clear();
         foreach (string sentence in dialogue.sentences)
         {
             sentences.Enqueue(sentence);
         }
-		DisplayNextSentence();
+        DisplayNextSentence();
         yield return null;
     }
-    public void DisplayNextSentence()
+    public void DisplayNextSentence() //for reaction dialogue
     {
         if (sentences.Count == 0)
         {
             EndDialogue();
+            if(dialoguePriority == 1)
+            {
+                activeDialogue = false;
+                dialoguePriority = 0;
+            }
             next = true;
             return;
         }
@@ -76,12 +117,25 @@ public class DialogueManager : MonoBehaviour
         //StopAllCoroutines();
         StopCoroutine("TypeSentence");
         StartCoroutine(TypeSentence(nextSentence));
-
     }
     IEnumerator TypeSentence(string sentence)
     {
         dialogueText.text = "";
-        foreach(char letter in sentence.ToCharArray())
+        if (dialoguePriority == 2)
+        {
+            switch (nameText.text)
+            {
+                case "Pilot":
+                    PilotImage.SetActive(true);
+                    RandomImage.SetActive(false);
+                    break;
+                default:
+                    PilotImage.SetActive(false);
+                    RandomImage.SetActive(true);
+                    break;
+            }
+        }
+        foreach (char letter in sentence.ToCharArray())
         {
             dialogueText.text += letter;
             yield return new WaitForSeconds(typingDelay);
