@@ -22,6 +22,7 @@ public class PlayerController : MonoBehaviour
 	public float CameraShakeOnHit { get => cameraShakeOnHit; }
 	[SerializeField] UnityEvent OnHit;
 	public UnityEvent OnDeath;
+	bool firstWeaponObtained = false;
 	[SerializeField] UnityEvent OnPickedUpWeapon;
 	[SerializeField] float playerHealthLowThreshold = 1;
 	float lastFramePlayerHealth;
@@ -161,7 +162,10 @@ public class PlayerController : MonoBehaviour
 			}
 		}
 
-		OnPickedUpWeapon.Invoke();
+		if (firstWeaponObtained) // Won't play sound at start of scene
+			OnPickedUpWeapon.Invoke();
+		else
+			firstWeaponObtained = true;
 	}
 
     public void ToggleDodging(bool dodge)

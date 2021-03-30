@@ -162,6 +162,7 @@ MonoBehaviour:
     musicTrack: {fileID: 8300000, guid: 5ab524f233c5e5943bf0a6fd20d46415, type: 3}
     volume: 0.3
   crossFadeDuration: 0.8
+  audioMixerGroup: {fileID: 0}
 --- !u!4 &324861804
 Transform:
   m_ObjectHideFlags: 0
@@ -230,7 +231,7 @@ AudioSource:
   m_Enabled: 1
   serializedVersion: 4
   OutputAudioMixerGroup: {fileID: 0}
-  m_audioClip: {fileID: 8300000, guid: c842baef5a5265a4686bfdba04de9098, type: 3}
+  m_audioClip: {fileID: 8300000, guid: d4e601984c1754641ac222be77e5af47, type: 3}
   m_PlayOnAwake: 0
   m_Volume: 1
   m_Pitch: 1
@@ -5817,6 +5818,9 @@ MonoBehaviour:
     audioSource: {fileID: 361789399}
     playOnAwake: 0
     loop: 0
+    soundPoolSize: 10
+    curPoolIteration: 0
+    audioSourcePool: []
 --- !u!4 &1117161610
 Transform:
   m_ObjectHideFlags: 0
