@@ -95,7 +95,10 @@ public class PlayerMovement : MonoBehaviour
             HorizontalLean(shipsTransform, x, horizontalLean, 0.1f);
         }
 
-        Dodge();
+		if (!isHit)
+			transform.localRotation = Quaternion.Euler(Vector3.zero);
+
+		Dodge();
 
         InvokingStartedOrStoppedMovingEvents(x, y);
     }
@@ -103,8 +106,7 @@ public class PlayerMovement : MonoBehaviour
     protected void LateUpdate()
     {
         transform.localPosition = new Vector3(transform.localPosition.x, transform.localPosition.y, 0);
-        if (!isHit)
-            transform.localRotation = Quaternion.Euler(Vector3.zero);
+        
     }
 
     private void InvokingStartedOrStoppedMovingEvents(float x, float y)
