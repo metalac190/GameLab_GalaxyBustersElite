@@ -28,14 +28,31 @@ public class SoundPlayer : MonoBehaviour
         if (surpressMissingSoundWarnings)
             warnedAboutMissingSoundOnce = true;
 
-        foreach (Sound sound in allSounds)
+        for (int s = 0; s < allSounds.Length; s++)
         {
+            Sound sound = allSounds[s];
+
             if (sound.audioSource != null)
             {
                 sound.audioSource.loop = sound.loop;
                 sound.audioSource.playOnAwake = sound.playOnAwake;
-                if (sound.audioSource.isPlaying && !sound.playOnAwake)
-                    sound.audioSource.Stop();
+
+                // If using sound pooling
+                if (sound.soundPoolSize > 1)
+                {
+                    sound.audioSourcePool = new AudioSource[sound.soundPoolSize];
+                    sound.audioSourcePool[0] = sound.audioSource;
+                    for (int i = 1; i < sound.soundPoolSize; i++)
+                    {
+                        //sound.audioSourcePool[i] = Instantiate(sound.audioSource.gameObject, transform).GetComponent<AudioSource>();
+                        sound.audioSourcePool[i] = Instantiate(sound.audioSource, transform);
+                        if (sound.audioSourcePool[i].isPlaying)
+                            sound.audioSourcePool[i].Stop();
+                    }
+                }
+
+                if (!sound.audioSource.isPlaying && sound.playOnAwake)
+                    Play(s);
             }
             else if (!warnedAboutMissingSoundOnce)
             {
@@ -89,18 +106,43 @@ public class SoundPlayer : MonoBehaviour
         Play(indexSoundToPlay);
     }
 
-    void Play(int indexSoundToPlay) { allSounds[indexSoundToPlay].audioSource.Play(); }
+    void Play(int indexSoundToPlay)
+    {
+        if (allSounds[indexSoundToPlay].soundPoolSize == 1) // Not sound pooling
+            allSounds[indexSoundToPlay].audioSource.Play();
+        else // Sound pooling
+        {
+            print("Playing sound #" + allSounds[indexSoundToPlay].curPoolIteration);
+            allSounds[indexSoundToPlay].audioSourcePool[allSounds[indexSoundToPlay].curPoolIteration].Play();
+
+            allSounds[indexSoundToPlay].curPoolIteration++;
+            if (allSounds[indexSoundToPlay].curPoolIteration >= allSounds[indexSoundToPlay].soundPoolSize)
+                allSounds[indexSoundToPlay].curPoolIteration = 0;
+        }
+    }
     #endregion
 
     #region Stop
-    public void TryStop(int indexSoundToPlay)
+    public void TryStop(int indexSoundToStop)
     {
-        if (!CheckIfSoundAtIndexIsInitialized(indexSoundToPlay)) return;
+        if (!CheckIfSoundAtIndexIsInitialized(indexSoundToStop)) return;
 
-        Stop(indexSoundToPlay);
+        Stop(indexSoundToStop);
     }
 
-    void Stop(int indexSoundToPlay) { allSounds[indexSoundToPlay].audioSource.Stop(); }
+    void Stop(int indexSoundToStop)
+    {
+        if (allSounds[indexSoundToStop].soundPoolSize == 1) // Not sound pooling
+            allSounds[indexSoundToStop].audioSource.Stop();
+        else // Sound pooling
+        {
+            int curPoolLastIteration = allSounds[indexSoundToStop].curPoolIteration - 1;
+            if (indexSoundToStop < 0)
+                curPoolLastIteration = allSounds[indexSoundToStop].soundPoolSize - 1;
+
+            allSounds[indexSoundToStop].audioSourcePool[curPoolLastIteration].Stop();
+        }
+    }
     #endregion
 
     #region Detach Play Then Destroy
@@ -157,5 +199,16 @@ public class SoundPlayer : MonoBehaviour
     void TestPlayFourth() => TryPlay(3);
     [ContextMenu("Test Detach, Play, then Destroy Fourth Sound")]
     void TestPlayThenDetachAndDestroyFourth() => TryDetachPlayThenDestroy(3);
+
+    [ContextMenu("Test Sound Pooling First Sound")]
+    void TestSoundPoolingFirst() => StartCoroutine(SoundPoolingTest(0));
+    IEnumerator SoundPoolingTest(int indexSoundToTestPooling)
+    {
+        for (int x = 0; x < 10; x++)
+        {
+            Play(indexSoundToTestPooling);
+            yield return new WaitForSeconds(0.15f);
+        }
+    }
     #endregion
 }
