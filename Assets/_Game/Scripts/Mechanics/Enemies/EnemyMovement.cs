@@ -1,4 +1,5 @@
-﻿using System.Collections;
+﻿using Cinemachine;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Events;
@@ -9,11 +10,27 @@ public class EnemyMovement : MonoBehaviour
     private int nextWaypoint = 0;
     private bool onTrack = true; 
     [SerializeField] float moveSpeed;
+    [SerializeField] bool followPath;
+    [SerializeField] float followPathSpeed;
 
     [Header("Effects")]
     [SerializeField] UnityEvent OnFinalWaypoint;
 
-    private void OnDrawGizmos()
+    private Transform parent;
+    private CinemachinePathBase path;
+    private float positionAlongPath;
+    private Vector3 offsetFromPath;
+
+    private void Start()
+	{
+        parent = transform.parent;
+        path = FindObjectOfType<CinemachinePathBase>();
+        positionAlongPath = path.FindClosestPoint(parent.position, 1, -1, 10);
+        offsetFromPath = parent.position - (path.EvaluatePositionAtUnit(positionAlongPath, CinemachinePathBase.PositionUnits.Distance));
+
+	}
+
+	private void OnDrawGizmos()
     {
         Gizmos.color = Color.white;
         if (waypoints.Length >= 1)
@@ -28,6 +45,13 @@ public class EnemyMovement : MonoBehaviour
 
     private void FixedUpdate()
     {
+        if (followPath)
+		{
+            // on start - save position relative to closest point on dollypath
+            // move along dolly path, but add saved position
+            positionAlongPath += followPathSpeed * Time.fixedDeltaTime;
+            parent.position = path.EvaluatePositionAtUnit(positionAlongPath, CinemachinePathBase.PositionUnits.Distance) + offsetFromPath;
+        }
         if (onTrack && nextWaypoint<waypoints.Length)
         {
             Move();
