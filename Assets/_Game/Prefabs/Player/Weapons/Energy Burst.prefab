@@ -164,6 +164,11 @@ MonoBehaviour:
   speed: 8
   debugRays: 0
   debugRayLength: 25
+  aimAssistDistance: 50
+  aimAssistWidth: 1
+  targetMask:
+    serializedVersion: 2
+    m_Bits: 2048
 --- !u!114 &5386123523495093522
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -178,10 +183,12 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   weaponID: Energy Burst
   projectileType: 1
+  projectile: {fileID: 9165934621370101705, guid: d9d7eedd2b5591e4892473dee466de43,
+    type: 3}
   spawnPoints:
   - {fileID: 1554756655449818847}
   damage: 3
-  meterRequired: 50
+  meterRequired: 100
   overloadTime: 4
   OnStandardFire:
     m_PersistentCalls:
@@ -249,6 +256,20 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
+  projectileSpeed: 50
+  fireRate: 3
+  chargedProjectile: {fileID: 2642568059696232079, guid: ce1ad958971df8540bbf5253ffef1172,
+    type: 3}
+  chargeUpTime: 0.5
+  damageMultiplier: 3
+  speedMultiplier: 1.5
+  weaponCharged: 0
+  OnWeaponCharged:
+    m_PersistentCalls:
+      m_Calls: []
+  OnChargedFire:
+    m_PersistentCalls:
+      m_Calls: []
 --- !u!1001 &901284194601430895
 PrefabInstance:
   m_ObjectHideFlags: 0
