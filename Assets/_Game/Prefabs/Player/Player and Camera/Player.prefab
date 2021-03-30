@@ -152,6 +152,9 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 1
         m_CallState: 2
+  OnDodgeStraight:
+    m_PersistentCalls:
+      m_Calls:
       - m_Target: {fileID: 1117257636832747641}
         m_MethodName: SetTrigger
         m_Mode: 5
@@ -161,7 +164,35 @@ MonoBehaviour:
           m_IntArgument: 0
           m_FloatArgument: 0
           m_StringArgument: Dodge
-          m_BoolArgument: 1
+          m_BoolArgument: 0
+        m_CallState: 2
+  OnDodgeLeft:
+    m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 1117257636832747641}
+        m_MethodName: SetTrigger
+        m_Mode: 5
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: Dodge
+          m_BoolArgument: 0
+        m_CallState: 2
+  OnDodgeRight:
+    m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 1117257636832747641}
+        m_MethodName: SetTrigger
+        m_Mode: 5
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: Dodge
+          m_BoolArgument: 0
         m_CallState: 2
   OnDodgeEnd:
     m_PersistentCalls:
@@ -944,12 +975,27 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 2473926700306051215}
     m_Modifications:
+    - target: {fileID: 304263323764274551, guid: 337a8ea66bf36ff41ada70425f475a58,
+        type: 3}
+      propertyPath: OutputAudioMixerGroup
+      value: 
+      objectReference: {fileID: 0}
     - target: {fileID: 473582805987224223, guid: 337a8ea66bf36ff41ada70425f475a58,
         type: 3}
       propertyPath: OutputAudioMixerGroup
       value: 
       objectReference: {fileID: 0}
+    - target: {fileID: 1488691449908335926, guid: 337a8ea66bf36ff41ada70425f475a58,
+        type: 3}
+      propertyPath: OutputAudioMixerGroup
+      value: 
+      objectReference: {fileID: 0}
     - target: {fileID: 1776329748145380012, guid: 337a8ea66bf36ff41ada70425f475a58,
+        type: 3}
+      propertyPath: OutputAudioMixerGroup
+      value: 
+      objectReference: {fileID: 0}
+    - target: {fileID: 1883617371567708917, guid: 337a8ea66bf36ff41ada70425f475a58,
         type: 3}
       propertyPath: OutputAudioMixerGroup
       value: 
@@ -1018,6 +1064,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: Player's Sound Player
+      objectReference: {fileID: 0}
+    - target: {fileID: 4340445153652205311, guid: 337a8ea66bf36ff41ada70425f475a58,
+        type: 3}
+      propertyPath: OutputAudioMixerGroup
+      value: 
       objectReference: {fileID: 0}
     - target: {fileID: 5632084654270921834, guid: 337a8ea66bf36ff41ada70425f475a58,
         type: 3}
