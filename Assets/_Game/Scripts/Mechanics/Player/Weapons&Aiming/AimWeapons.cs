@@ -13,6 +13,7 @@ public class AimWeapons : MonoBehaviour
 	[SerializeField] float speed = 8f;
 	[SerializeField] bool debugRays = false;
 	[SerializeField] float debugRayLength = 25f;
+	[SerializeField] GameObject currentTarget;
 
 	public float aimAssistDistance = 50f;
 	public float aimAssistWidth = 2f;
@@ -50,8 +51,10 @@ public class AimWeapons : MonoBehaviour
 				if (debugRays)
 				{
 					Debug.DrawRay(weapon.position, newDir * debugRayLength, Color.red);
+					Debug.DrawRay(transform.position, targetDir * 50, Color.green);
 				}
 			}
+			currentTarget = null;
 		}
 
 	}
@@ -60,6 +63,7 @@ public class AimWeapons : MonoBehaviour
 	{
 		mousePos = Input.mousePosition;
 		Ray ray = cam.ScreenPointToRay(mousePos);
+		Debug.DrawRay(ray.origin, ray.direction * 100, Color.blue);
 		RaycastHit hit;
 		float step = speed * Time.deltaTime;
 
@@ -68,6 +72,7 @@ public class AimWeapons : MonoBehaviour
 			Vector3 targetDir = hit.transform.position - transform.position;
 			Debug.DrawRay(transform.position, targetDir * 50, Color.green);
 			targetFound = true;
+			currentTarget = hit.transform.gameObject;
 
 			foreach (Transform weapon in weapons)
 			{
@@ -79,6 +84,7 @@ public class AimWeapons : MonoBehaviour
 				// Debug
 				if (debugRays)
 				{
+					Debug.DrawRay(weapon.position, newDir * debugRayLength, Color.red);
 					Debug.DrawRay(weapon.position, newDir * debugRayLength, Color.red);
 				}
 			}
