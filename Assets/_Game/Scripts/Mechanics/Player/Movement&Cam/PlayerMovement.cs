@@ -37,6 +37,9 @@ public class PlayerMovement : MonoBehaviour
 
     [Header("Effects")]
     public UnityEvent OnDodge;
+    public UnityEvent OnDodgeStraight;
+    public UnityEvent OnDodgeLeft;
+    public UnityEvent OnDodgeRight;
     public UnityEvent OnDodgeEnd;
     public UnityEvent OnDodgeRefresh;
     float lastFrameX, lastFrameY;
@@ -153,11 +156,23 @@ public class PlayerMovement : MonoBehaviour
             Mathf.LerpAngle(targetEulerAngels.z, -axis * leanLimit, lerpTime));
     }
 
-    void Dodge()
+    void Dodge(float x)
     {
         if (Input.GetKeyDown(KeyCode.Space) && dodgeCooldownRemaining <= 0)
         {
             OnDodge.Invoke();
+            if (x < 1) //Determine dodge direction
+            {
+                OnDodgeLeft.Invoke();
+            }
+            else if (x > 1)
+            {
+                OnDodgeRight.Invoke();
+            }
+            else
+            {
+                OnDodgeStraight.Invoke();
+            }
             dodgeDurationRemaining = dodgeDuration;
             if (!infiniteDodge)
             {

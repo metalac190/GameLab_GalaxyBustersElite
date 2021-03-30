@@ -363,25 +363,26 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ee1689e295e6e1642b2f01897ed772a2, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  WEAPONREF_ARRAY:
-  - {fileID: 6195826417844601540, guid: 3abfc193df3a10c469ca7b2f4d5147c8, type: 3}
-  - {fileID: 1418737460905681433, guid: f8f2803ce927a364ca9967c37d3ae9df, type: 3}
-  - {fileID: 7571351070088572352, guid: b95653ffbc4c0824a806e8c872370110, type: 3}
-  WeaponAChance: 20
-  WeaponBChance: 20
-  WeaponCChance: 20
-  HEALTHREF: {fileID: 3393478938653242816, guid: 1cdecb874b85dec4cb1e4346ccc1e603,
-    type: 3}
-  healthChance: 25
+  _weaponsRefs:
+  - prefabReference: {fileID: 6195826417844601540, guid: 3abfc193df3a10c469ca7b2f4d5147c8,
+      type: 3}
+    dropChance: 0
+  - prefabReference: {fileID: 1418737460905681433, guid: f8f2803ce927a364ca9967c37d3ae9df,
+      type: 3}
+    dropChance: 0
+  - prefabReference: {fileID: 7571351070088572352, guid: b95653ffbc4c0824a806e8c872370110,
+      type: 3}
+    dropChance: 0
+  _healthRef:
+    prefabReference: {fileID: 3393478938653242816, guid: 1cdecb874b85dec4cb1e4346ccc1e603,
+      type: 3}
+    dropChance: 0
   _healAmount: 20
-  OVERLOADREF: {fileID: 5240054451046245164, guid: 45113c912639ce046b0e158ec171497d,
-    type: 3}
-  overloadChance: 100
+  _overchargeRef:
+    prefabReference: {fileID: 5240054451046245164, guid: 45113c912639ce046b0e158ec171497d,
+      type: 3}
+    dropChance: 0
   _overloadAmount: 10
-  POINTSREF: {fileID: 3604329674517331237, guid: 7783a8297c4a6624ba17a0a5bf6ae112,
-    type: 3}
-  pointsChance: 0
-  pointsAwarded: 0
 --- !u!1001 &1423640054484351891
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -389,6 +390,11 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 6401731896670894}
     m_Modifications:
+    - target: {fileID: 388677903883170823, guid: 6d15cf078c5877a44a429bb86dc7bec2,
+        type: 3}
+      propertyPath: OutputAudioMixerGroup
+      value: 
+      objectReference: {fileID: 0}
     - target: {fileID: 1374521069171365097, guid: 6d15cf078c5877a44a429bb86dc7bec2,
         type: 3}
       propertyPath: m_Name
@@ -641,6 +647,11 @@ PrefabInstance:
       propertyPath: m_Name
       value: Enemy_General Sound Player
       objectReference: {fileID: 0}
+    - target: {fileID: 7885332458042498414, guid: 855086e511841044682edb8a5f185cff,
+        type: 3}
+      propertyPath: OutputAudioMixerGroup
+      value: 
+      objectReference: {fileID: 0}
     - target: {fileID: 8185007489991476492, guid: 855086e511841044682edb8a5f185cff,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -695,6 +706,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8438863077887770558, guid: 855086e511841044682edb8a5f185cff,
+        type: 3}
+      propertyPath: OutputAudioMixerGroup
+      value: 
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 855086e511841044682edb8a5f185cff, type: 3}
