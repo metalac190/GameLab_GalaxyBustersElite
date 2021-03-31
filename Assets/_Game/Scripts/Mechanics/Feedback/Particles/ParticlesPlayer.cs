@@ -94,6 +94,13 @@ public class ParticlesPlayer : MonoBehaviour
     {
         if (!CheckIfParticlesAtIndexAreInitialized(indexParticlesToPlay)) return;
 
+        if (allParticles[indexParticlesToPlay].particleSystem.main.loop)
+        {
+            Debug.LogWarning(name + " trying to detach, play, then destroy with a looping particle.");
+            Play(indexParticlesToPlay);
+            return;
+        }
+
         DetachPlayThenDestroy(indexParticlesToPlay);
     }
 
@@ -115,6 +122,41 @@ public class ParticlesPlayer : MonoBehaviour
     }
     #endregion
 
+    #region Detach Play Then Destroy
+    public void TryDetachPlayThenReattach(int indexParticlesToPlay)
+    {
+        if (!CheckIfParticlesAtIndexAreInitialized(indexParticlesToPlay)) return;
+
+        if (allParticles[indexParticlesToPlay].particleSystem.main.loop)
+        {
+            Debug.LogWarning(name + " trying to detach, play, then reattach with a looping particle.");
+            Play(indexParticlesToPlay);
+            return;
+        }
+
+        DetachPlayThenReattach(indexParticlesToPlay);
+    }
+
+    void DetachPlayThenReattach(int indexParticlesToPlay)
+    {
+        Transform savedParent = transform.parent;
+
+        transform.parent = null;
+        allParticles[indexParticlesToPlay].particleSystem.Play();
+
+        StopAllCoroutines();
+        StartCoroutine(ReattachWhenFinished(indexParticlesToPlay, savedParent));
+    }
+
+    IEnumerator ReattachWhenFinished(int indexParticlesToPlay, Transform savedParent)
+    {
+        while (allParticles[indexParticlesToPlay].particleSystem.isPlaying)
+            yield return null;
+
+        if (savedParent != null)
+            transform.parent = savedParent;
+    }
+    #endregion
 
     #region Debugging
     [ContextMenu("Test Play First Particles")]
