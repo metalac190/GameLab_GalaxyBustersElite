@@ -229,38 +229,45 @@ public class SoundPlayer : MonoBehaviour
     [ContextMenu("Test Detach, Play, then Destroy First Sound")]
     void TestDetachPlayThenDestroyFirst() => TryDetachPlayThenDestroy(0);
     [ContextMenu("Test Detach, Play, then Reattach First Sound")]
-    void TestDetachPlayThenReattachFirst() => TryDetachPlayThenDestroy(0);
+    void TestDetachPlayThenReattachFirst() => TryDetachPlayThenReattach(0);
 
     [ContextMenu("Test Play Second Sound")]
     void TestPlaySecond() => TryPlay(1);
     [ContextMenu("Test Detach, Play, then Destroy Second Sound")]
     void TestDetachPlayThenDestroySecond() => TryDetachPlayThenDestroy(1);
     [ContextMenu("Test Detach, Play, then Reattach Second Sound")]
-    void TestDetachPlayThenReattachSecond() => TryDetachPlayThenDestroy(1);
+    void TestDetachPlayThenReattachSecond() => TryDetachPlayThenReattach(1);
 
     [ContextMenu("Test Play Third Sound")]
     void TestPlayThird() => TryPlay(2);
     [ContextMenu("Test Detach, Play, then Destroy Third Sound")]
     void TestDetachPlayThenDestroyThird() => TryDetachPlayThenDestroy(2);
     [ContextMenu("Test Detach, Play, then Reattach Third Sound")]
-    void TestDetachPlayThenReattachThird() => TryDetachPlayThenDestroy(2);
+    void TestDetachPlayThenReattachThird() => TryDetachPlayThenReattach(2);
 
     [ContextMenu("Test Play Fourth Sound")]
     void TestPlayFourth() => TryPlay(3);
     [ContextMenu("Test Detach, Play, then Destroy Fourth Sound")]
     void TestDetachPlayThenDestroyFourth() => TryDetachPlayThenDestroy(3);
     [ContextMenu("Test Detach, Play, then Reattach Fourth Sound")]
-    void TestDetachPlayThenReattachFourth() => TryDetachPlayThenDestroy(3);
+    void TestDetachPlayThenReattachFourth() => TryDetachPlayThenReattach(3);
 
-    [ContextMenu("Test Sound Pooling First Sound")]
-    void TestSoundPoolingFirst() => StartCoroutine(SoundPoolingTest(0));
-    IEnumerator SoundPoolingTest(int indexSoundToTestPooling)
+    [ContextMenu("Test Sound Pooling First Sound x50")]
+    void TestSoundPoolingFive() => TestSoundPoolingHelper(1, 5);
+    [ContextMenu("Test Sound Pooling First Sound x10")]
+    void TestSoundPoolingTen() => TestSoundPoolingHelper(1, 10);
+    [ContextMenu("Test Sound Pooling First Sound x30")]
+    void TestSoundPoolingThirty() => TestSoundPoolingHelper(1, 30);
+    public void TestSoundPoolingHelper(int index, int numTest) => StartCoroutine(TestSoundPooling(index, numTest));
+    IEnumerator TestSoundPooling(int index, int numTest)
     {
-        for (int x = 0; x < 10; x++)
+        for (int x = 0; x < numTest; x++)
         {
-            Play(indexSoundToTestPooling);
-            yield return new WaitForSeconds(0.15f);
+            Play(index);
+            yield return new WaitForSeconds(0.1f);
         }
     }
+
+    public int GetNumSounds() { return allSounds.Length; }
     #endregion
 }
