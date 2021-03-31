@@ -1,4 +1,5 @@
-﻿using UnityEngine;
+﻿using System.Collections.Generic;
+using UnityEngine;
 
 [System.Serializable]
 public class Sound
@@ -14,8 +15,8 @@ public class Sound
     public bool loop = false;
 
     [Header("Sound Pooling")]
-    [Range(1, 10)]
-    public int soundPoolSize = 1;
+    //[Range(1, 10)]
+    [HideInInspector] public const int MAX_POOL_SIZE = 15;
     [HideInInspector] public int curPoolIteration = 0;
-    [HideInInspector] public AudioSource[] audioSourcePool;
+    [HideInInspector] public List<AudioSource> audioSourcePool;
 }
