@@ -18,16 +18,19 @@ public class EnemyMovement : MonoBehaviour
 
     private Transform parent;
     private CinemachinePathBase path;
-    private float positionAlongPath;
     private Vector3 offsetFromPath;
+
+    private float positionAlongPath;
+    private Vector3 positionAlongPathInWorldSpace;
+    private Quaternion orientationAtPosition;
 
     private void Start()
 	{
         parent = transform.parent;
         path = FindObjectOfType<CinemachinePathBase>();
-        positionAlongPath = path.FindClosestPoint(parent.position, 1, -1, 10);
-        offsetFromPath = parent.position - (path.EvaluatePositionAtUnit(positionAlongPath, CinemachinePathBase.PositionUnits.Distance));
-
+        positionAlongPath = path.FromPathNativeUnits(path.FindClosestPoint(parent.position, 1, -1, 100), CinemachinePathBase.PositionUnits.Distance);
+        Quaternion inverseOrientation = Quaternion.Inverse(path.EvaluateOrientationAtUnit(positionAlongPath, CinemachinePathBase.PositionUnits.Distance));
+        offsetFromPath = inverseOrientation * (parent.position - (path.EvaluatePositionAtUnit(positionAlongPath, CinemachinePathBase.PositionUnits.Distance)));
 	}
 
 	private void OnDrawGizmos()
@@ -50,7 +53,9 @@ public class EnemyMovement : MonoBehaviour
             // on start - save position relative to closest point on dollypath
             // move along dolly path, but add saved position
             positionAlongPath += followPathSpeed * Time.fixedDeltaTime;
-            parent.position = path.EvaluatePositionAtUnit(positionAlongPath, CinemachinePathBase.PositionUnits.Distance) + offsetFromPath;
+            positionAlongPathInWorldSpace = path.EvaluatePositionAtUnit(positionAlongPath, CinemachinePathBase.PositionUnits.Distance);
+            orientationAtPosition = path.EvaluateOrientationAtUnit(positionAlongPath, CinemachinePathBase.PositionUnits.Distance);
+            parent.position = positionAlongPathInWorldSpace + (orientationAtPosition * offsetFromPath);
         }
         if (onTrack && nextWaypoint<waypoints.Length)
         {
