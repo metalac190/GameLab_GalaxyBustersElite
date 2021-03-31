@@ -178,27 +178,71 @@ public class SoundPlayer : MonoBehaviour
     }
     #endregion
 
+    #region Detach Play Then Reattach
+    public void TryDetachPlayThenReattach(int indexSoundToPlay)
+    {
+        if (!CheckIfSoundAtIndexIsInitialized(indexSoundToPlay)) return;
+
+        if (allSounds[indexSoundToPlay].loop)
+        {
+            Debug.LogWarning(name + " trying to detach, play, then reattach with a looping sound.");
+            Play(indexSoundToPlay);
+            return;
+        }
+
+        DetachPlayThenReattach(indexSoundToPlay);
+    }
+
+    void DetachPlayThenReattach(int indexSoundToPlay)
+    {
+        Transform savedParent = transform.parent;
+
+        transform.parent = null;
+        allSounds[indexSoundToPlay].audioSource.Play();
+
+        StopAllCoroutines();
+        StartCoroutine(ReattachWhenFinished(indexSoundToPlay, savedParent));
+    }
+
+    IEnumerator ReattachWhenFinished(int indexSoundToPlay, Transform savedParent)
+    {
+        while (allSounds[indexSoundToPlay].audioSource.isPlaying)
+            yield return null;
+
+        if (savedParent != null)
+            transform.parent = savedParent;
+    }
+    #endregion
+
 
     #region Debugging
     [ContextMenu("Test Play First Sound")]
     void TestPlayFirst() => TryPlay(0);
     [ContextMenu("Test Detach, Play, then Destroy First Sound")]
-    void TestPlayThenDetachAndDestroyFirst() => TryDetachPlayThenDestroy(0);
+    void TestDetachPlayThenDestroyFirst() => TryDetachPlayThenDestroy(0);
+    [ContextMenu("Test Detach, Play, then Reattach First Sound")]
+    void TestDetachPlayThenReattachFirst() => TryDetachPlayThenDestroy(0);
 
     [ContextMenu("Test Play Second Sound")]
     void TestPlaySecond() => TryPlay(1);
     [ContextMenu("Test Detach, Play, then Destroy Second Sound")]
-    void TestPlayThenDetachAndDestroySecond() => TryDetachPlayThenDestroy(1);
+    void TestDetachPlayThenDestroySecond() => TryDetachPlayThenDestroy(1);
+    [ContextMenu("Test Detach, Play, then Reattach Second Sound")]
+    void TestDetachPlayThenReattachSecond() => TryDetachPlayThenDestroy(1);
 
     [ContextMenu("Test Play Third Sound")]
     void TestPlayThird() => TryPlay(2);
     [ContextMenu("Test Detach, Play, then Destroy Third Sound")]
-    void TestPlayThenDetachAndDestroyThird() => TryDetachPlayThenDestroy(2);
+    void TestDetachPlayThenDestroyThird() => TryDetachPlayThenDestroy(2);
+    [ContextMenu("Test Detach, Play, then Reattach Third Sound")]
+    void TestDetachPlayThenReattachThird() => TryDetachPlayThenDestroy(2);
 
     [ContextMenu("Test Play Fourth Sound")]
     void TestPlayFourth() => TryPlay(3);
     [ContextMenu("Test Detach, Play, then Destroy Fourth Sound")]
-    void TestPlayThenDetachAndDestroyFourth() => TryDetachPlayThenDestroy(3);
+    void TestDetachPlayThenDestroyFourth() => TryDetachPlayThenDestroy(3);
+    [ContextMenu("Test Detach, Play, then Reattach Fourth Sound")]
+    void TestDetachPlayThenReattachFourth() => TryDetachPlayThenDestroy(3);
 
     [ContextMenu("Test Sound Pooling First Sound")]
     void TestSoundPoolingFirst() => StartCoroutine(SoundPoolingTest(0));

@@ -77,7 +77,7 @@ MonoBehaviour:
     m_PersistentCalls:
       m_Calls:
       - m_Target: {fileID: 1678810373178374499}
-        m_MethodName: TryDetachPlayThenDestroy
+        m_MethodName: TryDetachPlayThenReattach
         m_Mode: 3
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -88,7 +88,7 @@ MonoBehaviour:
           m_BoolArgument: 0
         m_CallState: 2
       - m_Target: {fileID: 2132983922320770203}
-        m_MethodName: TryDetachPlayThenDestroy
+        m_MethodName: TryDetachPlayThenReattach
         m_Mode: 3
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -158,6 +158,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   waypoints: []
   moveSpeed: 0
+  followPath: 0
+  followPathSpeed: 0
   OnFinalWaypoint:
     m_PersistentCalls:
       m_Calls: []
