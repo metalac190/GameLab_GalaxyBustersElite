@@ -129,7 +129,18 @@ PrefabInstance:
         type: 3}
       propertyPath: m_audioClip
       value: 
-      objectReference: {fileID: 8300000, guid: c889bf66a7a5b4b4db5285ca40182855, type: 3}
+      objectReference: {fileID: 8300000, guid: 51ef899d038645348a5c8ef83c1f5964, type: 3}
+    - target: {fileID: 1388270348251091530, guid: 2cc2698f828e41b41886d3eb6aecd52b,
+        type: 3}
+      propertyPath: m_Volume
+      value: 0.611
+      objectReference: {fileID: 0}
+    - target: {fileID: 1388270348251091530, guid: 2cc2698f828e41b41886d3eb6aecd52b,
+        type: 3}
+      propertyPath: OutputAudioMixerGroup
+      value: 
+      objectReference: {fileID: -8787827183966225327, guid: 2bc39d44243511040a047e1085e56a56,
+        type: 2}
     - target: {fileID: 1388270348251091531, guid: 2cc2698f828e41b41886d3eb6aecd52b,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -198,12 +209,6 @@ Transform:
     type: 3}
   m_PrefabInstance: {fileID: 847810896315244087}
   m_PrefabAsset: {fileID: 0}
---- !u!82 &1765453943743548541 stripped
-AudioSource:
-  m_CorrespondingSourceObject: {fileID: 1388270348251091530, guid: 2cc2698f828e41b41886d3eb6aecd52b,
-    type: 3}
-  m_PrefabInstance: {fileID: 847810896315244087}
-  m_PrefabAsset: {fileID: 0}
 --- !u!1001 &4873119448734957604
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -215,7 +220,7 @@ PrefabInstance:
         type: 3}
       propertyPath: m_audioClip
       value: 
-      objectReference: {fileID: 8300000, guid: f2de8f124ca55d247a3e69e5adecfb58, type: 3}
+      objectReference: {fileID: 8300000, guid: 2da6d299676cceb478f8621709768b0d, type: 3}
     - target: {fileID: 1388270348251091530, guid: 2cc2698f828e41b41886d3eb6aecd52b,
         type: 3}
       propertyPath: m_PlayOnAwake
@@ -226,6 +231,17 @@ PrefabInstance:
       propertyPath: Loop
       value: 1
       objectReference: {fileID: 0}
+    - target: {fileID: 1388270348251091530, guid: 2cc2698f828e41b41886d3eb6aecd52b,
+        type: 3}
+      propertyPath: m_Volume
+      value: 0.503
+      objectReference: {fileID: 0}
+    - target: {fileID: 1388270348251091530, guid: 2cc2698f828e41b41886d3eb6aecd52b,
+        type: 3}
+      propertyPath: OutputAudioMixerGroup
+      value: 
+      objectReference: {fileID: 5692345227411947315, guid: 2bc39d44243511040a047e1085e56a56,
+        type: 2}
     - target: {fileID: 1388270348251091531, guid: 2cc2698f828e41b41886d3eb6aecd52b,
         type: 3}
       propertyPath: m_LocalPosition.x

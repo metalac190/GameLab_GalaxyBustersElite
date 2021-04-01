@@ -1,4 +1,5 @@
 ﻿using System.Collections;
+using System.Collections.Generic;
 using UnityEngine;
 
 public class SoundPlayer : MonoBehaviour
@@ -22,27 +23,45 @@ public class SoundPlayer : MonoBehaviour
 #endif
 
     #region Setup
-    void Awake()
+    void Awake() => SetupAllSounds();
+
+    private void SetupAllSounds()
     {
         bool warnedAboutMissingSoundOnce = false;
         if (surpressMissingSoundWarnings)
             warnedAboutMissingSoundOnce = true;
 
-        foreach (Sound sound in allSounds)
+        for (int s = 0; s < allSounds.Length; s++)
+            SetupSound(ref warnedAboutMissingSoundOnce, s);
+    }
+
+    private bool SetupSound(ref bool warnedAboutMissingSoundOnce, int s)
+    {
+        Sound sound = allSounds[s];
+
+        if (sound.audioSource != null)
         {
-            if (sound.audioSource != null)
-            {
-                sound.audioSource.loop = sound.loop;
-                sound.audioSource.playOnAwake = sound.playOnAwake;
-                if (sound.audioSource.isPlaying && !sound.playOnAwake)
-                    sound.audioSource.Stop();
-            }
-            else if (!warnedAboutMissingSoundOnce)
-            {
-                Debug.LogWarning(name + " is missing an Audio Source in at least one index");
-                warnedAboutMissingSoundOnce = true;
-            }
+            // Basic properties setup
+            sound.audioSource.loop = sound.loop;
+            sound.audioSource.playOnAwake = sound.playOnAwake;
+
+            // Sound pooling setup
+            sound.audioSourcePool = new List<AudioSource>();
+            sound.audioSourcePool.Add(sound.audioSource);
+            sound.curPoolIteration = 0;
+
+            if (sound.audioSource.isPlaying && !sound.playOnAwake) // Stop if not play on awake
+                sound.audioSource.Stop();
+            else if (!sound.audioSource.isPlaying && sound.playOnAwake) // Play if play on awake
+                Play(s);
         }
+        else if (!warnedAboutMissingSoundOnce)
+        {
+            Debug.LogWarning(name + " is missing an Audio Source in at least one index");
+            warnedAboutMissingSoundOnce = true;
+        }
+
+        return warnedAboutMissingSoundOnce;
     }
 
     void Start()
@@ -89,18 +108,49 @@ public class SoundPlayer : MonoBehaviour
         Play(indexSoundToPlay);
     }
 
-    void Play(int indexSoundToPlay) { allSounds[indexSoundToPlay].audioSource.Play(); }
+    void Play(int indexSoundToPlay)
+    {
+        Sound curSound = allSounds[indexSoundToPlay];
+
+
+        if (curSound.audioSourcePool.Count < Sound.MAX_POOL_SIZE && curSound.audioSourcePool[curSound.curPoolIteration].isPlaying)
+            ExpandAudioSourcePool(curSound);
+
+        curSound.audioSourcePool[curSound.curPoolIteration].Play();
+
+        curSound.curPoolIteration++;
+        if (curSound.curPoolIteration >= curSound.audioSourcePool.Count)
+            curSound.curPoolIteration = 0;
+    }
+
+    private static void ExpandAudioSourcePool(Sound curSound)
+    {
+        AudioSource newAudioSourceForPool =
+            Instantiate(curSound.audioSource, curSound.audioSource.transform.parent);
+        curSound.audioSourcePool.Add(newAudioSourceForPool);
+
+        curSound.curPoolIteration++;
+    }
     #endregion
 
     #region Stop
-    public void TryStop(int indexSoundToPlay)
+    public void TryStop(int indexSoundToStop)
     {
-        if (!CheckIfSoundAtIndexIsInitialized(indexSoundToPlay)) return;
+        if (!CheckIfSoundAtIndexIsInitialized(indexSoundToStop)) return;
 
-        Stop(indexSoundToPlay);
+        Stop(indexSoundToStop);
     }
 
-    void Stop(int indexSoundToPlay) { allSounds[indexSoundToPlay].audioSource.Stop(); }
+    void Stop(int indexSoundToStop)
+    {
+        Sound curSound = allSounds[indexSoundToStop];
+
+        curSound.curPoolIteration--;
+        if (curSound.curPoolIteration < 0)
+            curSound.curPoolIteration = curSound.audioSourcePool.Count - 1;
+
+        curSound.audioSourcePool[curSound.curPoolIteration].Stop();
+    }
     #endregion
 
     #region Detach Play Then Destroy
@@ -136,26 +186,88 @@ public class SoundPlayer : MonoBehaviour
     }
     #endregion
 
+    #region Detach Play Then Reattach
+    public void TryDetachPlayThenReattach(int indexSoundToPlay)
+    {
+        if (!CheckIfSoundAtIndexIsInitialized(indexSoundToPlay)) return;
+
+        if (allSounds[indexSoundToPlay].loop)
+        {
+            Debug.LogWarning(name + " trying to detach, play, then reattach with a looping sound.");
+            Play(indexSoundToPlay);
+            return;
+        }
+
+        DetachPlayThenReattach(indexSoundToPlay);
+    }
+
+    void DetachPlayThenReattach(int indexSoundToPlay)
+    {
+        Transform savedParent = transform.parent;
+
+        transform.parent = null;
+        allSounds[indexSoundToPlay].audioSource.Play();
+
+        StopAllCoroutines();
+        StartCoroutine(ReattachWhenFinished(indexSoundToPlay, savedParent));
+    }
+
+    IEnumerator ReattachWhenFinished(int indexSoundToPlay, Transform savedParent)
+    {
+        while (allSounds[indexSoundToPlay].audioSource.isPlaying)
+            yield return null;
+
+        if (savedParent != null)
+            transform.parent = savedParent;
+    }
+    #endregion
+
 
     #region Debugging
     [ContextMenu("Test Play First Sound")]
     void TestPlayFirst() => TryPlay(0);
     [ContextMenu("Test Detach, Play, then Destroy First Sound")]
-    void TestPlayThenDetachAndDestroyFirst() => TryDetachPlayThenDestroy(0);
+    void TestDetachPlayThenDestroyFirst() => TryDetachPlayThenDestroy(0);
+    [ContextMenu("Test Detach, Play, then Reattach First Sound")]
+    void TestDetachPlayThenReattachFirst() => TryDetachPlayThenReattach(0);
 
     [ContextMenu("Test Play Second Sound")]
     void TestPlaySecond() => TryPlay(1);
     [ContextMenu("Test Detach, Play, then Destroy Second Sound")]
-    void TestPlayThenDetachAndDestroySecond() => TryDetachPlayThenDestroy(1);
+    void TestDetachPlayThenDestroySecond() => TryDetachPlayThenDestroy(1);
+    [ContextMenu("Test Detach, Play, then Reattach Second Sound")]
+    void TestDetachPlayThenReattachSecond() => TryDetachPlayThenReattach(1);
 
     [ContextMenu("Test Play Third Sound")]
     void TestPlayThird() => TryPlay(2);
     [ContextMenu("Test Detach, Play, then Destroy Third Sound")]
-    void TestPlayThenDetachAndDestroyThird() => TryDetachPlayThenDestroy(2);
+    void TestDetachPlayThenDestroyThird() => TryDetachPlayThenDestroy(2);
+    [ContextMenu("Test Detach, Play, then Reattach Third Sound")]
+    void TestDetachPlayThenReattachThird() => TryDetachPlayThenReattach(2);
 
     [ContextMenu("Test Play Fourth Sound")]
     void TestPlayFourth() => TryPlay(3);
     [ContextMenu("Test Detach, Play, then Destroy Fourth Sound")]
-    void TestPlayThenDetachAndDestroyFourth() => TryDetachPlayThenDestroy(3);
+    void TestDetachPlayThenDestroyFourth() => TryDetachPlayThenDestroy(3);
+    [ContextMenu("Test Detach, Play, then Reattach Fourth Sound")]
+    void TestDetachPlayThenReattachFourth() => TryDetachPlayThenReattach(3);
+
+    [ContextMenu("Test Sound Pooling First Sound x50")]
+    void TestSoundPoolingFive() => TestSoundPoolingHelper(1, 5);
+    [ContextMenu("Test Sound Pooling First Sound x10")]
+    void TestSoundPoolingTen() => TestSoundPoolingHelper(1, 10);
+    [ContextMenu("Test Sound Pooling First Sound x30")]
+    void TestSoundPoolingThirty() => TestSoundPoolingHelper(1, 30);
+    public void TestSoundPoolingHelper(int index, int numTest) => StartCoroutine(TestSoundPooling(index, numTest));
+    IEnumerator TestSoundPooling(int index, int numTest)
+    {
+        for (int x = 0; x < numTest; x++)
+        {
+            Play(index);
+            yield return new WaitForSeconds(0.1f);
+        }
+    }
+
+    public int GetNumSounds() { return allSounds.Length; }
     #endregion
 }

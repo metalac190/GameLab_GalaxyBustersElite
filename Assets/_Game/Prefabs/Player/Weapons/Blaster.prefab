@@ -54,6 +54,11 @@ MonoBehaviour:
   speed: 8
   debugRays: 0
   debugRayLength: 25
+  aimAssistDistance: 50
+  aimAssistWidth: 1
+  targetMask:
+    serializedVersion: 2
+    m_Bits: 2048
 --- !u!114 &3510827522233690846
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -68,11 +73,13 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   weaponID: Blaster
   projectileType: 0
+  projectile: {fileID: 7837384869982803700, guid: 7f007536520c2e44e9cb6dc594d42d5b,
+    type: 3}
   spawnPoints:
   - {fileID: 4018402611312316131}
   - {fileID: 4018402611035822444}
   damage: 4
-  meterRequired: 50
+  meterRequired: 100
   overloadTime: 3
   OnStandardFire:
     m_PersistentCalls:
@@ -146,12 +153,10 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
-  projectile: {fileID: 7837384869982803700, guid: 7f007536520c2e44e9cb6dc594d42d5b,
-    type: 3}
   projectileSpeed: 200
   projectileCone: 1
   clickCooldown: 0.5
-  fireRate: 3
+  fireRate: 9
   fireRateMultiplier: 4
 --- !u!1 &4018402609521200947
 GameObject:
@@ -556,6 +561,11 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 1362156741809808157}
     m_Modifications:
+    - target: {fileID: 128059912501332710, guid: 3f1244c5a52f8f14188c9fe67aa1ca99,
+        type: 3}
+      propertyPath: OutputAudioMixerGroup
+      value: 
+      objectReference: {fileID: 0}
     - target: {fileID: 4436277243381855085, guid: 3f1244c5a52f8f14188c9fe67aa1ca99,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -610,6 +620,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5883185999403251872, guid: 3f1244c5a52f8f14188c9fe67aa1ca99,
+        type: 3}
+      propertyPath: OutputAudioMixerGroup
+      value: 
       objectReference: {fileID: 0}
     - target: {fileID: 6739329180463685594, guid: 3f1244c5a52f8f14188c9fe67aa1ca99,
         type: 3}

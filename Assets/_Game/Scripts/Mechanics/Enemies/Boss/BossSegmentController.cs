@@ -88,7 +88,7 @@ public class BossSegmentController : EntityBase
         
         switch(attackType)
         {
-            case BossAttacks.MisisleAttack:
+            case BossAttacks.MissileAttack:
                 StartCoroutine(MissileDelay(_myDelay));
                 break;
 

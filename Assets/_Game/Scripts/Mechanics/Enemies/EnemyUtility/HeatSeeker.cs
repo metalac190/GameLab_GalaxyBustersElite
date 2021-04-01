@@ -5,24 +5,14 @@ using UnityEngine;
 [RequireComponent(typeof(Rigidbody))]
 public class HeatSeeker : MonoBehaviour
 {
-    //behavior:
-    /* Missile + Rammer + Spearhead have this component
-        * 
-        * Missile sets a rb.velocity = transform.forward 
-        * Missile updates it's look direction every Update to follow a GameObject reference
-        * Missile updates it rb.velocity to the new Forward
-        *   Missile also has "non-reference" option to just fly straight? Should missile always track player?
-        *   
-        * Rammer uses vector3.moveTowards(playerReference)
-        * Rammer sets tranform.lookAt(playerReference)
-        * 
-        * Update Rammer to use rb?
-     */
-
     [SerializeField] public bool isFollowing { get; private set; } = false;
     [SerializeField] public float RotationSpeed { get; private set; } = 5f;
 
     private Rigidbody rb = null;
+
+    private bool _timeOut = false;
+    private float _currTime = 0;
+    private float _dieTime = 2f;
 
     private void Awake()
     {
@@ -47,17 +37,24 @@ public class HeatSeeker : MonoBehaviour
             //changing the angle of movement to match the new forward angle, at speed
             rb.velocity = transform.forward * rb.velocity.magnitude;
         }
+
+        if (_timeOut)
+        {
+            _currTime+= Time.deltaTime;
+            if (_currTime > _dieTime)
+                gameObject.SetActive(false);
+        }
     }
 
     public void StartFollowing()
     {
-        Debug.Log("Called Stop");
         isFollowing = true;
     }
 
     public void StopFollowing()
     {
         isFollowing = false;
+        _timeOut = true;
     }
 
     public void SetRotationSpeed(float value)
