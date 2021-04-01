@@ -200,25 +200,20 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ee1689e295e6e1642b2f01897ed772a2, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _weaponsRefs:
-  - prefabReference: {fileID: 6195826417844601540, guid: 3abfc193df3a10c469ca7b2f4d5147c8,
-      type: 3}
-    dropChance: 0
-  - prefabReference: {fileID: 1418737460905681433, guid: f8f2803ce927a364ca9967c37d3ae9df,
-      type: 3}
-    dropChance: 0
-  - prefabReference: {fileID: 7571351070088572352, guid: b95653ffbc4c0824a806e8c872370110,
-      type: 3}
-    dropChance: 0
-  _healthRef:
-    prefabReference: {fileID: 3393478938653242816, guid: 1cdecb874b85dec4cb1e4346ccc1e603,
-      type: 3}
-    dropChance: 0
+  WEAPONREF_ARRAY:
+  - {fileID: 6195826417844601540, guid: 3abfc193df3a10c469ca7b2f4d5147c8, type: 3}
+  - {fileID: 1418737460905681433, guid: f8f2803ce927a364ca9967c37d3ae9df, type: 3}
+  - {fileID: 7571351070088572352, guid: b95653ffbc4c0824a806e8c872370110, type: 3}
+  WeaponAChance: 33.34
+  WeaponBChance: 33.33
+  WeaponCChance: 33.33
+  HEALTHREF: {fileID: 3393478938653242816, guid: 1cdecb874b85dec4cb1e4346ccc1e603,
+    type: 3}
+  healthChance: 0
   _healAmount: 1
-  _overchargeRef:
-    prefabReference: {fileID: 5240054451046245164, guid: 45113c912639ce046b0e158ec171497d,
-      type: 3}
-    dropChance: 0
+  OVERLOADREF: {fileID: 5240054451046245164, guid: 45113c912639ce046b0e158ec171497d,
+    type: 3}
+  overloadChance: 0
   _overloadAmount: 10
 --- !u!1 &8502903108457884929
 GameObject:
