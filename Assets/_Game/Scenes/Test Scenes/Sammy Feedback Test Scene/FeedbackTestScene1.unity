@@ -755,8 +755,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   allParticles:
-  - name: Particles
-    label: (Write a Description Here)
+  - label: (Write a Description Here)
     particleSystem: {fileID: 917254686}
     playOnAwake: 0
 --- !u!4 &840141090
@@ -785,7 +784,7 @@ GameObject:
   - component: {fileID: 913712425}
   - component: {fileID: 913712426}
   m_Layer: 0
-  m_Name: Minion SFX
+  m_Name: Pickup SFX
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -815,7 +814,7 @@ AudioSource:
   m_Enabled: 1
   serializedVersion: 4
   OutputAudioMixerGroup: {fileID: 0}
-  m_audioClip: {fileID: 8300000, guid: c889bf66a7a5b4b4db5285ca40182855, type: 3}
+  m_audioClip: {fileID: 8300000, guid: 7a54bb75da66eaa49b2721d98b4125b0, type: 3}
   m_PlayOnAwake: 0
   m_Volume: 1
   m_Pitch: 1
@@ -5940,18 +5939,29 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   allSounds:
-  - name: Sound
-    label: (Write a Description Here)
+  - label: 
     audioSource: {fileID: 361789399}
     playOnAwake: 0
     loop: 0
+    useSoundVariations: 0
+    soundVariations: []
+    usePitchRandomization: 0
+    pitchShiftMin: 0
+    pitchShiftMax: 0
     curPoolIteration: 0
     audioSourcePool: []
-  - name: Sound
-    label: (Write a Description Here)
+  - label: Sound
     audioSource: {fileID: 913712426}
     playOnAwake: 0
     loop: 0
+    useSoundVariations: 1
+    soundVariations:
+    - {fileID: 8300000, guid: 7a54bb75da66eaa49b2721d98b4125b0, type: 3}
+    - {fileID: 8300000, guid: 0c1f42e47518ef441b0bbf3db12d8faf, type: 3}
+    - {fileID: 8300000, guid: fe7083b95fdaaf342892cd845dfec804, type: 3}
+    usePitchRandomization: 1
+    pitchShiftMin: -0.05
+    pitchShiftMax: 0.05
     curPoolIteration: 0
     audioSourcePool: []
 --- !u!4 &1117161610
