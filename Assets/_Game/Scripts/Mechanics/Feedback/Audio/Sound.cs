@@ -5,8 +5,7 @@ using UnityEngine;
 public class Sound
 {
     // Inspector name
-    [HideInInspector] public string name = "Sound";
-    public string label = "(Write a Description Here)";
+    public string label = "Sound";
 
     [Space(5)]
     public AudioSource audioSource;
@@ -21,9 +20,9 @@ public class Sound
 
     [Header("Pitch Randomization")]
     public bool usePitchRandomization;
-    [Range(-3, 0)]
+    [Range(-1, 0)]
     public float pitchShiftMin = 0;
-    [Range(0, 3)]
+    [Range(0, 1)]
     public float pitchShiftMax = 0;
 
     [Header("Sound Pooling")]
