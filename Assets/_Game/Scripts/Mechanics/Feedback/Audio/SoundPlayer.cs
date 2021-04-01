@@ -17,6 +17,12 @@ public class SoundPlayer : MonoBehaviour
             {
                 sound.audioSource.loop = sound.loop;
                 sound.audioSource.playOnAwake = sound.playOnAwake;
+
+                if (!sound.useSoundVariations)
+                    sound.soundVariations = null;
+
+                if (!sound.usePitchRandomization)
+                    sound.pitchShiftMin = sound.pitchShiftMax = 0;
             }
         }
     }
@@ -116,6 +122,8 @@ public class SoundPlayer : MonoBehaviour
         if (curSound.audioSourcePool.Count < Sound.MAX_POOL_SIZE && curSound.audioSourcePool[curSound.curPoolIteration].isPlaying)
             ExpandAudioSourcePool(curSound);
 
+        if (curSound.usePitchRandomization)
+            curSound.audioSourcePool[curSound.curPoolIteration].pitch = Random.Range(curSound.pitchShiftMin + 1, curSound.pitchShiftMax + 1);
         curSound.audioSourcePool[curSound.curPoolIteration].Play();
 
         curSound.curPoolIteration++;
