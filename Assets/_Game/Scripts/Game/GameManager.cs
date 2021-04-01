@@ -44,12 +44,13 @@ public class GameManager : MonoBehaviour {
 		public PlayerMovement movement;
 		public PlayerController controller;
 	}
+    [Header("UI Reference")]
+    public GameObject HUD;
+    // ----------------------------------------------------------------------------------------------------
 
-	// ----------------------------------------------------------------------------------------------------
+    #region Variables
 
-	#region Variables
-
-	public bool Paused {
+    public bool Paused {
         get {
             return _paused;
         } set {
@@ -96,13 +97,21 @@ public class GameManager : MonoBehaviour {
         Time.timeScale = 0;
 
         Cursor.visible = true;
-        if(pauseMenu)
+        if (pauseMenu)
+        {
             pauseMenu.SetActive(true);
+            HUD.SetActive(false);
+        }
+
     }
 
     public void UnpauseGame() {
-        if(pauseMenu)
+        if (pauseMenu)
+        {
             pauseMenu.SetActive(false);
+            HUD.SetActive(true);
+        }
+            
         Cursor.visible = false;
 
         Time.timeScale = lastSavedTimeScale;
@@ -135,6 +144,7 @@ public class GameManager : MonoBehaviour {
     public void WinGame() {
         EndLevel();
         currentState = GameState.Win;
+        HUD.SetActive(false);
         winScreen.SetActive(true);
     }
 
@@ -147,6 +157,7 @@ public class GameManager : MonoBehaviour {
     public void LoseGame() {
         EndLevel();
         currentState = GameState.Fail;
+        HUD.SetActive(false);
         loseScreen.SetActive(true);
     }
 
