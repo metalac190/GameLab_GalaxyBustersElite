@@ -168,7 +168,6 @@ GameObject:
   - component: {fileID: 7836011563900937473}
   - component: {fileID: 268216710914515146}
   - component: {fileID: 3236874500608460054}
-  - component: {fileID: 1995090285352655313}
   m_Layer: 11
   m_Name: Tank-Assets
   m_TagString: Untagged
@@ -275,7 +274,8 @@ MonoBehaviour:
   enemyScore: 10
   givesPlayerMS: 1
   shotsBeforePauseMax: 1
-  attackRate: 1
+  attackRateMin: 0
+  attackRateMax: 0
   vulnerabilityPeriodMax: 1
   bullet: {fileID: 4817155437395576068, guid: e82c437c58d75354c9f99879dd39c338, type: 3}
   _spawnPoint: {fileID: 8674614298075421539}
@@ -327,19 +327,6 @@ BoxCollider:
   m_Enabled: 1
   serializedVersion: 2
   m_Size: {x: 1.2, y: 2.2, z: 1.2}
-  m_Center: {x: 0, y: 0, z: 0}
---- !u!65 &1995090285352655313
-BoxCollider:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 8502903108457884929}
-  m_Material: {fileID: 0}
-  m_IsTrigger: 0
-  m_Enabled: 1
-  serializedVersion: 2
-  m_Size: {x: 1, y: 2, z: 1}
   m_Center: {x: 0, y: 0, z: 0}
 --- !u!1 &8845927696448858834
 GameObject:
