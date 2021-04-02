@@ -89,6 +89,8 @@ public class EnemySpearhead : EnemyBase
         {
             DialogueTrigger.TriggerEnemyDefeatedDialogue();
             col.gameObject.GetComponent<EnemyBase>().Dead();
+
+            col.gameObject.GetComponent<EnemyBase>().Died.Invoke();
         }
     }
 }
