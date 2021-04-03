@@ -115,8 +115,8 @@ MonoBehaviour:
   enemyDetectionRadius: 20
   enemyScore: 300
   givesPlayerMS: 1
-  attackRateMin: 0
-  attackRateMax: 0
+  attackRateMin: 2
+  attackRateMax: 2.5
   bullet: {fileID: 4817155437395576068, guid: e82c437c58d75354c9f99879dd39c338, type: 3}
   _spawnPoint: {fileID: 2545132061026240659}
   OnShotFired:
@@ -203,10 +203,11 @@ Transform:
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
-  - {fileID: 7205912839098970794}
+  - {fileID: 945973514428682161}
   - {fileID: 1235170445299991694}
   - {fileID: 7782915559662853831}
   - {fileID: 7615693626120495701}
+  - {fileID: 7205912839098970794}
   m_Father: {fileID: 381391312362710453}
   m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -315,25 +316,21 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ee1689e295e6e1642b2f01897ed772a2, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  WEAPONREF_ARRAY:
-  - {fileID: 6195826417844601540, guid: 3abfc193df3a10c469ca7b2f4d5147c8, type: 3}
-  - {fileID: 1418737460905681433, guid: f8f2803ce927a364ca9967c37d3ae9df, type: 3}
-  - {fileID: 7571351070088572352, guid: b95653ffbc4c0824a806e8c872370110, type: 3}
-  WeaponAChance: 1.66
-  WeaponBChance: 1.66
-  WeaponCChance: 1.66
-  HEALTHREF: {fileID: 3393478938653242816, guid: 1cdecb874b85dec4cb1e4346ccc1e603,
-    type: 3}
-  healthChance: 0
+  _weaponsRefs:
+  - prefabReference: {fileID: 0}
+    dropChance: 0
+  - prefabReference: {fileID: 0}
+    dropChance: 0
+  - prefabReference: {fileID: 0}
+    dropChance: 0
+  _healthRef:
+    prefabReference: {fileID: 0}
+    dropChance: 0
   _healAmount: 1
-  OVERLOADREF: {fileID: 5240054451046245164, guid: 45113c912639ce046b0e158ec171497d,
-    type: 3}
-  overloadChance: 18
+  _overchargeRef:
+    prefabReference: {fileID: 0}
+    dropChance: 0
   _overloadAmount: 0
-  POINTSREF: {fileID: 3604329674517331237, guid: 7783a8297c4a6624ba17a0a5bf6ae112,
-    type: 3}
-  pointsChance: 0
-  pointsAwarded: 50
 --- !u!1001 &582471653607349159
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -875,7 +872,7 @@ PrefabInstance:
     - target: {fileID: -8679921383154817045, guid: 0eb6529d41c53774fbf52929334c00d2,
         type: 3}
       propertyPath: m_RootOrder
-      value: 0
+      value: 4
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: 0eb6529d41c53774fbf52929334c00d2,
         type: 3}
