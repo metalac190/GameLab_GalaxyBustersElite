@@ -206,7 +206,7 @@ MonoBehaviour:
     m_PersistentCalls:
       m_Calls:
       - m_Target: {fileID: 9220648288966866007}
-        m_MethodName: TryPlay
+        m_MethodName: TryDetachPlayThenReattach
         m_Mode: 3
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -217,7 +217,7 @@ MonoBehaviour:
           m_BoolArgument: 0
         m_CallState: 2
       - m_Target: {fileID: 8229959547827786470}
-        m_MethodName: TryPlay
+        m_MethodName: TryDetachPlayThenReattach
         m_Mode: 3
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -240,11 +240,12 @@ MonoBehaviour:
         m_CallState: 2
   maxHealth: 50
   currentState: 0
+  id: Spearhead
   attackDamage: 40
   enemyDetectionRadius: 40
   enemyScore: 500
   givesPlayerMS: 1
-  chargingSpeed: 20
+  chargingSpeed: 70
   chargeTimerMax: 3
   OnChargeAttackEnter:
     m_PersistentCalls:
@@ -288,6 +289,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   waypoints: []
   moveSpeed: 0
+  followPath: 0
+  followPathSpeed: 0
   OnFinalWaypoint:
     m_PersistentCalls:
       m_Calls: []
@@ -367,20 +370,20 @@ MonoBehaviour:
   - {fileID: 6195826417844601540, guid: 3abfc193df3a10c469ca7b2f4d5147c8, type: 3}
   - {fileID: 1418737460905681433, guid: f8f2803ce927a364ca9967c37d3ae9df, type: 3}
   - {fileID: 7571351070088572352, guid: b95653ffbc4c0824a806e8c872370110, type: 3}
-  WeaponAChance: 20
-  WeaponBChance: 20
-  WeaponCChance: 20
+  WeaponAChance: 6.66
+  WeaponBChance: 6.66
+  WeaponCChance: 6.66
   HEALTHREF: {fileID: 3393478938653242816, guid: 1cdecb874b85dec4cb1e4346ccc1e603,
     type: 3}
-  healthChance: 25
+  healthChance: 20
   _healAmount: 20
   OVERLOADREF: {fileID: 5240054451046245164, guid: 45113c912639ce046b0e158ec171497d,
     type: 3}
-  overloadChance: 100
+  overloadChance: 0
   _overloadAmount: 10
   POINTSREF: {fileID: 3604329674517331237, guid: 7783a8297c4a6624ba17a0a5bf6ae112,
     type: 3}
-  pointsChance: 100
+  pointsChance: 0
   pointsAwarded: 150
 --- !u!1001 &1423640054484351891
 PrefabInstance:
@@ -389,6 +392,11 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 6401731896670894}
     m_Modifications:
+    - target: {fileID: 388677903883170823, guid: 6d15cf078c5877a44a429bb86dc7bec2,
+        type: 3}
+      propertyPath: OutputAudioMixerGroup
+      value: 
+      objectReference: {fileID: 0}
     - target: {fileID: 1374521069171365097, guid: 6d15cf078c5877a44a429bb86dc7bec2,
         type: 3}
       propertyPath: m_Name
@@ -616,6 +624,11 @@ PrefabInstance:
       propertyPath: m_Name
       value: Enemy_Path
       objectReference: {fileID: 0}
+    - target: {fileID: 7739145940949625551, guid: cad81f72c113be84683b8668c0dd3ece,
+        type: 3}
+      propertyPath: m_LocalPosition.x
+      value: -10
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: cad81f72c113be84683b8668c0dd3ece, type: 3}
 --- !u!4 &3196204113281743266 stripped
@@ -635,6 +648,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: Enemy_General Sound Player
+      objectReference: {fileID: 0}
+    - target: {fileID: 7885332458042498414, guid: 855086e511841044682edb8a5f185cff,
+        type: 3}
+      propertyPath: OutputAudioMixerGroup
+      value: 
       objectReference: {fileID: 0}
     - target: {fileID: 8185007489991476492, guid: 855086e511841044682edb8a5f185cff,
         type: 3}
@@ -690,6 +708,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8438863077887770558, guid: 855086e511841044682edb8a5f185cff,
+        type: 3}
+      propertyPath: OutputAudioMixerGroup
+      value: 
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 855086e511841044682edb8a5f185cff, type: 3}
