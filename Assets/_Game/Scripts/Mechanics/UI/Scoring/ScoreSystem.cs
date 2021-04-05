@@ -7,15 +7,12 @@ public class ScoreSystem : MonoBehaviour
 	static int score = 0;
 	static int comboCounter = 0;
 	static int comboMultiplier = 1;
-
+	static int nearMisses = 0;
+	static int nearMissScore = 20;
 	static float scoreToOverchargeMultiplier = 0.1f;
 	
     void Update()
     {
-		// For testing purposes only
-		//if (Input.GetKeyDown(KeyCode.Space))
-		//	IncreaseScore(10);
-
 		score = GameManager.gm.score;
 	}
 
@@ -71,12 +68,35 @@ public class ScoreSystem : MonoBehaviour
 		else
 			comboMultiplier = 1;
 	}
+
 	public static void ResetCombo()
 	{
 		comboCounter = -1;
 		comboMultiplier = 1;
 		Debug.Log("<color=yellow>Combo Reset</color>");
 		Debug.Log("<color=yellow>x1 Score Multiplier</color>");
+	}
+
+	public static void NearMiss()
+	{
+		nearMisses++;
+		IncreaseScore(nearMissScore);
+	}
+
+	public static void SetHighScore()
+	{
+		switch (GameManager.gm.currentLevel)
+		{
+			case 1:
+				PlayerPrefs.SetInt("HighScoreL1", score);
+				break;
+			case 2:
+				PlayerPrefs.SetInt("HighScoreL2", score);
+				break;
+			case 3:
+				PlayerPrefs.SetInt("HighScoreL3", score);
+				break;
+		}
 	}
 
 	public static int GetScore(){ return score; }
