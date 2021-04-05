@@ -14,6 +14,9 @@ public class WinScreen : MonoBehaviour {
             GameManager.gm.LoadScene(Levels.MainMenu);
         });
 
+		// Set high score for level
+		ScoreSystem.SetHighScore();
+
         // Next level
         UnityAction nextLevelFunc;
         switch(GameManager.gm.currentLevel) {

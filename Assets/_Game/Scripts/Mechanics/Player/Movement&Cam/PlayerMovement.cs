@@ -21,6 +21,7 @@ public class PlayerMovement : MonoBehaviour
     float dodgeCooldownRemaining = 0;
 
     [Header("Collision Settings")]
+    [SerializeField] float collDamage = 15; 
     [SerializeField] float collDuration;
     [SerializeField] Vector3 collForce;
     [SerializeField] Vector3 torqueForce;
@@ -101,7 +102,7 @@ public class PlayerMovement : MonoBehaviour
 		if (!isHit)
 			transform.localRotation = Quaternion.Euler(Vector3.zero);
 
-		Dodge();
+		Dodge(x);
 
         InvokingStartedOrStoppedMovingEvents(x, y);
     }
@@ -213,7 +214,7 @@ public class PlayerMovement : MonoBehaviour
             Random.Range(-torqueForce.y, torqueForce.y), 
             Random.Range(-torqueForce.z, torqueForce.z));
 
-        CameraShaker.instance.Shake(pc.CameraShakeOnHit);
+        pc.DamagePlayer(collDamage);
 
         yield return new WaitForSeconds(collDuration);
 

@@ -59,8 +59,7 @@ MonoBehaviour:
     dropChance: 0
   _healAmount: 1
   _overchargeRef:
-    prefabReference: {fileID: 5240054451046245164, guid: 45113c912639ce046b0e158ec171497d,
-      type: 3}
+    prefabReference: {fileID: 0}
     dropChance: 0
   _overloadAmount: 0
 --- !u!1 &1656154533622931641
@@ -144,7 +143,7 @@ MonoBehaviour:
     m_PersistentCalls:
       m_Calls:
       - m_Target: {fileID: 1797448276665333131}
-        m_MethodName: TryDetachPlayThenDestroy
+        m_MethodName: TryDetachPlayThenReattach
         m_Mode: 3
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -155,7 +154,7 @@ MonoBehaviour:
           m_BoolArgument: 0
         m_CallState: 2
       - m_Target: {fileID: 4880903501573977125}
-        m_MethodName: TryDetachPlayThenDestroy
+        m_MethodName: TryDetachPlayThenReattach
         m_Mode: 3
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -178,11 +177,12 @@ MonoBehaviour:
         m_CallState: 2
   maxHealth: 10
   currentState: 0
+  id: Rammer
   attackDamage: 20
   enemyDetectionRadius: 12
   enemyScore: 100
   givesPlayerMS: 1
-  ramSpeed: 15
+  ramSpeed: 0
   OnRamAttackEnter:
     m_PersistentCalls:
       m_Calls:
@@ -225,6 +225,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   waypoints: []
   moveSpeed: 3
+  followPath: 0
+  followPathSpeed: 0
   OnFinalWaypoint:
     m_PersistentCalls:
       m_Calls:
