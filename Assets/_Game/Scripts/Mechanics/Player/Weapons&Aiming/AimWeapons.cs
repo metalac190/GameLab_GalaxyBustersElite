@@ -63,7 +63,6 @@ public class AimWeapons : MonoBehaviour
 	{
 		mousePos = Input.mousePosition;
 		Ray ray = cam.ScreenPointToRay(mousePos);
-		Debug.DrawRay(ray.origin, ray.direction * 100, Color.blue);
 		RaycastHit hit;
 		float step = speed * Time.deltaTime;
 
