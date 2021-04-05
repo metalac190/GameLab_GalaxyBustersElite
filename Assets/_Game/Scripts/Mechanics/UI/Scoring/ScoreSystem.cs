@@ -10,8 +10,17 @@ public class ScoreSystem : MonoBehaviour
 	static int nearMisses = 0;
 	static int nearMissScore = 20;
 	static float scoreToOverchargeMultiplier = 0.1f;
-	
-    void Update()
+
+	// Tracking for each destroyed enemy type
+	static int destroyedTotal = 0;
+	static int destroyedBandit = 0;
+	static int destroyedDrone = 0;
+	static int destroyedMinion = 0;
+	static int destroyedRammer = 0;
+	static int destroyedSpearhead = 0;
+	static int destroyedTank = 0;
+
+	void Update()
     {
 		score = GameManager.gm.score;
 	}
@@ -81,6 +90,42 @@ public class ScoreSystem : MonoBehaviour
 	{
 		nearMisses++;
 		IncreaseScore(nearMissScore);
+	}
+
+	public static void DestroyedEnemyType(string type)
+	{
+		switch (type)
+		{
+			case "Bandit":
+				destroyedTotal++;
+				destroyedBandit++;
+				break;
+
+			case "Drone":
+				destroyedTotal++;
+				destroyedDrone++;
+				break;
+
+			case "Minion":
+				destroyedTotal++;
+				destroyedMinion++;
+				break;
+
+			case "Rammer":
+				destroyedTotal++;
+				destroyedRammer++;
+				break;
+
+			case "Spearhead":
+				destroyedTotal++;
+				destroyedSpearhead++;
+				break;
+
+			case "Tank":
+				destroyedTotal++;
+				destroyedTank++;
+				break;
+		}
 	}
 
 	public static void SetHighScore()
