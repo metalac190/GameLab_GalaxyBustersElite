@@ -21,19 +21,10 @@ public class EnergyBurst : WeaponBase
 	[SerializeField] float damageMultiplier = 2f;
 	[SerializeField] float speedMultiplier = 1.5f;
 	[SerializeField] private bool weaponCharged;
-	[SerializeField] private float minScale = 1f;
-	[SerializeField] private float maxScale = 1.75f;
-	[SerializeField] private Color chargeStartColor;
-	[SerializeField] private Color chargeEndColor;
-	private Gradient chargeColorGradient = new Gradient();
 
 	[Header("Effects")]
 	[SerializeField] UnityEvent OnWeaponCharged;
 	[SerializeField] UnityEvent OnChargedFire;
-
-	private GameObject chargingShot;
-	private MeshRenderer shotRenderer;
-	private Projectile shotProjectile;
 
 	private void OnEnable()
 	{
@@ -47,37 +38,12 @@ public class EnergyBurst : WeaponBase
 		// Set charged projectile's speed and damage
 		chargedProjectile.GetComponent<Projectile>().SetVelocity(projectileSpeed * speedMultiplier);
 		chargedProjectile.GetComponent<Projectile>().SetDamage(damage * damageMultiplier);
-
-		GradientColorKey[] colorKeys = new GradientColorKey[2];
-		GradientAlphaKey[] alphaKeys = new GradientAlphaKey[2];
-		colorKeys[0] = new GradientColorKey(chargeStartColor, 0);
-		colorKeys[1] = new GradientColorKey(chargeEndColor, 1);
-		alphaKeys[0] = new GradientAlphaKey(chargeStartColor.a, 0);
-		alphaKeys[1] = new GradientAlphaKey(chargeEndColor.a, 1);
-		chargeColorGradient.SetKeys(colorKeys, alphaKeys);
-
-		// TODO while charging spawn projectile but w 0 speed and following player
-		// released when released
 	}
 
 	void Update()
 	{
 		fireReady = (GameManager.gm.currentState == GameState.Gameplay && !GameManager.gm.Paused);
 		chargeMeter = GameManager.player.controller.GetOverloadCharge();
-
-		if (Input.GetButtonDown("Primary Fire") && !overloaded && fireReady)
-		{
-			foreach (Transform point in spawnPoints)
-			{
-				chargingShot = PoolUtility.InstantiateFromPool(projectilePool, point.position, point.rotation, projectile);
-				shotRenderer = chargingShot.GetComponent<MeshRenderer>();
-				shotProjectile = chargingShot.GetComponent<Projectile>();
-
-				shotProjectile.GetComponent<Rigidbody>().velocity = Vector3.zero;
-				chargingShot.transform.localScale = new Vector3(minScale, minScale, minScale);
-				shotProjectile.enabled = false;
-			}
-		}
 
 		if (Input.GetButton("Primary Fire") && !overloaded && fireReady)
 		{
@@ -112,27 +78,6 @@ public class EnergyBurst : WeaponBase
 
 	}
 
-	private void FixedUpdate()
-	{
-		if (Input.GetButton("Primary Fire") && !overloaded && fireReady)
-		{
-			// Sets color based on charge time
-			shotRenderer.material.SetColor("_UnlitColor", chargeColorGradient.Evaluate(chargeTimer / chargeUpTime));
-			// Sets scale based on charge time
-			float shotScale = Mathf.Lerp(minScale, maxScale, chargeTimer / chargeUpTime);
-			chargingShot.transform.localScale = new Vector3(shotScale, shotScale, shotScale);
-		}
-	}
-
-	private void LateUpdate()
-	{
-		if (Input.GetButton("Primary Fire") && !overloaded && fireReady)
-		{
-			chargingShot.transform.rotation = spawnPoints[0].transform.rotation;
-			chargingShot.transform.position = spawnPoints[0].transform.position;
-		}
-	}
-
 	void FireEnergy()
 	{
 		// Set fire rate based on a cooldown
@@ -140,12 +85,28 @@ public class EnergyBurst : WeaponBase
 		{
 			cdTime = Time.time;
 
-			// Sets damage based on charge time
-			shotProjectile.SetDamage(Mathf.Lerp(damage, damage * damageMultiplier, chargeTimer / chargeUpTime));
-			// release projectile
-			shotProjectile.enabled = true;
+			if (weaponCharged)
+			{
+				// Instantiate projectile at each spawn point
+				foreach (Transform point in spawnPoints)
+				{
+					//Object Pooling instead of Instantiate
+					GameObject bulletObj = PoolUtility.InstantiateFromPool(chargedProjectilePool, point.position, point.rotation, chargedProjectile);
+				}
 
-			OnStandardFire.Invoke();
+				OnStandardFire.Invoke();
+			}
+			else
+			{
+				// Instantiate projectile at each spawn point
+				foreach (Transform point in spawnPoints)
+				{
+					//Object Pooling instead of Instantiate
+					GameObject bulletObj = PoolUtility.InstantiateFromPool(projectilePool, point.position, point.rotation, projectile);
+				}
+
+				OnStandardFire.Invoke();
+			}
 		}
 	}
 
