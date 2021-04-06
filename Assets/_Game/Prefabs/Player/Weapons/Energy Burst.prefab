@@ -1,5 +1,36 @@
 %YAML 1.1
 %TAG !u! tag:unity3d.com,2011:
+--- !u!1 &1062599205902548407
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 8135352700125813703}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: -2887158210158526126}
+  m_Layer: 0
+  m_Name: GBE_weapons_energyBurst_SM (Missing Prefab)
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &-2887158210158526126
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 8135352700125813703}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1062599205902548407}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children:
+  - {fileID: 8605302813834017836}
+  m_Father: {fileID: 1554756654842437217}
+  m_RootOrder: 1
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1554756654842437216
 GameObject:
   m_ObjectHideFlags: 0
@@ -30,7 +61,7 @@ Transform:
   m_LocalScale: {x: 0.03618527, y: 0.0064699, z: 0.00960901}
   m_Children:
   - {fileID: 1554756655449818847}
-  - {fileID: 8605302813834017836}
+  - {fileID: -2887158210158526126}
   m_Father: {fileID: 1554756655631277004}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -256,6 +287,37 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
+--- !u!1 &6546923916990955624
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 8135352700125813703}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 8605302813834017836}
+  m_Layer: 0
+  m_Name: Missing Prefab (Dummy)
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &8605302813834017836
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: -8679921383154817045, guid: f371caf66c3bd5f44b15080251313263,
+    type: 3}
+  m_PrefabInstance: {fileID: 8135352700125813703}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6546923916990955624}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: -2887158210158526126}
+  m_RootOrder: 0
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1001 &901284194601430895
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -526,7 +588,7 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Materials.Array.data[0]
       value: 
-      objectReference: {fileID: 2100000, guid: 0ae0d35462aa9744cb0f3bf3971bbfac, type: 2}
+      objectReference: {fileID: 0}
     - target: {fileID: 919132149155446097, guid: f371caf66c3bd5f44b15080251313263,
         type: 3}
       propertyPath: m_Name
@@ -534,12 +596,6 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: f371caf66c3bd5f44b15080251313263, type: 3}
---- !u!4 &8605302813834017836 stripped
-Transform:
-  m_CorrespondingSourceObject: {fileID: -8679921383154817045, guid: f371caf66c3bd5f44b15080251313263,
-    type: 3}
-  m_PrefabInstance: {fileID: 8135352700125813703}
-  m_PrefabAsset: {fileID: 0}
 --- !u!1001 &8762144434742813380
 PrefabInstance:
   m_ObjectHideFlags: 0

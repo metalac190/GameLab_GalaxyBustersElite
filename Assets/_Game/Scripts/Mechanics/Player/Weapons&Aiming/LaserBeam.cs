@@ -19,6 +19,7 @@ public class LaserBeam : WeaponBase
 	float nextDamage;
 	LayerMask targetLayers;
 	GameObject mouse;
+	GameObject targetingMode;
 
 	[Header("Hold Fire Settings")]
 	[SerializeField] float damageCap = 5f;
@@ -28,7 +29,7 @@ public class LaserBeam : WeaponBase
 
 	[Header("Effects")]
 	[SerializeField] UnityEvent OnLaserStop;
-
+	[SerializeField] GameObject hudTargeting;
 	[SerializeField] bool laserActive;
 
 	private void OnEnable()
@@ -45,6 +46,7 @@ public class LaserBeam : WeaponBase
 		aimAssistRadius = GetComponent<AimWeapons>().aimAssistWidth;
 		targetLayers = GetComponent<AimWeapons>().targetMask;
 		mouse = GameObject.Find("Mouse");
+		targetingMode = GameManager.gm.HUD.transform.Find("TargetingMode").gameObject;
 	}
 
 	void Update()
@@ -178,11 +180,19 @@ public class LaserBeam : WeaponBase
 
 	IEnumerator LaserOverload()
 	{
+		targetingMode.SetActive(true);
+		firePoint.GetComponent<GroupTargetDetector>().pauseTracking = false;
 		firePoint.GetComponent<GroupTargetDetector>().SetCollider(true);
+
 		yield return new WaitForSeconds(overloadTime - 0.5f);
+
+		targetingMode.SetActive(false);
 		overloadTargets = firePoint.GetComponent<GroupTargetDetector>().targets;
 		DrawLasers(true);
+		firePoint.GetComponent<GroupTargetDetector>().pauseTracking = true;
+
 		yield return new WaitForSeconds(0.5f);
+
 		DrawLasers(false);
 		FireLaserOverload();
 		firePoint.GetComponent<GroupTargetDetector>().SetCollider(false);
