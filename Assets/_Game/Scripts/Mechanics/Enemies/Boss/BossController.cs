@@ -99,7 +99,7 @@ public class BossController : EntityBase
         }
 
         // End game when defeated
-        Died.AddListener(() => GameManager.gm.WinGame());
+        //Died.AddListener(() => GameManager.gm.WinGame());
     }
 
     public override void TakeDamage(float damage)
