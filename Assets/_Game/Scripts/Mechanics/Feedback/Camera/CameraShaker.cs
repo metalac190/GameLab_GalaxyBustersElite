@@ -16,6 +16,8 @@ public class CameraShaker : MonoBehaviour
     private void Update() => PerformShakingEachFrame();
     private void PerformShakingEachFrame()
     {
+        if (GameManager.gm.Paused) return;
+
         if (shakeAmt > 0)
             transform.localPosition = Vector2.up * Random.Range(-shakeAmt, shakeAmt) + Vector2.right * Random.Range(-shakeAmt, shakeAmt);
         else
