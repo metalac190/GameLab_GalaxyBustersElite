@@ -94,6 +94,13 @@ public class ParticlesPlayer : MonoBehaviour
     {
         if (!CheckIfParticlesAtIndexAreInitialized(indexParticlesToPlay)) return;
 
+        if (allParticles[indexParticlesToPlay].particleSystem.main.loop)
+        {
+            Debug.LogWarning(name + " trying to detach, play, then destroy with a looping particle.");
+            Play(indexParticlesToPlay);
+            return;
+        }
+
         DetachPlayThenDestroy(indexParticlesToPlay);
     }
 
@@ -115,26 +122,71 @@ public class ParticlesPlayer : MonoBehaviour
     }
     #endregion
 
+    #region Detach Play Then Destroy
+    public void TryDetachPlayThenReattach(int indexParticlesToPlay)
+    {
+        if (!CheckIfParticlesAtIndexAreInitialized(indexParticlesToPlay)) return;
+
+        if (allParticles[indexParticlesToPlay].particleSystem.main.loop)
+        {
+            Debug.LogWarning(name + " trying to detach, play, then reattach with a looping particle.");
+            Play(indexParticlesToPlay);
+            return;
+        }
+
+        DetachPlayThenReattach(indexParticlesToPlay);
+    }
+
+    void DetachPlayThenReattach(int indexParticlesToPlay)
+    {
+        Transform savedParent = transform.parent;
+
+        transform.parent = null;
+        allParticles[indexParticlesToPlay].particleSystem.Play();
+
+        StopAllCoroutines();
+        StartCoroutine(ReattachWhenFinished(indexParticlesToPlay, savedParent));
+    }
+
+    IEnumerator ReattachWhenFinished(int indexParticlesToPlay, Transform savedParent)
+    {
+        while (allParticles[indexParticlesToPlay].particleSystem.isPlaying)
+            yield return null;
+
+        if (savedParent != null)
+            transform.parent = savedParent;
+    }
+    #endregion
 
     #region Debugging
     [ContextMenu("Test Play First Particles")]
     void TestPlayFirst() => Play(0);
     [ContextMenu("Test Detach, Play, then Destroy First Particles")]
-    void TestPlayThenDetachAndDestroyFirst() => DetachPlayThenDestroy(0);
+    void TestDetachPlayThenDestroyFirst() => DetachPlayThenDestroy(0);
+    [ContextMenu("Test Detach, Play, then Reattach First Particles")]
+    void TestDetachPlayThenReattachFirst() => DetachPlayThenReattach(0);
 
     [ContextMenu("Test Play Second Particles")]
     void TestPlaySecond() => Play(1);
     [ContextMenu("Test Detach, Play, then Destroy Second Particles")]
-    void TestPlayThenDetachAndDestroySecond() => DetachPlayThenDestroy(1);
+    void TestDetachPlayThenDestroySecond() => DetachPlayThenDestroy(1);
+    [ContextMenu("Test Detach, Play, then Reattach Second Particles")]
+    void TestDetachPlayThenReattachSecond() => DetachPlayThenReattach(1);
 
     [ContextMenu("Test Play Third Particles")]
     void TestPlayThird() => Play(2);
     [ContextMenu("Test Detach, Play, then Destroy Third Particles")]
-    void TestPlayThenDetachAndDestroyThird() => DetachPlayThenDestroy(2);
+    void TestDetachPlayThenDestroyThird() => DetachPlayThenDestroy(2);
+    [ContextMenu("Test Detach, Play, then Reattach Third Particles")]
+    void TestDetachPlayThenReattachThird() => DetachPlayThenReattach(2);
 
     [ContextMenu("Test Play Fourth Particles")]
     void TestPlayFourth() => Play(3);
     [ContextMenu("Test Detach, Play, then Destroy Fourth Particles")]
-    void TestPlayThenDetachAndDestroyFourth() => DetachPlayThenDestroy(3);
+    void TestDetachPlayThenDestroyFourth() => DetachPlayThenDestroy(3);
+    [ContextMenu("Test Detach, Play, then Reattach Fourth Particles")]
+    void TestDetachPlayThenReattachFourth() => DetachPlayThenReattach(3);
+
+    public int GetNumParticles() { return allParticles.Length; }
     #endregion
 }
