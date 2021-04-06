@@ -46,6 +46,7 @@ public class GameManager : MonoBehaviour {
 	}
     [Header("UI Reference")]
     public GameObject HUD;
+
     // ----------------------------------------------------------------------------------------------------
 
     #region Variables
