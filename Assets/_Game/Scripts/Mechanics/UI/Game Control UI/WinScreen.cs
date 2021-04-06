@@ -11,11 +11,9 @@ public class WinScreen : MonoBehaviour {
     void Start() {
         GameManager.gm.SetWinScreen(gameObject);
         mainMenu.onClick.AddListener(() => {
+            ScoreSystem.SetHighScore(); // Set high score for level
             GameManager.gm.LoadScene(Levels.MainMenu);
         });
-
-		// Set high score for level
-		ScoreSystem.SetHighScore();
 
         // Next level
         UnityAction nextLevelFunc;
@@ -37,8 +35,10 @@ public class WinScreen : MonoBehaviour {
                 };
                 break;
         }
-        if(nextLevel.gameObject.activeSelf)
+        if(nextLevel.gameObject.activeSelf) {
+            nextLevel.onClick.AddListener(ScoreSystem.SetHighScore); // Set high score for level
             nextLevel.onClick.AddListener(nextLevelFunc);
+        }
 
         gameObject.SetActive(false);
     }
