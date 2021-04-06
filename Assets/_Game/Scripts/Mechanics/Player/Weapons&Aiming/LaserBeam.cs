@@ -29,7 +29,6 @@ public class LaserBeam : WeaponBase
 
 	[Header("Effects")]
 	[SerializeField] UnityEvent OnLaserStop;
-	[SerializeField] GameObject hudTargeting;
 	[SerializeField] bool laserActive;
 
 	private void OnEnable()
