@@ -8,8 +8,8 @@
 
 public enum BossAttacks
 {
-    RingAttack = 0,
-    MisisleAttack,
+    RingAttack = 1,
+    MissileAttack,
     LaserAttack,
     SummonMinions
 }

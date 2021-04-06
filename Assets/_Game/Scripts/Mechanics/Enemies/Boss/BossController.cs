@@ -268,7 +268,7 @@ public class BossController : EntityBase
             case BossAttacks.RingAttack:
                 _BossBehavior = StartCoroutine(RingAttack());
                 break;
-            case BossAttacks.MisisleAttack:
+            case BossAttacks.MissileAttack:
                 _BossBehavior = StartCoroutine(MissileAttack());
                 break;
             case BossAttacks.LaserAttack:

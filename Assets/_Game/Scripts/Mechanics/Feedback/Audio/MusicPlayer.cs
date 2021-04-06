@@ -1,5 +1,6 @@
 ﻿using System.Collections;
 using UnityEngine;
+using UnityEngine.Audio;
 using UnityEngine.SceneManagement;
 
 public class MusicPlayer : MonoBehaviour
@@ -10,7 +11,7 @@ public class MusicPlayer : MonoBehaviour
     [SerializeField] MusicTrack standardMusic;
     [SerializeField] bool fadeIn;
     [Range(0.01f, 20)]
-    [SerializeField] float fadeInDuration = 0.8f;
+    [SerializeField] float fadeInDuration = 1f;
     bool fadingOut; // Used to make sure MusicPlayer doesn't crossfade when in the middle of fading out
     const float FADE_OUT_DURATION = 0.8f; // Needs to be less than duration of scene transition
 
@@ -19,6 +20,9 @@ public class MusicPlayer : MonoBehaviour
     bool altMusicPlaying = false;
     [Range(0.01f, 20)]
     [SerializeField] float crossFadeDuration = 0.8f;
+
+    [Header("Audio Mixer")]
+    [SerializeField] AudioMixerGroup audioMixerGroup;
 
     #region Setup
     private void Awake()
@@ -57,6 +61,9 @@ public class MusicPlayer : MonoBehaviour
         standardMusic.audioSource = gameObject.AddComponent<AudioSource>();
         standardMusic.audioSource.clip = standardMusic.musicTrack;
         standardMusic.audioSource.loop = true;
+        if (audioMixerGroup)
+            standardMusic.audioSource.outputAudioMixerGroup = audioMixerGroup;
+
         if (fadeIn)
             FadeIn();
         else
@@ -71,6 +78,8 @@ public class MusicPlayer : MonoBehaviour
         alternativeMusic.audioSource = gameObject.AddComponent<AudioSource>();
         alternativeMusic.audioSource.clip = alternativeMusic.musicTrack;
         alternativeMusic.audioSource.loop = true;
+        if (audioMixerGroup)
+            alternativeMusic.audioSource.outputAudioMixerGroup = audioMixerGroup;
     }
     #endregion
 
