@@ -79,7 +79,7 @@ MonoBehaviour:
     m_PersistentCalls:
       m_Calls:
       - m_Target: {fileID: 2759662968825031425}
-        m_MethodName: TryDetachPlayThenDestroy
+        m_MethodName: TryDetachPlayThenReattach
         m_Mode: 3
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -90,7 +90,7 @@ MonoBehaviour:
           m_BoolArgument: 0
         m_CallState: 2
       - m_Target: {fileID: 4011600155108547933}
-        m_MethodName: TryDetachPlayThenDestroy
+        m_MethodName: TryDetachPlayThenReattach
         m_Mode: 3
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -113,6 +113,7 @@ MonoBehaviour:
         m_CallState: 2
   maxHealth: 10
   currentState: 0
+  id: Drone
   attackDamage: 15
   enemyDetectionRadius: 0
   enemyScore: 100
@@ -131,6 +132,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   waypoints: []
   moveSpeed: 2
+  followPath: 0
+  followPathSpeed: 0
   OnFinalWaypoint:
     m_PersistentCalls:
       m_Calls:
@@ -344,8 +347,7 @@ MonoBehaviour:
     dropChance: 0
   _healAmount: 1
   _overchargeRef:
-    prefabReference: {fileID: 5240054451046245164, guid: 45113c912639ce046b0e158ec171497d,
-      type: 3}
+    prefabReference: {fileID: 0}
     dropChance: 0
   _overloadAmount: 10
 --- !u!1001 &1005099110324028449

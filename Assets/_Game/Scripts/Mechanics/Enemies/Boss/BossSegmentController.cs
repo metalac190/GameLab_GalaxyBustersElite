@@ -40,25 +40,8 @@ public class BossSegmentController : EntityBase
             _bossRef.InvulnerableHit.Invoke();
             return;
         }
-            
 
-        _currentHealth -= damage;
-
-        if (_currentHealth <= 0)
-        {
-            Died.Invoke();
-
-            //SetActive False by default. Override to implement other behavior
-            Debug.Log(gameObject.name + " has died");
-            gameObject.SetActive(false);
-        }
-        else
-        {
-            Damaged.Invoke();
-
-            Debug.Log(gameObject.name + " has taken damage" +
-                "\nNew Health: " + Health);
-        }
+        base.TakeDamage(damage);
     }
 
     #region Public Accessors
@@ -88,7 +71,7 @@ public class BossSegmentController : EntityBase
         
         switch(attackType)
         {
-            case BossAttacks.MisisleAttack:
+            case BossAttacks.MissileAttack:
                 StartCoroutine(MissileDelay(_myDelay));
                 break;
 
