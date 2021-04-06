@@ -95,12 +95,20 @@ MonoBehaviour:
   scoreEventContainer: {fileID: 6700416471561608353}
   scoreEventPrefab: {fileID: 3188504809817527787, guid: 7f16d0595fb44b14aa85e8400ea419f6,
     type: 3}
-  secondsToIncrementByHundred: 0.1
+  secondsToIncrementPerEvent: 0.4
   timeToMoveEvents: 0.25
   distanceToMoveEvents: 50
+  maxEventsOnScreen: 4
   eventFadeInTime: 0.5
   eventMidTime: 2
   eventFadeOutTime: 0.5
+  colorPulseTime: 2
+  colorPulseAmount: 0.2
+  multiplierColors:
+  - {r: 1, g: 0.8455865, b: 0.25943398, a: 1}
+  - {r: 1, g: 0.60513043, b: 0.3160377, a: 1}
+  - {r: 1, g: 0.37266922, b: 0.25, a: 1}
+  - {r: 1, g: 0.2028302, b: 0.26159373, a: 1}
 --- !u!1 &498704650327224614
 GameObject:
   m_ObjectHideFlags: 0
