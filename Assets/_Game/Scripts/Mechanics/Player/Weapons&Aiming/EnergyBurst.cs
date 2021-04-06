@@ -12,7 +12,6 @@ public class EnergyBurst : WeaponBase
 	private bool fireReady;
 
 	[Header("Primary Fire Settings")]
-	[SerializeField] GameObject projectile;
 	[SerializeField] float projectileSpeed = 40f;
 	[SerializeField] float fireRate = 2f;
 
