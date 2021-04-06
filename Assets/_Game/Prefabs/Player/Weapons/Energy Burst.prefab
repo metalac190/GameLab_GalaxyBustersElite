@@ -198,7 +198,7 @@ MonoBehaviour:
   debugRayLength: 25
   currentTarget: {fileID: 0}
   aimAssistDistance: 50
-  aimAssistWidth: 1
+  aimAssistWidth: 3
   targetMask:
     serializedVersion: 2
     m_Bits: 2048
@@ -259,6 +259,10 @@ MonoBehaviour:
   damageMultiplier: 8
   speedMultiplier: 1.5
   weaponCharged: 0
+  minScale: 0.25
+  maxScale: 1.75
+  chargeStartColor: {r: 0.3324203, g: 1, b: 0.1745283, a: 0.78431374}
+  chargeEndColor: {r: 1, g: 0, b: 0, a: 0.78431374}
   OnWeaponCharged:
     m_PersistentCalls:
       m_Calls: []
