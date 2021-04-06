@@ -9,7 +9,10 @@ public class EnemyTank : EnemyBase
     [SerializeField] private int shotsBeforePauseMax = 1;
 
     [Header("Enemy Tank Attack Rate (Higher # = Longer Shot Delay)")]
-    [SerializeField] private float attackRate = 0;
+    [SerializeField] private float attackRateMin = 0;
+    [SerializeField] private float attackRateMax = 0;
+    private float attackRate = 0;
+    private float shotTime;
 
     [Header("Enemy Tank Vulnerability Period")]
     [SerializeField] private float vulnerabilityPeriodMax = 1;
@@ -22,7 +25,6 @@ public class EnemyTank : EnemyBase
     [Header("Enemy Collider Ref (Don't Touch)")]
     [SerializeField] private BoxCollider invulnToggle;
 
-    private float shotTime;
     private float currentVulnerabilityPeriod;
     private int currentShotsCount;
 
@@ -65,6 +67,10 @@ public class EnemyTank : EnemyBase
 
                     //set damage
                     tempProjectile.SetDamage(AttackDamage);
+
+                    //adjust RNG attackRate, restrict to 2 decimal places
+                    attackRate = Random.Range(attackRateMin, attackRateMax);
+                    attackRate -= (attackRate % 0.01f);
 
                     //set cooldown, invoke
                     shotTime = attackRate;

@@ -113,6 +113,7 @@ MonoBehaviour:
         m_CallState: 2
   maxHealth: 10
   currentState: 0
+  id: Drone
   attackDamage: 15
   enemyDetectionRadius: 0
   enemyScore: 100
@@ -345,9 +346,9 @@ MonoBehaviour:
       type: 3}
     dropChance: 0
   _healAmount: 1
-  OVERLOADREF: {fileID: 5240054451046245164, guid: 45113c912639ce046b0e158ec171497d,
-    type: 3}
-  overloadChance: 5
+  _overchargeRef:
+    prefabReference: {fileID: 0}
+    dropChance: 0
   _overloadAmount: 10
 --- !u!1001 &1005099110324028449
 PrefabInstance:

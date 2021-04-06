@@ -10,10 +10,13 @@ public abstract class EnemyBase : EntityBase
     public EnemyState currentState;
 
     [Header("Additional Enemy Settings")]
-    [SerializeField] private int attackDamage = 0;
-    public int AttackDamage { get { return attackDamage; } }
+	[SerializeField] private string id;
+	public string EnemyID { get { return id; } }
 
-    [SerializeField] private float enemyDetectionRadius = 0;
+	[SerializeField] private int attackDamage = 0;
+	public int AttackDamage { get { return attackDamage; } }
+
+	[SerializeField] private float enemyDetectionRadius = 0;
     public float EnemyDetectionRadius { get { return enemyDetectionRadius; } }
 
     [SerializeField] private int enemyScore = 0;
@@ -86,6 +89,7 @@ public abstract class EnemyBase : EntityBase
 				Dead();
 				ScoreSystem.IncreaseCombo();
 				ScoreSystem.IncreaseScore(enemyScore);
+				ScoreSystem.DestroyedEnemyType(id);
 				//disable or destroy as needed?
 			}
 			else

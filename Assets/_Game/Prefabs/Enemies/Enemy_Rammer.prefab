@@ -58,14 +58,10 @@ MonoBehaviour:
       type: 3}
     dropChance: 0
   _healAmount: 1
-  OVERLOADREF: {fileID: 5240054451046245164, guid: 45113c912639ce046b0e158ec171497d,
-    type: 3}
-  overloadChance: 10
+  _overchargeRef:
+    prefabReference: {fileID: 0}
+    dropChance: 0
   _overloadAmount: 0
-  POINTSREF: {fileID: 3604329674517331237, guid: 7783a8297c4a6624ba17a0a5bf6ae112,
-    type: 3}
-  pointsChance: 0
-  pointsAwarded: 25
 --- !u!1 &1656154533622931641
 GameObject:
   m_ObjectHideFlags: 0
@@ -181,11 +177,12 @@ MonoBehaviour:
         m_CallState: 2
   maxHealth: 10
   currentState: 0
+  id: Rammer
   attackDamage: 20
   enemyDetectionRadius: 12
   enemyScore: 100
   givesPlayerMS: 1
-  enemyChargeSpeed: 20
+  ramSpeed: 0
   OnRamAttackEnter:
     m_PersistentCalls:
       m_Calls:

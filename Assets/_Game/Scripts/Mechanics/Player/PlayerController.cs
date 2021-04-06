@@ -44,20 +44,6 @@ public class PlayerController : MonoBehaviour
 
 	void Update()
     {
-        // Temporary manual weapon switching for testing purposes
-        if (Input.GetKeyDown(KeyCode.Alpha1))
-        {
-			SetWeapon(weapons[0]);
-        }
-        else if (Input.GetKeyDown(KeyCode.Alpha2))
-        {
-            SetWeapon(weapons[1]);
-        }
-        else if (Input.GetKeyDown(KeyCode.Alpha3))
-        {
-            SetWeapon(weapons[2]);
-        }
-
         InvokingHealthStartedOrStoppedBeingLowEvents();
     }
 
