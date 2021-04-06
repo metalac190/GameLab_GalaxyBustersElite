@@ -14,12 +14,6 @@ public class MouseToScreen : MonoBehaviour
 	Transform player;
 	Camera cam;
 
-	/*void Start()
-	{
-		Cursor.visible = false;
-		Cursor.lockState = CursorLockMode.Confined;
-	}*/
-
 	private void Start()
 	{
 		cam = Camera.main;
@@ -40,7 +34,6 @@ public class MouseToScreen : MonoBehaviour
 		mousePos.z = dist + 10;
 		targetVector = Camera.main.ScreenToWorldPoint(mousePos);
 		transform.position = targetVector;
-		//transform.position = Vector3.SmoothDamp(transform.position, targetVector, ref mouseRef, moveSpeed);
 	}
 
 

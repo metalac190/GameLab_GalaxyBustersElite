@@ -1,4 +1,5 @@
-﻿using System.Collections;
+﻿using Cinemachine;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Events;
@@ -9,12 +10,53 @@ public class EnemyMovement : MonoBehaviour
     private int nextWaypoint = 0;
     private bool onTrack = true; 
     [SerializeField] float moveSpeed;
+    [SerializeField] bool followPath;
+    [SerializeField] float followPathSpeed;
 
     [Header("Effects")]
     [SerializeField] UnityEvent OnFinalWaypoint;
 
+    private Transform parent;
+    private CinemachinePathBase path;
+    private Vector3 offsetFromPath;
+
+    private float positionAlongPath;
+    private Vector3 positionAlongPathInWorldSpace;
+    private Quaternion orientationAtPosition;
+
+    private void Start()
+	{
+        parent = transform.parent;
+        path = FindObjectOfType<CinemachinePathBase>();
+        positionAlongPath = path.FromPathNativeUnits(path.FindClosestPoint(parent.position, 1, -1, 100), CinemachinePathBase.PositionUnits.Distance);
+        Quaternion inverseOrientation = Quaternion.Inverse(path.EvaluateOrientationAtUnit(positionAlongPath, CinemachinePathBase.PositionUnits.Distance));
+        offsetFromPath = inverseOrientation * (parent.position - (path.EvaluatePositionAtUnit(positionAlongPath, CinemachinePathBase.PositionUnits.Distance)));
+	}
+
+	private void OnDrawGizmos()
+    {
+        Gizmos.color = Color.white;
+        if (waypoints.Length >= 1)
+        {
+            Gizmos.DrawLine(gameObject.transform.position, waypoints[0].transform.position);
+        }
+        for (int i = 0; i < waypoints.Length - 1; i++)
+        {
+            Gizmos.DrawLine(waypoints[i].transform.position, waypoints[i + 1].transform.position);
+        }
+    }
+
     private void FixedUpdate()
     {
+        if (followPath)
+		{
+            // on start - save position relative to closest point on dollypath
+            // move along dolly path, but add saved position
+            positionAlongPath += followPathSpeed * Time.fixedDeltaTime;
+            positionAlongPathInWorldSpace = path.EvaluatePositionAtUnit(positionAlongPath, CinemachinePathBase.PositionUnits.Distance);
+            orientationAtPosition = path.EvaluateOrientationAtUnit(positionAlongPath, CinemachinePathBase.PositionUnits.Distance);
+            parent.position = positionAlongPathInWorldSpace + (orientationAtPosition * offsetFromPath);
+        }
         if (onTrack && nextWaypoint<waypoints.Length)
         {
             Move();

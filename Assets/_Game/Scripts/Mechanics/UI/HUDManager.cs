@@ -35,6 +35,7 @@ public class HUDManager : MonoBehaviour
     {
         referencedGM = GameManager.gm.gameObject;
         referencedPlayer = GameManager.player.obj;
+        GameManager.gm.HUD = gameObject;
         if (GameManager.gm.currentState == GameState.Gameplay)
         {
             //its good to stay active
