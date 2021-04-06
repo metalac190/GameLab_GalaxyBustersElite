@@ -5,13 +5,14 @@ using UnityEngine;
 public class GroupTargetDetector : MonoBehaviour
 {
 	private Collider capsule;
+	[SerializeField] GameObject targetedIcon;
 	public List<GameObject> targets = new List<GameObject>();
+	public bool pauseTracking = false;
 
 	private void OnEnable()
 	{
 		capsule = GetComponent<Collider>();
 		SetCollider(false);
-		targets.Clear();
 	}
 
 	public void SetCollider(bool state)
@@ -22,9 +23,10 @@ public class GroupTargetDetector : MonoBehaviour
 
 	private void OnTriggerEnter(Collider other)
 	{
-		if (!targets.Contains(other.gameObject))
+		if (!targets.Contains(other.gameObject) && !pauseTracking)
 		{
 			targets.Add(other.gameObject);
+			Instantiate(targetedIcon, other.transform);
 		}
 	}
 
