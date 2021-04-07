@@ -12,6 +12,7 @@ public class EnemyMinion : EnemyBase
     private float shotTime;
 
     [Header("Enemy Minion Bullet Prefab")]
+    [SerializeField] private float projectileSpeed;
     [SerializeField] private GameObject bullet;
     [SerializeField] private Transform _spawnPoint;
     private List<GameObject> _bulletPool = new List<GameObject>();
@@ -47,8 +48,9 @@ public class EnemyMinion : EnemyBase
                 GameObject tempBullet = PoolUtility.InstantiateFromPool(_bulletPool, _spawnPoint, bullet);
                 EnemyProjectile tempProjectile = tempBullet.GetComponent<EnemyProjectile>();
 
-                //set damage
+                //set damage and speed
                 tempProjectile.SetDamage(AttackDamage);
+                tempProjectile.SetVelocity(projectileSpeed);
 
                 //adjust RNG attackRate, restrict to 2 decimal places
                 attackRate = Random.Range(attackRateMin, attackRateMax);
