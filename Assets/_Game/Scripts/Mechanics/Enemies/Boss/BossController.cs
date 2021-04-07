@@ -165,7 +165,7 @@ public class BossController : EntityBase
     {
         Debug.Log("Fight Invoked");
 
-        if (_BossBehavior == null)
+        if (_BossBehavior == null && isReady == false)
         {
             Debug.Log("Fight Started");
             isReady = true;
@@ -251,6 +251,7 @@ public class BossController : EntityBase
 
     private void GenerateAttack()
     {
+        Debug.Log("boss attack");
         BossAttacks randomAttack;
 
         if (_segmentsAlive)
@@ -287,7 +288,8 @@ public class BossController : EntityBase
     #region Behaviors
 
     private IEnumerator BossIdle()
-    {   
+    {
+        Debug.Log("idle");
         //wait predetermined amount of time
         //TODO Idle Animation?
 
@@ -300,9 +302,10 @@ public class BossController : EntityBase
 
     private IEnumerator Bloodied()
     {
+        Debug.Log("bloodied anim");
         ////TODO Bloodied Animation
         //set invulnerable
-        
+
         //get animation time
         yield return new WaitForSeconds(_idleTime);
 
