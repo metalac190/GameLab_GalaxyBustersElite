@@ -102,8 +102,7 @@ AudioSource:
   m_GameObject: {fileID: 2879779044033747697}
   m_Enabled: 1
   serializedVersion: 4
-  OutputAudioMixerGroup: {fileID: 7530775134393775298, guid: 2bc39d44243511040a047e1085e56a56,
-    type: 2}
+  OutputAudioMixerGroup: {fileID: 0}
   m_audioClip: {fileID: 8300000, guid: 61065f7fbaadb45418e4f65ac4282508, type: 3}
   m_PlayOnAwake: 0
   m_Volume: 0.698
@@ -230,8 +229,7 @@ AudioSource:
   m_GameObject: {fileID: 3042388939449816094}
   m_Enabled: 1
   serializedVersion: 4
-  OutputAudioMixerGroup: {fileID: 6904601185932748199, guid: 2bc39d44243511040a047e1085e56a56,
-    type: 2}
+  OutputAudioMixerGroup: {fileID: 0}
   m_audioClip: {fileID: 8300000, guid: b7f2a7fc2b3e5c74da7c7f01de163e80, type: 3}
   m_PlayOnAwake: 0
   m_Volume: 1
@@ -370,84 +368,114 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   allSounds:
-  - name: Sound
-    label: Hit
+  - label: Hit
     audioSource: {fileID: 0}
     playOnAwake: 0
     loop: 0
-    soundPoolSize: 1
+    useSoundVariations: 0
+    soundVariations: []
+    usePitchRandomization: 0
+    pitchShiftMin: 0
+    pitchShiftMax: 0
     curPoolIteration: 0
     audioSourcePool: []
-  - name: Sound
-    label: Death
+  - label: Death
     audioSource: {fileID: 0}
     playOnAwake: 0
     loop: 0
-    soundPoolSize: 1
+    useSoundVariations: 0
+    soundVariations: []
+    usePitchRandomization: 0
+    pitchShiftMin: 0
+    pitchShiftMax: 0
     curPoolIteration: 0
     audioSourcePool: []
-  - name: Sound
-    label: Moving
+  - label: Moving
     audioSource: {fileID: 304263323764274551}
     playOnAwake: 0
     loop: 0
-    soundPoolSize: 1
+    useSoundVariations: 0
+    soundVariations: []
+    usePitchRandomization: 0
+    pitchShiftMin: 0
+    pitchShiftMax: 0
     curPoolIteration: 0
     audioSourcePool: []
-  - name: Sound
-    label: Dodge
+  - label: Dodge
     audioSource: {fileID: 1488691449908335926}
     playOnAwake: 0
     loop: 0
-    soundPoolSize: 1
+    useSoundVariations: 0
+    soundVariations: []
+    usePitchRandomization: 0
+    pitchShiftMin: 0
+    pitchShiftMax: 0
     curPoolIteration: 0
     audioSourcePool: []
-  - name: Sound
-    label: Boost (Not Hooked Up)
+  - label: Boost (Not Used)
     audioSource: {fileID: 4340445153652205311}
     playOnAwake: 0
     loop: 0
-    soundPoolSize: 1
+    useSoundVariations: 0
+    soundVariations: []
+    usePitchRandomization: 0
+    pitchShiftMin: 0
+    pitchShiftMax: 0
     curPoolIteration: 0
     audioSourcePool: []
-  - name: Sound
-    label: New Gun Pickup
+  - label: New Gun Pickup
     audioSource: {fileID: 2307285801312247983}
     playOnAwake: 0
     loop: 0
-    soundPoolSize: 1
+    useSoundVariations: 0
+    soundVariations: []
+    usePitchRandomization: 0
+    pitchShiftMin: 0
+    pitchShiftMax: 0
     curPoolIteration: 0
     audioSourcePool: []
-  - name: Sound
-    label: Portal Enter (Not Hooked Up)
+  - label: Portal Enter (Not Hooked Up)
     audioSource: {fileID: 0}
     playOnAwake: 0
     loop: 0
-    soundPoolSize: 1
+    useSoundVariations: 0
+    soundVariations: []
+    usePitchRandomization: 0
+    pitchShiftMin: 0
+    pitchShiftMax: 0
     curPoolIteration: 0
     audioSourcePool: []
-  - name: Sound
-    label: Health Pickup (Not Hooked Up)
+  - label: Health Pickup (Not Hooked Up)
     audioSource: {fileID: 5632084654270921834}
     playOnAwake: 0
     loop: 0
-    soundPoolSize: 1
+    useSoundVariations: 0
+    soundVariations: []
+    usePitchRandomization: 0
+    pitchShiftMin: 0
+    pitchShiftMax: 0
     curPoolIteration: 0
     audioSourcePool: []
-  - name: Sound
-    label: Health Low
+  - label: Health Low
     audioSource: {fileID: 1883617371567708917}
     playOnAwake: 0
     loop: 1
-    soundPoolSize: 1
+    useSoundVariations: 0
+    soundVariations: []
+    usePitchRandomization: 0
+    pitchShiftMin: 0
+    pitchShiftMax: 0
     curPoolIteration: 0
     audioSourcePool: []
-  - name: Sound
-    label: Charge Bar Pickup (Not Hooked Up)
+  - label: Charge Bar Pickup (Not Hooked Up)
     audioSource: {fileID: 0}
     playOnAwake: 0
     loop: 0
-    soundPoolSize: 1
+    useSoundVariations: 0
+    soundVariations: []
+    usePitchRandomization: 0
+    pitchShiftMin: 0
+    pitchShiftMax: 0
     curPoolIteration: 0
     audioSourcePool: []
 --- !u!1 &4366015976017601849
@@ -559,7 +587,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &3103930293454019470
 Transform:
   m_ObjectHideFlags: 0
@@ -583,8 +611,7 @@ AudioSource:
   m_GameObject: {fileID: 7300235862203598425}
   m_Enabled: 1
   serializedVersion: 4
-  OutputAudioMixerGroup: {fileID: 7530775134393775298, guid: 2bc39d44243511040a047e1085e56a56,
-    type: 2}
+  OutputAudioMixerGroup: {fileID: 0}
   m_audioClip: {fileID: 8300000, guid: 5e44b03b8df9d52419c79d09a28cc082, type: 3}
   m_PlayOnAwake: 0
   m_Volume: 1
@@ -687,37 +714,36 @@ PrefabInstance:
         type: 3}
       propertyPath: OutputAudioMixerGroup
       value: 
-      objectReference: {fileID: 6904601185932748199, guid: 2bc39d44243511040a047e1085e56a56,
-        type: 2}
+      objectReference: {fileID: 0}
     - target: {fileID: 1388270348251091531, guid: 43f874a4358bf4349ba2c60934b16860,
         type: 3}
       propertyPath: m_LocalPosition.x
-      value: -9.4
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 1388270348251091531, guid: 43f874a4358bf4349ba2c60934b16860,
         type: 3}
       propertyPath: m_LocalPosition.y
-      value: 21.21
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 1388270348251091531, guid: 43f874a4358bf4349ba2c60934b16860,
         type: 3}
       propertyPath: m_LocalPosition.z
-      value: -93.1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 1388270348251091531, guid: 43f874a4358bf4349ba2c60934b16860,
         type: 3}
       propertyPath: m_LocalRotation.x
-      value: -0
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 1388270348251091531, guid: 43f874a4358bf4349ba2c60934b16860,
         type: 3}
       propertyPath: m_LocalRotation.y
-      value: -0
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 1388270348251091531, guid: 43f874a4358bf4349ba2c60934b16860,
         type: 3}
       propertyPath: m_LocalRotation.z
-      value: -0
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 1388270348251091531, guid: 43f874a4358bf4349ba2c60934b16860,
         type: 3}
@@ -743,6 +769,21 @@ PrefabInstance:
         type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1388270348251091531, guid: 43f874a4358bf4349ba2c60934b16860,
+        type: 3}
+      propertyPath: m_LocalScale.x
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 1388270348251091531, guid: 43f874a4358bf4349ba2c60934b16860,
+        type: 3}
+      propertyPath: m_LocalScale.y
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 1388270348251091531, guid: 43f874a4358bf4349ba2c60934b16860,
+        type: 3}
+      propertyPath: m_LocalScale.z
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 1388270348251091532, guid: 43f874a4358bf4349ba2c60934b16860,
         type: 3}
@@ -773,8 +814,7 @@ PrefabInstance:
         type: 3}
       propertyPath: OutputAudioMixerGroup
       value: 
-      objectReference: {fileID: 6904601185932748199, guid: 2bc39d44243511040a047e1085e56a56,
-        type: 2}
+      objectReference: {fileID: 0}
     - target: {fileID: 1388270348251091531, guid: 2cc2698f828e41b41886d3eb6aecd52b,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -954,8 +994,7 @@ PrefabInstance:
         type: 3}
       propertyPath: OutputAudioMixerGroup
       value: 
-      objectReference: {fileID: 7530775134393775298, guid: 2bc39d44243511040a047e1085e56a56,
-        type: 2}
+      objectReference: {fileID: 0}
     - target: {fileID: 1388270348251091530, guid: 43f874a4358bf4349ba2c60934b16860,
         type: 3}
       propertyPath: spreadCustomCurve.m_Curve.Array.data[0].value
@@ -964,32 +1003,32 @@ PrefabInstance:
     - target: {fileID: 1388270348251091531, guid: 43f874a4358bf4349ba2c60934b16860,
         type: 3}
       propertyPath: m_LocalPosition.x
-      value: -9.4
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 1388270348251091531, guid: 43f874a4358bf4349ba2c60934b16860,
         type: 3}
       propertyPath: m_LocalPosition.y
-      value: 21.21
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 1388270348251091531, guid: 43f874a4358bf4349ba2c60934b16860,
         type: 3}
       propertyPath: m_LocalPosition.z
-      value: -93.1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 1388270348251091531, guid: 43f874a4358bf4349ba2c60934b16860,
         type: 3}
       propertyPath: m_LocalRotation.x
-      value: -0
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 1388270348251091531, guid: 43f874a4358bf4349ba2c60934b16860,
         type: 3}
       propertyPath: m_LocalRotation.y
-      value: -0
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 1388270348251091531, guid: 43f874a4358bf4349ba2c60934b16860,
         type: 3}
       propertyPath: m_LocalRotation.z
-      value: -0
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 1388270348251091531, guid: 43f874a4358bf4349ba2c60934b16860,
         type: 3}
@@ -1015,6 +1054,21 @@ PrefabInstance:
         type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1388270348251091531, guid: 43f874a4358bf4349ba2c60934b16860,
+        type: 3}
+      propertyPath: m_LocalScale.x
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 1388270348251091531, guid: 43f874a4358bf4349ba2c60934b16860,
+        type: 3}
+      propertyPath: m_LocalScale.y
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 1388270348251091531, guid: 43f874a4358bf4349ba2c60934b16860,
+        type: 3}
+      propertyPath: m_LocalScale.z
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 1388270348251091532, guid: 43f874a4358bf4349ba2c60934b16860,
         type: 3}
@@ -1051,37 +1105,36 @@ PrefabInstance:
         type: 3}
       propertyPath: OutputAudioMixerGroup
       value: 
-      objectReference: {fileID: -4413036113028182196, guid: 2bc39d44243511040a047e1085e56a56,
-        type: 2}
+      objectReference: {fileID: 0}
     - target: {fileID: 1388270348251091531, guid: 43f874a4358bf4349ba2c60934b16860,
         type: 3}
       propertyPath: m_LocalPosition.x
-      value: -9.4
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 1388270348251091531, guid: 43f874a4358bf4349ba2c60934b16860,
         type: 3}
       propertyPath: m_LocalPosition.y
-      value: 21.21
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 1388270348251091531, guid: 43f874a4358bf4349ba2c60934b16860,
         type: 3}
       propertyPath: m_LocalPosition.z
-      value: -93.1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 1388270348251091531, guid: 43f874a4358bf4349ba2c60934b16860,
         type: 3}
       propertyPath: m_LocalRotation.x
-      value: -0
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 1388270348251091531, guid: 43f874a4358bf4349ba2c60934b16860,
         type: 3}
       propertyPath: m_LocalRotation.y
-      value: -0
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 1388270348251091531, guid: 43f874a4358bf4349ba2c60934b16860,
         type: 3}
       propertyPath: m_LocalRotation.z
-      value: -0
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 1388270348251091531, guid: 43f874a4358bf4349ba2c60934b16860,
         type: 3}
@@ -1107,6 +1160,21 @@ PrefabInstance:
         type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1388270348251091531, guid: 43f874a4358bf4349ba2c60934b16860,
+        type: 3}
+      propertyPath: m_LocalScale.x
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 1388270348251091531, guid: 43f874a4358bf4349ba2c60934b16860,
+        type: 3}
+      propertyPath: m_LocalScale.y
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 1388270348251091531, guid: 43f874a4358bf4349ba2c60934b16860,
+        type: 3}
+      propertyPath: m_LocalScale.z
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 1388270348251091532, guid: 43f874a4358bf4349ba2c60934b16860,
         type: 3}
@@ -1143,37 +1211,36 @@ PrefabInstance:
         type: 3}
       propertyPath: OutputAudioMixerGroup
       value: 
-      objectReference: {fileID: -4413036113028182196, guid: 2bc39d44243511040a047e1085e56a56,
-        type: 2}
+      objectReference: {fileID: 0}
     - target: {fileID: 1388270348251091531, guid: 43f874a4358bf4349ba2c60934b16860,
         type: 3}
       propertyPath: m_LocalPosition.x
-      value: -9.4
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 1388270348251091531, guid: 43f874a4358bf4349ba2c60934b16860,
         type: 3}
       propertyPath: m_LocalPosition.y
-      value: 21.21
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 1388270348251091531, guid: 43f874a4358bf4349ba2c60934b16860,
         type: 3}
       propertyPath: m_LocalPosition.z
-      value: -93.1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 1388270348251091531, guid: 43f874a4358bf4349ba2c60934b16860,
         type: 3}
       propertyPath: m_LocalRotation.x
-      value: -0
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 1388270348251091531, guid: 43f874a4358bf4349ba2c60934b16860,
         type: 3}
       propertyPath: m_LocalRotation.y
-      value: -0
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 1388270348251091531, guid: 43f874a4358bf4349ba2c60934b16860,
         type: 3}
       propertyPath: m_LocalRotation.z
-      value: -0
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 1388270348251091531, guid: 43f874a4358bf4349ba2c60934b16860,
         type: 3}
@@ -1199,6 +1266,21 @@ PrefabInstance:
         type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1388270348251091531, guid: 43f874a4358bf4349ba2c60934b16860,
+        type: 3}
+      propertyPath: m_LocalScale.x
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 1388270348251091531, guid: 43f874a4358bf4349ba2c60934b16860,
+        type: 3}
+      propertyPath: m_LocalScale.y
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 1388270348251091531, guid: 43f874a4358bf4349ba2c60934b16860,
+        type: 3}
+      propertyPath: m_LocalScale.z
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 1388270348251091532, guid: 43f874a4358bf4349ba2c60934b16860,
         type: 3}

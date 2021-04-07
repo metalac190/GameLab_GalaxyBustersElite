@@ -18,6 +18,8 @@ public class LaserBeam : WeaponBase
 	float numTicks;
 	float nextDamage;
 	LayerMask targetLayers;
+	GameObject mouse;
+	GameObject targetingMode;
 
 	[Header("Hold Fire Settings")]
 	[SerializeField] float damageCap = 5f;
@@ -27,7 +29,6 @@ public class LaserBeam : WeaponBase
 
 	[Header("Effects")]
 	[SerializeField] UnityEvent OnLaserStop;
-
 	[SerializeField] bool laserActive;
 
 	private void OnEnable()
@@ -43,6 +44,8 @@ public class LaserBeam : WeaponBase
 		trackingDistance = GetComponent<AimWeapons>().aimAssistDistance;
 		aimAssistRadius = GetComponent<AimWeapons>().aimAssistWidth;
 		targetLayers = GetComponent<AimWeapons>().targetMask;
+		mouse = GameObject.Find("Mouse");
+		targetingMode = GameManager.gm.HUD.transform.Find("TargetingMode").gameObject;
 	}
 
 	void Update()
@@ -57,7 +60,7 @@ public class LaserBeam : WeaponBase
 			FireLaser();
 		}
 
-		if(Input.GetButtonUp("Primary Fire") && !overloaded && fireReady && laserActive)
+		if(Input.GetButtonUp("Primary Fire") && !overloaded && fireReady)
 		{
 			laserActive = false;
 			numTicks = 0;
@@ -79,6 +82,8 @@ public class LaserBeam : WeaponBase
 
 	void FireLaser()
 	{
+		laserActive = true;
+
 		// Set fire rate based on time between ticks
 		if (Time.time - cdTime >= tickRate)
 		{
@@ -97,8 +102,13 @@ public class LaserBeam : WeaponBase
 				Debug.Log(tickDamage);
 				numTicks++;
 				OnStandardFire.Invoke();
-			}
-			
+			}			
+		}
+
+		if (!targetFound)
+		{
+			projectile.GetComponent<Beam>().SetTarget(mouse);
+			OnStandardFire.Invoke();
 		}
 	}
 
@@ -128,12 +138,10 @@ public class LaserBeam : WeaponBase
 
 		if (targetFound)
 		{
-			laserActive = true;
 			target = hit.transform;
 		}
 		else
 		{
-			laserActive = false;
 			target = null;
 			line.positionCount = 1;
 			tickDamage = damage;
@@ -171,11 +179,19 @@ public class LaserBeam : WeaponBase
 
 	IEnumerator LaserOverload()
 	{
+		targetingMode.SetActive(true);
+		firePoint.GetComponent<GroupTargetDetector>().pauseTracking = false;
 		firePoint.GetComponent<GroupTargetDetector>().SetCollider(true);
+
 		yield return new WaitForSeconds(overloadTime - 0.5f);
+
+		targetingMode.SetActive(false);
 		overloadTargets = firePoint.GetComponent<GroupTargetDetector>().targets;
 		DrawLasers(true);
+		firePoint.GetComponent<GroupTargetDetector>().pauseTracking = true;
+
 		yield return new WaitForSeconds(0.5f);
+
 		DrawLasers(false);
 		FireLaserOverload();
 		firePoint.GetComponent<GroupTargetDetector>().SetCollider(false);

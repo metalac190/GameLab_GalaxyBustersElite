@@ -9,8 +9,8 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 6444489982758020416}
-  - component: {fileID: 4963409570502141471}
   - component: {fileID: 3982392244362247470}
+  - component: {fileID: 6043143518619997895}
   m_Layer: 0
   m_Name: Beam Renderer
   m_TagString: Untagged
@@ -32,59 +32,19 @@ Transform:
   m_Father: {fileID: 4184412915183278225}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &2065207819672571435
+--- !u!114 &3982392244362247470
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 617434269015297114}
+  m_GameObject: {fileID: 298172225218822927}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 0e52331204a8a964ea4903f90e6ed89b, type: 3}
+  m_Script: {fileID: 11500000, guid: a6b694b20e50504479acb19cc0458b19, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  weapons:
-  - {fileID: 2122522393657540368}
-  angleClamp: 75
-  speed: 8
-  debugRays: 0
-  debugRayLength: 25
---- !u!114 &6463819016718391435
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 617434269015297114}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 50e08a11cb06b9247b8c6c5bfb8dc4c0, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  weaponID: Laser Beam
-  projectileType: 2
-  spawnPoints:
-  - {fileID: 4184412915183278225}
-  damage: 1
-  meterRequired: 50
-  overloadTime: 2.5
-  OnStandardFire:
-    m_PersistentCalls:
-      m_Calls: []
-  OnOverloadActivated:
-    m_PersistentCalls:
-      m_Calls: []
-  aimAssistRadius: 2
-  tickRate: 0.1
-  damageMultiplier: 1.3
-  OnLaserStop:
-    m_PersistentCalls:
-      m_Calls: []
-  laserActive: 0
-  targetLayers:
-    serializedVersion: 2
-    m_Bits: 2048
+  target: {fileID: 0}
 --- !u!120 &6043143518619997895
 LineRenderer:
   m_ObjectHideFlags: 0
@@ -181,19 +141,6 @@ LineRenderer:
     generateLightingData: 0
   m_UseWorldSpace: 1
   m_Loop: 0
---- !u!114 &3982392244362247470
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 298172225218822927}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: a6b694b20e50504479acb19cc0458b19, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  target: {fileID: 0}
 --- !u!1 &617434269015297114
 GameObject:
   m_ObjectHideFlags: 0
@@ -245,6 +192,7 @@ MonoBehaviour:
   speed: 8
   debugRays: 0
   debugRayLength: 25
+  currentTarget: {fileID: 0}
   aimAssistDistance: 50
   aimAssistWidth: 2
   targetMask:
@@ -279,7 +227,6 @@ MonoBehaviour:
   damageCap: 5
   timeToCharge: 1
   tickRate: 0.1
-  damageMultiplier: 1.3
   OnLaserStop:
     m_PersistentCalls:
       m_Calls: []
@@ -423,4 +370,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 24db693d520871b43a9f0c7e0bbd3834, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  targetedIcon: {fileID: 5283636249284167725, guid: 0ecd9138060342b41a61f0a3e1ae6aea,
+    type: 3}
   targets: []
+  pauseTracking: 0
