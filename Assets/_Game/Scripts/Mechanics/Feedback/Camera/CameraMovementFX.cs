@@ -3,7 +3,7 @@ using System.Collections;
 using UnityEngine;
 using UnityEngine.UI;
 
-public class CameraMovementVFX : MonoBehaviour
+public class CameraMovementFX : MonoBehaviour
 {
     [Header("Is Speeding?")]
     [SerializeField] CinemachineDollyCart cinemachineDolly;
@@ -26,6 +26,9 @@ public class CameraMovementVFX : MonoBehaviour
     [Range(0.01f, 2)]
     [SerializeField] float delayBetweenSpeedLineFrames = 0.2f;
 
+    [Header("Speed Sound")]
+    [SerializeField] AudioSource speedSound;
+
 #if UNITY_EDITOR
     void OnValidate()
     {
@@ -45,10 +48,10 @@ public class CameraMovementVFX : MonoBehaviour
         else
             StartCoroutine(RefreshingSpeedingStatus());
 
-        if (wispyParticles == null)
-            Debug.Log("No wispy particles attached to " + name);
+        if (wispyParticles == null || speedSound == null)
+            Debug.Log("No wispy particles and/or speed sound attached to " + name);
         else
-            StartCoroutine(PlayingAndStoppingWispyParticles());
+            StartCoroutine(PlayingAndStoppingWispyParticlesAndSpeedSound());
 
         if (speedLinesFrames.Length == 0 || speedLinesRenderer == null)
             Debug.Log("No speed lines attached to " + name);
@@ -75,14 +78,20 @@ public class CameraMovementVFX : MonoBehaviour
         }
     }
 
-    IEnumerator PlayingAndStoppingWispyParticles()
+    IEnumerator PlayingAndStoppingWispyParticlesAndSpeedSound()
     {
         while (true)
         {
             if (speeding && !wispyParticles.isPlaying)
+            {
                 wispyParticles.Play();
+                speedSound.Play();
+            }
             else if (!speeding && wispyParticles.isPlaying)
+            {
                 wispyParticles.Stop();
+                speedSound.volume -= 0.02f;
+            }
 
             yield return null;
         }
