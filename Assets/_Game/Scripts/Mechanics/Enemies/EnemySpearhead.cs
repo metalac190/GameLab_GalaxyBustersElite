@@ -14,6 +14,10 @@ public class EnemySpearhead : EnemyBase
     private bool isCharging;
     private bool singleChargeDone;
 
+    [Header("Enemy Spearhead Despawn Time After Passing Player")]
+    [SerializeField] private float despawnTime = 1f;
+    private float currentTime = 0;
+
     [Header("Enemy Spearhead Movement Fix - Don't Touch")]
     [SerializeField] UnityEvent OnChargeAttackEnter;
     [SerializeField] UnityEvent OnChargeAttackExit;
@@ -58,6 +62,13 @@ public class EnemySpearhead : EnemyBase
                     chargeTimer -= Time.deltaTime;
                 }
             }
+            else
+            {
+                transform.position += transform.forward * (chargingSpeed / 2) * Time.deltaTime;
+                currentTime += Time.deltaTime;
+                if (currentTime > despawnTime)
+                    transform.parent.gameObject.SetActive(false);
+            }
         }
         else
         {
@@ -82,7 +93,7 @@ public class EnemySpearhead : EnemyBase
         }
     }
 
-    private void OnTriggerEnter(Collider col)
+    protected override void OnTriggerEnter(Collider col)
     {
         // Two spearheads hitting each other will destroy each other, keep this in mind
         if (col.gameObject.layer == LayerMask.NameToLayer("Enemies"))
@@ -91,6 +102,12 @@ public class EnemySpearhead : EnemyBase
             col.gameObject.GetComponent<EnemyBase>().Dead();
 
             col.gameObject.GetComponent<EnemyBase>().Died.Invoke();
+        }
+        else if (col.gameObject.layer == LayerMask.NameToLayer("Player"))
+        {
+            DialogueTrigger.TriggerEnemyDefeatedDialogue();
+            col.gameObject.GetComponent<PlayerController>().DamagePlayer(AttackDamage);
+            Dead();
         }
     }
 }
