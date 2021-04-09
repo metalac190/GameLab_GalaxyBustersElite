@@ -21,6 +21,7 @@ public class PlayerMovement : MonoBehaviour
     float dodgeCooldownRemaining = 0;
 
     [Header("Collision Settings")]
+    [SerializeField] float collDamage = 15; 
     [SerializeField] float collDuration;
     [SerializeField] Vector3 collForce;
     [SerializeField] Vector3 torqueForce;
@@ -37,6 +38,9 @@ public class PlayerMovement : MonoBehaviour
 
     [Header("Effects")]
     public UnityEvent OnDodge;
+    public UnityEvent OnDodgeStraight;
+    public UnityEvent OnDodgeLeft;
+    public UnityEvent OnDodgeRight;
     public UnityEvent OnDodgeEnd;
     public UnityEvent OnDodgeRefresh;
     float lastFrameX, lastFrameY;
@@ -95,7 +99,10 @@ public class PlayerMovement : MonoBehaviour
             HorizontalLean(shipsTransform, x, horizontalLean, 0.1f);
         }
 
-        Dodge();
+		if (!isHit)
+			transform.localRotation = Quaternion.Euler(Vector3.zero);
+
+		Dodge(x);
 
         InvokingStartedOrStoppedMovingEvents(x, y);
     }
@@ -103,6 +110,7 @@ public class PlayerMovement : MonoBehaviour
     protected void LateUpdate()
     {
         transform.localPosition = new Vector3(transform.localPosition.x, transform.localPosition.y, 0);
+        
     }
 
     private void InvokingStartedOrStoppedMovingEvents(float x, float y)
@@ -149,11 +157,23 @@ public class PlayerMovement : MonoBehaviour
             Mathf.LerpAngle(targetEulerAngels.z, -axis * leanLimit, lerpTime));
     }
 
-    void Dodge()
+    void Dodge(float x)
     {
         if (Input.GetKeyDown(KeyCode.Space) && dodgeCooldownRemaining <= 0)
         {
             OnDodge.Invoke();
+            if (x < 1) //Determine dodge direction
+            {
+                OnDodgeLeft.Invoke();
+            }
+            else if (x > 1)
+            {
+                OnDodgeRight.Invoke();
+            }
+            else
+            {
+                OnDodgeStraight.Invoke();
+            }
             dodgeDurationRemaining = dodgeDuration;
             if (!infiniteDodge)
             {
@@ -194,7 +214,7 @@ public class PlayerMovement : MonoBehaviour
             Random.Range(-torqueForce.y, torqueForce.y), 
             Random.Range(-torqueForce.z, torqueForce.z));
 
-        CameraShaker.instance.Shake(pc.CameraShakeOnHit);
+        pc.DamagePlayer(collDamage);
 
         yield return new WaitForSeconds(collDuration);
 

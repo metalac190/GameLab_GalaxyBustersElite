@@ -5,13 +5,14 @@ using UnityEngine.Events;
 
 public class EnemyTank : EnemyBase
 {
-    private GameObject playerReference = null;
-
     [Header("Enemy Tank Shots Before Vulnerability Pause")]
     [SerializeField] private int shotsBeforePauseMax = 1;
 
     [Header("Enemy Tank Attack Rate (Higher # = Longer Shot Delay)")]
-    [SerializeField] private float attackRate = 0;
+    [SerializeField] private float attackRateMin = 0;
+    [SerializeField] private float attackRateMax = 0;
+    private float attackRate = 0;
+    private float shotTime;
 
     [Header("Enemy Tank Vulnerability Period")]
     [SerializeField] private float vulnerabilityPeriodMax = 1;
@@ -24,7 +25,6 @@ public class EnemyTank : EnemyBase
     [Header("Enemy Collider Ref (Don't Touch)")]
     [SerializeField] private BoxCollider invulnToggle;
 
-    private float shotTime;
     private float currentVulnerabilityPeriod;
     private int currentShotsCount;
 
@@ -36,53 +36,22 @@ public class EnemyTank : EnemyBase
     [SerializeField] private Material invuln;
     [SerializeField] private Material vuln;
 
-    private void Start()
+    protected override void Start()
     {
-        playerReference = GameManager.player.obj;
-
+        base.Start();
         currentShotsCount = shotsBeforePauseMax;
         currentVulnerabilityPeriod = vulnerabilityPeriodMax;
 
         invulnToggle.enabled = false;
     }
 
-    private void FixedUpdate()
-    {
-        UpdateState();
-    }
-
-    protected override void UpdateState()
-    {
-        switch (currentState)
-        {
-            case EnemyState.Passive:
-                Passive();
-                break;
-            case EnemyState.Attacking:
-                Attacking();
-                break;
-            default:
-                break;
-        }
-    }
-
-    protected override void Passive()
-    {
-        if (Vector3.Distance(transform.position, playerReference.transform.position) < EnemyDetectionRadius)
-        {
-            transform.LookAt(playerReference.transform.position);
-
-            currentState = EnemyState.Attacking;
-        }
-    }
-
     protected override void Attacking()
     {
         bullet.GetComponent<EnemyProjectile>().SetDamage(AttackDamage);
 
-        if (Vector3.Distance(transform.position, playerReference.transform.position) < EnemyDetectionRadius)
+        if (Vector3.Distance(transform.position, GameManager.player.obj.transform.position) < EnemyDetectionRadius)
         {
-            transform.LookAt(playerReference.transform.position);
+            transform.LookAt(GameManager.player.obj.transform.position);
 
             if (currentShotsCount > 0)
             {
@@ -90,7 +59,7 @@ public class EnemyTank : EnemyBase
                 if (shotTime <= 0)
                 {
                     //when firing, aim at player
-                    _spawnPoint.LookAt(playerReference.transform.position);
+                    _spawnPoint.LookAt(GameManager.player.obj.transform.position);
 
                     //fire projectile
                     GameObject tempBullet = PoolUtility.InstantiateFromPool(_bulletPool, _spawnPoint, bullet);
@@ -98,6 +67,10 @@ public class EnemyTank : EnemyBase
 
                     //set damage
                     tempProjectile.SetDamage(AttackDamage);
+
+                    //adjust RNG attackRate, restrict to 2 decimal places
+                    attackRate = Random.Range(attackRateMin, attackRateMax);
+                    attackRate -= (attackRate % 0.01f);
 
                     //set cooldown, invoke
                     shotTime = attackRate;
@@ -127,15 +100,5 @@ public class EnemyTank : EnemyBase
                 }
             }
         }
-    }
-
-    public override void Dead()
-    {
-        Debug.Log("Enemy destroyed");
-
-        if (givesPlayerMS)
-            camRailManager.IncreaseCamRailSpeed();
-
-        Destroy(transform.parent.gameObject);
     }
 }

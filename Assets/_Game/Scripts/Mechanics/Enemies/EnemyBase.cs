@@ -10,21 +10,24 @@ public abstract class EnemyBase : EntityBase
     public EnemyState currentState;
 
     [Header("Additional Enemy Settings")]
-    [SerializeField] private int attackDamage = 0;
-    public int AttackDamage { get { return attackDamage; } }
+	[SerializeField] private string id;
+	public string EnemyID { get { return id; } }
 
-    [SerializeField] private float enemyDetectionRadius = 0;
+	[SerializeField] private int attackDamage = 0;
+	public int AttackDamage { get { return attackDamage; } }
+
+	[SerializeField] private float enemyDetectionRadius = 0;
     public float EnemyDetectionRadius { get { return enemyDetectionRadius; } }
 
-	[SerializeField] private int enemyScore = 0;
-	private float cdInvuln;
+    [SerializeField] private int enemyScore = 0;
+    private float cdInvuln;
 
     [SerializeField] protected bool givesPlayerMS;
     protected CamRailManager camRailManager;
 
-    private void Awake()
+    protected virtual void Awake()
     {
-		camRailManager = FindObjectOfType<CamRailManager>();
+        camRailManager = FindObjectOfType<CamRailManager>();
     }
 
     protected override void Start()
@@ -33,32 +36,51 @@ public abstract class EnemyBase : EntityBase
         currentState = EnemyState.Passive;
     }
 
+    private void FixedUpdate()
+    {
+        UpdateState();
+    }
+
     protected virtual void UpdateState()
     {
         switch (currentState)
         {
             case EnemyState.Passive:
+                Passive();
                 break;
             case EnemyState.Attacking:
+                Attacking();
                 break;
             default:
                 break;
         }
     }
 
-    protected abstract void Passive();
+    protected virtual void Passive()
+    {
+        if (Vector3.Distance(transform.position, GameManager.player.obj.transform.position) < EnemyDetectionRadius)
+        {
+            transform.LookAt(GameManager.player.obj.transform.position);
+
+            currentState = EnemyState.Attacking;
+        }
+    }
 
     protected abstract void Attacking();
 
-    public abstract void Dead();
+    public virtual void Dead()
+    {
+        if (givesPlayerMS)
+            camRailManager.IncreaseCamRailSpeed();
+
+        transform.parent.gameObject.SetActive(false);
+    }
 
     public override void TakeDamage(float damage)
     {
 		// Prevent enemies from taking damage multiple times in the same frame
 		if (Time.time - cdInvuln > 0.01f)
 		{
-			cdInvuln = Time.time;
-
 			_currentHealth -= damage;
 			if (_currentHealth <= 0)
 			{
@@ -67,18 +89,20 @@ public abstract class EnemyBase : EntityBase
 				Dead();
 				ScoreSystem.IncreaseCombo();
 				ScoreSystem.IncreaseScore(enemyScore);
+				ScoreSystem.DestroyedEnemyType(id);
 				//disable or destroy as needed?
 			}
 			else
 			{
-				Damaged.Invoke();
+                cdInvuln = Time.time;
+
+                Damaged.Invoke();
 				//set up FX + AnimationController from Inspector, using Event
 			}
-
 		}
     }
 
-    private void OnTriggerEnter(Collider col)
+    protected virtual void OnTriggerEnter(Collider col)
     {
         if (col.gameObject.layer == LayerMask.NameToLayer("Player"))
         {

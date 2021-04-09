@@ -6,8 +6,6 @@ using UnityEngine.Events;
 [RequireComponent(typeof(Rigidbody))]
 public class EnemyRammer : EnemyBase
 {
-    private GameObject playerReference = null;
-
     [Header("Enemy Rammer Charge Speed")]
     [SerializeField] private float ramSpeed = 0;
 
@@ -15,40 +13,15 @@ public class EnemyRammer : EnemyBase
     [SerializeField] UnityEvent OnRamAttackEnter;
     [SerializeField] UnityEvent OnRamAttackExit;
 
-    protected override void Start()
-    {
-        base.Start();
-        playerReference = GameManager.player.obj;
-    }
-
-    private void FixedUpdate()
-    {
-        UpdateState();
-    }
-
-    protected override void UpdateState()
-    {
-        switch (currentState)
-        {
-            case EnemyState.Passive:
-                Passive();
-                break;
-            case EnemyState.Attacking:
-                Attacking();
-                break;
-            default:
-                break;
-        }
-    }
-
     protected override void Passive()
     {
-        if (Vector3.Distance(transform.position, playerReference.transform.position) < EnemyDetectionRadius)
+        if (Vector3.Distance(transform.position, GameManager.player.obj.transform.position) < EnemyDetectionRadius)
         {
-            transform.LookAt(playerReference.transform.position);
+            transform.LookAt(GameManager.player.obj.transform.position);
 
             //when changing state, enable heat seeking behavior
             currentState = EnemyState.Attacking;
+
             HeatSeeker seeker = GetComponent<HeatSeeker>();
             seeker?.StartFollowing();
             seeker?.SetRotationSpeed(20f);
@@ -59,24 +32,14 @@ public class EnemyRammer : EnemyBase
 
     protected override void Attacking()
     {
-        if (Vector3.Distance(transform.position, playerReference.transform.position) < EnemyDetectionRadius)
+        if (Vector3.Distance(transform.position, GameManager.player.obj.transform.position) < EnemyDetectionRadius)
         {
             //behavior moved to HeatSeeker behavior
             GetComponent<Rigidbody>().velocity = transform.forward * ramSpeed;
         }
-        else if (Vector3.Distance(transform.position, playerReference.transform.position) > EnemyDetectionRadius)
+        else if (Vector3.Distance(transform.position, GameManager.player.obj.transform.position) > EnemyDetectionRadius)
         {
             OnRamAttackExit.Invoke();
         }
-    }
-
-    public override void Dead()
-    {
-        Debug.Log("Enemy destroyed");
-
-        if (givesPlayerMS)
-            camRailManager.IncreaseCamRailSpeed();
-
-        Destroy(transform.parent.gameObject);
     }
 }
