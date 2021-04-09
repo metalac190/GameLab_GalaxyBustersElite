@@ -199,8 +199,6 @@ public class PlayerMovement : MonoBehaviour
         {
             if (!isHit)
                 StartCoroutine(PlayerCollision());
-
-            print(other.name);
         }
     }
 
