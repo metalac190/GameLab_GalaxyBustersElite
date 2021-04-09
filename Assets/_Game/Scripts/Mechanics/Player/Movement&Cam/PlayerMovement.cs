@@ -162,11 +162,11 @@ public class PlayerMovement : MonoBehaviour
         if (Input.GetKeyDown(KeyCode.Space) && dodgeCooldownRemaining <= 0)
         {
             OnDodge.Invoke();
-            if (x < 1) //Determine dodge direction
+            if (x < 0) //Determine dodge direction
             {
                 OnDodgeLeft.Invoke();
             }
-            else if (x > 1)
+            else if (x > 0)
             {
                 OnDodgeRight.Invoke();
             }
@@ -206,6 +206,10 @@ public class PlayerMovement : MonoBehaviour
 
     IEnumerator PlayerCollision()
     {
+        if (dodgeDurationRemaining > 0) //If dodging, ignore collision
+        {
+            yield break;
+        }
         isHit = true;
 
         rb.AddRelativeForce(Random.Range(-collForce.x, collForce.x), 
