@@ -80,4 +80,32 @@ public class PoolUtility : MonoBehaviour
         pool.Add(newProjectile);
         return newProjectile;
     }
+
+	/// <summary> Instantiates Projectiles from Pool
+	/// <para> Overload to only handle creation and setting active/inactive </para>
+	/// </summary>
+	/// <param name="pool"> Pool of references in hierarchy </param>
+	/// <param name="projectileReference"> Projectile Prefab to instantiate </param>
+	/// <param name="parentReference"> Parent to instantiate prefab under, if needed </param>
+	/// <returns></returns>
+	public static GameObject InstantiateFromPool(List<GameObject> pool, GameObject projectileReference, Transform parentReference = null)
+	{
+		//Static Function to call from any script
+
+		//First checks for any available, inactive references that already exist
+		foreach (GameObject projectile in pool)
+		{
+			if (projectile != null && projectile.activeInHierarchy == false)
+			{
+				//Enables projectile, to reuse
+				projectile.SetActive(true);
+				return projectile;
+			}
+		}
+
+		//Worst Case Scenario, instantiates for current and future use
+		GameObject newProjectile = Instantiate(projectileReference, parentReference);
+		pool.Add(newProjectile);
+		return newProjectile;
+	}
 }
