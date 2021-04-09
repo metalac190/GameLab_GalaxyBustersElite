@@ -11,8 +11,10 @@ public class SoundPlayer : MonoBehaviour
 #if UNITY_EDITOR
     void OnValidate()
     {
-        foreach (Sound sound in allSounds)
+        for (int s = 0; s < allSounds.Length; s++)
         {
+            Sound sound = allSounds[s];
+
             if (sound != null && sound.audioSource)
             {
                 sound.audioSource.loop = sound.loop;
@@ -31,6 +33,11 @@ public class SoundPlayer : MonoBehaviour
                 if (!sound.usePitchRandomization)
                     sound.pitchShiftMin = sound.pitchShiftMax = 0;
             }
+
+            if (sound.label.Length == 0)
+                sound.label = s + ". (Write a Description Here)";
+            if (sound.label.Substring(0, 1) != s.ToString())
+                sound.label = s + ". " + sound.label;
         }
     }
 #endif
