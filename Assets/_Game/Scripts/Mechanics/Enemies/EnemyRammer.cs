@@ -17,6 +17,8 @@ public class EnemyRammer : EnemyBase
     {
         if (Vector3.Distance(transform.position, GameManager.player.obj.transform.position) < EnemyDetectionRadius)
         {
+            animator.SetBool("InPlayerRange", true);
+
             transform.LookAt(GameManager.player.obj.transform.position);
 
             //when changing state, enable heat seeking behavior
@@ -35,6 +37,7 @@ public class EnemyRammer : EnemyBase
         if (Vector3.Distance(transform.position, GameManager.player.obj.transform.position) < EnemyDetectionRadius)
         {
             //behavior moved to HeatSeeker behavior
+            animator.SetTrigger("WindupDistance");
             GetComponent<Rigidbody>().velocity = transform.forward * ramSpeed;
         }
         else if (Vector3.Distance(transform.position, GameManager.player.obj.transform.position) > EnemyDetectionRadius)

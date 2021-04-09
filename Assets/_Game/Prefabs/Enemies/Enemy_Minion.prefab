@@ -118,6 +118,7 @@ MonoBehaviour:
   givesPlayerMS: 1
   attackRateMin: 2
   attackRateMax: 2.5
+  projectileSpeed: 0
   bullet: {fileID: 4817155437395576068, guid: e82c437c58d75354c9f99879dd39c338, type: 3}
   _spawnPoint: {fileID: 2545132061026240659}
   OnShotFired:
@@ -176,7 +177,7 @@ BoxCollider:
   m_Enabled: 1
   serializedVersion: 2
   m_Size: {x: 2.6, y: 1.9, z: 2.6}
-  m_Center: {x: -0.083269835, y: 0.14268005, z: 0.013257384}
+  m_Center: {x: 0.01, y: 0.95, z: 0.013257384}
 --- !u!1 &6628933941656743908
 GameObject:
   m_ObjectHideFlags: 0
