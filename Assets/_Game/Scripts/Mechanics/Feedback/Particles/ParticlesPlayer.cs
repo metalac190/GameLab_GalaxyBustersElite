@@ -10,13 +10,20 @@ public class ParticlesPlayer : MonoBehaviour
 #if UNITY_EDITOR
     void OnValidate()
     {
-        foreach (Particles particles in allParticles)
+        for (int p = 0; p < allParticles.Length; p++)
         {
+            Particles particles = allParticles[p];
+
             if (particles != null && particles.particleSystem)
             {
                 var particlesMain = particles.particleSystem.main;
                 particlesMain.playOnAwake = particles.playOnAwake;
             }
+
+            if (particles.label.Length == 0)
+                particles.label = p + ". (Write a Description Here)";
+            else if (particles.label.Substring(0, 1) != p.ToString())
+                particles.label = p + ". " + particles.label;
         }
     }
 #endif
