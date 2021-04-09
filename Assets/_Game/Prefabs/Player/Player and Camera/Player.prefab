@@ -67,6 +67,7 @@ Transform:
   - {fileID: 4105299737008336637}
   - {fileID: 6838220387871152776}
   - {fileID: 2815287373385754160}
+  - {fileID: 1357823783661104741}
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -121,6 +122,17 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 1
         m_CallState: 2
+      - m_Target: {fileID: 8330063727651936971}
+        m_MethodName: ShowDodgeVFX
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 1
+        m_CallState: 2
   OnDodgeStraight:
     m_PersistentCalls:
       m_Calls:
@@ -169,6 +181,17 @@ MonoBehaviour:
       - m_Target: {fileID: 3471149859103297835}
         m_MethodName: ToggleDodging
         m_Mode: 6
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+      - m_Target: {fileID: 8330063727651936971}
+        m_MethodName: HideDodgeVFX
+        m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
           m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
@@ -784,17 +807,17 @@ PrefabInstance:
     - target: {fileID: 1554756655631277004, guid: fac00b2cc971f864bb2082dfc1305843,
         type: 3}
       propertyPath: m_LocalRotation.x
-      value: -0
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 1554756655631277004, guid: fac00b2cc971f864bb2082dfc1305843,
         type: 3}
       propertyPath: m_LocalRotation.y
-      value: -0
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 1554756655631277004, guid: fac00b2cc971f864bb2082dfc1305843,
         type: 3}
       propertyPath: m_LocalRotation.z
-      value: -0
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 1554756655631277004, guid: fac00b2cc971f864bb2082dfc1305843,
         type: 3}
@@ -824,7 +847,7 @@ PrefabInstance:
     - target: {fileID: 1554756656198432433, guid: fac00b2cc971f864bb2082dfc1305843,
         type: 3}
       propertyPath: m_Name
-      value: Energy Burst
+      value: Missing Prefab (Dummy)
       objectReference: {fileID: 0}
     - target: {fileID: 3727205299085060979, guid: fac00b2cc971f864bb2082dfc1305843,
         type: 3}
@@ -942,6 +965,93 @@ Transform:
     type: 3}
   m_PrefabInstance: {fileID: 3488430911488284442}
   m_PrefabAsset: {fileID: 0}
+--- !u!1001 &7314156903411662432
+PrefabInstance:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    m_TransformParent: {fileID: 2473926700306051215}
+    m_Modifications:
+    - target: {fileID: 4329299461724554729, guid: 703058be0a706a64d954c3ad392a918a,
+        type: 3}
+      propertyPath: m_Name
+      value: Player's Dodge VFX
+      objectReference: {fileID: 0}
+    - target: {fileID: 8599323846310416389, guid: 703058be0a706a64d954c3ad392a918a,
+        type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8599323846310416389, guid: 703058be0a706a64d954c3ad392a918a,
+        type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8599323846310416389, guid: 703058be0a706a64d954c3ad392a918a,
+        type: 3}
+      propertyPath: m_LocalPosition.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8599323846310416389, guid: 703058be0a706a64d954c3ad392a918a,
+        type: 3}
+      propertyPath: m_LocalRotation.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8599323846310416389, guid: 703058be0a706a64d954c3ad392a918a,
+        type: 3}
+      propertyPath: m_LocalRotation.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8599323846310416389, guid: 703058be0a706a64d954c3ad392a918a,
+        type: 3}
+      propertyPath: m_LocalRotation.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8599323846310416389, guid: 703058be0a706a64d954c3ad392a918a,
+        type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 8599323846310416389, guid: 703058be0a706a64d954c3ad392a918a,
+        type: 3}
+      propertyPath: m_RootOrder
+      value: 4
+      objectReference: {fileID: 0}
+    - target: {fileID: 8599323846310416389, guid: 703058be0a706a64d954c3ad392a918a,
+        type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8599323846310416389, guid: 703058be0a706a64d954c3ad392a918a,
+        type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8599323846310416389, guid: 703058be0a706a64d954c3ad392a918a,
+        type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
+  m_SourcePrefab: {fileID: 100100000, guid: 703058be0a706a64d954c3ad392a918a, type: 3}
+--- !u!4 &1357823783661104741 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 8599323846310416389, guid: 703058be0a706a64d954c3ad392a918a,
+    type: 3}
+  m_PrefabInstance: {fileID: 7314156903411662432}
+  m_PrefabAsset: {fileID: 0}
+--- !u!114 &8330063727651936971 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 1592952796718425259, guid: 703058be0a706a64d954c3ad392a918a,
+    type: 3}
+  m_PrefabInstance: {fileID: 7314156903411662432}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b715f0e145bd7b8489e265e86d99f967, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1001 &7842869985551779329
 PrefabInstance:
   m_ObjectHideFlags: 0
