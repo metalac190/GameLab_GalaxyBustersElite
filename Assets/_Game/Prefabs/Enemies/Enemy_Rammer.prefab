@@ -179,10 +179,10 @@ MonoBehaviour:
   currentState: 0
   id: Rammer
   attackDamage: 20
-  enemyDetectionRadius: 12
+  enemyDetectionRadius: 30
   enemyScore: 100
   givesPlayerMS: 1
-  ramSpeed: 0
+  ramSpeed: 20
   OnRamAttackEnter:
     m_PersistentCalls:
       m_Calls:
@@ -264,8 +264,8 @@ BoxCollider:
   m_IsTrigger: 1
   m_Enabled: 1
   serializedVersion: 2
-  m_Size: {x: 2.9907298, y: 1.8910937, z: 3}
-  m_Center: {x: -0.029635012, y: 0.15393162, z: -0.36}
+  m_Size: {x: 3.2267897, y: 3.2843971, z: 5.1647673}
+  m_Center: {x: 0.088395, y: 1.6566517, z: -0.18127823}
 --- !u!54 &6812764698134458447
 Rigidbody:
   m_ObjectHideFlags: 0
@@ -582,6 +582,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: Rammer-Art
+      objectReference: {fileID: 0}
+    - target: {fileID: 1998447280932251031, guid: f59686a48d20e2b40a631a6047e1c27d,
+        type: 3}
+      propertyPath: m_Enabled
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 1998447280932251034, guid: f59686a48d20e2b40a631a6047e1c27d,
         type: 3}

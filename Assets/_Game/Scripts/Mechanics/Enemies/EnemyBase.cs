@@ -25,6 +25,8 @@ public abstract class EnemyBase : EntityBase
     [SerializeField] protected bool givesPlayerMS;
     protected CamRailManager camRailManager;
 
+    protected Animator animator;
+
     protected virtual void Awake()
     {
         camRailManager = FindObjectOfType<CamRailManager>();
@@ -33,6 +35,7 @@ public abstract class EnemyBase : EntityBase
     protected override void Start()
     {
         base.Start();
+        animator = GetComponentInChildren<Animator>();
         currentState = EnemyState.Passive;
     }
 
@@ -96,13 +99,27 @@ public abstract class EnemyBase : EntityBase
 			{
                 cdInvuln = Time.time;
 
+                // Done here instead of overriding in each child class
+                if (GetComponent<EnemyDrone>())
+                {
+                    animator.SetTrigger("DamageTaken");
+                }
+                else if (GetComponent<EnemyMinion>())
+                {
+                    animator.SetTrigger("Damaged");
+                }
+                else if (GetComponent<EnemyRammer>())
+                {
+                    animator.SetTrigger("DamageTaken");
+                }
+
                 Damaged.Invoke();
 				//set up FX + AnimationController from Inspector, using Event
 			}
 		}
     }
 
-    private void OnTriggerEnter(Collider col)
+    protected virtual void OnTriggerEnter(Collider col)
     {
         if (col.gameObject.layer == LayerMask.NameToLayer("Player"))
         {
