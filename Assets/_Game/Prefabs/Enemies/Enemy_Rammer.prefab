@@ -99,6 +99,7 @@ Transform:
   - {fileID: 8039653928418295142}
   - {fileID: 7187741688241017391}
   - {fileID: 5693014703092053040}
+  - {fileID: 8035417706856083334}
   m_Father: {fileID: 8039653927728995426}
   m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -183,6 +184,20 @@ MonoBehaviour:
   enemyScore: 100
   givesPlayerMS: 1
   ramSpeed: 20
+  OnRamCollide:
+    m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 8514431739185266810}
+        m_MethodName: TryPlay
+        m_Mode: 3
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
   OnRamAttackEnter:
     m_PersistentCalls:
       m_Calls:
@@ -491,6 +506,93 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: bb72c580b0553274b89d7b1db74018c3, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!1001 &7356804646639131754
+PrefabInstance:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    m_TransformParent: {fileID: 5892482954972556089}
+    m_Modifications:
+    - target: {fileID: 692172315216327660, guid: 6cf865cccad7ea34d88dbddbbf3f1c4b,
+        type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 692172315216327660, guid: 6cf865cccad7ea34d88dbddbbf3f1c4b,
+        type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 692172315216327660, guid: 6cf865cccad7ea34d88dbddbbf3f1c4b,
+        type: 3}
+      propertyPath: m_LocalPosition.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 692172315216327660, guid: 6cf865cccad7ea34d88dbddbbf3f1c4b,
+        type: 3}
+      propertyPath: m_LocalRotation.x
+      value: -0
+      objectReference: {fileID: 0}
+    - target: {fileID: 692172315216327660, guid: 6cf865cccad7ea34d88dbddbbf3f1c4b,
+        type: 3}
+      propertyPath: m_LocalRotation.y
+      value: -0
+      objectReference: {fileID: 0}
+    - target: {fileID: 692172315216327660, guid: 6cf865cccad7ea34d88dbddbbf3f1c4b,
+        type: 3}
+      propertyPath: m_LocalRotation.z
+      value: -0
+      objectReference: {fileID: 0}
+    - target: {fileID: 692172315216327660, guid: 6cf865cccad7ea34d88dbddbbf3f1c4b,
+        type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 692172315216327660, guid: 6cf865cccad7ea34d88dbddbbf3f1c4b,
+        type: 3}
+      propertyPath: m_RootOrder
+      value: 5
+      objectReference: {fileID: 0}
+    - target: {fileID: 692172315216327660, guid: 6cf865cccad7ea34d88dbddbbf3f1c4b,
+        type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 692172315216327660, guid: 6cf865cccad7ea34d88dbddbbf3f1c4b,
+        type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 692172315216327660, guid: 6cf865cccad7ea34d88dbddbbf3f1c4b,
+        type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8741981813483608430, guid: 6cf865cccad7ea34d88dbddbbf3f1c4b,
+        type: 3}
+      propertyPath: m_Name
+      value: Enemy_Rammer's Particles Player
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
+  m_SourcePrefab: {fileID: 100100000, guid: 6cf865cccad7ea34d88dbddbbf3f1c4b, type: 3}
+--- !u!4 &8035417706856083334 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 692172315216327660, guid: 6cf865cccad7ea34d88dbddbbf3f1c4b,
+    type: 3}
+  m_PrefabInstance: {fileID: 7356804646639131754}
+  m_PrefabAsset: {fileID: 0}
+--- !u!114 &8514431739185266810 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 1166934055303601168, guid: 6cf865cccad7ea34d88dbddbbf3f1c4b,
+    type: 3}
+  m_PrefabInstance: {fileID: 7356804646639131754}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 2eb81e5a4a8c3e2449d8aa39632b8e93, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1001 &7612832902488214825
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -501,7 +603,7 @@ PrefabInstance:
     - target: {fileID: 447159930232074318, guid: bbef597c8e2dd434a891bd25f9315b45,
         type: 3}
       propertyPath: m_Name
-      value: Enemy_Rammer Sound Player
+      value: Enemy_Rammer's Sound Player
       objectReference: {fileID: 0}
     - target: {fileID: 447159930232074319, guid: bbef597c8e2dd434a891bd25f9315b45,
         type: 3}
@@ -557,11 +659,6 @@ PrefabInstance:
         type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 6247615042268631107, guid: bbef597c8e2dd434a891bd25f9315b45,
-        type: 3}
-      propertyPath: OutputAudioMixerGroup
-      value: 
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: bbef597c8e2dd434a891bd25f9315b45, type: 3}
