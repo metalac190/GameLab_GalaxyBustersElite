@@ -47,6 +47,14 @@ public class EnergyBurst : WeaponBase
 		// Set charged projectile's speed and damage
 		chargedProjectile.GetComponent<Projectile>().SetVelocity(projectileSpeed * speedMultiplier);
 		chargedProjectile.GetComponent<Projectile>().SetDamage(damage * damageMultiplier);
+
+		GradientColorKey[] colorKeys = new GradientColorKey[2];
+		GradientAlphaKey[] alphaKeys = new GradientAlphaKey[2];
+		colorKeys[0] = new GradientColorKey(chargeStartColor, 0);
+		colorKeys[1] = new GradientColorKey(chargeEndColor, 1);
+		alphaKeys[0] = new GradientAlphaKey(chargeStartColor.a, 0);
+		alphaKeys[1] = new GradientAlphaKey(chargeEndColor.a, 1);
+		chargeColorGradient.SetKeys(colorKeys, alphaKeys);
 	}
 
 	void Update()
