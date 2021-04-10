@@ -31,6 +31,9 @@ public class EnergyBurst : WeaponBase
 	[Header("Effects")]
 	[SerializeField] UnityEvent OnWeaponCharged;
 	[SerializeField] UnityEvent OnChargedFire;
+	private GameObject chargingShot;
+	private MeshRenderer shotRenderer;
+	private Projectile shotProjectile;
 
 	private void OnEnable()
 	{
