@@ -20,6 +20,7 @@ public class EnemyBandit : EnemyBase
     private float nextBurst;
 
     [Header("Enemy Bandit Bullet Prefab")]
+    [SerializeField] private float projectileSpeed;
     [SerializeField] private GameObject bulletPrefab;
     [SerializeField] private Transform _spawnPoint;
     private List<GameObject> _bulletPool = new List<GameObject>();
@@ -45,8 +46,9 @@ public class EnemyBandit : EnemyBase
                     GameObject tempBullet = PoolUtility.InstantiateFromPool(_bulletPool, _spawnPoint, bulletPrefab);
                     EnemyProjectile tempProjectile = tempBullet.GetComponent<EnemyProjectile>();
 
-                    //set damage
+                    //set damage and speed
                     tempProjectile.SetDamage(AttackDamage);
+                    tempProjectile.SetVelocity(projectileSpeed);
 
                     //set cooldown, invoke
                     burstTimer = attackRate;

@@ -98,6 +98,7 @@ MonoBehaviour:
   _speed: 20
   _damage: 10
   lifeTime: 2
+  disableOnHit: 1
 --- !u!135 &6687059759519189848
 SphereCollider:
   m_ObjectHideFlags: 0
@@ -188,6 +189,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2206486789294020257, guid: f852699c02803a14b98d50c399a9b8c3,
+        type: 3}
+      propertyPath: allParticles.Array.data[0].label
+      value: 0. Trailing Particles
       objectReference: {fileID: 0}
     - target: {fileID: 9195925741173961685, guid: f852699c02803a14b98d50c399a9b8c3,
         type: 3}
