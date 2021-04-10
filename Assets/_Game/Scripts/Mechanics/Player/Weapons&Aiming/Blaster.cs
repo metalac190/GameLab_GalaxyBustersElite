@@ -10,7 +10,6 @@ public class Blaster : WeaponBase
 	private bool fireReady;
 
 	[Header("Primary Fire Settings")]
-	[SerializeField] GameObject projectile;
 	[SerializeField] float projectileSpeed = 200f;
 	[SerializeField] [Range(0, 45)] float projectileCone = 1f;
 	[SerializeField] float clickCooldown = 0.5f;
@@ -20,6 +19,8 @@ public class Blaster : WeaponBase
 
 	[Header("Overload Settings")]
 	[SerializeField] float fireRateMultiplier = 2f;
+
+	public UnityEvent OnOverloadFire;
 
 	private void OnEnable()
 	{
@@ -70,7 +71,8 @@ public class Blaster : WeaponBase
 				GameObject bulletObj = PoolUtility.InstantiateFromPool(projectilePool, point.position, point.rotation * randAng, projectile);
 			}
 
-			OnStandardFire.Invoke();
+			if (overloaded) OnOverloadFire?.Invoke();
+			else OnStandardFire?.Invoke();
 		}
 	}
 

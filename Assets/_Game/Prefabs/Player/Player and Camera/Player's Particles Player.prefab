@@ -49,27 +49,28 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   allParticles:
-  - name: Particles
-    label: Hit
+  - label: 0. Hit
     particleSystem: {fileID: 7146076047453641292}
     playOnAwake: 0
-  - name: Particles
-    label: Death
+  - label: 1. Death
     particleSystem: {fileID: 1220866835832185875, guid: 0035376de1cdd764faeec3812b757876,
       type: 3}
     playOnAwake: 1
-  - name: Particles
-    label: Pickup Burst (Not Hooked Up)
+  - label: 2. Health Pickup Burst
     particleSystem: {fileID: 7479905728173951605}
     playOnAwake: 0
-  - name: Particles
-    label: New Weapon Attached
+  - label: 3. New Weapon Attached
     particleSystem: {fileID: 8597589268387622143}
     playOnAwake: 0
-  - name: Particles
-    label: Invincibility (Not Hooked Up)
+  - label: 4. On Hit Invincibility
     particleSystem: {fileID: 4679886103854572268}
     playOnAwake: 0
+  - label: 5. Charge Pickup Burst
+    particleSystem: {fileID: 7479905728173951605}
+    playOnAwake: 0
+  - label: 6. Jet Effect Behind Player (No Hookup Needed)
+    particleSystem: {fileID: 0}
+    playOnAwake: 1
 --- !u!1001 &101724737580932580
 PrefabInstance:
   m_ObjectHideFlags: 0

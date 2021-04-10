@@ -35,6 +35,7 @@ public class HUDManager : MonoBehaviour
     {
         referencedGM = GameManager.gm.gameObject;
         referencedPlayer = GameManager.player.obj;
+        GameManager.gm.HUD = gameObject;
         if (GameManager.gm.currentState == GameState.Gameplay)
         {
             //its good to stay active
@@ -48,13 +49,14 @@ public class HUDManager : MonoBehaviour
     void Update()
     {
         //update score
-        
+        /* now handled by seperate script
         if (referencedGM != null)
         {
             hudScore = ScoreSystem.GetScore();
 			hudScoreText.text = hudScore.ToString("00000");
 			hudMultiplierText.text = hudScore.ToString("(x" + ScoreSystem.GetComboMultiplier() + ")");
 		}
+        */
         if (referencedPlayer != null)
         {
             playerHealth = referencedPlayer.GetComponent<PlayerController>().GetPlayerHealth();

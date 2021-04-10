@@ -6,7 +6,8 @@ public class Object_Waypoint_GUI : MonoBehaviour
 {
     public Transform target;
 
-    void OnDrawGizmosSelected()
+
+    private void OnDrawGizmos()
     {
         // Draw a yellow sphere at the transform's position
         Gizmos.color = Color.yellow;
