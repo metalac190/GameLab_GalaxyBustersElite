@@ -11,6 +11,7 @@ GameObject:
   - component: {fileID: 1362156741809808157}
   - component: {fileID: 8181699092328756910}
   - component: {fileID: 3510827522233690846}
+  - component: {fileID: 4310312270963573997}
   m_Layer: 0
   m_Name: Blaster
   m_TagString: Untagged
@@ -118,6 +119,17 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
+      - m_Target: {fileID: 4310312270963573997}
+        m_MethodName: TriggerShake
+        m_Mode: 3
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 1
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
   OnOverloadActivated:
     m_PersistentCalls:
       m_Calls:
@@ -159,6 +171,72 @@ MonoBehaviour:
   clickCooldown: 0.5
   fireRate: 9
   fireRateMultiplier: 4
+  OnOverloadFire:
+    m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 1246664208161035993}
+        m_MethodName: TryPlay
+        m_Mode: 3
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 1
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+      - m_Target: {fileID: 1788410364791677157}
+        m_MethodName: TryPlay
+        m_Mode: 3
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 1
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+      - m_Target: {fileID: 2827642710450436544}
+        m_MethodName: TryPlay
+        m_Mode: 3
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+      - m_Target: {fileID: 4310312270963573997}
+        m_MethodName: TriggerShake
+        m_Mode: 3
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+--- !u!114 &4310312270963573997
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3500800723739833614}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 470c8d69afb310f43b6a89901bf44042, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  shakeInfos:
+  - shakeAmount: 1
+    decay: 0.95
+    range: 0.5
+  - shakeAmount: 0.2
+    decay: 0.8
+    range: 0.5
 --- !u!1 &4018402609521200947
 GameObject:
   m_ObjectHideFlags: 0
