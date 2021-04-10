@@ -32,10 +32,6 @@ public class EnergyBurst : WeaponBase
 	[SerializeField] UnityEvent OnWeaponCharged;
 	[SerializeField] UnityEvent OnChargedFire;
 
-	private GameObject chargingShot;
-	private MeshRenderer shotRenderer;
-	private Projectile shotProjectile;
-
 	private void OnEnable()
 	{
 		overloaded = false;
@@ -48,17 +44,6 @@ public class EnergyBurst : WeaponBase
 		// Set charged projectile's speed and damage
 		chargedProjectile.GetComponent<Projectile>().SetVelocity(projectileSpeed * speedMultiplier);
 		chargedProjectile.GetComponent<Projectile>().SetDamage(damage * damageMultiplier);
-
-		GradientColorKey[] colorKeys = new GradientColorKey[2];
-		GradientAlphaKey[] alphaKeys = new GradientAlphaKey[2];
-		colorKeys[0] = new GradientColorKey(chargeStartColor, 0);
-		colorKeys[1] = new GradientColorKey(chargeEndColor, 1);
-		alphaKeys[0] = new GradientAlphaKey(chargeStartColor.a, 0);
-		alphaKeys[1] = new GradientAlphaKey(chargeEndColor.a, 1);
-		chargeColorGradient.SetKeys(colorKeys, alphaKeys);
-
-		// TODO while charging spawn projectile but w 0 speed and following player
-		// released when released
 	}
 
 	void Update()
