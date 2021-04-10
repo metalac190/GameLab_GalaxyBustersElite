@@ -35,13 +35,15 @@ public class BossSegmentController : EntityBase
 
     public override void TakeDamage(float damage)
     {
-        if (!_bossRef.isReady)
+        if (_bossRef.isInvulnerable)
         {
             _bossRef.InvulnerableHit.Invoke();
             return;
         }
-
-        base.TakeDamage(damage);
+        else
+        {
+            base.TakeDamage(damage);
+        }
     }
 
     #region Public Accessors

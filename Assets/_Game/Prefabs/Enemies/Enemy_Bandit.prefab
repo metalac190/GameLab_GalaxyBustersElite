@@ -152,7 +152,7 @@ CapsuleCollider:
   m_GameObject: {fileID: 2867407624876068593}
   m_Material: {fileID: 0}
   m_IsTrigger: 0
-  m_Enabled: 1
+  m_Enabled: 0
   m_Radius: 0.5
   m_Height: 2
   m_Direction: 1
@@ -338,7 +338,8 @@ MonoBehaviour:
   attackRate: 0.4
   nextBurstMin: 1.5
   nextBurstMax: 2
-  bulletPrefab: {fileID: 4817155437395576068, guid: e82c437c58d75354c9f99879dd39c338,
+  projectileSpeed: 0
+  bulletPrefab: {fileID: 4817155437395576068, guid: ba5a3b4a6ff5405478bd4aded6ec18ba,
     type: 3}
   _spawnPoint: {fileID: 1230182441865655088}
   OnShotFired:
