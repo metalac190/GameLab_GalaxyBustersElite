@@ -147,6 +147,11 @@ MonoBehaviour:
   damageMultiplier: 8
   speedMultiplier: 1.5
   weaponCharged: 0
+  minScale: 0.25
+  maxScale: 1.75
+  chargeStartColor: {r: 0.3324203, g: 1, b: 0.1745283, a: 0.78431374}
+  chargeEndColor: {r: 1, g: 0, b: 0, a: 0.78431374}
+  overloadChargeSpeedMultiplier: 8
   OnWeaponCharged:
     m_PersistentCalls:
       m_Calls: []
@@ -262,6 +267,16 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 1554756655449818847}
     m_Modifications:
+    - target: {fileID: 1169967139460281931, guid: c275f7e7867175c47883de3075edefa7,
+        type: 3}
+      propertyPath: allParticles.Array.data[0].label
+      value: 0. Standard Shot
+      objectReference: {fileID: 0}
+    - target: {fileID: 1169967139460281931, guid: c275f7e7867175c47883de3075edefa7,
+        type: 3}
+      propertyPath: allParticles.Array.data[1].label
+      value: 1. Charge Shot
+      objectReference: {fileID: 0}
     - target: {fileID: 1220010977425871988, guid: c275f7e7867175c47883de3075edefa7,
         type: 3}
       propertyPath: m_LocalPosition.z
@@ -438,6 +453,21 @@ PrefabInstance:
         type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4662019384568272058, guid: fe3a8e6d18e39d44b8d9c3dc9ad6b831,
+        type: 3}
+      propertyPath: allSounds.Array.data[0].label
+      value: 0. Standard Shot
+      objectReference: {fileID: 0}
+    - target: {fileID: 4662019384568272058, guid: fe3a8e6d18e39d44b8d9c3dc9ad6b831,
+        type: 3}
+      propertyPath: allSounds.Array.data[1].label
+      value: 1. Charge Shot
+      objectReference: {fileID: 0}
+    - target: {fileID: 4662019384568272058, guid: fe3a8e6d18e39d44b8d9c3dc9ad6b831,
+        type: 3}
+      propertyPath: allSounds.Array.data[2].label
+      value: 2. Charging Shot
       objectReference: {fileID: 0}
     - target: {fileID: 7601540749416033156, guid: fe3a8e6d18e39d44b8d9c3dc9ad6b831,
         type: 3}
