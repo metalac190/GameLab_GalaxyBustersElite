@@ -5,6 +5,8 @@ using UnityEngine;
 [RequireComponent(typeof(Collider))]
 public class NearMiss : MonoBehaviour
 {
+	[SerializeField] float shakeAmtOnNearMiss = 0.15f;
+
 	private void Awake()
 	{
 		GetComponent<Collider>().isTrigger = true;
@@ -16,6 +18,8 @@ public class NearMiss : MonoBehaviour
 		{
 			ScoreSystem.NearMiss();
 			Debug.Log("Near Miss");
+
+			CameraShaker.instance.Shake(shakeAmtOnNearMiss);
 		}
 	}
 }
