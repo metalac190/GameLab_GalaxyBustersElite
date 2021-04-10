@@ -29,6 +29,8 @@ public class CameraMovementFX : MonoBehaviour
     [Header("Speed Sound")]
     [SerializeField] AudioSource speedSound;
 
+    public bool speedLineOverride = false;
+
 #if UNITY_EDITOR
     void OnValidate()
     {
@@ -74,7 +76,7 @@ public class CameraMovementFX : MonoBehaviour
             yield return new WaitForSeconds(DELAY_BETWEEN_REFRESHING_SPEEDING_VARIABLE);
 
             curSpeed = cinemachineDolly.m_Speed;
-            speeding = curSpeed >= speedingThreshold;
+            speeding = (curSpeed >= speedingThreshold) || speedLineOverride;
         }
     }
 
