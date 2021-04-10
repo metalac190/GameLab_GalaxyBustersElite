@@ -584,6 +584,8 @@ MonoBehaviour:
   typingDelay: 0.025
   speakerTransionDelay: 0.5
   conversationEndDelay: 1
+  dialoguePriority: 0
+  activeDialogue: 0
 --- !u!1 &1283210541700463066
 GameObject:
   m_ObjectHideFlags: 0
@@ -632,7 +634,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ac8475f57bde1cb4184f616c368760fb, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  activeDialogue: 0
 --- !u!1 &1283210541919230412
 GameObject:
   m_ObjectHideFlags: 0
@@ -884,13 +885,6 @@ MonoBehaviour:
   - npcName: Zenox
     sentences:
     - "So anyway, I\u2019m going to start blasting."
-  ZenoxFillerDialogue:
-  - npcName: Zenox
-    sentences:
-    - Can I interest you in a laserblast in these trying times?
-  - npcName: Zenox
-    sentences:
-    - Eat lasers you Terrans!
   AfterBossDialogue:
   - npcName: Zenox
     sentences:
@@ -925,22 +919,153 @@ MonoBehaviour:
   - npcName: Pilot
     sentences:
     - Yowzers, that slapped like a bucking bronco.
+  - npcName: Pilot
+    sentences:
+    - Ouch!
+  - npcName: Pilot
+    sentences:
+    - By the stripes, stars, and stripes, that hurt!
+  - npcName: Pilot
+    sentences:
+    - I can hold it!
+  - npcName: Pilot
+    sentences:
+    - "There\u2019s too many of them!"
+  - npcName: Pilot
+    sentences:
+    - I thrive on your lasers enemy drones!
+  - npcName: Pilot
+    sentences:
+    - "shosg!, AaAohgb oripjtI\u2019,i-Whoops, sorryabout that, must have been a
+      bug!"
   - npcName: Piledrive
     sentences:
-    - Careful son.
+    - Careful there son.
+  - npcName: Piledrive
+    sentences:
+    - You almost made me spill my Tim Hortons.
+  - npcName: Piledrive
+    sentences:
+    - Eh.
+  - npcName: Piledrive
+    sentences:
+    - "You\u2019re not supposed to get shot Zap, you know?"
   - npcName: Matryoshka
     sentences:
-    - Raaughra
+    - Rggggr!
+  - npcName: Twilight
+    sentences:
+    - Careful Pilot, that is GBE property!
+  - npcName: Twilight
+    sentences:
+    - That ship is worth more than you Pilot!
+  - npcName: Twilight
+    sentences:
+    - "You clearly aren\u2019t ready for the field!"
+  - npcName: Twilight
+    sentences:
+    - "Can\u2019t you barrel roll away or something pilot? Stop getting hit."
   EnemyDefeatedDialogue:
   - npcName: Pilot
     sentences:
     - "Woo-hoo! That\u2019s the American way!"
   - npcName: Pilot
     sentences:
-    - "That ship\u2019s been straight Delaware destroyed!"
+    - That drone has been straight Deleware destroyed!
   - npcName: Pilot
     sentences:
-    - "I\u2019m red, white, and blue, but you\u2019re dead, white, and blue."
+    - "That\u2019s what you get for messing with America!"
+  - npcName: Pilot
+    sentences:
+    - "I\u2019m red, white, and blue, but you\u2019re about to be dead, white and
+      blue!"
+  - npcName: Pilot
+    sentences:
+    - "That\u2019s why they call us the Galaxy Busters Elite!"
+  - npcName: Pilot
+    sentences:
+    - Flashbang!
+  - npcName: Pilot
+    sentences:
+    - Eat laser you drones!
+  - npcName: Pilot
+    sentences:
+    - "This\u2019ll teach you to come into my house, into my home!"
+  - npcName: Pilot
+    sentences:
+    - "By the rocket\u2019s red glare!"
+  - npcName: Pilot
+    sentences:
+    - That laser was just for you!
+  - npcName: Piledrive
+    sentences:
+    - "That\u2019ll do Zap, that\u2019ll do."
+  - npcName: Piledrive
+    sentences:
+    - Sorry drone.
+  - npcName: Piledrive
+    sentences:
+    - This reminds me ofa friendly hockey game.
+  - npcName: Piledrive
+    sentences:
+    - "Ooh, that one\u2019s pretty, eh?"
+  - npcName: Piledrive
+    sentences:
+    - Kind of a disappointing explosion if you ask me, eh?
+  - npcName: Matryoshka
+    sentences:
+    - Grrrrrrrrr.
+  - npcName: Matryoshka
+    sentences:
+    - Ragrrr?
+  - npcName: Matryoshka
+    sentences:
+    - Grarrrrr!
+  - npcName: Twilight
+    sentences:
+    - "Well done Zap, maybe there\u2019s more of your mother in you than I thought."
+  - npcName: Twilight
+    sentences:
+    - Bravo Zap!
+  - npcName: Twilight
+    sentences:
+    - Hmph, sufficiently executed Pilot.
+  ZenoxFillerDialogue:
+  - npcName: Zenox
+    sentences:
+    - Can I interest you in a laser in these trying times?
+  - npcName: Zenox
+    sentences:
+    - I am the enemy to truth, liberty, and the American way!
+  - npcName: Zenox
+    sentences:
+    - First I'll conquer you, then your whole dimension!
+  - npcName: Zenox
+    sentences:
+    - "I\u2019ll-blegh, bla, bleh. Sorry, a bug just flew into my mouth"
+  - npcName: Zenox
+    sentences:
+    - "I\u2019ll lose, and you can\u2019t stop me! Wait-I think I did that the wrong
+      way. Can I try again?"
+  - npcName: Zenox
+    sentences:
+    - My victory is basically, practically, almost guaranteed assured!
+  - npcName: Zenox
+    sentences:
+    - "I\u2019ll throw garbage at you, stop being so annoying!"
+  - npcName: Zenox
+    sentences:
+    - You carbon based life-forms are all essentially air-conditioners, and I hate
+      air conditioners!
+  - npcName: Zenox
+    sentences:
+    - Hahahahahahahaha!
+  - npcName: Zenox
+    sentences:
+    - All your dimension are belong to us.
+  - npcName: Zenox
+    sentences:
+    - You and your puny friends are nothing compared to me!
 --- !u!1 &1283210542206010382
 GameObject:
   m_ObjectHideFlags: 0
