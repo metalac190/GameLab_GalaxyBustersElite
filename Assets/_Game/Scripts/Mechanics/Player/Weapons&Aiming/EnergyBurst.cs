@@ -26,6 +26,7 @@ public class EnergyBurst : WeaponBase
 	[SerializeField] private Color chargeStartColor;
 	[SerializeField] private Color chargeEndColor;
 	private Gradient chargeColorGradient = new Gradient();
+	[SerializeField] private int overloadChargeSpeedMultiplier = 4;
 
 	[Header("Effects")]
 	[SerializeField] UnityEvent OnWeaponCharged;
@@ -65,31 +66,37 @@ public class EnergyBurst : WeaponBase
 		fireReady = (GameManager.gm.currentState == GameState.Gameplay && !GameManager.gm.Paused);
 		chargeMeter = GameManager.player.controller.GetOverloadCharge();
 
-		if (Input.GetButtonDown("Primary Fire") && !overloaded && fireReady)
+		if (Input.GetButtonDown("Primary Fire") && fireReady)
 		{
-			foreach (Transform point in spawnPoints)
+			// Set fire rate based on a cooldown
+			if (Time.time - cdTime > 1 / fireRate)
 			{
-				chargingShot = PoolUtility.InstantiateFromPool(projectilePool, point.position, point.rotation, projectile);
-				shotRenderer = chargingShot.GetComponent<MeshRenderer>();
-				shotProjectile = chargingShot.GetComponent<Projectile>();
+				cdTime = Time.time;
 
-				shotProjectile.GetComponent<Rigidbody>().velocity = Vector3.zero;
-				chargingShot.transform.localScale = new Vector3(minScale, minScale, minScale);
-				shotProjectile.enabled = false;
+				foreach (Transform point in spawnPoints)
+				{
+					chargingShot = PoolUtility.InstantiateFromPool(projectilePool, point.position, point.rotation, projectile);
+					shotRenderer = chargingShot.GetComponent<MeshRenderer>();
+					shotProjectile = chargingShot.GetComponent<Projectile>();
+
+					shotProjectile.GetComponent<Rigidbody>().velocity = Vector3.zero;
+					chargingShot.transform.localScale = new Vector3(minScale, minScale, minScale);
+					shotProjectile.enabled = false;
+				}
 			}
 		}
 
-		if (Input.GetButton("Primary Fire") && !overloaded && fireReady)
+		if (Input.GetButton("Primary Fire") && fireReady)
 		{
-			chargeTimer += Time.deltaTime;
+			chargeTimer += Time.deltaTime * (overloaded ? overloadChargeSpeedMultiplier : 1);
 		}
 
-		if(chargeTimer >= chargeUpTime && !overloaded && !weaponCharged)
+		if(chargeTimer >= chargeUpTime && !weaponCharged)
 		{
 			weaponCharged = true;
 			OnWeaponCharged.Invoke();
 		}
-		else if (chargeTimer <= chargeUpTime && !overloaded)
+		else if (chargeTimer <= chargeUpTime)
 		{
 			weaponCharged = false;
 		}
@@ -106,15 +113,13 @@ public class EnergyBurst : WeaponBase
 
 			// Start the overload countdown
 			StartCoroutine("ActivateOverload");
-			StartCoroutine("EnergyOverload");
-
 		}
 
 	}
 
 	private void FixedUpdate()
 	{
-		if (Input.GetButton("Primary Fire") && !overloaded && fireReady)
+		if (Input.GetButton("Primary Fire") && fireReady && chargingShot != null)
 		{
 			// Sets color based on charge time
 			shotRenderer.material.SetColor("_UnlitColor", chargeColorGradient.Evaluate(chargeTimer / chargeUpTime));
@@ -126,7 +131,7 @@ public class EnergyBurst : WeaponBase
 
 	private void LateUpdate()
 	{
-		if (Input.GetButton("Primary Fire") && !overloaded && fireReady)
+		if (Input.GetButton("Primary Fire") && fireReady && chargingShot != null)
 		{
 			chargingShot.transform.rotation = spawnPoints[0].transform.rotation;
 			chargingShot.transform.position = spawnPoints[0].transform.position;
@@ -135,16 +140,14 @@ public class EnergyBurst : WeaponBase
 
 	void FireEnergy()
 	{
-		// Set fire rate based on a cooldown
-		if (Time.time - cdTime > 1 / fireRate)
+		if (chargingShot != null)
 		{
-			cdTime = Time.time;
-
 			// Sets damage based on charge time
 			shotProjectile.SetDamage(Mathf.Lerp(damage, damage * damageMultiplier, chargeTimer / chargeUpTime));
 			// release projectile
 			shotProjectile.enabled = true;
 
+			chargingShot = null;
 			OnStandardFire.Invoke();
 		}
 	}
@@ -154,18 +157,10 @@ public class EnergyBurst : WeaponBase
 		return weaponCharged;
 	}
 
-	IEnumerator EnergyOverload()
-	{
-		weaponCharged = true;
-		yield return new WaitForSeconds(overloadTime);
-		weaponCharged = false;
-	}
-
 	public override void DeactivateOverload()
 	{
 		overloaded = false;
 		StopCoroutine("ActivateOverload");
-		StopCoroutine("EnergyOverload");
 		CancelInvoke();
 	}
 
