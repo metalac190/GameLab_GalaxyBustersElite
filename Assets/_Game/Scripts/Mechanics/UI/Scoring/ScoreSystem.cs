@@ -1,9 +1,14 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
 public class ScoreSystem : MonoBehaviour
 {
+	public static event Action<string, int> onScoreIncreased;
+	public static event Action onMultiplierChanged;
+	public static event Action onScoreReset;
+
 	static int score = 0;
 	static int comboCounter = 0;
 	static int comboMultiplier = 1;
@@ -25,7 +30,7 @@ public class ScoreSystem : MonoBehaviour
 		score = GameManager.gm.score;
 	}
 
-	public static void IncreaseScore(int amount)
+	public static void IncreaseScore(string source, int amount)
 	{
 		GameManager.gm.score += (amount * comboMultiplier);
 
@@ -33,9 +38,10 @@ public class ScoreSystem : MonoBehaviour
 			GameManager.player.controller.IncreaseOverload(amount * scoreToOverchargeMultiplier);
 
 		Debug.Log("<color=yellow>" + (amount * comboMultiplier) + " Points!</color>");
+		onScoreIncreased?.Invoke(source, amount * comboMultiplier);
 	}
 
-	public static void IncreaseScoreNoMultiplier(int amount)
+	public static void IncreaseScoreNoMultiplier(string source, int amount)
 	{
 		GameManager.gm.score += amount;
 
@@ -43,18 +49,21 @@ public class ScoreSystem : MonoBehaviour
 			GameManager.player.controller.IncreaseOverload(amount * scoreToOverchargeMultiplier);
 
 		Debug.Log("<color=yellow>" + amount + " Points!</color>");
+		onScoreIncreased?.Invoke(source, amount);
 	}
 
 	public static void ScorePickup(int amount)
 	{
 		GameManager.gm.score += amount;
 		Debug.Log("<color=yellow>" + amount + " Points!</color>");
+		onScoreIncreased?.Invoke("", amount);
 	}
 
 	public static void ResetScore()
 	{
 		GameManager.gm.score = 0;
 		Debug.Log("<color=yellow>Points Reset</color>");
+		onScoreReset?.Invoke();
 	}
 
 	public static void IncreaseCombo()
@@ -76,6 +85,8 @@ public class ScoreSystem : MonoBehaviour
 			comboMultiplier = 2;
 		else
 			comboMultiplier = 1;
+
+		onMultiplierChanged?.Invoke();
 	}
 
 	public static void ResetCombo()
@@ -84,12 +95,13 @@ public class ScoreSystem : MonoBehaviour
 		comboMultiplier = 1;
 		Debug.Log("<color=yellow>Combo Reset</color>");
 		Debug.Log("<color=yellow>x1 Score Multiplier</color>");
+		onMultiplierChanged?.Invoke();
 	}
 
 	public static void NearMiss()
 	{
 		nearMisses++;
-		IncreaseScore(nearMissScore);
+		IncreaseScore("NearMiss", nearMissScore);
 	}
 
 	public static void DestroyedEnemyType(string type)

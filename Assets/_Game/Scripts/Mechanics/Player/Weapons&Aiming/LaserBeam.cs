@@ -29,8 +29,8 @@ public class LaserBeam : WeaponBase
 
 	[Header("Effects")]
 	[SerializeField] UnityEvent OnLaserStop;
-	[SerializeField] GameObject hudTargeting;
 	[SerializeField] bool laserActive;
+	[SerializeField] UnityEvent OnOverloadFired;
 
 	private void OnEnable()
 	{
@@ -190,6 +190,8 @@ public class LaserBeam : WeaponBase
 		overloadTargets = firePoint.GetComponent<GroupTargetDetector>().targets;
 		DrawLasers(true);
 		firePoint.GetComponent<GroupTargetDetector>().pauseTracking = true;
+
+		if (overloadTargets.Count > 0) OnOverloadFired?.Invoke();
 
 		yield return new WaitForSeconds(0.5f);
 
