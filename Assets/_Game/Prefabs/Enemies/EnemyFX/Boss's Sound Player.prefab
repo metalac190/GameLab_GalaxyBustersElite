@@ -79,26 +79,55 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   allSounds:
-  - name: Sound
-    label: Boss Hit
+  - label: 0. Boss Hit
     audioSource: {fileID: 2982212223134156740}
     playOnAwake: 0
     loop: 0
-  - name: Sound
-    label: Boss Death
+    useSoundVariations: 1
+    soundVariations:
+    - {fileID: 8300000, guid: d480a5376803e874ca468243b55c2d3d, type: 3}
+    - {fileID: 8300000, guid: a05cdd16b0a0ae448bdcdb3f4fed68e7, type: 3}
+    - {fileID: 8300000, guid: 2829332cfa03b7a4f888723279f6c2ee, type: 3}
+    usePitchRandomization: 0
+    pitchShiftMin: 0
+    pitchShiftMax: 0
+    curPoolIteration: 0
+    audioSourcePool: []
+  - label: 1. Boss Death
     audioSource: {fileID: 3081704399309220599}
     playOnAwake: 0
     loop: 0
-  - name: Sound
-    label: Boss Invulnerable Hit
+    useSoundVariations: 0
+    soundVariations: []
+    usePitchRandomization: 0
+    pitchShiftMin: 0
+    pitchShiftMax: 0
+    curPoolIteration: 0
+    audioSourcePool: []
+  - label: 2. Boss Invulnerable Hit
     audioSource: {fileID: 8635859905611432160}
     playOnAwake: 0
     loop: 0
-  - name: Sound
-    label: Boss Attack
+    useSoundVariations: 0
+    soundVariations: []
+    usePitchRandomization: 0
+    pitchShiftMin: 0
+    pitchShiftMax: 0
+    curPoolIteration: 0
+    audioSourcePool: []
+  - label: 3. Boss Attack
     audioSource: {fileID: 4864394367678693918}
     playOnAwake: 0
     loop: 0
+    useSoundVariations: 1
+    soundVariations:
+    - {fileID: 8300000, guid: 6f0969d3c5400d445865edf6e21c579c, type: 3}
+    - {fileID: 8300000, guid: 8d108bbb46728e540b1f6a5f7d39d7b6, type: 3}
+    usePitchRandomization: 0
+    pitchShiftMin: 0
+    pitchShiftMax: 0
+    curPoolIteration: 0
+    audioSourcePool: []
 --- !u!1 &4756879571803933110
 GameObject:
   m_ObjectHideFlags: 0
@@ -203,7 +232,13 @@ PrefabInstance:
         type: 3}
       propertyPath: m_audioClip
       value: 
-      objectReference: {fileID: 8300000, guid: ff80ecef05c6a0e42bd8ec2c23502e96, type: 3}
+      objectReference: {fileID: 8300000, guid: 5897d546cde5bd041851add933ce7a73, type: 3}
+    - target: {fileID: 1388270348251091530, guid: 2cc2698f828e41b41886d3eb6aecd52b,
+        type: 3}
+      propertyPath: OutputAudioMixerGroup
+      value: 
+      objectReference: {fileID: -1765838596785076601, guid: 53b70d30c87c52d489a54a31ce181114,
+        type: 2}
     - target: {fileID: 1388270348251091531, guid: 2cc2698f828e41b41886d3eb6aecd52b,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -289,7 +324,13 @@ PrefabInstance:
         type: 3}
       propertyPath: m_audioClip
       value: 
-      objectReference: {fileID: 8300000, guid: c834453ae916cff439d84ff1e3a1b031, type: 3}
+      objectReference: {fileID: 8300000, guid: d480a5376803e874ca468243b55c2d3d, type: 3}
+    - target: {fileID: 1388270348251091530, guid: 2cc2698f828e41b41886d3eb6aecd52b,
+        type: 3}
+      propertyPath: OutputAudioMixerGroup
+      value: 
+      objectReference: {fileID: -1765838596785076601, guid: 53b70d30c87c52d489a54a31ce181114,
+        type: 2}
     - target: {fileID: 1388270348251091531, guid: 2cc2698f828e41b41886d3eb6aecd52b,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -375,7 +416,13 @@ PrefabInstance:
         type: 3}
       propertyPath: m_audioClip
       value: 
-      objectReference: {fileID: 8300000, guid: ef59c00b66f504a4ca6ffd8f6deba96a, type: 3}
+      objectReference: {fileID: 8300000, guid: 6f0969d3c5400d445865edf6e21c579c, type: 3}
+    - target: {fileID: 1388270348251091530, guid: 2cc2698f828e41b41886d3eb6aecd52b,
+        type: 3}
+      propertyPath: OutputAudioMixerGroup
+      value: 
+      objectReference: {fileID: -8787827183966225327, guid: 53b70d30c87c52d489a54a31ce181114,
+        type: 2}
     - target: {fileID: 1388270348251091531, guid: 2cc2698f828e41b41886d3eb6aecd52b,
         type: 3}
       propertyPath: m_LocalPosition.x

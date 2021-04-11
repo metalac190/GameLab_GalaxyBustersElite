@@ -20,6 +20,8 @@ public class Blaster : WeaponBase
 	[Header("Overload Settings")]
 	[SerializeField] float fireRateMultiplier = 2f;
 
+	public UnityEvent OnOverloadFire;
+
 	private void OnEnable()
 	{
 		overloaded = false;
@@ -69,7 +71,8 @@ public class Blaster : WeaponBase
 				GameObject bulletObj = PoolUtility.InstantiateFromPool(projectilePool, point.position, point.rotation * randAng, projectile);
 			}
 
-			OnStandardFire.Invoke();
+			if (overloaded) OnOverloadFire?.Invoke();
+			else OnStandardFire?.Invoke();
 		}
 	}
 
