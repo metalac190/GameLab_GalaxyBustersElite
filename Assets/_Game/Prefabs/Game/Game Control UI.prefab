@@ -349,6 +349,11 @@ PrefabInstance:
       propertyPath: m_RootOrder
       value: 4
       objectReference: {fileID: 0}
+    - target: {fileID: 4865912321249519340, guid: a35406de9ade6c0429a5d786d6f7b89b,
+        type: 3}
+      propertyPath: m_RootOrder
+      value: 7
+      objectReference: {fileID: 0}
     - target: {fileID: 5166400100235387292, guid: a35406de9ade6c0429a5d786d6f7b89b,
         type: 3}
       propertyPath: m_RootOrder
@@ -427,6 +432,16 @@ PrefabInstance:
     - target: {fileID: 6876703638060375276, guid: a35406de9ade6c0429a5d786d6f7b89b,
         type: 3}
       propertyPath: m_textInfo.pageCount
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 7261298864861495482, guid: a35406de9ade6c0429a5d786d6f7b89b,
+        type: 3}
+      propertyPath: m_textInfo.characterCount
+      value: 5
+      objectReference: {fileID: 0}
+    - target: {fileID: 7261298864861495482, guid: a35406de9ade6c0429a5d786d6f7b89b,
+        type: 3}
+      propertyPath: m_textInfo.spaceCount
       value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
@@ -554,6 +569,65 @@ PrefabInstance:
       propertyPath: m_Pivot.y
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 1283210542013712061, guid: 5a0c6f3f348bd324ab0af46037f477d5,
+        type: 3}
+      propertyPath: FirstRammer.Array.size
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 1283210542013712061, guid: 5a0c6f3f348bd324ab0af46037f477d5,
+        type: 3}
+      propertyPath: FirstRammer.Array.data[0].sentences.Array.size
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 1283210542013712061, guid: 5a0c6f3f348bd324ab0af46037f477d5,
+        type: 3}
+      propertyPath: FirstMinion.Array.size
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 1283210542013712061, guid: 5a0c6f3f348bd324ab0af46037f477d5,
+        type: 3}
+      propertyPath: FirstMinion.Array.data[0].sentences.Array.size
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 1283210542013712061, guid: 5a0c6f3f348bd324ab0af46037f477d5,
+        type: 3}
+      propertyPath: FirstRammer.Array.data[0].npcName
+      value: Commander Twilight
+      objectReference: {fileID: 0}
+    - target: {fileID: 1283210542013712061, guid: 5a0c6f3f348bd324ab0af46037f477d5,
+        type: 3}
+      propertyPath: FirstRammer.Array.data[0].sentences.Array.data[0]
+      value: "\u201CBe careful with that rammer there. It\u2019s laden with explosives.
+        Don\u2019t let it hit you.\u201D"
+      objectReference: {fileID: 0}
+    - target: {fileID: 1283210542013712061, guid: 5a0c6f3f348bd324ab0af46037f477d5,
+        type: 3}
+      propertyPath: FirstMinion.Array.data[0].npcName
+      value: Piledrive
+      objectReference: {fileID: 0}
+    - target: {fileID: 1283210542013712061, guid: 5a0c6f3f348bd324ab0af46037f477d5,
+        type: 3}
+      propertyPath: FirstMinion.Array.data[0].sentences.Array.data[0]
+      value: "\"Fair warning Pilot, those Minions there seem to only fire periodically.\"\r"
+      objectReference: {fileID: 0}
+    - target: {fileID: 1283210542013712061, guid: 5a0c6f3f348bd324ab0af46037f477d5,
+        type: 3}
+      propertyPath: StartOfL1Dialogue.Array.data[4].sentences.Array.data[1]
+      value: "Move around the flight path using the keys labeled \u201CW\u201D, \u201CA\u201D,
+        \u201CS\u201D, and \u201CD\u201D."
+      objectReference: {fileID: 0}
+    - target: {fileID: 1283210542013712061, guid: 5a0c6f3f348bd324ab0af46037f477d5,
+        type: 3}
+      propertyPath: StartOfL1Dialogue.Array.data[4].sentences.Array.data[2]
+      value: Very good. Now, use your left mouse button to shoot.
+      objectReference: {fileID: 0}
+    - target: {fileID: 1283210542013712061, guid: 5a0c6f3f348bd324ab0af46037f477d5,
+        type: 3}
+      propertyPath: StartOfL1Dialogue.Array.data[4].sentences.Array.data[3]
+      value: "Well done. There\u2019s a bar that will measure a charge to use an
+        overcharge shot. You can use the right mouse button to fire an overcharged
+        shot once it\u2019s full."
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 5a0c6f3f348bd324ab0af46037f477d5, type: 3}
 --- !u!224 &4909553653822021230 stripped
@@ -622,7 +696,7 @@ PrefabInstance:
     - target: {fileID: 7468496645113597904, guid: 5d12ff47e641bed4b890b3c628b43c0d,
         type: 3}
       propertyPath: m_AnchoredPosition.x
-      value: -546
+      value: -446
       objectReference: {fileID: 0}
     - target: {fileID: 7468496645113597904, guid: 5d12ff47e641bed4b890b3c628b43c0d,
         type: 3}
@@ -642,7 +716,7 @@ PrefabInstance:
     - target: {fileID: 8583103315849283575, guid: 5d12ff47e641bed4b890b3c628b43c0d,
         type: 3}
       propertyPath: m_AnchoredPosition.x
-      value: -446
+      value: -396
       objectReference: {fileID: 0}
     - target: {fileID: 8583103315849283575, guid: 5d12ff47e641bed4b890b3c628b43c0d,
         type: 3}
@@ -652,7 +726,7 @@ PrefabInstance:
     - target: {fileID: 8583103315851598071, guid: 5d12ff47e641bed4b890b3c628b43c0d,
         type: 3}
       propertyPath: m_AnchoredPosition.x
-      value: -246
+      value: -196
       objectReference: {fileID: 0}
     - target: {fileID: 8583103315851598071, guid: 5d12ff47e641bed4b890b3c628b43c0d,
         type: 3}
@@ -677,7 +751,7 @@ PrefabInstance:
     - target: {fileID: 8583103316548568322, guid: 5d12ff47e641bed4b890b3c628b43c0d,
         type: 3}
       propertyPath: m_AnchoredPosition.x
-      value: -346
+      value: -296
       objectReference: {fileID: 0}
     - target: {fileID: 8583103316548568322, guid: 5d12ff47e641bed4b890b3c628b43c0d,
         type: 3}
@@ -687,7 +761,7 @@ PrefabInstance:
     - target: {fileID: 8583103316596540475, guid: 5d12ff47e641bed4b890b3c628b43c0d,
         type: 3}
       propertyPath: m_AnchoredPosition.x
-      value: -396
+      value: -346
       objectReference: {fileID: 0}
     - target: {fileID: 8583103316596540475, guid: 5d12ff47e641bed4b890b3c628b43c0d,
         type: 3}
@@ -697,7 +771,7 @@ PrefabInstance:
     - target: {fileID: 8583103316650732753, guid: 5d12ff47e641bed4b890b3c628b43c0d,
         type: 3}
       propertyPath: m_AnchoredPosition.x
-      value: -296
+      value: -246
       objectReference: {fileID: 0}
     - target: {fileID: 8583103316650732753, guid: 5d12ff47e641bed4b890b3c628b43c0d,
         type: 3}

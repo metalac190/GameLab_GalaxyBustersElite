@@ -23,11 +23,13 @@ public class PlayerController : MonoBehaviour
 	[SerializeField] UnityEvent OnHit;
 	public UnityEvent OnDeath;
 	bool firstWeaponObtained = false;
-	[SerializeField] UnityEvent OnPickedUpWeapon;
+	[SerializeField] UnityEvent OnWeaponChanged;
 	[SerializeField] float playerHealthLowThreshold = 1;
 	float lastFramePlayerHealth;
 	[SerializeField] UnityEvent OnHealthStartedBeingLow;
 	[SerializeField] UnityEvent OnHealthStoppedBeingLow;
+	[SerializeField] UnityEvent OnHealthIncreased;
+	[SerializeField] UnityEvent OnOverloadChargeIncreased;
 
 
     private void Awake() {
@@ -96,11 +98,15 @@ public class PlayerController : MonoBehaviour
 	public void HealPlayer(float amount)
 	{
 		playerHealth += amount;
+
+		OnHealthIncreased.Invoke();
 	}
 
 	public void IncreaseOverload(float amount)
 	{
 		overloadCharge += amount;
+
+		OnOverloadChargeIncreased.Invoke();
 	}
 
 	public void SetOverload(float amount)
@@ -149,7 +155,7 @@ public class PlayerController : MonoBehaviour
 		}
 
 		if (firstWeaponObtained) // Won't play sound at start of scene
-			OnPickedUpWeapon.Invoke();
+			OnWeaponChanged.Invoke();
 		else
 			firstWeaponObtained = true;
 	}
