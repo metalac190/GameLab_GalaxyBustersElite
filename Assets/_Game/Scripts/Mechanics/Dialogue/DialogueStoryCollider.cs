@@ -14,7 +14,8 @@ public class DialogueStoryCollider : MonoBehaviour
     public bool LaserPickup = false;
     public bool FirstBandit = false;
     public bool FirstSpearhead = false;
-    public bool FirstDrone = false;
+    public bool FirstRammer = false;
+    public bool FirstMinion = false;
 
     [Header("Level 2 Story Dialogue")]
     public bool StartOfL2Dialogue = false;
@@ -69,9 +70,13 @@ public class DialogueStoryCollider : MonoBehaviour
             {
                 DialogueTrigger.TriggerFirstSpearheadDialogue();
             }
-            else if (FirstDrone == true)
+            else if (FirstRammer == true)
             {
-                DialogueTrigger.TriggerFirstDroneDialogue();
+                DialogueTrigger.TriggerFirstRammerDialogue();
+            }
+            else if (FirstMinion == true)
+            {
+                DialogueTrigger.TriggerFirstMinionDialogue();
             }
             //L2 Level Story Dialogue
             else if (StartOfL2Dialogue == true)         
