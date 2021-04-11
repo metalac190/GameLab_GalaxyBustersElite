@@ -73,9 +73,6 @@ public abstract class EnemyBase : EntityBase
 
     public virtual void Dead()
     {
-        if (givesPlayerMS)
-            camRailManager.IncreaseCamRailSpeed();
-
         transform.parent.gameObject.SetActive(false);
     }
 
@@ -93,6 +90,8 @@ public abstract class EnemyBase : EntityBase
 				ScoreSystem.IncreaseCombo();
 				ScoreSystem.IncreaseScore(id, enemyScore);
 				ScoreSystem.DestroyedEnemyType(id);
+                if (givesPlayerMS)
+                    camRailManager.IncreaseCamRailSpeed();
 				//disable or destroy as needed?
 			}
 			else
