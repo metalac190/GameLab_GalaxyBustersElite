@@ -49,13 +49,14 @@ public class HUDManager : MonoBehaviour
     void Update()
     {
         //update score
-        
+        /* now handled by seperate script
         if (referencedGM != null)
         {
             hudScore = ScoreSystem.GetScore();
 			hudScoreText.text = hudScore.ToString("00000");
 			hudMultiplierText.text = hudScore.ToString("(x" + ScoreSystem.GetComboMultiplier() + ")");
 		}
+        */
         if (referencedPlayer != null)
         {
             playerHealth = referencedPlayer.GetComponent<PlayerController>().GetPlayerHealth();
