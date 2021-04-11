@@ -5,7 +5,7 @@ using UnityEngine;
 public class Challenges : MonoBehaviour
 {
 
-	[SerializeField] Challenge[] challenges = new Challenge[3];
+	[SerializeField] ChallengeBase[] challenges = new ChallengeBase[3];
 
 	private void OnEnable()
 	{

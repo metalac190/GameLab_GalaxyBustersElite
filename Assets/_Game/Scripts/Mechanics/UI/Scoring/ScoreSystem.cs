@@ -32,7 +32,7 @@ public class ScoreSystem : MonoBehaviour
 	{
 		GameManager.gm.score += (amount * comboMultiplier);
 
-		if( GameManager.player.controller.GetOverloadCharge() <= 100 && !GameManager.player.controller.IsPlayerOverloaded())
+		if (!GameManager.player.controller.IsPlayerOverloaded())
 			GameManager.player.controller.IncreaseOverload(amount * scoreToOverchargeMultiplier);
 
 		Debug.Log("<color=yellow>" + (amount * comboMultiplier) + " Points!</color>");
@@ -42,7 +42,7 @@ public class ScoreSystem : MonoBehaviour
 	{
 		GameManager.gm.score += amount;
 
-		if (GameManager.player.controller.GetOverloadCharge() <= 100 && !GameManager.player.controller.IsPlayerOverloaded())
+		if (!GameManager.player.controller.IsPlayerOverloaded())
 			GameManager.player.controller.IncreaseOverload(amount * scoreToOverchargeMultiplier);
 
 		Debug.Log("<color=yellow>" + amount + " Points!</color>");

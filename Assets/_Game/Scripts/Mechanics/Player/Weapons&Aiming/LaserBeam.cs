@@ -99,7 +99,6 @@ public class LaserBeam : WeaponBase
 				tickDamage = nextDamage >= damageCap ? damageCap : nextDamage;
 				projectile.GetComponent<Beam>().SetTarget(target.gameObject);
 				target.GetComponent<EntityBase>().TakeDamage(tickDamage);
-				Debug.Log(tickDamage);
 				numTicks++;
 				OnStandardFire.Invoke();
 			}			
