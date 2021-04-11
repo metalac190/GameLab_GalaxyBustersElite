@@ -15,7 +15,8 @@ public class DialogueList : MonoBehaviour
     public Dialogue[] LaserPickup;
     public Dialogue[] FirstBandit;
     public Dialogue[] FirstSpearhead;
-    public Dialogue[] FirstDrone;
+    public Dialogue[] FirstRammer;
+    public Dialogue[] FirstMinion;
 
 
     [Header("Level 2 Story Dialogue")]
