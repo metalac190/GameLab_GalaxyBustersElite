@@ -15,7 +15,7 @@ GameObject:
   - component: {fileID: 6687059759519189848}
   - component: {fileID: 2173345135365078970}
   m_Layer: 12
-  m_Name: Enemy_Projectile
+  m_Name: Enemy_Bandit_Projectile
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -32,7 +32,7 @@ Transform:
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 0.2, y: 0.2, z: 0.6}
   m_Children:
-  - {fileID: 2622100959995643678}
+  - {fileID: 1508678222521721139}
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -128,7 +128,7 @@ Rigidbody:
   m_Interpolate: 0
   m_Constraints: 0
   m_CollisionDetection: 0
---- !u!1001 &3636746918922537615
+--- !u!1001 &212837114291285154
 PrefabInstance:
   m_ObjectHideFlags: 0
   serializedVersion: 2
@@ -190,21 +190,16 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: 2206486789294020257, guid: f852699c02803a14b98d50c399a9b8c3,
-        type: 3}
-      propertyPath: allParticles.Array.data[0].label
-      value: 0. Trailing Particles
-      objectReference: {fileID: 0}
     - target: {fileID: 9195925741173961685, guid: f852699c02803a14b98d50c399a9b8c3,
         type: 3}
       propertyPath: m_Name
-      value: Enemy_Projectile's Particles Player
+      value: Enemy_Bandit_Projectile's Particles Player
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: f852699c02803a14b98d50c399a9b8c3, type: 3}
---- !u!4 &2622100959995643678 stripped
+--- !u!4 &1508678222521721139 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 1593078977845497233, guid: f852699c02803a14b98d50c399a9b8c3,
     type: 3}
-  m_PrefabInstance: {fileID: 3636746918922537615}
+  m_PrefabInstance: {fileID: 212837114291285154}
   m_PrefabAsset: {fileID: 0}
