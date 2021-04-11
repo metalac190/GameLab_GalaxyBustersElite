@@ -13,6 +13,7 @@ public class GameManager : MonoBehaviour {
     public GameState currentState;
     [Range(1, 3)] public int unlockedLevel = 1;
     [Range(1, 3)] public int currentLevel = 1;
+    public static bool devMode = false;
 
     [Header("Pause Control")]
     [SerializeField] private GameObject pauseMenu;
@@ -46,6 +47,7 @@ public class GameManager : MonoBehaviour {
 	}
     [Header("UI Reference")]
     public GameObject HUD;
+
     // ----------------------------------------------------------------------------------------------------
 
     #region Variables

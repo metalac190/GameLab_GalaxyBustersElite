@@ -35,29 +35,14 @@ public class BossSegmentController : EntityBase
 
     public override void TakeDamage(float damage)
     {
-        if (!_bossRef.isReady)
+        if (_bossRef.isInvulnerable)
         {
             _bossRef.InvulnerableHit.Invoke();
             return;
         }
-            
-
-        _currentHealth -= damage;
-
-        if (_currentHealth <= 0)
-        {
-            Died.Invoke();
-
-            //SetActive False by default. Override to implement other behavior
-            Debug.Log(gameObject.name + " has died");
-            gameObject.SetActive(false);
-        }
         else
         {
-            Damaged.Invoke();
-
-            Debug.Log(gameObject.name + " has taken damage" +
-                "\nNew Health: " + Health);
+            base.TakeDamage(damage);
         }
     }
 

@@ -105,8 +105,109 @@ public class DialogueTrigger : MonoBehaviour
             Debug.Log("No DialogueListManager or Dialogue Manager in scene.");
         }
     }
+    static public void TriggerEnergyWavePickupDialogue()
+    {
+        if (FindObjectOfType<DialogueList>() && FindObjectOfType<DialogueManager>())
+        {
+            DialogueList dialogueListInfo = FindObjectOfType<DialogueList>();
+            if (dialogueListInfo.EnergyWavePickup != null)
+            {
+                //StartCoroutine(FindObjectOfType<DialogueManager>().StartDialogueArray(dialogueListInfo.StartOfL1Dialogue));
+                FindObjectOfType<DialogueManager>().startDialogueArrayFunction(dialogueListInfo.EnergyWavePickup);
+            }
+            else
+            {
+                Debug.Log("DialogueListManager's EnergyWavePickup is empty.");
+            }
 
-        //level 2
+        }
+        else
+        {
+            Debug.Log("No DialogueListManager or Dialogue Manager in scene.");
+        }
+    }
+    static public void TriggerLaserPickupDialogue()
+    {
+        if (FindObjectOfType<DialogueList>() && FindObjectOfType<DialogueManager>())
+        {
+            DialogueList dialogueListInfo = FindObjectOfType<DialogueList>();
+            if (dialogueListInfo.LaserPickup != null)
+            {
+                FindObjectOfType<DialogueManager>().startDialogueArrayFunction(dialogueListInfo.LaserPickup);
+            }
+            else
+            {
+                Debug.Log("DialogueListManager's LaserPickup is empty.");
+            }
+
+        }
+        else
+        {
+            Debug.Log("No DialogueListManager or Dialogue Manager in scene.");
+        }
+    }
+    static public void TriggerFirstBanditDialogue()
+    {
+        if (FindObjectOfType<DialogueList>() && FindObjectOfType<DialogueManager>())
+        {
+            DialogueList dialogueListInfo = FindObjectOfType<DialogueList>();
+            if (dialogueListInfo.FirstBandit != null)
+            {
+                FindObjectOfType<DialogueManager>().startDialogueArrayFunction(dialogueListInfo.FirstBandit);
+            }
+            else
+            {
+                Debug.Log("DialogueListManager's FirstBandit is empty.");
+            }
+
+        }
+        else
+        {
+            Debug.Log("No DialogueListManager or Dialogue Manager in scene.");
+        }
+    }
+    static public void TriggerFirstSpearheadDialogue()
+    {
+        if (FindObjectOfType<DialogueList>() && FindObjectOfType<DialogueManager>())
+        {
+            DialogueList dialogueListInfo = FindObjectOfType<DialogueList>();
+            if (dialogueListInfo.FirstSpearhead != null)
+            {
+                FindObjectOfType<DialogueManager>().startDialogueArrayFunction(dialogueListInfo.FirstSpearhead);
+            }
+            else
+            {
+                Debug.Log("DialogueListManager's FirstSpearhead is empty.");
+            }
+
+        }
+        else
+        {
+            Debug.Log("No DialogueListManager or Dialogue Manager in scene.");
+        }
+    }
+    static public void TriggerFirstDroneDialogue()
+    {
+        if (FindObjectOfType<DialogueList>() && FindObjectOfType<DialogueManager>())
+        {
+            DialogueList dialogueListInfo = FindObjectOfType<DialogueList>();
+            if (dialogueListInfo.FirstDrone != null)
+            {
+                FindObjectOfType<DialogueManager>().startDialogueArrayFunction(dialogueListInfo.FirstDrone);
+            }
+            else
+            {
+                Debug.Log("DialogueListManager's FirstDrone is empty.");
+            }
+
+        }
+        else
+        {
+            Debug.Log("No DialogueListManager or Dialogue Manager in scene.");
+        }
+    }
+
+    //level 2
     static public void TriggerL2StartDialogue()
     {
         if (FindObjectOfType<DialogueList>() && FindObjectOfType<DialogueManager>())
@@ -170,8 +271,108 @@ public class DialogueTrigger : MonoBehaviour
             Debug.Log("No DialogueListManager or Dialogue Manager in scene.");
         }
     }
+    static public void TriggerCrazyEnvironmentDialogue()
+    {
+        if (FindObjectOfType<DialogueList>() && FindObjectOfType<DialogueManager>())
+        {
+            DialogueList dialogueListInfo = FindObjectOfType<DialogueList>();
+            if (dialogueListInfo.CrazyEnvironment != null)
+            {
+                FindObjectOfType<DialogueManager>().startDialogueArrayFunction(dialogueListInfo.CrazyEnvironment);
+            }
+            else
+            {
+                Debug.Log("DialogueListManager's CrazyEnvironment is empty.");
+            }
 
-        //level 3
+        }
+        else
+        {
+            Debug.Log("No DialogueListManager or Dialogue Manager in scene.");
+        }
+    }
+    static public void TriggerGiantFormationDialogue()
+    {
+        if (FindObjectOfType<DialogueList>() && FindObjectOfType<DialogueManager>())
+        {
+            DialogueList dialogueListInfo = FindObjectOfType<DialogueList>();
+            if (dialogueListInfo.GiantFormation != null)
+            {
+                FindObjectOfType<DialogueManager>().startDialogueArrayFunction(dialogueListInfo.GiantFormation);
+            }
+            else
+            {
+                Debug.Log("DialogueListManager's GiantFormation is empty.");
+            }
+
+        }
+        else
+        {
+            Debug.Log("No DialogueListManager or Dialogue Manager in scene.");
+        }
+    }
+    static public void TriggerMinefieldSightingDialogue()
+    {
+        if (FindObjectOfType<DialogueList>() && FindObjectOfType<DialogueManager>())
+        {
+            DialogueList dialogueListInfo = FindObjectOfType<DialogueList>();
+            if (dialogueListInfo.MinefieldSighting != null)
+            {
+                FindObjectOfType<DialogueManager>().startDialogueArrayFunction(dialogueListInfo.MinefieldSighting);
+            }
+            else
+            {
+                Debug.Log("DialogueListManager's MinefieldSighting is empty.");
+            }
+
+        }
+        else
+        {
+            Debug.Log("No DialogueListManager or Dialogue Manager in scene.");
+        }
+    }
+    static public void TriggerCubeSightingDialogue()
+    {
+        if (FindObjectOfType<DialogueList>() && FindObjectOfType<DialogueManager>())
+        {
+            DialogueList dialogueListInfo = FindObjectOfType<DialogueList>();
+            if (dialogueListInfo.CubeSighting != null)
+            {
+                FindObjectOfType<DialogueManager>().startDialogueArrayFunction(dialogueListInfo.CubeSighting);
+            }
+            else
+            {
+                Debug.Log("DialogueListManager's CubeSighting is empty.");
+            }
+
+        }
+        else
+        {
+            Debug.Log("No DialogueListManager or Dialogue Manager in scene.");
+        }
+    }
+    //level 3
+    static public void TriggerL3StartDialogue()
+    {
+        if (FindObjectOfType<DialogueList>() && FindObjectOfType<DialogueManager>())
+        {
+            DialogueList dialogueListInfo = FindObjectOfType<DialogueList>();
+            if (dialogueListInfo.StartOfL3Dialogue != null)
+            {
+                //StartCoroutine(FindObjectOfType<DialogueManager>().StartDialogueArray(dialogueListInfo.StartOfL1Dialogue));
+                FindObjectOfType<DialogueManager>().startDialogueArrayFunction(dialogueListInfo.StartOfL3Dialogue);
+            }
+            else
+            {
+                Debug.Log("DialogueListManager's StartOfL3Dialogue is empty.");
+            }
+
+        }
+        else
+        {
+            Debug.Log("No DialogueListManager or Dialogue Manager in scene.");
+        }
+    }
     static public void TriggerZenoxRevealDialogue()
     {
         if (FindObjectOfType<DialogueList>() && FindObjectOfType<DialogueManager>())
@@ -185,6 +386,26 @@ public class DialogueTrigger : MonoBehaviour
             else
             {
                 Debug.Log("DialogueListManager's ZenoxRevealDialogue is empty.");
+            }
+
+        }
+        else
+        {
+            Debug.Log("No DialogueListManager or Dialogue Manager in scene.");
+        }
+    }
+    static public void TriggerZenoxHalfHealthDialogue()
+    {
+        if (FindObjectOfType<DialogueList>() && FindObjectOfType<DialogueManager>())
+        {
+            DialogueList dialogueListInfo = FindObjectOfType<DialogueList>();
+            if (dialogueListInfo.ZenoxHalfHealthDialogue != null)
+            {
+                FindObjectOfType<DialogueManager>().startDialogueArrayFunction(dialogueListInfo.ZenoxHalfHealthDialogue);
+            }
+            else
+            {
+                Debug.Log("DialogueListManager's ZenoxHalfHealthDialogue is empty.");
             }
 
         }
@@ -258,6 +479,30 @@ public class DialogueTrigger : MonoBehaviour
             {
                 Debug.Log("DialogueListManager's Enemy Defeated Dialogue List is empty.");
             }
+            }
+        }
+        else
+        {
+            Debug.Log("No DialogueListManager or Dialogue Manager in scene.");
+        }
+    }
+    static public void TriggerZenoxFillerDialogue()
+    {
+        if (FindObjectOfType<DialogueList>() && FindObjectOfType<DialogueManager>())
+        {
+            int randomChance = Random.Range(1, 8); ///1 in 7 chance 14 percent chance
+            if (randomChance == 1)
+            {
+                DialogueList dialogueListInfo = FindObjectOfType<DialogueList>();
+                if (dialogueListInfo.ZenoxFillerDialogue != null)
+                {
+                    int randomDialogue = Random.Range(0, dialogueListInfo.ZenoxFillerDialogue.Length);
+                    FindObjectOfType<DialogueManager>().StartDialogue(dialogueListInfo.ZenoxFillerDialogue[randomDialogue]);
+                }
+                else
+                {
+                    Debug.Log("DialogueListManager's ZenoxFillerDialogue List is empty.");
+                }
             }
         }
         else
