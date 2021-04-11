@@ -23,7 +23,6 @@ public class ScoreSystem : MonoBehaviour
 	public static int destroyedMinion = 0;
 	public static int destroyedRammer = 0;
 	public static int destroyedSpearhead = 0;
-	public static int destroyedTank = 0;
 
 	// Challenges script
 	public static Challenges challenges;
@@ -55,15 +54,18 @@ public class ScoreSystem : MonoBehaviour
 		onScoreIncreased?.Invoke(source, amount);
 	}
 
-	public static void IncreaseScoreFlat(int amount)
+	public static void IncreaseScoreFlat(string source, int amount)
 	{
 		GameManager.gm.score += amount;
+
 		Debug.Log("<color=yellow>" + amount + " Points!</color>");
+		onScoreIncreased?.Invoke(source, amount);
 	}
 
 	public static void ScorePickup(int amount)
 	{
 		GameManager.gm.score += amount;
+
 		Debug.Log("<color=yellow>" + amount + " Points!</color>");
 		onScoreIncreased?.Invoke("", amount);
 	}
@@ -113,38 +115,33 @@ public class ScoreSystem : MonoBehaviour
 		IncreaseScore("NearMiss", nearMissScore);
 	}
 
-	public static void DestroyedEnemyType(string type)
+	public static void DestroyedEnemyType(EnemyTypes type)
 	{
 		switch (type)
 		{
-			case "Bandit":
+			case EnemyTypes.Bandit:
 				destroyedTotal++;
 				destroyedBandit++;
 				break;
 
-			case "Drone":
+			case EnemyTypes.Drone:
 				destroyedTotal++;
 				destroyedDrone++;
 				break;
 
-			case "Minion":
+			case EnemyTypes.Minion:
 				destroyedTotal++;
 				destroyedMinion++;
 				break;
 
-			case "Rammer":
+			case EnemyTypes.Rammer:
 				destroyedTotal++;
 				destroyedRammer++;
 				break;
 
-			case "Spearhead":
+			case EnemyTypes.Spearhead:
 				destroyedTotal++;
 				destroyedSpearhead++;
-				break;
-
-			case "Tank":
-				destroyedTotal++;
-				destroyedTank++;
 				break;
 		}
 	}

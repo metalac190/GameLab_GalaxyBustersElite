@@ -14,7 +14,7 @@ public class ChallengeBase : MonoBehaviour
 		if (!challengeFailed)
 		{
 			Debug.Log("<color=green>" + gameObject.name + " Completed!</color>");
-			ScoreSystem.IncreaseScoreFlat(scoreValue);
+			ScoreSystem.IncreaseScoreFlat("Challenge", scoreValue);
 			challengeCompleted = true;
 		}
 	}
