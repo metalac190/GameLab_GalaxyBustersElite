@@ -152,6 +152,7 @@ GameObject:
   - component: {fileID: 617434267887059737}
   - component: {fileID: 2065207819672571435}
   - component: {fileID: 6463819016718391435}
+  - component: {fileID: 8077919533737496915}
   m_Layer: 0
   m_Name: Laser Beam
   m_TagString: Untagged
@@ -220,7 +221,18 @@ MonoBehaviour:
   overloadTime: 2.5
   OnStandardFire:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 8077919533737496915}
+        m_MethodName: TriggerShake
+        m_Mode: 3
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 1
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
   OnOverloadActivated:
     m_PersistentCalls:
       m_Calls: []
@@ -231,6 +243,39 @@ MonoBehaviour:
     m_PersistentCalls:
       m_Calls: []
   laserActive: 0
+  OnOverloadFired:
+    m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 8077919533737496915}
+        m_MethodName: TriggerShake
+        m_Mode: 3
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+--- !u!114 &8077919533737496915
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 617434269015297114}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 470c8d69afb310f43b6a89901bf44042, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  shakeInfos:
+  - shakeAmount: 1
+    decay: 0.95
+    range: 0.5
+  - shakeAmount: 0.1
+    decay: 0.9
+    range: 0.5
 --- !u!1 &1603112638881244586
 GameObject:
   m_ObjectHideFlags: 0

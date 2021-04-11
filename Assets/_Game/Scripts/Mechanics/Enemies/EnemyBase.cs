@@ -91,7 +91,7 @@ public abstract class EnemyBase : EntityBase
 				Died.Invoke();
 				Dead();
 				ScoreSystem.IncreaseCombo();
-				ScoreSystem.IncreaseScore(enemyScore);
+				ScoreSystem.IncreaseScore(id, enemyScore);
 				ScoreSystem.DestroyedEnemyType(id);
 				//disable or destroy as needed?
 			}
