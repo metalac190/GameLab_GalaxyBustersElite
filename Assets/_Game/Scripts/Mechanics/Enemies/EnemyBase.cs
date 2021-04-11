@@ -112,6 +112,14 @@ public abstract class EnemyBase : EntityBase
                 {
                     animator.SetTrigger("DamageTaken");
                 }
+                else if (GetComponent<EnemySpearhead>())
+                {
+                    animator.SetTrigger("DamageTaken");
+                }
+                else if (GetComponent<EnemyBandit>())
+                {
+                    animator.SetTrigger("DamageTaken");
+                }
 
                 Damaged.Invoke();
 				//set up FX + AnimationController from Inspector, using Event

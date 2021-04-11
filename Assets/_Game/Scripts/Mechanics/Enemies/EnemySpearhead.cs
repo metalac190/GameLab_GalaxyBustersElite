@@ -34,6 +34,8 @@ public class EnemySpearhead : EnemyBase
     {
         if (Vector3.Distance(transform.position, GameManager.player.obj.transform.position) < EnemyDetectionRadius)
         {
+            animator.SetBool("InPlayerRange", true);
+
             transform.LookAt(GameManager.player.obj.transform.position);
 
             currentState = EnemyState.Attacking;
@@ -59,6 +61,7 @@ public class EnemySpearhead : EnemyBase
                 }
                 else if (chargeTimer != 0 && Vector3.Distance(transform.position, GameManager.player.obj.transform.position) < EnemyDetectionRadius)
                 {
+                    animator.SetTrigger("DamageTaken");
                     chargeTimer -= Time.deltaTime;
                 }
             }
