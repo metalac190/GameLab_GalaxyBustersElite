@@ -34,6 +34,8 @@ public class EnemyBandit : EnemyBase
         //player in range
         if (Vector3.Distance(transform.position, GameManager.player.obj.transform.position) < EnemyDetectionRadius)
         {
+            animator.SetBool("InPlayerRange", true);
+
             //constantly looks to player's position, doing it here to make it less choppy
             transform.LookAt(GameManager.player.obj.transform.position);
 
@@ -42,6 +44,8 @@ public class EnemyBandit : EnemyBase
                 //attack cooldown
                 if (burstTimer <= 0)
                 {
+                    animator.SetTrigger("IsFiring");
+
                     //fire projectile
                     GameObject tempBullet = PoolUtility.InstantiateFromPool(_bulletPool, _spawnPoint, bulletPrefab);
                     EnemyProjectile tempProjectile = tempBullet.GetComponent<EnemyProjectile>();
