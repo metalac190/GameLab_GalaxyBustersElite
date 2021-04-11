@@ -29,13 +29,10 @@ public class BossController : EntityBase
 
     [Tooltip("Time in Seconds to wait during Idle state.")]
     [SerializeField] private float _idleTime = 2f;
-    [Tooltip("Placeholder.\nAmount of time in Seconds per attack.\nDependant on type of attack chosen.")]
-    [SerializeField] private float _attackAnimTime = 2f;
-    [Tooltip("Delay between successive attacks\nEg. Bloodied Missiles rapid fire")]
+    [Tooltip("Delay between successive attacks\nEg. Missiles rapid fire")]
     [SerializeField] private float _delaySeconds = 0.2f;
     [Tooltip("Time in Seconds for Laser animation to Warm Up\nBefore dealing damage.")]
     [SerializeField] private float _laserWarmUpTime = 2f;
-    private Vector3 _laserEndPoint = Vector3.zero;
     private List<float> attackAnimTimes = new List<float>();
 
     [Header("Attack Settings")]
@@ -76,6 +73,7 @@ public class BossController : EntityBase
 
     [Tooltip("Tracks and Damages player during Laser Attack")]
     [SerializeField] private GameObject _laserTracker = null;
+    private Vector3 _laserEndPoint = Vector3.zero;
 
     [Tooltip("Parent Transform for Collision + Art")]
     [SerializeField] private GameObject _bossRoot = null;
@@ -83,6 +81,7 @@ public class BossController : EntityBase
     [Tooltip("Animator Controller for Boss Animations")]
     [SerializeField] private Animator _bossAnim = null;
 
+    [HideInInspector]
     public bool isInvulnerable = false;
     private bool _segmentsAlive = true;
     private Coroutine _BossBehavior = null;
@@ -396,7 +395,6 @@ public class BossController : EntityBase
         //Dependant on Bloodied state
         if (_segmentsAlive)
         {
-            
             foreach(BossSegmentController segment in _segmentRefs)
             {
                 if (segment.isActiveAndEnabled)
