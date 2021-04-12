@@ -115,7 +115,7 @@ MonoBehaviour:
   currentState: 0
   id: Drone
   attackDamage: 15
-  enemyDetectionRadius: 0
+  enemyDetectionRadius: 20
   enemyScore: 100
   givesPlayerMS: 1
 --- !u!114 &1796994892
@@ -133,6 +133,7 @@ MonoBehaviour:
   waypoints: []
   moveSpeed: 2
   followPath: 0
+  followPathInverse: 0
   followPathSpeed: 0
   OnFinalWaypoint:
     m_PersistentCalls:
@@ -252,8 +253,9 @@ MonoBehaviour:
     dropChance: 0
   _healAmount: 1
   _overchargeRef:
-    prefabReference: {fileID: 0}
-    dropChance: 0
+    prefabReference: {fileID: 5240054451046245164, guid: 45113c912639ce046b0e158ec171497d,
+      type: 3}
+    dropChance: 5
   _overloadAmount: 10
 --- !u!1001 &1005099110324028449
 PrefabInstance:

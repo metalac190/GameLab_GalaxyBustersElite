@@ -201,12 +201,15 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _weaponsRefs:
-  - prefabReference: {fileID: 0}
-    dropChance: 0
-  - prefabReference: {fileID: 0}
-    dropChance: 0
-  - prefabReference: {fileID: 0}
-    dropChance: 0
+  - prefabReference: {fileID: 6195826417844601540, guid: 3abfc193df3a10c469ca7b2f4d5147c8,
+      type: 3}
+    dropChance: 33.4
+  - prefabReference: {fileID: 1418737460905681433, guid: f8f2803ce927a364ca9967c37d3ae9df,
+      type: 3}
+    dropChance: 33.3
+  - prefabReference: {fileID: 7571351070088572352, guid: b95653ffbc4c0824a806e8c872370110,
+      type: 3}
+    dropChance: 33.33
   _healthRef:
     prefabReference: {fileID: 0}
     dropChance: 0
@@ -330,9 +333,9 @@ MonoBehaviour:
   maxHealth: 60
   currentState: 0
   id: Bandit
-  attackDamage: 7
+  attackDamage: 8
   enemyDetectionRadius: 30
-  enemyScore: 500
+  enemyScore: 600
   givesPlayerMS: 1
   burstShotAmt: 10
   attackRate: 0.4
@@ -382,6 +385,7 @@ MonoBehaviour:
   waypoints: []
   moveSpeed: 0
   followPath: 0
+  followPathInverse: 0
   followPathSpeed: 0
   OnFinalWaypoint:
     m_PersistentCalls:
