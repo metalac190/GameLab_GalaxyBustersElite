@@ -4,24 +4,25 @@ using UnityEngine;
 
 public class SurvivalChallenge : ChallengeBase
 {
-	[SerializeField] int healthThreshold;
-	[SerializeField] float currentHealth;
 
 	private void Update()
 	{
-
 		if (!challengeCompleted && !challengeFailed)
 		{
-			currentHealth = GameManager.player.controller.GetPlayerHealth();
+			progress = GameManager.player.controller.GetPlayerHealth();
 
 			// If health falls below threshold
-			if (currentHealth < healthThreshold)
+			if (progress < threshold)
 				failure();
 
 			if (GameManager.gm.currentState == GameState.Win)
 				victory();
-
 		}
 
+	}
+
+	public override string GetProgress()
+	{
+		return "";
 	}
 }

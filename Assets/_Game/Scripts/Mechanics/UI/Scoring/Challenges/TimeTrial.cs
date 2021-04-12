@@ -4,13 +4,11 @@ using UnityEngine;
 
 public class TimeTrial : ChallengeBase
 {
-	[SerializeField] float maxTime;
-	[SerializeField] float timer;
 	float secondsRemaining;
 
 	private void Start()
 	{
-		secondsRemaining = maxTime;
+		secondsRemaining = threshold;
 	}
 
 	// Update is called once per frame
@@ -21,7 +19,7 @@ public class TimeTrial : ChallengeBase
 			if(secondsRemaining > 0)
 			{
 				secondsRemaining -= Time.deltaTime;
-				timer = maxTime - secondsRemaining;
+				progress = threshold - secondsRemaining;
 			}
 			else
 			{
@@ -32,5 +30,17 @@ public class TimeTrial : ChallengeBase
 				victory();
 
 		}
+	}
+
+	public override string GetProgress()
+	{
+		return FormatTime(progress) + "/" + FormatTime(threshold);
+	}
+
+	private string FormatTime(float time)
+	{
+		int minutes = (int)time / 60;
+		int seconds = (int)time - 60 * minutes;
+		return string.Format("{0:0}:{1:00}", minutes, seconds);
 	}
 }

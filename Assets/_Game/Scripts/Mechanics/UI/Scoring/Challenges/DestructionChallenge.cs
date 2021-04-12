@@ -5,14 +5,12 @@ using UnityEngine;
 public class DestructionChallenge : ChallengeBase
 {
 	[SerializeField] EnemyTypes enemyType;
-	[SerializeField] int threshold;
-	[SerializeField] int progress = 0;
 
 	private void Update()
 	{
 		progress = 0;
 
-		if (!challengeCompleted)
+		if (!challengeCompleted && !challengeFailed)
 		{
 			// Determine which enemy to track
 			switch (enemyType)
@@ -53,6 +51,9 @@ public class DestructionChallenge : ChallengeBase
 			// If player destroys the necessary number of enemies
 			if (progress >= threshold)
 				victory();
+
+			if (GameManager.gm.currentState == GameState.Win)
+				failure();
 
 		}
 		

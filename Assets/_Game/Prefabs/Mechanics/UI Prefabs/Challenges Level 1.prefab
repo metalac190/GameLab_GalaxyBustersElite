@@ -47,6 +47,8 @@ MonoBehaviour:
   challengeFailed: 0
   challengeText: Defeat the mega spearhead
   scoreValue: 1000
+  threshold: 1
+  progress: 0
 --- !u!1 &5468510863761197971
 GameObject:
   m_ObjectHideFlags: 0
@@ -63,7 +65,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &5468510863761197974
 Transform:
   m_ObjectHideFlags: 0
@@ -144,9 +146,9 @@ MonoBehaviour:
   challengeFailed: 0
   challengeText: Use all 3 weapon types
   scoreValue: 2000
-  type: 1
   threshold: 3
   progress: 0
+  type: 1
 --- !u!1 &7186421093371780659
 GameObject:
   m_ObjectHideFlags: 0
@@ -194,5 +196,5 @@ MonoBehaviour:
   challengeFailed: 0
   challengeText: Complete the level without taking damage
   scoreValue: 5000
-  healthThreshold: 100
-  currentHealth: 100
+  threshold: 100
+  progress: 100

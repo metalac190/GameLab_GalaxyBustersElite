@@ -24,7 +24,7 @@ public class ScoreSystem : MonoBehaviour
 	public static int destroyedRammer = 0;
 	public static int destroyedSpearhead = 0;
 
-	// Challenges script
+	// List of Challenges
 	public static Challenges challenges;
 
 	void Update()

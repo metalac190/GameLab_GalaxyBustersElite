@@ -47,8 +47,8 @@ MonoBehaviour:
   challengeFailed: 0
   challengeText: Clear the level in under 4 minutes
   scoreValue: 3000
-  maxTime: 240
-  timer: 0
+  threshold: 240
+  progress: 0
 --- !u!1 &901758704039254041
 GameObject:
   m_ObjectHideFlags: 0
@@ -65,7 +65,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &901758704039254044
 Transform:
   m_ObjectHideFlags: 0
@@ -146,8 +146,8 @@ MonoBehaviour:
   challengeFailed: 0
   challengeText: Complete the level without taking damage
   scoreValue: 5000
-  healthThreshold: 100
-  currentHealth: 100
+  threshold: 100
+  progress: 100
 --- !u!1 &3408858089465866525
 GameObject:
   m_ObjectHideFlags: 0

@@ -4,10 +4,18 @@ using UnityEngine;
 
 public class ChallengeBase : MonoBehaviour
 {
-	[SerializeField] protected bool challengeCompleted = false;
-	[SerializeField] protected bool challengeFailed = false;
-	[SerializeField] string challengeText;
+	[SerializeField] public bool challengeCompleted = false;
+	[SerializeField] public bool challengeFailed = false;
+	[SerializeField] public string challengeText;
 	[SerializeField] int scoreValue = 0;
+	[SerializeField] public float threshold;
+	[SerializeField] public float progress = 0;
+
+	private void Update()
+	{
+		if (GameManager.gm.currentState == GameState.Win && !challengeCompleted && !challengeFailed)
+			failure();
+	}
 
 	public void victory()
 	{
@@ -26,5 +34,10 @@ public class ChallengeBase : MonoBehaviour
 			Debug.Log("<color=red>" + gameObject.name + " Failed.</color>");
 			challengeFailed = true;
 		}
+	}
+
+	public virtual string GetProgress()
+	{
+		return progress + "/" + threshold;
 	}
 }

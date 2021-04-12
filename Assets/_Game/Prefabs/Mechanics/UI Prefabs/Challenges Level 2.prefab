@@ -16,7 +16,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &43255129420742861
 Transform:
   m_ObjectHideFlags: 0
@@ -97,9 +97,9 @@ MonoBehaviour:
   challengeFailed: 0
   challengeText: Defeat 1 of every enemy type
   scoreValue: 5000
-  enemyType: 32
   threshold: 5
   progress: 0
+  enemyType: 32
 --- !u!1 &7098060671564262106
 GameObject:
   m_ObjectHideFlags: 0
@@ -147,9 +147,9 @@ MonoBehaviour:
   challengeFailed: 0
   challengeText: Use your overload 3 times
   scoreValue: 1000
-  type: 2
   threshold: 3
   progress: 0
+  type: 2
 --- !u!1 &8710193396539915596
 GameObject:
   m_ObjectHideFlags: 0
@@ -197,5 +197,5 @@ MonoBehaviour:
   challengeFailed: 0
   challengeText: Complete the level without taking damage
   scoreValue: 5000
-  healthThreshold: 100
-  currentHealth: 100
+  threshold: 100
+  progress: 100

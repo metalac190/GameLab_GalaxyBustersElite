@@ -5,8 +5,6 @@ using UnityEngine;
 public class WeaponChallenge : ChallengeBase
 {
 	[SerializeField] WeaponChallengeType type;
-	[SerializeField] int threshold;
-	[SerializeField] int progress;
 
 	bool blaster, energyBurst, laserBeam = false;
 	string weaponID;
@@ -44,6 +42,9 @@ public class WeaponChallenge : ChallengeBase
 
 			if (progress >= threshold)
 				victory();
+
+			if (GameManager.gm.currentState == GameState.Win)
+				failure();
 		}
 
 	}

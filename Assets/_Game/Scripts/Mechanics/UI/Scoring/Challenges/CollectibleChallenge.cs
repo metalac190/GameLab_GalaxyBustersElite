@@ -4,15 +4,15 @@ using UnityEngine;
 
 public class CollectibleChallenge : ChallengeBase
 {
-	[SerializeField] int threshold;
-	[SerializeField] int progress = 0;
-
 	private void Update()
 	{
 		if (!challengeCompleted && !challengeFailed)
 		{
 			if (progress >= threshold)
 				victory();
+
+			if (GameManager.gm.currentState == GameState.Win)
+				failure();
 		}
 
 	}
