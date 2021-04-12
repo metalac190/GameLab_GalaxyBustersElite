@@ -27,6 +27,16 @@ public class ScoreSystem : MonoBehaviour
 	// List of Challenges
 	public static Challenges challenges;
 
+	private void Awake()
+	{
+		destroyedTotal = 0;
+		destroyedBandit = 0;
+		destroyedDrone = 0;
+		destroyedMinion = 0;
+		destroyedRammer = 0;
+		destroyedSpearhead = 0;
+	}
+
 	void Update()
     {
 		score = GameManager.gm.score;
