@@ -28,7 +28,8 @@ public class ScoreHUD : MonoBehaviour
 		{ "Minion", "Nice shot!" },
 		{ "Bandit", "Nice shot!" },
 		{ "Spearhead", "Nice shot!" },
-		{ "NearMiss", "Close Call!" }
+		{ "NearMiss", "Close Call!" },
+		{ "Challenge", "Objective Completed!" }
 	};
 
 	Queue<ScoreEvent> scoreEventObjects = new Queue<ScoreEvent>();

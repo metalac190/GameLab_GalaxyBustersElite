@@ -145,7 +145,8 @@ public class BossController : EntityBase
         }
         
         // End game when defeated
-        Died.AddListener(() => GameManager.gm.WinGame());
+        //Please don't end game when defeated :) Teni F.
+        //Died.AddListener(() => GameManager.gm.WinGame());
         //AddListener(GameManager.gm.WinGame); ?
     }
 
