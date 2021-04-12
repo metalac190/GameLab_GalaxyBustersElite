@@ -10,6 +10,11 @@ public class WeaponChallenge : ChallengeBase
 	string weaponID;
 	bool isOverloading = false;
 
+	private void OnEnable()
+	{
+		progress = 0;
+	}
+
 	private void Update()
 	{
 		if (!challengeCompleted && !challengeFailed)
@@ -43,7 +48,7 @@ public class WeaponChallenge : ChallengeBase
 			if (progress >= threshold)
 				victory();
 
-			if (GameManager.gm.currentState == GameState.Win)
+			if (GameManager.gm.currentState == GameState.Win || GameManager.gm.currentState == GameState.Fail)
 				failure();
 		}
 
