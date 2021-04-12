@@ -186,18 +186,39 @@ public class DialogueTrigger : MonoBehaviour
             Debug.Log("No DialogueListManager or Dialogue Manager in scene.");
         }
     }
-    static public void TriggerFirstDroneDialogue()
+    static public void TriggerFirstRammerDialogue()
     {
         if (FindObjectOfType<DialogueList>() && FindObjectOfType<DialogueManager>())
         {
             DialogueList dialogueListInfo = FindObjectOfType<DialogueList>();
-            if (dialogueListInfo.FirstDrone != null)
+            if (dialogueListInfo.FirstRammer != null)
             {
-                FindObjectOfType<DialogueManager>().startDialogueArrayFunction(dialogueListInfo.FirstDrone);
+                FindObjectOfType<DialogueManager>().startDialogueArrayFunction(dialogueListInfo.FirstRammer);
             }
             else
             {
-                Debug.Log("DialogueListManager's FirstDrone is empty.");
+                Debug.Log("DialogueListManager's FirstRammer is empty.");
+            }
+
+        }
+        else
+        {
+            Debug.Log("No DialogueListManager or Dialogue Manager in scene.");
+        }
+    }
+
+    static public void TriggerFirstMinionDialogue()
+    {
+        if (FindObjectOfType<DialogueList>() && FindObjectOfType<DialogueManager>())
+        {
+            DialogueList dialogueListInfo = FindObjectOfType<DialogueList>();
+            if (dialogueListInfo.FirstMinion != null)
+            {
+                FindObjectOfType<DialogueManager>().startDialogueArrayFunction(dialogueListInfo.FirstMinion);
+            }
+            else
+            {
+                Debug.Log("DialogueListManager's FirstMinion is empty.");
             }
 
         }

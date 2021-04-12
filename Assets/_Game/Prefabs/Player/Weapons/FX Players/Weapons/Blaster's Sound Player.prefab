@@ -40,7 +40,7 @@ AudioSource:
   m_GameObject: {fileID: 1355443903964508575}
   m_Enabled: 1
   serializedVersion: 4
-  OutputAudioMixerGroup: {fileID: 2376878648394226578, guid: 2bc39d44243511040a047e1085e56a56,
+  OutputAudioMixerGroup: {fileID: 2376878648394226578, guid: 53b70d30c87c52d489a54a31ce181114,
     type: 2}
   m_audioClip: {fileID: 8300000, guid: cedbeb11a65e3db4da2b69915ebcf075, type: 3}
   m_PlayOnAwake: 0
@@ -168,7 +168,7 @@ AudioSource:
   m_GameObject: {fileID: 3631745393284137210}
   m_Enabled: 1
   serializedVersion: 4
-  OutputAudioMixerGroup: {fileID: 2376878648394226578, guid: 2bc39d44243511040a047e1085e56a56,
+  OutputAudioMixerGroup: {fileID: 2376878648394226578, guid: 53b70d30c87c52d489a54a31ce181114,
     type: 2}
   m_audioClip: {fileID: 8300000, guid: 89f978315fd435244b547b61508d119b, type: 3}
   m_PlayOnAwake: 0
@@ -302,13 +302,25 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   allSounds:
-  - name: Sound
-    label: Standard Shot
+  - label: 0. Standard Shot
     audioSource: {fileID: 128059912501332710}
     playOnAwake: 0
     loop: 0
-  - name: Sound
-    label: Overload Shot
+    useSoundVariations: 0
+    soundVariations: []
+    usePitchRandomization: 0
+    pitchShiftMin: 0
+    pitchShiftMax: 0
+    curPoolIteration: 0
+    audioSourcePool: []
+  - label: 1. Overload Shot
     audioSource: {fileID: 5883185999403251872}
     playOnAwake: 0
     loop: 0
+    useSoundVariations: 0
+    soundVariations: []
+    usePitchRandomization: 0
+    pitchShiftMin: 0
+    pitchShiftMax: 0
+    curPoolIteration: 0
+    audioSourcePool: []
