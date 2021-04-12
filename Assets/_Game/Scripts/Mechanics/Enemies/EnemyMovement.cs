@@ -11,6 +11,7 @@ public class EnemyMovement : MonoBehaviour
     private bool onTrack = true; 
     [SerializeField] float moveSpeed;
     [SerializeField] bool followPath;
+    [SerializeField] bool followPathInverse;
     [SerializeField] float followPathSpeed;
 
     [Header("Effects")]
@@ -53,6 +54,15 @@ public class EnemyMovement : MonoBehaviour
             // on start - save position relative to closest point on dollypath
             // move along dolly path, but add saved position
             positionAlongPath += followPathSpeed * Time.fixedDeltaTime;
+            positionAlongPathInWorldSpace = path.EvaluatePositionAtUnit(positionAlongPath, CinemachinePathBase.PositionUnits.Distance);
+            orientationAtPosition = path.EvaluateOrientationAtUnit(positionAlongPath, CinemachinePathBase.PositionUnits.Distance);
+            parent.position = positionAlongPathInWorldSpace + (orientationAtPosition * offsetFromPath);
+        }
+        if (followPathInverse)
+        {
+            // on start - save position relative to closest point on dollypath
+            // move along dolly path, but add saved position
+            positionAlongPath -= followPathSpeed * Time.fixedDeltaTime;
             positionAlongPathInWorldSpace = path.EvaluatePositionAtUnit(positionAlongPath, CinemachinePathBase.PositionUnits.Distance);
             orientationAtPosition = path.EvaluateOrientationAtUnit(positionAlongPath, CinemachinePathBase.PositionUnits.Distance);
             parent.position = positionAlongPathInWorldSpace + (orientationAtPosition * offsetFromPath);
