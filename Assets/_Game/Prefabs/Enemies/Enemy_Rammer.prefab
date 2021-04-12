@@ -59,9 +59,10 @@ MonoBehaviour:
     dropChance: 0
   _healAmount: 1
   _overchargeRef:
-    prefabReference: {fileID: 0}
-    dropChance: 0
-  _overloadAmount: 0
+    prefabReference: {fileID: 5240054451046245164, guid: 45113c912639ce046b0e158ec171497d,
+      type: 3}
+    dropChance: 10
+  _overloadAmount: 10
 --- !u!1 &1656154533622931641
 GameObject:
   m_ObjectHideFlags: 0
@@ -180,7 +181,7 @@ MonoBehaviour:
   currentState: 0
   enemyType: 8
   attackDamage: 20
-  enemyDetectionRadius: 30
+  enemyDetectionRadius: 15
   enemyScore: 100
   givesPlayerMS: 1
   ramSpeed: 20
@@ -241,6 +242,7 @@ MonoBehaviour:
   waypoints: []
   moveSpeed: 3
   followPath: 0
+  followPathInverse: 0
   followPathSpeed: 0
   OnFinalWaypoint:
     m_PersistentCalls:
