@@ -75,7 +75,7 @@ public class CamRailManager : MonoBehaviour
         }
     }
 
-    void SetCamRailSpeed(float newMS)
+    public void SetCamRailSpeed(float newMS)
     {
         StopAllCoroutines();
         StartCoroutine(SetCamRailSpeedCoroutine(newMS));
