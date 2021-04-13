@@ -8,10 +8,14 @@ public class PauseObjectives : MonoBehaviour
 	[SerializeField] Challenges challengeList;
 	[SerializeField] PauseObjectiveContainer[] pauseObjectives = new PauseObjectiveContainer[3];
 	ChallengeBase currentChallenge;
+	GameState currentState;
+	bool notplaying;
 
 	private void Update()
 	{
-		if (GameManager.gm.currentState == GameState.Gameplay || GameManager.gm.currentState == GameState.Win)
+		currentState = GameManager.gm.currentState;
+		notplaying = currentState == GameState.Gameplay || currentState == GameState.Win || currentState == GameState.Fail;
+		if (notplaying)
 		{
 			if (challengeList == null)
 				challengeList = ScoreSystem.challenges;

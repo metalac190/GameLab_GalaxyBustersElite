@@ -10,10 +10,21 @@ public class ChallengeBase : MonoBehaviour
 	[SerializeField] int scoreValue = 0;
 	[SerializeField] public float threshold;
 	[SerializeField] public float progress = 0;
+	GameState currentState;
+	bool endScreen;
+
+	private void OnEnable()
+	{
+		challengeCompleted = false;
+		challengeFailed = false;
+		progress = 0;
+	}
 
 	private void Update()
 	{
-		if (GameManager.gm.currentState == GameState.Win && !challengeCompleted && !challengeFailed)
+		currentState = GameManager.gm.currentState;
+		endScreen = (currentState == GameState.Win || currentState == GameState.Fail);
+		if (endScreen && !challengeCompleted && !challengeFailed)
 			failure();
 	}
 
@@ -39,5 +50,12 @@ public class ChallengeBase : MonoBehaviour
 	public virtual string GetProgress()
 	{
 		return progress + "/" + threshold;
+	}
+
+	public void IncreaseProgress()
+	{
+		progress++;
+		if (progress >= threshold)
+			victory();
 	}
 }

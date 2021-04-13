@@ -11,7 +11,7 @@ public class CollectibleChallenge : ChallengeBase
 			if (progress >= threshold)
 				victory();
 
-			if (GameManager.gm.currentState == GameState.Win)
+			if (GameManager.gm.currentState == GameState.Win || GameManager.gm.currentState == GameState.Fail)
 				failure();
 		}
 
