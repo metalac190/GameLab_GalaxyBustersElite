@@ -177,7 +177,7 @@ MonoBehaviour:
         m_CallState: 2
   maxHealth: 250
   currentState: 0
-  id: Spearhead
+  enemyType: 0
   attackDamage: 40
   enemyDetectionRadius: 40
   enemyScore: 500
@@ -228,6 +228,7 @@ MonoBehaviour:
   waypoints: []
   moveSpeed: 0
   followPath: 0
+  followPathInverse: 0
   followPathSpeed: 0
   OnFinalWaypoint:
     m_PersistentCalls:

@@ -77,7 +77,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   allSounds:
-  - label: Appear
+  - label: 0. Appear
     audioSource: {fileID: 5829044227603157614}
     playOnAwake: 1
     loop: 1
@@ -88,7 +88,7 @@ MonoBehaviour:
     pitchShiftMax: 0
     curPoolIteration: 0
     audioSourcePool: []
-  - label: Shoot
+  - label: 1. Shoot
     audioSource: {fileID: 0}
     playOnAwake: 0
     loop: 0
@@ -141,7 +141,7 @@ PrefabInstance:
         type: 3}
       propertyPath: m_audioClip
       value: 
-      objectReference: {fileID: 8300000, guid: 51ef899d038645348a5c8ef83c1f5964, type: 3}
+      objectReference: {fileID: 8300000, guid: e69208f21a33c4441a3b275ddff355cf, type: 3}
     - target: {fileID: 1388270348251091530, guid: 2cc2698f828e41b41886d3eb6aecd52b,
         type: 3}
       propertyPath: m_Volume
@@ -151,7 +151,8 @@ PrefabInstance:
         type: 3}
       propertyPath: OutputAudioMixerGroup
       value: 
-      objectReference: {fileID: 0}
+      objectReference: {fileID: -8787827183966225327, guid: 53b70d30c87c52d489a54a31ce181114,
+        type: 2}
     - target: {fileID: 1388270348251091531, guid: 2cc2698f828e41b41886d3eb6aecd52b,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -246,7 +247,7 @@ PrefabInstance:
         type: 3}
       propertyPath: m_audioClip
       value: 
-      objectReference: {fileID: 8300000, guid: 2da6d299676cceb478f8621709768b0d, type: 3}
+      objectReference: {fileID: 8300000, guid: dc48f1c73ea97d345ae71a1625c3830e, type: 3}
     - target: {fileID: 1388270348251091530, guid: 2cc2698f828e41b41886d3eb6aecd52b,
         type: 3}
       propertyPath: m_PlayOnAwake
@@ -266,7 +267,8 @@ PrefabInstance:
         type: 3}
       propertyPath: OutputAudioMixerGroup
       value: 
-      objectReference: {fileID: 0}
+      objectReference: {fileID: 5692345227411947315, guid: 53b70d30c87c52d489a54a31ce181114,
+        type: 2}
     - target: {fileID: 1388270348251091531, guid: 2cc2698f828e41b41886d3eb6aecd52b,
         type: 3}
       propertyPath: m_LocalPosition.x

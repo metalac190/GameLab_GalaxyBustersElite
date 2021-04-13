@@ -54,7 +54,6 @@ MonoBehaviour:
     m_PersistentCalls:
       m_Calls:
       - m_Target: {fileID: 2759662968825031425}
-        m_TargetAssemblyTypeName: 
         m_MethodName: TryPlay
         m_Mode: 3
         m_Arguments:
@@ -66,7 +65,6 @@ MonoBehaviour:
           m_BoolArgument: 0
         m_CallState: 2
       - m_Target: {fileID: 4011600155108547933}
-        m_TargetAssemblyTypeName: 
         m_MethodName: TryPlay
         m_Mode: 3
         m_Arguments:
@@ -81,7 +79,6 @@ MonoBehaviour:
     m_PersistentCalls:
       m_Calls:
       - m_Target: {fileID: 2759662968825031425}
-        m_TargetAssemblyTypeName: 
         m_MethodName: TryDetachPlayThenReattach
         m_Mode: 3
         m_Arguments:
@@ -93,7 +90,6 @@ MonoBehaviour:
           m_BoolArgument: 0
         m_CallState: 2
       - m_Target: {fileID: 4011600155108547933}
-        m_TargetAssemblyTypeName: 
         m_MethodName: TryDetachPlayThenReattach
         m_Mode: 3
         m_Arguments:
@@ -105,7 +101,6 @@ MonoBehaviour:
           m_BoolArgument: 0
         m_CallState: 2
       - m_Target: {fileID: 4146713424727000990}
-        m_TargetAssemblyTypeName: 
         m_MethodName: RollDropChance
         m_Mode: 1
         m_Arguments:
@@ -118,9 +113,9 @@ MonoBehaviour:
         m_CallState: 2
   maxHealth: 10
   currentState: 0
-  id: Drone
+  enemyType: 2
   attackDamage: 15
-  enemyDetectionRadius: 0
+  enemyDetectionRadius: 20
   enemyScore: 100
   givesPlayerMS: 1
 --- !u!114 &1796994892
@@ -138,12 +133,12 @@ MonoBehaviour:
   waypoints: []
   moveSpeed: 2
   followPath: 0
+  followPathInverse: 0
   followPathSpeed: 0
   OnFinalWaypoint:
     m_PersistentCalls:
       m_Calls:
       - m_Target: {fileID: 7407764473862943828}
-        m_TargetAssemblyTypeName: 
         m_MethodName: Dead
         m_Mode: 1
         m_Arguments:
@@ -258,8 +253,9 @@ MonoBehaviour:
     dropChance: 0
   _healAmount: 1
   _overchargeRef:
-    prefabReference: {fileID: 0}
-    dropChance: 0
+    prefabReference: {fileID: 5240054451046245164, guid: 45113c912639ce046b0e158ec171497d,
+      type: 3}
+    dropChance: 5
   _overloadAmount: 10
 --- !u!1001 &1005099110324028449
 PrefabInstance:
@@ -360,11 +356,6 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 976279426414310990}
     m_Modifications:
-    - target: {fileID: 4593882456272799428, guid: df51be8f854c2674f908c7d266c6b02d,
-        type: 3}
-      propertyPath: OutputAudioMixerGroup
-      value: 
-      objectReference: {fileID: 0}
     - target: {fileID: 4630179527383863692, guid: df51be8f854c2674f908c7d266c6b02d,
         type: 3}
       propertyPath: m_Name
@@ -445,11 +436,6 @@ PrefabInstance:
       propertyPath: m_Name
       value: Enemy_General Sound Player
       objectReference: {fileID: 0}
-    - target: {fileID: 7885332458042498414, guid: 855086e511841044682edb8a5f185cff,
-        type: 3}
-      propertyPath: OutputAudioMixerGroup
-      value: 
-      objectReference: {fileID: 0}
     - target: {fileID: 8185007489991476492, guid: 855086e511841044682edb8a5f185cff,
         type: 3}
       propertyPath: m_RootOrder
@@ -504,11 +490,6 @@ PrefabInstance:
         type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 8438863077887770558, guid: 855086e511841044682edb8a5f185cff,
-        type: 3}
-      propertyPath: OutputAudioMixerGroup
-      value: 
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 855086e511841044682edb8a5f185cff, type: 3}
@@ -596,6 +577,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: Drone-Art
+      objectReference: {fileID: 0}
+    - target: {fileID: 9158796037162685705, guid: 4198ad50b2c474648980c3d307fa098c,
+        type: 3}
+      propertyPath: m_Controller
+      value: 
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 4198ad50b2c474648980c3d307fa098c, type: 3}
