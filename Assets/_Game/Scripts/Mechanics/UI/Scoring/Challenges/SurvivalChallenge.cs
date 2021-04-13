@@ -11,12 +11,13 @@ public class SurvivalChallenge : ChallengeBase
 		{
 			progress = GameManager.player.controller.GetPlayerHealth();
 
-			// If health falls below threshold
-			if (progress < threshold)
+			// If health falls below threshold or player failed mission
+			if (progress < threshold || GameManager.gm.currentState == GameState.Fail)
 				failure();
 
 			if (GameManager.gm.currentState == GameState.Win)
 				victory();
+
 		}
 
 	}

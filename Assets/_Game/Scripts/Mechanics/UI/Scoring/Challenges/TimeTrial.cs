@@ -29,6 +29,9 @@ public class TimeTrial : ChallengeBase
 			if (GameManager.gm.currentState == GameState.Win)
 				victory();
 
+			if (GameManager.gm.currentState == GameState.Fail)
+				failure();
+
 		}
 	}
 
