@@ -11,9 +11,9 @@ public class PlayerController : MonoBehaviour
 	[SerializeField] float tempInvulnTime = 0.1f;
 	[SerializeField] GameObject currentWeapon;
 	public GameObject[] weapons;
-    bool isDodging = false;
-    bool isInvincible = false;
-	bool isOverloaded = false;
+    public bool isDodging = false;
+    public bool isInvincible = false;
+	public bool isOverloaded = false;
 	private float cdInvuln = 0f;
 
 	[Header("Effects")]
@@ -21,12 +21,15 @@ public class PlayerController : MonoBehaviour
 	[SerializeField] float cameraShakeOnHit = 1;
 	public float CameraShakeOnHit { get => cameraShakeOnHit; }
 	[SerializeField] UnityEvent OnHit;
-	[SerializeField] UnityEvent OnDeath;
-	[SerializeField] UnityEvent OnPickedUpWeapon;
+	public UnityEvent OnDeath;
+	bool firstWeaponObtained = false;
+	[SerializeField] UnityEvent OnWeaponChanged;
 	[SerializeField] float playerHealthLowThreshold = 1;
 	float lastFramePlayerHealth;
 	[SerializeField] UnityEvent OnHealthStartedBeingLow;
 	[SerializeField] UnityEvent OnHealthStoppedBeingLow;
+	[SerializeField] UnityEvent OnHealthIncreased;
+	[SerializeField] UnityEvent OnOverloadChargeIncreased;
 
 
     private void Awake() {
@@ -43,20 +46,6 @@ public class PlayerController : MonoBehaviour
 
 	void Update()
     {
-        // Temporary manual weapon switching for testing purposes
-        if (Input.GetKeyDown(KeyCode.Alpha1))
-        {
-			SetWeapon(weapons[0]);
-        }
-        else if (Input.GetKeyDown(KeyCode.Alpha2))
-        {
-            SetWeapon(weapons[1]);
-        }
-        else if (Input.GetKeyDown(KeyCode.Alpha3))
-        {
-            SetWeapon(weapons[2]);
-        }
-
         InvokingHealthStartedOrStoppedBeingLowEvents();
     }
 
@@ -108,12 +97,16 @@ public class PlayerController : MonoBehaviour
 
 	public void HealPlayer(float amount)
 	{
-		playerHealth += amount;
+		playerHealth = (playerHealth + amount >= 100) ? 100 : playerHealth + amount;
+
+		OnHealthIncreased.Invoke();
 	}
 
 	public void IncreaseOverload(float amount)
 	{
-		overloadCharge += amount;
+		overloadCharge = (overloadCharge + amount >= 100) ? 100 : overloadCharge + amount;
+
+		OnOverloadChargeIncreased.Invoke();
 	}
 
 	public void SetOverload(float amount)
@@ -161,7 +154,10 @@ public class PlayerController : MonoBehaviour
 			}
 		}
 
-		OnPickedUpWeapon.Invoke();
+		if (firstWeaponObtained) // Won't play sound at start of scene
+			OnWeaponChanged.Invoke();
+		else
+			firstWeaponObtained = true;
 	}
 
     public void ToggleDodging(bool dodge)

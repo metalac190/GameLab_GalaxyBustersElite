@@ -5,32 +5,27 @@ using UnityEngine.Events;
 
 public class EnemyDrone : EnemyBase
 {
-    private GameObject playerReference = null;
-
-    private void Start()
-    {
-        playerReference = GameManager.player.obj;
-    }
-
-    private void FixedUpdate()
-    {
-        Passive();
-    }
-
     protected override void Passive()
     {
-        transform.LookAt(playerReference.transform.position);
+        transform.LookAt(GameManager.player.obj.transform.position);
+
+        if (Vector3.Distance(transform.position, GameManager.player.obj.transform.position) < EnemyDetectionRadius)
+        {
+            animator.SetBool("InPlayerRange", true);
+        }
     }
+    
+    protected override void Attacking()
+    { }
 
-    protected override void Attacking() { }
-
-    public override void Dead()
+    protected override void OnTriggerEnter(Collider col)
     {
-        Debug.Log("Enemy destroyed");
-
-        if (givesPlayerMS)
-            camRailManager.IncreaseCamRailSpeed();
-
-        Destroy(transform.parent.gameObject);
+        if (col.gameObject.layer == LayerMask.NameToLayer("Player"))
+        {
+            animator.SetTrigger("Collide With Object");
+            DialogueTrigger.TriggerEnemyDefeatedDialogue();
+            col.gameObject.GetComponent<PlayerController>().DamagePlayer(AttackDamage);
+            Dead();
+        }
     }
 }

@@ -44,23 +44,6 @@ public class Projectile : MonoBehaviour
             gameObject.SetActive(false);
 	}
 
-    protected virtual void OnCollisionEnter(Collision collision)
-    {
-        EntityBase entity = collision.gameObject.GetComponent<EntityBase>();
-        entity?.TakeDamage(_damage);
-
-        if (entity != null)
-        {
-            Debug.Log("Player shot " + entity.gameObject.name);
-        }
-        else
-        {
-            Debug.Log("Player hit " + collision.gameObject.name);
-        }
-
-        gameObject.SetActive(false);
-    }
-
     public void SetDamage(float value)
     {
         _damage = value;
@@ -68,6 +51,23 @@ public class Projectile : MonoBehaviour
      
     public void SetVelocity(float value) {
         Speed = value;
+    }
+    
+    private void OnCollisionEnter(Collision collision)
+    {
+        //when colliding with any Phsyical Collision, disable projectile
+        gameObject.SetActive(false);
+    }
+
+    protected virtual void OnTriggerEnter(Collider other)
+    {
+        //when hitting an Entity, damage it and disable projectile
+        EntityBase entity = other.gameObject.GetComponent<EntityBase>();
+        if (entity != null)
+        {
+            entity?.TakeDamage(_damage);
+            gameObject.SetActive(false);
+        }
     }
 
 }

@@ -11,19 +11,29 @@ public class MouseToScreen : MonoBehaviour
 	private Vector3 mouseRef = Vector3.zero;
 	[SerializeField] float distance;
 
-	/*void Start()
+	Transform player;
+	Camera cam;
+
+	private void Start()
 	{
-		Cursor.visible = false;
-		Cursor.lockState = CursorLockMode.Confined;
-	}*/
+		cam = Camera.main;
+		player = GameManager.player.obj.transform.Find("Weapon Mount").transform;
+	}
 
 	void Update()
 	{
 		mousePos = Input.mousePosition;
-		mousePos.z = distance + 10;
+
+		// we dont want X units ahead of the camera but actually where the mouse would be but limited to X units away from the player
+		// first we get the distance between the player and the aim
+		float camPlayerDist = Vector2.Distance((Vector2)cam.ScreenToWorldPoint(mousePos), (Vector2)player.position);
+		// use pyththeorem to find distance from cam we should use
+		float dist = Mathf.Sqrt((distance * distance) - (camPlayerDist * camPlayerDist));
+		
+
+		mousePos.z = dist + 10;
 		targetVector = Camera.main.ScreenToWorldPoint(mousePos);
 		transform.position = targetVector;
-		//transform.position = Vector3.SmoothDamp(transform.position, targetVector, ref mouseRef, moveSpeed);
 	}
 
 

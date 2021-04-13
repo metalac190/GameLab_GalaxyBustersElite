@@ -45,11 +45,19 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   allSounds:
-  - name: Sound
-    label: Appear
+  - label: 0. Appear
     audioSource: {fileID: 4593882456272799428}
     playOnAwake: 1
     loop: 1
+    useSoundVariations: 1
+    soundVariations:
+    - {fileID: 8300000, guid: cbc8a6e0da3008c42a75130c68201366, type: 3}
+    - {fileID: 8300000, guid: d8c55bdb74229a5428fd3f3cfa69ac88, type: 3}
+    usePitchRandomization: 0
+    pitchShiftMin: 0
+    pitchShiftMax: 0
+    curPoolIteration: 0
+    audioSourcePool: []
 --- !u!1 &5333487491047062122
 GameObject:
   m_ObjectHideFlags: 0
@@ -92,7 +100,7 @@ PrefabInstance:
         type: 3}
       propertyPath: m_audioClip
       value: 
-      objectReference: {fileID: 8300000, guid: 2f1ea1649973676429a9de28f7b6b2d6, type: 3}
+      objectReference: {fileID: 8300000, guid: cbc8a6e0da3008c42a75130c68201366, type: 3}
     - target: {fileID: 1388270348251091530, guid: 2cc2698f828e41b41886d3eb6aecd52b,
         type: 3}
       propertyPath: m_PlayOnAwake
@@ -103,35 +111,41 @@ PrefabInstance:
       propertyPath: Loop
       value: 1
       objectReference: {fileID: 0}
+    - target: {fileID: 1388270348251091530, guid: 2cc2698f828e41b41886d3eb6aecd52b,
+        type: 3}
+      propertyPath: OutputAudioMixerGroup
+      value: 
+      objectReference: {fileID: 5692345227411947315, guid: 53b70d30c87c52d489a54a31ce181114,
+        type: 2}
     - target: {fileID: 1388270348251091531, guid: 2cc2698f828e41b41886d3eb6aecd52b,
         type: 3}
       propertyPath: m_LocalPosition.x
-      value: -9.4
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 1388270348251091531, guid: 2cc2698f828e41b41886d3eb6aecd52b,
         type: 3}
       propertyPath: m_LocalPosition.y
-      value: 21.21
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 1388270348251091531, guid: 2cc2698f828e41b41886d3eb6aecd52b,
         type: 3}
       propertyPath: m_LocalPosition.z
-      value: -93.1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 1388270348251091531, guid: 2cc2698f828e41b41886d3eb6aecd52b,
         type: 3}
       propertyPath: m_LocalRotation.x
-      value: -0
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 1388270348251091531, guid: 2cc2698f828e41b41886d3eb6aecd52b,
         type: 3}
       propertyPath: m_LocalRotation.y
-      value: -0
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 1388270348251091531, guid: 2cc2698f828e41b41886d3eb6aecd52b,
         type: 3}
       propertyPath: m_LocalRotation.z
-      value: -0
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 1388270348251091531, guid: 2cc2698f828e41b41886d3eb6aecd52b,
         type: 3}
@@ -157,6 +171,21 @@ PrefabInstance:
         type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1388270348251091531, guid: 2cc2698f828e41b41886d3eb6aecd52b,
+        type: 3}
+      propertyPath: m_LocalScale.x
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 1388270348251091531, guid: 2cc2698f828e41b41886d3eb6aecd52b,
+        type: 3}
+      propertyPath: m_LocalScale.y
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 1388270348251091531, guid: 2cc2698f828e41b41886d3eb6aecd52b,
+        type: 3}
+      propertyPath: m_LocalScale.z
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 1388270348251091532, guid: 2cc2698f828e41b41886d3eb6aecd52b,
         type: 3}

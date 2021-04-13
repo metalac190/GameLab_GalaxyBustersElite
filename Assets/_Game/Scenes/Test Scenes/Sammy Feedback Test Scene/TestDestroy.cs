@@ -9,6 +9,7 @@ public class TestDestroy : MonoBehaviour
     public void DestroySelf()
     {
         OnDestroyed.Invoke();
-        Destroy(this.gameObject);
+        //Destroy(this.gameObject);
+        gameObject.SetActive(false);
     }
 }
