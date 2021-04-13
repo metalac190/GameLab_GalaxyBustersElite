@@ -103,6 +103,8 @@ public class BossController : EntityBase
     private bool _isSegAlive = true;
     private Coroutine _BossBehavior = null;
     private BossState _nextState = BossState.PreFight;
+    [HideInInspector]
+    public BossState State = BossState.PreFight;
     private Vector3 _startPosition = Vector3.zero;
 
     private void Awake()
@@ -266,12 +268,12 @@ public class BossController : EntityBase
                 if (isSegmentsAlive)
                     _nextState = BossState.Idle;
                 else
-                    _nextState = BossState.Move;
+                    _nextState = BossState.Moving;
 
                 GenerateAttack();
                 break;
 
-            case BossState.Move:
+            case BossState.Moving:
 
                 _nextState = BossState.Attack;
 
@@ -281,7 +283,7 @@ public class BossController : EntityBase
 
             case BossState.Bloodied:
 
-                _nextState = BossState.Move;
+                _nextState = BossState.Moving;
 
                 _BossBehavior = StartCoroutine(Bloodied());
                 break;
@@ -294,7 +296,7 @@ public class BossController : EntityBase
 
     private void GenerateAttack()
     {
-        Debug.Log("boss attack");
+        State = BossState.Attack;
         BossAttacks randomAttack;
 
         if (isSegmentsAlive)
@@ -331,7 +333,7 @@ public class BossController : EntityBase
     #region Behaviors
     private IEnumerator BossIdle()
     {
-        Debug.Log("Idle");
+        State = BossState.Idle;
         //animation
         //Idle Anim is Unconditional return from other states.
 
@@ -343,7 +345,7 @@ public class BossController : EntityBase
 
     private IEnumerator Bloodied()
     {
-        Debug.Log("Bloodied");
+        State = BossState.Bloodied;
         //animation controller through OnSegmentDestroyed check
 
         //set invulnerable
@@ -359,8 +361,8 @@ public class BossController : EntityBase
 
     private IEnumerator MovePattern(int count)
     {
+        State = BossState.Moving;
         //animation?
-        Debug.Log("Boss is Moving " + count);
 
         //recursive exit check
         if (count <= 0)
@@ -403,7 +405,6 @@ public class BossController : EntityBase
     #region Attacks
     private IEnumerator MissileAttack()
     {
-        Debug.Log("Missile");
         //animation
         _bossAnim.SetInteger("AttackType", 1);
 
@@ -423,8 +424,6 @@ public class BossController : EntityBase
                 }
                     
             }
-
-            Debug.Log("Segments alive: " + segAlive + ", time total: " + delayTime);
         }
         else
         {
@@ -450,7 +449,6 @@ public class BossController : EntityBase
 
     private IEnumerator RingAttack()
     {
-        Debug.Log("Ring");
         //animation
         _bossAnim.SetInteger("AttackType", 2);
 
@@ -462,17 +460,13 @@ public class BossController : EntityBase
         if (isSegmentsAlive)
         {
             //Single Ring Attack
-            Debug.Log("Firing the normal Ring Attack");
             GameObject bullet = PoolUtility.InstantiateFromPool(_ringPool, _projectileSpawn, _ringRef);
             Projectile missile = bullet.GetComponent<Projectile>();
             missile.SetDamage(_attackDamage);
         }
         else 
         {
-            //TODO Bloodied??Ring Attack Animation?
-
             //Up to 3 Rings?
-            Debug.Log("Firing bloodied Ring Attack");
             for (int i=0; i < _bloodiedProjectileCount; i++)
             {
                 GameObject bullet = PoolUtility.InstantiateFromPool(_ringPool, _projectileSpawn, _ringRef);
@@ -491,7 +485,6 @@ public class BossController : EntityBase
 
     private IEnumerator LaserAttack()
     {
-        Debug.Log("Laser Warmup");
         //animation
         _bossAnim.SetInteger("AttackType", 3);
 
@@ -528,7 +521,6 @@ public class BossController : EntityBase
 
     private IEnumerator SummonMinions()
     {
-        Debug.Log("Summon");
         //Dependant if Minions are active
         //Refills current wave, stacks multiple waves if earlier waves are not defeated
         //Summons up to 5 Minions?

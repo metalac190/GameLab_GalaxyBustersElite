@@ -3,7 +3,7 @@
     PreFight = -1,
     Idle = 0,
     Attack,
-    Move,
+    Moving,
     Bloodied
 }
 

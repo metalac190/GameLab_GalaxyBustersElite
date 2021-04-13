@@ -282,7 +282,7 @@ MonoBehaviour:
   collDuration: 0
   collForce: {x: 0, y: 0, z: 0}
   torqueForce: {x: 0, y: 0, z: 0}
-  playerLimits: {x: 5, y: 3}
+  playerLimits: {x: 20, y: 20}
   rotateTargetTransform: {fileID: 0}
   shipsTransform: {fileID: 0}
   OnDodge:
@@ -756,8 +756,67 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 6711930770065754826, guid: 180ee2ade64c39e4f8b1783a189e7caa,
+        type: 3}
+      propertyPath: _flashLength
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 6711930770065754826, guid: 180ee2ade64c39e4f8b1783a189e7caa,
+        type: 3}
+      propertyPath: _flashNumber
+      value: 5
+      objectReference: {fileID: 0}
+    - target: {fileID: 6711930770065754826, guid: 180ee2ade64c39e4f8b1783a189e7caa,
+        type: 3}
+      propertyPath: _flashStrength
+      value: 999999
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 180ee2ade64c39e4f8b1783a189e7caa, type: 3}
+--- !u!1 &1452168910 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 2341149538523082628, guid: 180ee2ade64c39e4f8b1783a189e7caa,
+    type: 3}
+  m_PrefabInstance: {fileID: 1452168909}
+  m_PrefabAsset: {fileID: 0}
+--- !u!114 &1452168911 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 6711930770065754826, guid: 180ee2ade64c39e4f8b1783a189e7caa,
+    type: 3}
+  m_PrefabInstance: {fileID: 1452168909}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 0e6a59fca9f238d4ea819d001565d958, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!114 &1452168912 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 8596181258582637232, guid: 180ee2ade64c39e4f8b1783a189e7caa,
+    type: 3}
+  m_PrefabInstance: {fileID: 1452168909}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8790f652627dde5478c32457d4a6eee3, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!114 &1452168913
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1452168910}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: bf601448790014842834fd89499edebd, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _bossRef: {fileID: 1452168912}
+  _segRef: {fileID: 1452168911}
 --- !u!1 &1508666259
 GameObject:
   m_ObjectHideFlags: 0
