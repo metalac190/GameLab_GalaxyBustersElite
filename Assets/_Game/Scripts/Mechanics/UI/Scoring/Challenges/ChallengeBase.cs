@@ -51,4 +51,11 @@ public class ChallengeBase : MonoBehaviour
 	{
 		return progress + "/" + threshold;
 	}
+
+	public void IncreaseProgress()
+	{
+		progress++;
+		if (progress >= threshold)
+			victory();
+	}
 }
