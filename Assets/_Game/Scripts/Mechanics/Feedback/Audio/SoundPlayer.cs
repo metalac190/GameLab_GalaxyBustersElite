@@ -256,9 +256,10 @@ public class SoundPlayer : MonoBehaviour
         {
             if (GameManager.gm.Paused && allSounds[indexOfSound].audioSource.isPlaying)
             {
-                allSounds[indexOfSound].audioSource.Pause();
+                float savedVolume = allSounds[indexOfSound].audioSource.volume;
+                allSounds[indexOfSound].audioSource.volume = 0;
                 yield return new WaitForSeconds(0.01f);
-                allSounds[indexOfSound].audioSource.UnPause();
+                allSounds[indexOfSound].audioSource.volume = savedVolume;
             }
             yield return new WaitForSecondsRealtime(0.06f);
         }
