@@ -74,6 +74,7 @@ public class GameManager : MonoBehaviour {
     private void Awake() {
         // Initialize singleton
         if(gm == null) {
+            transform.parent = null;
             gm = this;
             DontDestroyOnLoad(gameObject);
         } else
