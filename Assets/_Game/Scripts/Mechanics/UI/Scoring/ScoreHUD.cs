@@ -43,7 +43,7 @@ public class ScoreHUD : MonoBehaviour
 		set 
 		{
 			_hudScore = value;
-			hudScoreText.text = _hudScore.ToString("00000");
+			hudScoreText.text = _hudScore.ToString("000000");
 		}
 	}
 	private int comboMultiplier;
