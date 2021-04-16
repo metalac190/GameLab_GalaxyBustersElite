@@ -4,22 +4,19 @@ using UnityEngine;
 
 public class test_bossRemote : MonoBehaviour
 {
-    private BossController _bossRef = null;
-
-    private void Awake()
-    {
-        _bossRef = GetComponent<BossController>();
-        if (_bossRef)
-            Debug.Log("Boss Found, Remote Active");
-        else
-            Debug.Log("Boss Not Found, ABORT~!");
-    }
+    [SerializeField] private BossController _bossRef = null;
+    [SerializeField] private BossSegmentController _segRef = null;
 
     private void Update()
     {
         if (Input.GetKeyDown(KeyCode.Space))
         {
             _bossRef?.StartBossFight();
+        }
+
+        if (Input.GetKeyDown(KeyCode.Q))
+        {
+            _segRef?.TakeDamage(1f);
         }
     }
 }

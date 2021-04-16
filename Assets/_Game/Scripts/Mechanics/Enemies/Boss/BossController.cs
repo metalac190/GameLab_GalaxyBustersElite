@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Events;
 
+[RequireComponent(typeof(FlickerController))]
 public class BossController : EntityBase
 {
     //Refer to Ben Friedman for QA/Bugfixing on Boss System scripts
@@ -23,8 +24,7 @@ public class BossController : EntityBase
 
     [Tooltip("Starting Health for each Segment.\nTotal Segment Health derived from\nStarting Health * number of Segments")]
     [SerializeField] private float _segmentHealth = 10;
-    [SerializeField] private BossSegmentController[] _segmentRefs = new BossSegmentController[0];
-
+    
     [Header("Timers")]
 
     [Tooltip("Time in Seconds to wait during Idle state.")]
@@ -47,8 +47,9 @@ public class BossController : EntityBase
     [SerializeField] private float _laserSpeedModifier = 0.8f;
     
     [Header("Asset References! Do Not Touch!")]
-
-    //Minion Pooling
+    [SerializeField] private BossSegmentController[] _segmentRefs = new BossSegmentController[0];
+    
+    [Header("Minion Refs")]
     [Tooltip("Reference to Minion Prefab.")]
     [SerializeField] private GameObject _minionRef = null;
     [Tooltip("Staring Group of Minions, with Waypoints")]
@@ -58,6 +59,7 @@ public class BossController : EntityBase
     [Tooltip("Middle Waypoint Idenfitied, for Minions that spawn in secondary Position[s]")]
     [SerializeField] private int[] _minionMidpoint = new int[1];
 
+    [Header("Attack & Projectile Refs")]
     //Ring Attack Pooling
     [Tooltip("Reference to Ring Attack Prefab.")]
     [SerializeField] private GameObject _ringRef = null;
@@ -75,11 +77,17 @@ public class BossController : EntityBase
     [SerializeField] private GameObject _laserTracker = null;
     private Vector3 _laserEndPoint = Vector3.zero;
 
+    [Header("Animation Refs")]
     [Tooltip("Parent Transform for Collision + Art")]
     [SerializeField] private GameObject _bossRoot = null;
 
     [Tooltip("Animator Controller for Boss Animations")]
     [SerializeField] private Animator _bossAnim = null;
+
+    [Header("Damage Flash Settings")]
+    [SerializeField] private Material _flashMaterial = null;
+    public Material FlashMaterial { get { return _flashMaterial; } }
+    private FlickerController flickerController = null;
 
     [HideInInspector]
     public bool isInvulnerable = true;
@@ -103,6 +111,8 @@ public class BossController : EntityBase
     private bool _isSegAlive = true;
     private Coroutine _BossBehavior = null;
     private BossState _nextState = BossState.PreFight;
+    [HideInInspector]
+    public BossState State = BossState.PreFight;
     private Vector3 _startPosition = Vector3.zero;
 
     private void Awake()
@@ -111,6 +121,10 @@ public class BossController : EntityBase
         _startPosition = _bossRoot.transform.position;
         _laserTracker.SetActive(false);
 
+        //find and override flash material to maintain consistency with segments
+        flickerController = GetComponent<FlickerController>();
+        flickerController.FlashMaterial = FlashMaterial;
+
         for (int i=0; i < _segmentRefs.Length; i++)
         {
             _segmentRefs[i].SetHealth(_segmentHealth);
@@ -118,7 +132,7 @@ public class BossController : EntityBase
             _segmentRefs[i].SetDamage(_attackDamage);
         }
 
-        GetAnimationTimes(_bossAnim);
+        //GetAnimationTimes(_bossAnim);
     }
 
     public override void TakeDamage(float damage)
@@ -145,11 +159,8 @@ public class BossController : EntityBase
             {
                 Damaged.Invoke();
 
-                //animate?
-                //isInvulnerable = true;
-                //delay
-                //isInvulnerable = false;
-                //_bossAnim.SetTrigger("TakeDamage");
+                //control damage flash here
+                flickerController.CallFlicker();
             }
         }
         
@@ -266,12 +277,12 @@ public class BossController : EntityBase
                 if (isSegmentsAlive)
                     _nextState = BossState.Idle;
                 else
-                    _nextState = BossState.Move;
+                    _nextState = BossState.Moving;
 
                 GenerateAttack();
                 break;
 
-            case BossState.Move:
+            case BossState.Moving:
 
                 _nextState = BossState.Attack;
 
@@ -281,7 +292,7 @@ public class BossController : EntityBase
 
             case BossState.Bloodied:
 
-                _nextState = BossState.Move;
+                _nextState = BossState.Moving;
 
                 _BossBehavior = StartCoroutine(Bloodied());
                 break;
@@ -294,7 +305,7 @@ public class BossController : EntityBase
 
     private void GenerateAttack()
     {
-        Debug.Log("boss attack");
+        State = BossState.Attack;
         BossAttacks randomAttack;
 
         if (isSegmentsAlive)
@@ -331,7 +342,7 @@ public class BossController : EntityBase
     #region Behaviors
     private IEnumerator BossIdle()
     {
-        Debug.Log("Idle");
+        State = BossState.Idle;
         //animation
         //Idle Anim is Unconditional return from other states.
 
@@ -343,7 +354,7 @@ public class BossController : EntityBase
 
     private IEnumerator Bloodied()
     {
-        Debug.Log("Bloodied");
+        State = BossState.Bloodied;
         //animation controller through OnSegmentDestroyed check
 
         //set invulnerable
@@ -359,8 +370,8 @@ public class BossController : EntityBase
 
     private IEnumerator MovePattern(int count)
     {
+        State = BossState.Moving;
         //animation?
-        Debug.Log("Boss is Moving " + count);
 
         //recursive exit check
         if (count <= 0)
@@ -403,7 +414,6 @@ public class BossController : EntityBase
     #region Attacks
     private IEnumerator MissileAttack()
     {
-        Debug.Log("Missile");
         //animation
         _bossAnim.SetInteger("AttackType", 1);
 
@@ -423,8 +433,6 @@ public class BossController : EntityBase
                 }
                     
             }
-
-            Debug.Log("Segments alive: " + segAlive + ", time total: " + delayTime);
         }
         else
         {
@@ -450,7 +458,6 @@ public class BossController : EntityBase
 
     private IEnumerator RingAttack()
     {
-        Debug.Log("Ring");
         //animation
         _bossAnim.SetInteger("AttackType", 2);
 
@@ -462,17 +469,13 @@ public class BossController : EntityBase
         if (isSegmentsAlive)
         {
             //Single Ring Attack
-            Debug.Log("Firing the normal Ring Attack");
             GameObject bullet = PoolUtility.InstantiateFromPool(_ringPool, _projectileSpawn, _ringRef);
             Projectile missile = bullet.GetComponent<Projectile>();
             missile.SetDamage(_attackDamage);
         }
         else 
         {
-            //TODO Bloodied??Ring Attack Animation?
-
             //Up to 3 Rings?
-            Debug.Log("Firing bloodied Ring Attack");
             for (int i=0; i < _bloodiedProjectileCount; i++)
             {
                 GameObject bullet = PoolUtility.InstantiateFromPool(_ringPool, _projectileSpawn, _ringRef);
@@ -491,7 +494,6 @@ public class BossController : EntityBase
 
     private IEnumerator LaserAttack()
     {
-        Debug.Log("Laser Warmup");
         //animation
         _bossAnim.SetInteger("AttackType", 3);
 
@@ -528,7 +530,6 @@ public class BossController : EntityBase
 
     private IEnumerator SummonMinions()
     {
-        Debug.Log("Summon");
         //Dependant if Minions are active
         //Refills current wave, stacks multiple waves if earlier waves are not defeated
         //Summons up to 5 Minions?
@@ -574,9 +575,9 @@ public class BossController : EntityBase
         AnimationClip[] bossClips = bossAnim.runtimeAnimatorController.animationClips;
         foreach (AnimationClip clip in bossClips)
         {
-            //Debug.Log(clip.name + " " + clip.length);
+            Debug.Log(clip.name + " " + clip.length);
             attackAnimTimes.Add(clip.length);
         }
-        //Boss_Idle(Start), Idle, Damage, A, B, C, D, E, Idle(Phase2?), F, Damage(2?), Damage(Segment?)
+        //"Boss_Idle(Start), Idle, Damage, A, B, C, D, E, Idle(Phase2?), F, Damage(2?), Damage(Segment?)"
     }
 }

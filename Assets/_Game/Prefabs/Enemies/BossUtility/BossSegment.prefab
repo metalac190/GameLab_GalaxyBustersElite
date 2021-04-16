@@ -11,6 +11,7 @@ GameObject:
   - component: {fileID: 1631958729850370942}
   - component: {fileID: 2337978938811982184}
   - component: {fileID: 2686396386739683744}
+  - component: {fileID: 1848375782556421523}
   m_Layer: 11
   m_Name: BossSegment
   m_TagString: Untagged
@@ -112,10 +113,26 @@ MonoBehaviour:
         m_CallState: 2
   maxHealth: 1
   _bossRef: {fileID: 0}
+  _meshSegment: {fileID: 0}
   _missileRef: {fileID: 1207102664770212819, guid: 5e979b94bc905b34381a983a4dfe2c30,
     type: 3}
   _missileSpawnPoint: {fileID: 2480145904321862297}
-  _myDelay: 0.01
+--- !u!114 &1848375782556421523
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4752909642836735527}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 0900919680551f7439dd1aeb5873586e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  FlashMaterial: {fileID: 0}
+  _meshSegment: {fileID: 0}
+  _flashLength: 0.1
+  _flashNumber: 5
 --- !u!1 &6085815508633050379
 GameObject:
   m_ObjectHideFlags: 0

@@ -4,21 +4,34 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Events;
 
+[RequireComponent(typeof(FlickerController))]
 public class BossSegmentController : EntityBase
 {
     //Refer to Ben Friedman for QA/Bugfixing on Boss System scripts
 
+    [Header("References DO NOT TOUCH")]
+    [Tooltip("Reference to BossController GameObject object")]
     [SerializeField] private BossController _bossRef = null;
-
-    [Tooltip("Reference to Normal Boss Missile Prefab")]
+    [Tooltip("The gameobject with the corresponding Mesh to this Segment/Rig position")]
+    [SerializeField] private GameObject _meshSegment = null;
+    [Tooltip("Reference to Boss Missile Prefab asset")]
     [SerializeField] private GameObject _missileRef = null;
+    [Tooltip("Reference to SpawnPoint Transform objet")]
     [SerializeField] private Transform _missileSpawnPoint = null;
-    [SerializeField] private float _myDelay = 0f;
-    
+    private List<GameObject> _missilePool = new List<GameObject>();
+
     public float Health { get { return _currentHealth; } }
 
-    private List<GameObject> _missilePool = new List<GameObject>();
+    private float _myDelay = 0f;
     private int _damage = 1;
+    private FlickerController flickerController = null;
+
+    private void Awake()
+    {
+        //find and override flash material to maintain consistency with boss
+        flickerController = GetComponent<FlickerController>();
+        flickerController.FlashMaterial = _bossRef.FlashMaterial;
+    }
 
     #region Listeners
     private void OnEnable()
@@ -42,7 +55,24 @@ public class BossSegmentController : EntityBase
         }
         else
         {
-            base.TakeDamage(damage);
+            //base.TakeDamage(damage)
+            _currentHealth -= damage;
+
+            if (_currentHealth <= 0)
+            {
+                Died.Invoke();
+
+                //control mesh visibility here, not in UnityEvents
+                _meshSegment.SetActive(false);
+                gameObject.SetActive(false);
+            }
+            else
+            {
+                Damaged.Invoke();
+
+                //control damage flash here
+                flickerController.CallFlicker();
+            }
         }
     }
 
@@ -66,6 +96,7 @@ public class BossSegmentController : EntityBase
     }
     #endregion
 
+    #region Missile Attack
     //BossAttacks type transfered via int type and not enum
     private void OnAttack(int value)
     {
@@ -105,4 +136,5 @@ public class BossSegmentController : EntityBase
         bullet.SetTarget(GameManager.player.obj);
         bullet.SetDamage(_damage);
     }
+    #endregion
 }

@@ -73,6 +73,9 @@ public abstract class EnemyBase : EntityBase
 
     public virtual void Dead()
     {
+        if (givesPlayerMS)
+            camRailManager.IncreaseCamRailSpeed();
+
         transform.parent.gameObject.SetActive(false);
     }
 
