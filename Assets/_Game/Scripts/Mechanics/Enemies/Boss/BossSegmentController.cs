@@ -30,7 +30,6 @@ public class BossSegmentController : EntityBase
     {
         //find and override flash material to maintain consistency with boss
         flickerController = GetComponent<FlickerController>();
-        flickerController.FlashMaterial = _bossRef.FlashMaterial;
     }
 
     #region Listeners
