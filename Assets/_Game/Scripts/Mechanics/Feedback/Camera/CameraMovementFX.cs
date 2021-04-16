@@ -27,6 +27,8 @@ public class CameraMovementFX : MonoBehaviour
     [Range(0.01f, 2)]
     [SerializeField] float delayBetweenSpeedLineFrames = 0.2f;
     [SerializeField] float maxSpeedingTime = 8;
+    [SerializeField] float fadeInTime = 0.2f;
+    [SerializeField] float fadeOutTime = 1;
 
     [Header("Speed Sound")]
     [SerializeField] AudioSource speedSound;
@@ -109,12 +111,14 @@ public class CameraMovementFX : MonoBehaviour
             if (speeding && !wispyParticles.isPlaying)
             {
                 wispyParticles.Play();
+
                 speedSound.volume = 1;
                 speedSound.Play();
             }
             else if (!speeding && wispyParticles.isPlaying)
             {
                 wispyParticles.Stop();
+
                 speedSound.volume -= 0.02f;
             }
 
@@ -124,20 +128,29 @@ public class CameraMovementFX : MonoBehaviour
 
     IEnumerator SpeedLinesAnimation()
     {
+        speedLinesRenderer.CrossFadeAlpha(0, 0, true); // Needs to crossfade here rather than set transparency to 0 for effect to work :/
+        speedLinesRenderer.enabled = true;
+
+        bool speedingLastFrame = !speeding;
+
         while (true)
         {
-            if (speeding)
+            if (speedLinesRenderer.color.a > 0.02f)
             {
-                if (!speedLinesRenderer.enabled)
-                    speedLinesRenderer.enabled = true;
-
                 speedLinesRenderer.sprite = speedLinesFrames[curSpeedLinesFrame];
+
                 curSpeedLinesFrame++;
                 if (curSpeedLinesFrame >= speedLinesFrames.Length)
                     curSpeedLinesFrame = 0;
             }
-            else if (speedLinesRenderer.enabled)
-                speedLinesRenderer.enabled = false;
+
+            if (speeding && !speedingLastFrame)
+                speedLinesRenderer.CrossFadeAlpha(1, fadeInTime, false);
+            else if (!speeding && speedingLastFrame)
+                speedLinesRenderer.CrossFadeAlpha(0, fadeOutTime, false);
+
+
+            speedingLastFrame = speeding;
 
             yield return new WaitForSeconds(delayBetweenSpeedLineFrames);
         }
