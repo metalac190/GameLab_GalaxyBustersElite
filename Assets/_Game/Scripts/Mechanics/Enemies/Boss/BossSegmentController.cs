@@ -12,15 +12,14 @@ public class BossSegmentController : EntityBase
     [Tooltip("The gameobject with the corresponding Mesh to this Segment/Rig position")]
     [SerializeField] private GameObject _meshSegment = null;
     [Tooltip("Full cycle length of a single Flash\n(On and Off)")]
-    [SerializeField] private float _flashLength = 0.1f;
+    [SerializeField] private float _flashLength = 1f;
     [Tooltip("Number of Flashes to take place per one damage")]
-    [SerializeField] private int _flashNumber = 2;
-    [Tooltip("Emmisive Color to display when Flashing")]
-    [SerializeField] private Color _flashColor = Color.white;
-    [Tooltip("Emission Intensity strength")]
-    [SerializeField] private float _flashStrength = 5f;
-    private SkinnedMeshRenderer _meshRender = null;
+    [SerializeField] private int _flashNumber = 3;
+    private Material _flashMat = null;
+    private Material _startMat = null;
+    private Renderer _meshRender = null;
     private int _flashCount = 0;
+    private Coroutine _flashRoutine = null;
 
     [Header("References DO NOT TOUCH")]
     [Tooltip("Reference to BossController GameObject object")]
@@ -35,12 +34,12 @@ public class BossSegmentController : EntityBase
 
     private float _myDelay = 0f;
     private int _damage = 1;
-    private Coroutine _flashRoutine = null;
 
     private void Awake()
     {
-        _meshRender = _meshSegment.GetComponent<SkinnedMeshRenderer>();
-        _meshRender.material.EnableKeyword("_EMISSION");
+        _meshRender = _meshSegment.GetComponent<Renderer>();
+        _startMat = _meshRender.material;
+        _flashMat = _bossRef.FlashMaterial;
     }
 
     #region Listeners
@@ -158,16 +157,12 @@ public class BossSegmentController : EntityBase
         while(_flashCount > 0)
         {
             Debug.Log("Set to Red");
-            //Color startColor = _meshMaterial emmisive color
-            Color startColor = _meshRender.material.color;
-            _meshRender.material.SetColor("_EmissionColor", _flashColor);
-            _meshRender.UpdateGIMaterials();
+            _meshRender.material = _flashMat;
 
             yield return new WaitForSeconds(_flashLength / 2);
 
             Debug.Log("Set to Normal");
-            _meshRender.material.SetColor("_EmissionColor", startColor);
-            _meshRender.UpdateGIMaterials();
+            _meshRender.material = _startMat;
 
             yield return new WaitForSeconds(_flashLength / 2);
 

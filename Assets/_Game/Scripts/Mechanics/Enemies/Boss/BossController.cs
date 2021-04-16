@@ -23,8 +23,7 @@ public class BossController : EntityBase
 
     [Tooltip("Starting Health for each Segment.\nTotal Segment Health derived from\nStarting Health * number of Segments")]
     [SerializeField] private float _segmentHealth = 10;
-    [SerializeField] private BossSegmentController[] _segmentRefs = new BossSegmentController[0];
-
+    
     [Header("Timers")]
 
     [Tooltip("Time in Seconds to wait during Idle state.")]
@@ -47,8 +46,9 @@ public class BossController : EntityBase
     [SerializeField] private float _laserSpeedModifier = 0.8f;
     
     [Header("Asset References! Do Not Touch!")]
-
-    //Minion Pooling
+    [SerializeField] private BossSegmentController[] _segmentRefs = new BossSegmentController[0];
+    
+    [Header("Minion Refs")]
     [Tooltip("Reference to Minion Prefab.")]
     [SerializeField] private GameObject _minionRef = null;
     [Tooltip("Staring Group of Minions, with Waypoints")]
@@ -58,6 +58,7 @@ public class BossController : EntityBase
     [Tooltip("Middle Waypoint Idenfitied, for Minions that spawn in secondary Position[s]")]
     [SerializeField] private int[] _minionMidpoint = new int[1];
 
+    [Header("Attack & Projectile Refs")]
     //Ring Attack Pooling
     [Tooltip("Reference to Ring Attack Prefab.")]
     [SerializeField] private GameObject _ringRef = null;
@@ -75,11 +76,28 @@ public class BossController : EntityBase
     [SerializeField] private GameObject _laserTracker = null;
     private Vector3 _laserEndPoint = Vector3.zero;
 
+    [Header("Animation Refs")]
     [Tooltip("Parent Transform for Collision + Art")]
     [SerializeField] private GameObject _bossRoot = null;
 
     [Tooltip("Animator Controller for Boss Animations")]
     [SerializeField] private Animator _bossAnim = null;
+
+    [Header("Damage Flash Settings")]
+    [Tooltip("The gameobject with the corresponding Mesh to this Segment/Rig position")]
+    [SerializeField] private GameObject _meshSegment = null;
+    [Tooltip("Full cycle length of a single Flash\n(On and Off)")]
+    [SerializeField] private float _flashLength = 1f;
+    [Tooltip("Number of Flashes to take place per one damage")]
+    [SerializeField] private int _flashNumber = 3;
+    [SerializeField] private Material _flashMaterial = null;
+    public Material FlashMaterial { get { return _flashMaterial; } }
+
+    private Material _flashMat = null;
+    private Material _startMat = null;
+    private Renderer _meshRender = null;
+    private int _flashCount = 0;
+    private Coroutine _flashRoutine = null;
 
     [HideInInspector]
     public bool isInvulnerable = true;
@@ -112,6 +130,10 @@ public class BossController : EntityBase
         //save position to create bounds during movement behavior
         _startPosition = _bossRoot.transform.position;
         _laserTracker.SetActive(false);
+
+        _meshRender = _meshSegment.GetComponent<Renderer>();
+        _startMat = _meshRender.material;
+        _flashMat = FlashMaterial;
 
         for (int i=0; i < _segmentRefs.Length; i++)
         {
@@ -146,12 +168,12 @@ public class BossController : EntityBase
             else
             {
                 Damaged.Invoke();
+                
+                //control damage flash here
+                _flashCount = _flashNumber;
 
-                //animate?
-                //isInvulnerable = true;
-                //delay
-                //isInvulnerable = false;
-                //_bossAnim.SetTrigger("TakeDamage");
+                if (_flashRoutine == null)
+                    _flashRoutine = StartCoroutine(DamageFlash());
             }
         }
         
@@ -570,5 +592,28 @@ public class BossController : EntityBase
             attackAnimTimes.Add(clip.length);
         }
         //Boss_Idle(Start), Idle, Damage, A, B, C, D, E, Idle(Phase2?), F, Damage(2?), Damage(Segment?)
+    }
+
+    private IEnumerator DamageFlash()
+    {
+        //referencing instance variable flashCount, which is reset at each instance of damage
+        //multiple damage instnaces will artificially extend the time spent flashing
+        while (_flashCount > 0)
+        {
+            Debug.Log("Set to Red");
+            _meshRender.material = _flashMat;
+
+            yield return new WaitForSeconds(_flashLength / 2);
+
+            Debug.Log("Set to Normal");
+            _meshRender.material = _startMat;
+
+            yield return new WaitForSeconds(_flashLength / 2);
+
+            _flashCount--;
+        }
+
+        Debug.Log("Done Flashing");
+        _flashRoutine = null;
     }
 }
