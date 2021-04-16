@@ -8,17 +8,39 @@ public class BossSegmentController : EntityBase
 {
     //Refer to Ben Friedman for QA/Bugfixing on Boss System scripts
 
-    [SerializeField] private BossController _bossRef = null;
+    [Header("Damage Flash Settings")]
+    [Tooltip("The gameobject with the corresponding Mesh to this Segment/Rig position")]
+    [SerializeField] private GameObject _meshSegment = null;
+    [Tooltip("Full cycle length of a single Flash\n(On and Off)")]
+    [SerializeField] private float _flashLength = 1f;
+    [Tooltip("Number of Flashes to take place per one damage")]
+    [SerializeField] private int _flashNumber = 3;
+    private Material _flashMat = null;
+    private Material _startMat = null;
+    private Renderer _meshRender = null;
+    private int _flashCount = 0;
+    private Coroutine _flashRoutine = null;
 
-    [Tooltip("Reference to Normal Boss Missile Prefab")]
+    [Header("References DO NOT TOUCH")]
+    [Tooltip("Reference to BossController GameObject object")]
+    [SerializeField] private BossController _bossRef = null;
+    [Tooltip("Reference to Boss Missile Prefab asset")]
     [SerializeField] private GameObject _missileRef = null;
+    [Tooltip("Reference to SpawnPoint Transform objet")]
     [SerializeField] private Transform _missileSpawnPoint = null;
-    [SerializeField] private float _myDelay = 0f;
-    
+    private List<GameObject> _missilePool = new List<GameObject>();
+
     public float Health { get { return _currentHealth; } }
 
-    private List<GameObject> _missilePool = new List<GameObject>();
+    private float _myDelay = 0f;
     private int _damage = 1;
+
+    private void Awake()
+    {
+        _meshRender = _meshSegment.GetComponent<Renderer>();
+        _startMat = _meshRender.material;
+        _flashMat = _bossRef.FlashMaterial;
+    }
 
     #region Listeners
     private void OnEnable()
@@ -42,7 +64,27 @@ public class BossSegmentController : EntityBase
         }
         else
         {
-            base.TakeDamage(damage);
+            //base.TakeDamage(damage)
+            _currentHealth -= damage;
+
+            if (_currentHealth <= 0)
+            {
+                Died.Invoke();
+
+                //control mesh visibility here, not in UnityEvents
+                _meshSegment.SetActive(false);
+                gameObject.SetActive(false);
+            }
+            else
+            {
+                Damaged.Invoke();
+
+                //control damage flash here
+                _flashCount = _flashNumber;
+
+                if (_flashRoutine == null)
+                    _flashRoutine = StartCoroutine(DamageFlash());
+            }
         }
     }
 
@@ -66,6 +108,7 @@ public class BossSegmentController : EntityBase
     }
     #endregion
 
+    #region Missile Attack
     //BossAttacks type transfered via int type and not enum
     private void OnAttack(int value)
     {
@@ -104,5 +147,29 @@ public class BossSegmentController : EntityBase
 
         bullet.SetTarget(GameManager.player.obj);
         bullet.SetDamage(_damage);
+    }
+    #endregion
+
+    private IEnumerator DamageFlash()
+    {
+        //referencing instance variable flashCount, which is reset at each instance of damage
+        //multiple damage instnaces will artificially extend the time spent flashing
+        while(_flashCount > 0)
+        {
+            Debug.Log("Set to Red");
+            _meshRender.material = _flashMat;
+
+            yield return new WaitForSeconds(_flashLength / 2);
+
+            Debug.Log("Set to Normal");
+            _meshRender.material = _startMat;
+
+            yield return new WaitForSeconds(_flashLength / 2);
+
+            _flashCount--;
+        }
+
+        Debug.Log("Done Flashing");
+        _flashRoutine = null;
     }
 }
