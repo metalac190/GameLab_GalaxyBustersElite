@@ -10,7 +10,14 @@ public class Boss_NegateSpeed : MonoBehaviour
 
     public void overrideSpeed(float speed)
     {
-        CMA.m_Speed = speed;
-        CMB.m_Speed = speed;
+        if(speed == 0) {
+            CMA.enabled = false;
+        } else {
+            CMA.enabled = true;
+        }
+            
+        //CMA.m_Speed = speed;
+        //CMB.m_Speed = speed;
+        //Debug.Log(speed + " / " + CMA.m_Speed + " / " + CMB.m_Speed);
     }
 }

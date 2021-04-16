@@ -3711,6 +3711,53 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 19
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &148312958
+GameObject:
+  m_ObjectHideFlags: 1
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 148312960}
+  - component: {fileID: 148312959}
+  m_Layer: 0
+  m_Name: StaticLightingSky
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!114 &148312959
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 148312958}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 441482e8936e35048a1dffac814e3ef8, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_Profile: {fileID: 0}
+  m_StaticLightingSkyUniqueID: 0
+  m_SkySettings: {fileID: 0}
+  m_SkySettingsFromProfile: {fileID: 0}
+--- !u!4 &148312960
+Transform:
+  m_ObjectHideFlags: 1
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 148312958}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_RootOrder: 31
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1001 &152739149
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -9160,7 +9207,7 @@ PrefabInstance:
     - target: {fileID: 1776219114986397214, guid: 882771eb9178a0b41a339202b7b6e8b6,
         type: 3}
       propertyPath: m_Lens.m_SensorSize.x
-      value: 1.7789474
+      value: 1.7783688
       objectReference: {fileID: 0}
     - target: {fileID: 1776219115295872288, guid: 882771eb9178a0b41a339202b7b6e8b6,
         type: 3}
@@ -14490,12 +14537,27 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 2279619138658083832, guid: 180ee2ade64c39e4f8b1783a189e7caa,
+        type: 3}
+      propertyPath: givesPlayerMS
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 2341149538523082628, guid: 180ee2ade64c39e4f8b1783a189e7caa,
         type: 3}
       propertyPath: m_Name
       value: Boss
       objectReference: {fileID: 0}
+    - target: {fileID: 2698673052955912206, guid: 180ee2ade64c39e4f8b1783a189e7caa,
+        type: 3}
+      propertyPath: givesPlayerMS
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 2798981343431432567, guid: 180ee2ade64c39e4f8b1783a189e7caa,
+        type: 3}
+      propertyPath: givesPlayerMS
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3153634838762533448, guid: 180ee2ade64c39e4f8b1783a189e7caa,
         type: 3}
       propertyPath: givesPlayerMS
       value: 0
@@ -14560,6 +14622,11 @@ PrefabInstance:
       propertyPath: givesPlayerMS
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 5198485258285548973, guid: 180ee2ade64c39e4f8b1783a189e7caa,
+        type: 3}
+      propertyPath: givesPlayerMS
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 5777789109824278403, guid: 180ee2ade64c39e4f8b1783a189e7caa,
         type: 3}
       propertyPath: m_Icon
@@ -14605,7 +14672,7 @@ PrefabInstance:
         type: 3}
       propertyPath: Triggered.m_PersistentCalls.m_Calls.Array.data[1].m_Target
       value: 
-      objectReference: {fileID: 1451099493}
+      objectReference: {fileID: 68759756}
     - target: {fileID: 7282913749908194210, guid: 180ee2ade64c39e4f8b1783a189e7caa,
         type: 3}
       propertyPath: Triggered.m_PersistentCalls.m_Calls.Array.data[1].m_MethodName
