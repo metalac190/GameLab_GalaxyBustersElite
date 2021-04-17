@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Events;
 
+[RequireComponent(typeof(FlickerController))]
 public class BossController : EntityBase
 {
     //Refer to Ben Friedman for QA/Bugfixing on Boss System scripts
@@ -83,21 +84,7 @@ public class BossController : EntityBase
     [Tooltip("Animator Controller for Boss Animations")]
     [SerializeField] private Animator _bossAnim = null;
 
-    [Header("Damage Flash Settings")]
-    [Tooltip("The gameobject with the corresponding Mesh to this Segment/Rig position")]
-    [SerializeField] private GameObject _meshSegment = null;
-    [Tooltip("Full cycle length of a single Flash\n(On and Off)")]
-    [SerializeField] private float _flashLength = 1f;
-    [Tooltip("Number of Flashes to take place per one damage")]
-    [SerializeField] private int _flashNumber = 3;
-    [SerializeField] private Material _flashMaterial = null;
-    public Material FlashMaterial { get { return _flashMaterial; } }
-
-    private Material _flashMat = null;
-    private Material _startMat = null;
-    private Renderer _meshRender = null;
-    private int _flashCount = 0;
-    private Coroutine _flashRoutine = null;
+    private FlickerController flickerController = null;
 
     [HideInInspector]
     public bool isInvulnerable = true;
@@ -131,9 +118,8 @@ public class BossController : EntityBase
         _startPosition = _bossRoot.transform.position;
         _laserTracker.SetActive(false);
 
-        _meshRender = _meshSegment.GetComponent<Renderer>();
-        _startMat = _meshRender.material;
-        _flashMat = FlashMaterial;
+        //find and override flash material to maintain consistency with segments
+        flickerController = GetComponent<FlickerController>();
 
         for (int i=0; i < _segmentRefs.Length; i++)
         {
@@ -142,7 +128,7 @@ public class BossController : EntityBase
             _segmentRefs[i].SetDamage(_attackDamage);
         }
 
-        GetAnimationTimes(_bossAnim);
+        //GetAnimationTimes(_bossAnim);
     }
 
     public override void TakeDamage(float damage)
@@ -168,12 +154,9 @@ public class BossController : EntityBase
             else
             {
                 Damaged.Invoke();
-                
-                //control damage flash here
-                _flashCount = _flashNumber;
 
-                if (_flashRoutine == null)
-                    _flashRoutine = StartCoroutine(DamageFlash());
+                //control damage flash here
+                flickerController.CallFlicker();
             }
         }
         
@@ -588,32 +571,9 @@ public class BossController : EntityBase
         AnimationClip[] bossClips = bossAnim.runtimeAnimatorController.animationClips;
         foreach (AnimationClip clip in bossClips)
         {
-            //Debug.Log(clip.name + " " + clip.length);
+            Debug.Log(clip.name + " " + clip.length);
             attackAnimTimes.Add(clip.length);
         }
-        //Boss_Idle(Start), Idle, Damage, A, B, C, D, E, Idle(Phase2?), F, Damage(2?), Damage(Segment?)
-    }
-
-    private IEnumerator DamageFlash()
-    {
-        //referencing instance variable flashCount, which is reset at each instance of damage
-        //multiple damage instnaces will artificially extend the time spent flashing
-        while (_flashCount > 0)
-        {
-            Debug.Log("Set to Red");
-            _meshRender.material = _flashMat;
-
-            yield return new WaitForSeconds(_flashLength / 2);
-
-            Debug.Log("Set to Normal");
-            _meshRender.material = _startMat;
-
-            yield return new WaitForSeconds(_flashLength / 2);
-
-            _flashCount--;
-        }
-
-        Debug.Log("Done Flashing");
-        _flashRoutine = null;
+        //"Boss_Idle(Start), Idle, Damage, A, B, C, D, E, Idle(Phase2?), F, Damage(2?), Damage(Segment?)"
     }
 }
