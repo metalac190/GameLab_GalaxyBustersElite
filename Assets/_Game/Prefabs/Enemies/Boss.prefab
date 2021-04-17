@@ -834,7 +834,6 @@ MonoBehaviour:
   _laserTracker: {fileID: 1814586951542617289}
   _bossRoot: {fileID: 4097383395491550940}
   _bossAnim: {fileID: 9071247568743365907}
-  _flashMaterial: {fileID: 2100000, guid: 42500640e301f1d4b8d2f8457eb80af4, type: 2}
   isInvulnerable: 1
   State: -1
 --- !u!114 &5290190648264245506
@@ -849,10 +848,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0900919680551f7439dd1aeb5873586e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  FlashMaterial: {fileID: 0}
+  _flickerSettings: {fileID: 11400000, guid: 451e10f5367da1e4487796eccd835a89, type: 2}
   _meshSegment: {fileID: 508509857930883634}
-  _flashLength: 0.1
-  _flashNumber: 5
 --- !u!65 &6582933599247529167
 BoxCollider:
   m_ObjectHideFlags: 0

@@ -4,17 +4,12 @@ using UnityEngine;
 
 public class FlickerController : MonoBehaviour
 {
-    [Header("Damage Flash Settings")]
-    [Tooltip("The Material to alternate between")]
-    public Material FlashMaterial = null;
+    [Header("Flash Settings")]
+    [Tooltip("Scriptable Object Reference for this FlickerType")]
+    [SerializeField] private FlickerSettings _flickerSettings = null;
     [Tooltip("The gameobject with the corresponding Mesh")]
     [SerializeField] private GameObject _meshSegment = null;
-    [Tooltip("Full cycle length of a single Flash\n(On and Off)")]
-    [SerializeField] private float _flashLength = 0.1f;
-    [Tooltip("Number of Flashes to take place per one damage")]
-    [SerializeField] private int _flashNumber = 5;
     
-    private Material _flashMat = null;
     private Material _startMat = null;
     private Renderer _meshRender = null;
     private Coroutine _flickerRoutine = null;
@@ -29,7 +24,7 @@ public class FlickerController : MonoBehaviour
 
     public void CallFlicker()
     {
-        _flashCount = _flashNumber;
+        _flashCount = _flickerSettings.FlickerNumber;
 
         if(_flickerRoutine == null)
             _flickerRoutine = StartCoroutine(RepeatFlash());
@@ -42,14 +37,14 @@ public class FlickerController : MonoBehaviour
         while (_flashCount > 0)
         {
             Debug.Log("Set to Red");
-            _meshRender.material = _flashMat;
+            _meshRender.material = _flickerSettings.FlickerMaterial;
 
-            yield return new WaitForSeconds(_flashLength / 2);
+            yield return new WaitForSeconds(_flickerSettings.FlickerTime / 2);
 
             Debug.Log("Set to Normal");
             _meshRender.material = _startMat;
 
-            yield return new WaitForSeconds(_flashLength / 2);
+            yield return new WaitForSeconds(_flickerSettings.FlickerTime / 2);
 
             _flashCount--;
         }

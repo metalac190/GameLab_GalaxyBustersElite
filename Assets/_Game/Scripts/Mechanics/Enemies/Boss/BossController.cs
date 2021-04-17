@@ -84,9 +84,6 @@ public class BossController : EntityBase
     [Tooltip("Animator Controller for Boss Animations")]
     [SerializeField] private Animator _bossAnim = null;
 
-    [Header("Damage Flash Settings")]
-    [SerializeField] private Material _flashMaterial = null;
-    public Material FlashMaterial { get { return _flashMaterial; } }
     private FlickerController flickerController = null;
 
     [HideInInspector]
@@ -123,7 +120,6 @@ public class BossController : EntityBase
 
         //find and override flash material to maintain consistency with segments
         flickerController = GetComponent<FlickerController>();
-        flickerController.FlashMaterial = FlashMaterial;
 
         for (int i=0; i < _segmentRefs.Length; i++)
         {
