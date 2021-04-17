@@ -28,6 +28,7 @@ public class GameManager : MonoBehaviour {
 
     [Header("Game Stats")]
     public int score;
+	public Challenges challenges;
 
     [Header("Briefing")]
     [SerializeField] private GameObject missionBriefingGO;

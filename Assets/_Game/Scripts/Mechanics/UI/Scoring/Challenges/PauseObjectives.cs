@@ -18,7 +18,7 @@ public class PauseObjectives : MonoBehaviour
 		if (notplaying)
 		{
 			if (challengeList == null)
-				challengeList = ScoreSystem.challenges;
+				challengeList = GameManager.gm.challenges;
 
 			for (int i = 0; i < challengeList.GetChallenges().Length; i++)
 			{

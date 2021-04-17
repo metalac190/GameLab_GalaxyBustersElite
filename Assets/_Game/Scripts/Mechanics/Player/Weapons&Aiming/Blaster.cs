@@ -12,7 +12,6 @@ public class Blaster : WeaponBase
 	[Header("Primary Fire Settings")]
 	[SerializeField] float projectileSpeed = 200f;
 	[SerializeField] [Range(0, 45)] float projectileCone = 1f;
-	[SerializeField] float clickCooldown = 0.5f;
 
 	[Header("Hold Fire Settings")]
 	[SerializeField] float fireRate = 3f;
@@ -36,7 +35,6 @@ public class Blaster : WeaponBase
 		fireReady = (!overloaded && GameManager.gm.currentState == GameState.Gameplay && !GameManager.gm.Paused);
 		chargeMeter = GameManager.player.controller.GetOverloadCharge();
 
-		// TODO: Add slight bonus for clicking rapidly over holding fire
 		if (Input.GetButton("Primary Fire") && fireReady)
 		{
 			FireBullet();

@@ -10,7 +10,6 @@ public class LaserBeam : WeaponBase
 	private LineRenderer line;
 	private Transform target;
 	private List<GameObject> overloadTargets = new List<GameObject>();
-	private float tickDamage;
 	private Transform firePoint;
 	private List<GameObject> beamPool = new List<GameObject>();
 	float trackingDistance = 50f;
@@ -21,11 +20,12 @@ public class LaserBeam : WeaponBase
 	GameObject mouse;
 	GameObject targetingMode;
 
-	[Header("Hold Fire Settings")]
+	[Header("Beam Settings")]
 	[SerializeField] float damageCap = 5f;
-	[SerializeField] float timeToCharge = 5f;
 	[SerializeField] float tickRate = 0.1f;
-	//[SerializeField] float damageMultiplier = 1.3f;
+	[SerializeField] float damageMultiplier = 1.3f;
+	[SerializeField] float tickDamage = 1f;
+	[SerializeField] float anticipationTime = 0.5f;
 
 	[Header("Effects")]
 	[SerializeField] UnityEvent OnLaserStop;
@@ -93,11 +93,11 @@ public class LaserBeam : WeaponBase
 			if (targetFound)
 			{
 				//Old exponential damage increase
-				//tickDamage = (tickDamage * damageMultiplier >= damageCap) ? damageCap : tickDamage * damageMultiplier;
+				tickDamage = (tickDamage * damageMultiplier >= damageCap) ? damageCap : tickDamage * damageMultiplier;
 
 				//New linear damage increase
-				nextDamage = damage + (damageCap - damage) * Mathf.Pow(numTicks * tickRate, 2);
-				tickDamage = nextDamage >= damageCap ? damageCap : nextDamage;
+				//nextDamage = damage + (damageCap - damage) * Mathf.Pow(numTicks * tickRate, 2);
+				//tickDamage = nextDamage >= damageCap ? damageCap : nextDamage;
 				projectile.GetComponent<Beam>().SetTarget(target.gameObject);
 				target.GetComponent<EntityBase>().TakeDamage(tickDamage);
 				numTicks++;
@@ -183,7 +183,7 @@ public class LaserBeam : WeaponBase
 		firePoint.GetComponent<GroupTargetDetector>().pauseTracking = false;
 		firePoint.GetComponent<GroupTargetDetector>().SetCollider(true);
 
-		yield return new WaitForSeconds(overloadTime - 0.5f);
+		yield return new WaitForSeconds(overloadTime - anticipationTime);
 
 		targetingMode.SetActive(false);
 		overloadTargets = firePoint.GetComponent<GroupTargetDetector>().targets;
@@ -192,7 +192,7 @@ public class LaserBeam : WeaponBase
 
 		if (overloadTargets.Count > 0) OnOverloadFired?.Invoke();
 
-		yield return new WaitForSeconds(0.5f);
+		yield return new WaitForSeconds(anticipationTime - .05f);
 
 		DrawLasers(false);
 		FireLaserOverload();
@@ -203,6 +203,7 @@ public class LaserBeam : WeaponBase
 	{
 		overloaded = false;
 		StopCoroutine("ActivateOverload");
+		StopCoroutine("LaserOverload");
 		CancelInvoke();
 	}
 
