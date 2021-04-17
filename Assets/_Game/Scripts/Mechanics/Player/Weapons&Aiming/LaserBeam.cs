@@ -17,7 +17,6 @@ public class LaserBeam : WeaponBase
 	float numTicks;
 	float nextDamage;
 	LayerMask targetLayers;
-	GameObject mouse;
 	GameObject targetingMode;
 
 	[Header("Beam Settings")]
@@ -26,6 +25,7 @@ public class LaserBeam : WeaponBase
 	[SerializeField] float damageMultiplier = 1.3f;
 	[SerializeField] float tickDamage = 1f;
 	[SerializeField] float anticipationTime = 0.5f;
+	[SerializeField] private GameObject trackingEnd;
 
 	[Header("Effects")]
 	[SerializeField] UnityEvent OnLaserStop;
@@ -45,8 +45,8 @@ public class LaserBeam : WeaponBase
 		trackingDistance = GetComponent<AimWeapons>().aimAssistDistance;
 		aimAssistRadius = GetComponent<AimWeapons>().aimAssistWidth;
 		targetLayers = GetComponent<AimWeapons>().targetMask;
-		mouse = GameObject.Find("Mouse");
 		targetingMode = GameManager.gm.HUD.transform.Find("TargetingMode").gameObject;
+		trackingEnd.transform.localPosition = new Vector3(0, 0, trackingDistance);
 	}
 
 	void Update()
@@ -107,7 +107,7 @@ public class LaserBeam : WeaponBase
 
 		if (!targetFound)
 		{
-			projectile.GetComponent<Beam>().SetTarget(mouse);
+			projectile.GetComponent<Beam>().SetTarget(trackingEnd);
 			OnStandardFire.Invoke();
 		}
 	}
@@ -134,7 +134,7 @@ public class LaserBeam : WeaponBase
 	void TrackTarget()
 	{
 		RaycastHit hit = new RaycastHit();
-		targetFound = Physics.SphereCast(firePoint.position, aimAssistRadius, firePoint.forward, out hit, 50f, targetLayers);
+		targetFound = Physics.SphereCast(firePoint.position, aimAssistRadius, firePoint.forward, out hit, trackingDistance, targetLayers);
 
 		if (targetFound)
 		{
