@@ -16,8 +16,8 @@ public class Projectile : MonoBehaviour
                 rb.velocity = transform.forward * _speed;
         }
     }
-	[SerializeField] protected float _damage = 2;
 
+	[SerializeField] protected float _damage = 2;
     [SerializeField] private float lifeTime = 2f;
 
     private Rigidbody rb;
