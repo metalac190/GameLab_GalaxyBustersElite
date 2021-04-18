@@ -10,9 +10,6 @@ public class PickupBase : MonoBehaviour
     //hookups for FX teams, and other systems
     public UnityEvent PickedUp;
 
-    [SerializeField] private Vector3 _spinAngles = Vector3.one;
-    [SerializeField] private float _spinSpeed = 1f;
-
     private Collider triggerVolume = null;
 
     //do all drops give Points? Do weapons give an ammount? 
@@ -22,12 +19,6 @@ public class PickupBase : MonoBehaviour
     {
         triggerVolume = GetComponent<Collider>();
         triggerVolume.isTrigger = true;
-    }
-
-    private void FixedUpdate()
-    {
-    	Vector3 spin = _spinAngles.normalized * _spinSpeed;
-        transform.Rotate(spin);
     }
 
     private void OnTriggerEnter(Collider other)
