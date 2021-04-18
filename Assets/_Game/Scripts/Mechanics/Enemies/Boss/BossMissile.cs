@@ -10,46 +10,54 @@ public class BossMissile : EntityBase
     [SerializeField] private float _lifetime = 5f;
     [SerializeField] private float _speed = 10f;
     [SerializeField] private float _turnSpeed = 0.25f;
-
-    private GameObject playerRef = null;
+    
     private float _time = 0f;
     private int _damage = 1;
-    
-    private void OnEnable()
+    private HeatSeeker _seeker = null;
+    private HeatSeeker seeker
     {
-        _time = _lifetime;
-        rb.velocity = transform.forward * _speed;
-
-    }
-
-    private void Awake()
-    {
-        rb = GetComponent<Rigidbody>();
-    }
-
-    private void FixedUpdate()
-    {
-        //setactive timer, instead of Destroy(this, delay), usable for Pooling
-        _time -= Time.deltaTime;
-        if (_time <= 0)
+        get
         {
-            gameObject.SetActive(false);
+            if (_seeker == null)
+                _seeker = GetComponent<HeatSeeker>();
+
+            return _seeker;
         }
+    }
+
+
+    protected virtual void Awake()
+    {
+        // Move projectile forwards with set speed
+        rb = GetComponent<Rigidbody>();
+        rb.velocity = transform.forward * _speed;
+    }
+
+    protected virtual void OnEnable()
+    {
+        _time = 0;
+        rb.velocity = transform.forward * _speed;
+    }
+
+    private void Update()
+    {
+        // Destroy projectile after lifetime expires
+        _time += Time.deltaTime;
+        if (_time > _lifetime)
+            gameObject.SetActive(false);
     }
 
     //set values when Instantiated, able to adjust on the fly
     public void SetTarget(Vector3 point)
     {
-        //convert to Coroutine (or add to Update loop), to turn over time, instead of snapping
+        //using RB move forward, moves automatically
         transform.LookAt(point);
     }
 
     public void SetTarget(GameObject player)
     {
         Debug.Log("Missile Found Player");
-        playerRef = player;
 
-        HeatSeeker seeker = GetComponent<HeatSeeker>();
         seeker?.StartFollowing();
         seeker?.SetRotationSpeed(_turnSpeed);
     }
@@ -59,25 +67,14 @@ public class BossMissile : EntityBase
         _damage = value;
     }
 
-    private void OnCollisionEnter(Collision collision)
-    {
-        PlayerController player = collision.gameObject.GetComponent<PlayerController>();
-        player?.DamagePlayer(_damage);
-
-        //self destruct
-        TakeDamage(999);
-    }
-
     private void OnTriggerEnter(Collider other)
     {
         PlayerController player = other.gameObject.GetComponent<PlayerController>();
 
         if (player != null)
         {
-            player?.DamagePlayer(_damage);
-
-            //self destruct
-            TakeDamage(999);
+            player.DamagePlayer(_damage);
+            gameObject.SetActive(false);
         }
     }
 }

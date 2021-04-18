@@ -9,6 +9,7 @@
 
 public enum BossAttacks
 {
+    None = 0,
     MissileAttack = 1,
     RingAttack,
     LaserAttack,
