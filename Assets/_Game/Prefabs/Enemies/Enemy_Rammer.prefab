@@ -59,9 +59,10 @@ MonoBehaviour:
     dropChance: 0
   _healAmount: 1
   _overchargeRef:
-    prefabReference: {fileID: 0}
-    dropChance: 0
-  _overloadAmount: 0
+    prefabReference: {fileID: 5240054451046245164, guid: 45113c912639ce046b0e158ec171497d,
+      type: 3}
+    dropChance: 10
+  _overloadAmount: 10
 --- !u!1 &1656154533622931641
 GameObject:
   m_ObjectHideFlags: 0
@@ -178,9 +179,9 @@ MonoBehaviour:
         m_CallState: 2
   maxHealth: 10
   currentState: 0
-  id: Rammer
+  enemyType: 8
   attackDamage: 20
-  enemyDetectionRadius: 30
+  enemyDetectionRadius: 15
   enemyScore: 100
   givesPlayerMS: 1
   ramSpeed: 20
@@ -241,6 +242,7 @@ MonoBehaviour:
   waypoints: []
   moveSpeed: 3
   followPath: 0
+  followPathInverse: 0
   followPathSpeed: 0
   OnFinalWaypoint:
     m_PersistentCalls:
@@ -421,11 +423,6 @@ PrefabInstance:
       propertyPath: m_Name
       value: Enemy_General Sound Player
       objectReference: {fileID: 0}
-    - target: {fileID: 7885332458042498414, guid: 855086e511841044682edb8a5f185cff,
-        type: 3}
-      propertyPath: OutputAudioMixerGroup
-      value: 
-      objectReference: {fileID: 0}
     - target: {fileID: 8185007489991476492, guid: 855086e511841044682edb8a5f185cff,
         type: 3}
       propertyPath: m_RootOrder
@@ -480,11 +477,6 @@ PrefabInstance:
         type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 8438863077887770558, guid: 855086e511841044682edb8a5f185cff,
-        type: 3}
-      propertyPath: OutputAudioMixerGroup
-      value: 
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 855086e511841044682edb8a5f185cff, type: 3}
@@ -679,7 +671,7 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Controller
       value: 
-      objectReference: {fileID: 0}
+      objectReference: {fileID: 9100000, guid: 5f50304a1b8d26b49a426c334d43f75f, type: 2}
     - target: {fileID: 1998447280932251030, guid: f59686a48d20e2b40a631a6047e1c27d,
         type: 3}
       propertyPath: m_Name

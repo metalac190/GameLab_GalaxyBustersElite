@@ -201,12 +201,15 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _weaponsRefs:
-  - prefabReference: {fileID: 0}
-    dropChance: 0
-  - prefabReference: {fileID: 0}
-    dropChance: 0
-  - prefabReference: {fileID: 0}
-    dropChance: 0
+  - prefabReference: {fileID: 6195826417844601540, guid: 3abfc193df3a10c469ca7b2f4d5147c8,
+      type: 3}
+    dropChance: 33.4
+  - prefabReference: {fileID: 1418737460905681433, guid: f8f2803ce927a364ca9967c37d3ae9df,
+      type: 3}
+    dropChance: 33.3
+  - prefabReference: {fileID: 7571351070088572352, guid: b95653ffbc4c0824a806e8c872370110,
+      type: 3}
+    dropChance: 33.33
   _healthRef:
     prefabReference: {fileID: 0}
     dropChance: 0
@@ -329,16 +332,16 @@ MonoBehaviour:
         m_CallState: 2
   maxHealth: 60
   currentState: 0
-  id: Bandit
-  attackDamage: 7
+  enemyType: 1
+  attackDamage: 8
   enemyDetectionRadius: 30
-  enemyScore: 500
+  enemyScore: 600
   givesPlayerMS: 1
   burstShotAmt: 10
   attackRate: 0.4
   nextBurstMin: 1.5
   nextBurstMax: 2
-  projectileSpeed: 0
+  projectileSpeed: 55
   bulletPrefab: {fileID: 4817155437395576068, guid: ba5a3b4a6ff5405478bd4aded6ec18ba,
     type: 3}
   _spawnPoint: {fileID: 1230182441865655088}
@@ -382,6 +385,7 @@ MonoBehaviour:
   waypoints: []
   moveSpeed: 0
   followPath: 0
+  followPathInverse: 0
   followPathSpeed: 0
   OnFinalWaypoint:
     m_PersistentCalls:
@@ -398,7 +402,7 @@ BoxCollider:
   m_Enabled: 1
   serializedVersion: 2
   m_Size: {x: 4.4320707, y: 2.07583, z: 3.8222435}
-  m_Center: {x: -0.01999998, y: 0.062085032, z: 0.14512193}
+  m_Center: {x: -0.01999998, y: 0.58, z: 0.14512193}
 --- !u!1001 &1300092876641914051
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -571,11 +575,6 @@ PrefabInstance:
       propertyPath: m_Name
       value: Enemy_General Sound Player
       objectReference: {fileID: 0}
-    - target: {fileID: 7885332458042498414, guid: 855086e511841044682edb8a5f185cff,
-        type: 3}
-      propertyPath: OutputAudioMixerGroup
-      value: 
-      objectReference: {fileID: 0}
     - target: {fileID: 8185007489991476492, guid: 855086e511841044682edb8a5f185cff,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -630,11 +629,6 @@ PrefabInstance:
         type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 8438863077887770558, guid: 855086e511841044682edb8a5f185cff,
-        type: 3}
-      propertyPath: OutputAudioMixerGroup
-      value: 
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 855086e511841044682edb8a5f185cff, type: 3}
@@ -750,16 +744,6 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 2108437693947293221}
     m_Modifications:
-    - target: {fileID: 2734997473068786471, guid: 2270acdf5e3f70c4b951c0769412a6cc,
-        type: 3}
-      propertyPath: OutputAudioMixerGroup
-      value: 
-      objectReference: {fileID: 0}
-    - target: {fileID: 5926581568540506275, guid: 2270acdf5e3f70c4b951c0769412a6cc,
-        type: 3}
-      propertyPath: OutputAudioMixerGroup
-      value: 
-      objectReference: {fileID: 0}
     - target: {fileID: 6147327587969435411, guid: 2270acdf5e3f70c4b951c0769412a6cc,
         type: 3}
       propertyPath: m_LocalPosition.x
