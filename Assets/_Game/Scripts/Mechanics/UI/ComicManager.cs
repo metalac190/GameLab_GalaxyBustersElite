@@ -34,6 +34,8 @@ public class ComicManager : MonoBehaviour
         }
         nextButton.SetActive(false);
         skipButton.SetActive(false);
+
+        GameManager.gm.comicScreen = this;
     }
 
     private void Update()
@@ -67,10 +69,10 @@ public class ComicManager : MonoBehaviour
         }
         else
         {
-            exitComic();
+            ExitComic();
         }
     }
-    public void exitComic()
+    public void ExitComic()
     {
         foreach (GameObject p in panels)
         {
@@ -82,6 +84,7 @@ public class ComicManager : MonoBehaviour
         Time.timeScale = savedTime;
 
         //Exit function goes here
+        GameManager.gm.EndComicSequence();
     }
 
     private IEnumerator AddPanel(int panelNum)
