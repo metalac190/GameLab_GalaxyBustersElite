@@ -45,8 +45,10 @@ public class GameManager : MonoBehaviour {
 		public PlayerMovement movement;
 		public PlayerController controller;
 	}
+
     [Header("UI Reference")]
     public GameObject HUD;
+    public ComicManager comicScreen;
 
     // ----------------------------------------------------------------------------------------------------
 
@@ -148,6 +150,11 @@ public class GameManager : MonoBehaviour {
         EndLevel();
         currentState = GameState.Win;
         HUD.SetActive(false);
+        //winScreen.SetActive(true);
+        comicScreen.StartSequence();
+    }
+
+    public void EndComicSequence() {
         winScreen.SetActive(true);
     }
 
