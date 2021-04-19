@@ -31,8 +31,10 @@ public class BossController : EntityBase
     [SerializeField] private float _idleTime = 2f;
     [Tooltip("Delay between successive attacks\nEg. Missiles rapid fire")]
     [SerializeField] private float _delaySeconds = 0.2f;
-    [Tooltip("Time in Seconds for Laser animation to Warm Up\nBefore dealing damage.")]
-    [SerializeField] private float _laserWarmUpTime = 2f;
+    [Tooltip("Time in Seconds for attack animations to Warm Up\nBefore dealing damage.")]
+    [SerializeField] private float _attackWarmUpTime = 1f;
+    [Tooltip("Minimum time spent in each attack state\nRegardless for animation time")]
+    [SerializeField] private float _minAttackTime = 2f;
     private List<float> attackAnimTimes = new List<float>();
 
     [Header("Attack Settings")]
@@ -74,7 +76,8 @@ public class BossController : EntityBase
     [SerializeField] private Transform _projectileSpawn = null;
 
     [Tooltip("Tracks and Damages player during Laser Attack")]
-    [SerializeField] private GameObject _laserTracker = null;
+    [SerializeField] private GameObject _laserSource = null;
+    [SerializeField] private GameObject _laserBeam = null;
     private Vector3 _laserEndPoint = Vector3.zero;
 
     [Header("Animation Refs")]
@@ -118,7 +121,8 @@ public class BossController : EntityBase
     {
         //save position to create bounds during movement behavior
         _startPosition = _bossRoot.transform.position;
-        _laserTracker.SetActive(false);
+        _laserSource.SetActive(false);
+        _laserBeam.SetActive(false);
 
         //find and override flash material to maintain consistency with segments
         flickerController = GetComponent<FlickerController>();
@@ -439,6 +443,12 @@ public class BossController : EntityBase
         //animation
         _bossAnim.SetInteger("AttackType", 1);
 
+        //warm up animation before attacking
+        yield return new WaitForSeconds(_attackWarmUpTime);
+
+        //reset animation trigger to avoid repeat triggers
+        _bossAnim.SetInteger("AttackType", 0);
+
         float delayTime = 0;
 
         //Dependant on Bloodied state
@@ -465,6 +475,7 @@ public class BossController : EntityBase
             {
                 GameObject bullet = PoolUtility.InstantiateFromPool(_missilePool, _projectileSpawn, _missileRef);
                 BossMissile missile = bullet.GetComponent<BossMissile>();
+                missile.SetTarget(GameManager.player.obj);
                 missile.SetDamage(_attackDamage);
 
                 delayTime += _delaySeconds;
@@ -473,7 +484,8 @@ public class BossController : EntityBase
         }
 
         //get animation time
-        yield return new WaitForSeconds(attackAnimTimes[5] - delayTime);
+        float returnTime = Mathf.Max(_minAttackTime, attackAnimTimes[4] - _attackWarmUpTime);
+        yield return new WaitForSeconds(_minAttackTime);
 
         NextBossState();
     }
@@ -482,6 +494,12 @@ public class BossController : EntityBase
     {
         //animation
         _bossAnim.SetInteger("AttackType", 2);
+        
+        //warm up animation before attacking
+        yield return new WaitForSeconds(_attackWarmUpTime);
+
+        //reset animation trigger to avoid repeat triggers
+        _bossAnim.SetInteger("AttackType", 0);
 
         _projectileSpawn.LookAt(GameManager.player.obj.transform);
 
@@ -509,8 +527,10 @@ public class BossController : EntityBase
             }
         }
 
-        //pass animation time as wait
-        yield return new WaitForSeconds(attackAnimTimes[4] - delayTime);
+        //get animation time
+        float returnTime = Mathf.Max(_minAttackTime, attackAnimTimes[5] - _attackWarmUpTime);
+        yield return new WaitForSeconds(_minAttackTime);
+
         NextBossState();
     }
 
@@ -518,36 +538,50 @@ public class BossController : EntityBase
     {
         //animation
         _bossAnim.SetInteger("AttackType", 3);
-
+        
         //laser find's player position
         _laserEndPoint = GameManager.player.obj.transform.position;
+        _laserSource.SetActive(true);
 
-        //delay for player to dodge, while animation warms up
-        //set by designer, animation needs to cut short or shrink with warm up time
-        yield return new WaitForSeconds(_laserWarmUpTime);
-
-        //laser starts moving towards player, but slow (or traces player path?)
-        _laserTracker.SetActive(true);  //TODO Laser VFX?    
-
-        //can I have an inactive object just track for Transform purposes, or should I use collision?
-        _laserTracker.GetComponent<LaserDamage>().SetDamage(_attackDamage);
-
+        //source follows player without shooting
         float timeCount = 0;
-        while (timeCount < attackAnimTimes[6])
+        while (timeCount < _attackWarmUpTime)
         {
-            //laser tracks player position while firing
-            float laserSpeed = _laserSpeedModifier * GameManager.player.movement.MoveSpeed * Time.deltaTime;
-
-            _laserEndPoint = Vector3.MoveTowards(_laserEndPoint, GameManager.player.obj.transform.position, laserSpeed);
-            _laserTracker.transform.position = _laserEndPoint;
+            LaserFollowPlayer();
 
             timeCount += Time.deltaTime;
             yield return new WaitForEndOfFrame();
         }
 
-        //attack time set by animation?     //cut off or shrink any long attack animations, player should be focused on laser VFX though
-        _laserTracker.SetActive(false);
+        //reset animation trigger to avoid repeat triggers
+        _bossAnim.SetInteger("AttackType", 0);
+
+        //laserbeam activates, and starts dealing damage
+        _laserBeam.SetActive(true);
+        _laserBeam.GetComponent<LaserDamage>().SetDamage(_attackDamage);
+        
+        //source continues to follow player
+        while (timeCount < attackAnimTimes[6])
+        {
+            LaserFollowPlayer();
+
+            timeCount += Time.deltaTime;
+            yield return new WaitForEndOfFrame();
+        }
+
+        _laserSource.SetActive(false);
+        _laserBeam.SetActive(false);
+
         NextBossState();
+    }
+
+    private void LaserFollowPlayer()
+    {
+        //laser tracks player position while firing
+        float laserSpeed = _laserSpeedModifier * GameManager.player.movement.MoveSpeed * Time.deltaTime;
+
+        _laserEndPoint = Vector3.MoveTowards(_laserEndPoint, GameManager.player.obj.transform.position, laserSpeed);
+        _laserSource.transform.LookAt(_laserEndPoint);
     }
 
     private IEnumerator SummonMinions()
@@ -558,6 +592,12 @@ public class BossController : EntityBase
 
         //animation
         _bossAnim.SetInteger("AttackType", 4);
+
+        //warm up animation before attacking
+        yield return new WaitForSeconds(_attackWarmUpTime);
+
+        //reset animation trigger to avoid repeat triggers
+        _bossAnim.SetInteger("AttackType", 0);
 
         int waveCount = 0;
         foreach (GameObject minion in _minionWaveRef)
@@ -585,7 +625,8 @@ public class BossController : EntityBase
         }
 
         //get animation time
-        yield return new WaitForSeconds(attackAnimTimes[7] - delayTime);
+        float returnTime = Mathf.Max(_minAttackTime, attackAnimTimes[7] - _attackWarmUpTime);
+        yield return new WaitForSeconds(_minAttackTime);
 
         NextBossState();
     }
