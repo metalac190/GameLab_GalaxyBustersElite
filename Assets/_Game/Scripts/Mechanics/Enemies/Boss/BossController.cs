@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Events;
 
+[RequireComponent(typeof(FlickerController))]
 public class BossController : EntityBase
 {
     //Refer to Ben Friedman for QA/Bugfixing on Boss System scripts
@@ -18,12 +19,11 @@ public class BossController : EntityBase
     [SerializeField] private float _moveMax = 20f;
     [Tooltip("Number of times to Move when Bloodied,\nInclusive Min, Exclusive Max")]
     [SerializeField] private Vector2 _numberOfMoves = new Vector2(1, 3);
-    
+
     [Header("Segment Settings")]
 
     [Tooltip("Starting Health for each Segment.\nTotal Segment Health derived from\nStarting Health * number of Segments")]
     [SerializeField] private float _segmentHealth = 10;
-    [SerializeField] private BossSegmentController[] _segmentRefs = new BossSegmentController[0];
 
     [Header("Timers")]
 
@@ -45,10 +45,11 @@ public class BossController : EntityBase
     [SerializeField] private int _bloodiedProjectileCount = 3;
     [Tooltip("The Laser's movespeed as a percentage of the Player's movespeed")]
     [SerializeField] private float _laserSpeedModifier = 0.8f;
-    
-    [Header("Asset References! Do Not Touch!")]
 
-    //Minion Pooling
+    [Header("Asset References! Do Not Touch!")]
+    [SerializeField] private BossSegmentController[] _segmentRefs = new BossSegmentController[0];
+
+    [Header("Minion Refs")]
     [Tooltip("Reference to Minion Prefab.")]
     [SerializeField] private GameObject _minionRef = null;
     [Tooltip("Staring Group of Minions, with Waypoints")]
@@ -58,6 +59,7 @@ public class BossController : EntityBase
     [Tooltip("Middle Waypoint Idenfitied, for Minions that spawn in secondary Position[s]")]
     [SerializeField] private int[] _minionMidpoint = new int[1];
 
+    [Header("Attack & Projectile Refs")]
     //Ring Attack Pooling
     [Tooltip("Reference to Ring Attack Prefab.")]
     [SerializeField] private GameObject _ringRef = null;
@@ -75,11 +77,14 @@ public class BossController : EntityBase
     [SerializeField] private GameObject _laserTracker = null;
     private Vector3 _laserEndPoint = Vector3.zero;
 
+    [Header("Animation Refs")]
     [Tooltip("Parent Transform for Collision + Art")]
     [SerializeField] private GameObject _bossRoot = null;
 
     [Tooltip("Animator Controller for Boss Animations")]
     [SerializeField] private Animator _bossAnim = null;
+
+    private FlickerController flickerController = null;
 
     [HideInInspector]
     public bool isInvulnerable = true;
@@ -96,14 +101,18 @@ public class BossController : EntityBase
                 //shortcut to stop counting segs when determined false at least once
                 _isSegAlive = false;
             }
-            
+
             return false;
         }
     }
     private bool _isSegAlive = true;
     private Coroutine _BossBehavior = null;
     private BossState _nextState = BossState.PreFight;
+    [HideInInspector]
+    public BossState State = BossState.PreFight;
     private Vector3 _startPosition = Vector3.zero;
+
+    private BossAttacks calledAttack = BossAttacks.None;
 
     private void Awake()
     {
@@ -111,7 +120,10 @@ public class BossController : EntityBase
         _startPosition = _bossRoot.transform.position;
         _laserTracker.SetActive(false);
 
-        for (int i=0; i < _segmentRefs.Length; i++)
+        //find and override flash material to maintain consistency with segments
+        flickerController = GetComponent<FlickerController>();
+
+        for (int i = 0; i < _segmentRefs.Length; i++)
         {
             _segmentRefs[i].SetHealth(_segmentHealth);
             _segmentRefs[i].SetDelay(i * _delaySeconds);
@@ -145,14 +157,11 @@ public class BossController : EntityBase
             {
                 Damaged.Invoke();
 
-                //animate?
-                //isInvulnerable = true;
-                //delay
-                //isInvulnerable = false;
-                //_bossAnim.SetTrigger("TakeDamage");
+                //control damage flash here
+                flickerController.CallFlicker();
             }
         }
-        
+
     }
 
     #region Listeners
@@ -160,7 +169,7 @@ public class BossController : EntityBase
     {
         foreach (BossSegmentController segment in _segmentRefs)
             segment.Died.AddListener(OnSegmentDestroyed);
-        
+
         // End game when defeated
         //Please don't end game when defeated :) Teni F.
         //Died.AddListener(() => GameManager.gm.WinGame());
@@ -208,6 +217,19 @@ public class BossController : EntityBase
             _nextState = BossState.Idle;
             _bossAnim.SetTrigger("StartFight");
             NextBossState();
+        }
+    }
+
+    public void CallAttack(BossAttacks attack)
+    {
+        calledAttack = attack;
+    }
+
+    public void StartPhaseTwo()
+    {
+        foreach (BossSegmentController segment in _segmentRefs)
+        {
+            segment.TakeDamage(999);
         }
     }
     #endregion
@@ -266,12 +288,12 @@ public class BossController : EntityBase
                 if (isSegmentsAlive)
                     _nextState = BossState.Idle;
                 else
-                    _nextState = BossState.Move;
+                    _nextState = BossState.Moving;
 
                 GenerateAttack();
                 break;
 
-            case BossState.Move:
+            case BossState.Moving:
 
                 _nextState = BossState.Attack;
 
@@ -281,7 +303,7 @@ public class BossController : EntityBase
 
             case BossState.Bloodied:
 
-                _nextState = BossState.Move;
+                _nextState = BossState.Moving;
 
                 _BossBehavior = StartCoroutine(Bloodied());
                 break;
@@ -294,13 +316,24 @@ public class BossController : EntityBase
 
     private void GenerateAttack()
     {
-        Debug.Log("boss attack");
+        State = BossState.Attack;
         BossAttacks randomAttack;
 
         if (isSegmentsAlive)
-            randomAttack = (BossAttacks)Random.Range(1, 5);
+        {
+            if (calledAttack == BossAttacks.None)
+            {
+                randomAttack = (BossAttacks)Random.Range(1, 5);
+            }
+            else
+            {
+                randomAttack = calledAttack;
+                calledAttack = BossAttacks.None;
+            }
+        }
         else
             randomAttack = (BossAttacks)Random.Range(1, 3);
+
 
         //Signals to Segments which Attack is active, to animate/behave accordingly
         //public facing, accessible by animators, fx, other systems?
@@ -331,7 +364,7 @@ public class BossController : EntityBase
     #region Behaviors
     private IEnumerator BossIdle()
     {
-        Debug.Log("Idle");
+        State = BossState.Idle;
         //animation
         //Idle Anim is Unconditional return from other states.
 
@@ -343,14 +376,14 @@ public class BossController : EntityBase
 
     private IEnumerator Bloodied()
     {
-        Debug.Log("Bloodied");
+        State = BossState.Bloodied;
         //animation controller through OnSegmentDestroyed check
 
         //set invulnerable
         isInvulnerable = true;
-        
+
         //get animation time
-        yield return new WaitForSeconds(_idleTime);
+        yield return new WaitForSeconds(attackAnimTimes[3]);
 
         isInvulnerable = false;
 
@@ -359,8 +392,8 @@ public class BossController : EntityBase
 
     private IEnumerator MovePattern(int count)
     {
+        State = BossState.Moving;
         //animation?
-        Debug.Log("Boss is Moving " + count);
 
         //recursive exit check
         if (count <= 0)
@@ -393,7 +426,7 @@ public class BossController : EntityBase
             {
                 yield return new WaitForSeconds(_idleTime - moveTime);
             }
-            
+
             //recursive until 0
             StartCoroutine(MovePattern(count - 1));
         }
@@ -403,7 +436,6 @@ public class BossController : EntityBase
     #region Attacks
     private IEnumerator MissileAttack()
     {
-        Debug.Log("Missile");
         //animation
         _bossAnim.SetInteger("AttackType", 1);
 
@@ -414,17 +446,15 @@ public class BossController : EntityBase
         {
             int segAlive = 0;
 
-            foreach(BossSegmentController segment in _segmentRefs)
+            foreach (BossSegmentController segment in _segmentRefs)
             {
                 if (segment.isActiveAndEnabled)
                 {
                     delayTime += _delaySeconds;
                     segAlive++;
                 }
-                    
-            }
 
-            Debug.Log("Segments alive: " + segAlive + ", time total: " + delayTime);
+            }
         }
         else
         {
@@ -443,14 +473,13 @@ public class BossController : EntityBase
         }
 
         //get animation time
-        yield return new WaitForSeconds(attackAnimTimes[3] - delayTime);
+        yield return new WaitForSeconds(attackAnimTimes[5] - delayTime);
 
         NextBossState();
     }
 
     private IEnumerator RingAttack()
     {
-        Debug.Log("Ring");
         //animation
         _bossAnim.SetInteger("AttackType", 2);
 
@@ -462,18 +491,14 @@ public class BossController : EntityBase
         if (isSegmentsAlive)
         {
             //Single Ring Attack
-            Debug.Log("Firing the normal Ring Attack");
             GameObject bullet = PoolUtility.InstantiateFromPool(_ringPool, _projectileSpawn, _ringRef);
             Projectile missile = bullet.GetComponent<Projectile>();
             missile.SetDamage(_attackDamage);
         }
-        else 
+        else
         {
-            //TODO Bloodied??Ring Attack Animation?
-
             //Up to 3 Rings?
-            Debug.Log("Firing bloodied Ring Attack");
-            for (int i=0; i < _bloodiedProjectileCount; i++)
+            for (int i = 0; i < _bloodiedProjectileCount; i++)
             {
                 GameObject bullet = PoolUtility.InstantiateFromPool(_ringPool, _projectileSpawn, _ringRef);
                 Projectile missile = bullet.GetComponent<Projectile>();
@@ -491,7 +516,6 @@ public class BossController : EntityBase
 
     private IEnumerator LaserAttack()
     {
-        Debug.Log("Laser Warmup");
         //animation
         _bossAnim.SetInteger("AttackType", 3);
 
@@ -504,12 +528,12 @@ public class BossController : EntityBase
 
         //laser starts moving towards player, but slow (or traces player path?)
         _laserTracker.SetActive(true);  //TODO Laser VFX?    
-        
+
         //can I have an inactive object just track for Transform purposes, or should I use collision?
         _laserTracker.GetComponent<LaserDamage>().SetDamage(_attackDamage);
 
         float timeCount = 0;
-        while (timeCount < attackAnimTimes[5])
+        while (timeCount < attackAnimTimes[6])
         {
             //laser tracks player position while firing
             float laserSpeed = _laserSpeedModifier * GameManager.player.movement.MoveSpeed * Time.deltaTime;
@@ -528,7 +552,6 @@ public class BossController : EntityBase
 
     private IEnumerator SummonMinions()
     {
-        Debug.Log("Summon");
         //Dependant if Minions are active
         //Refills current wave, stacks multiple waves if earlier waves are not defeated
         //Summons up to 5 Minions?
@@ -574,9 +597,9 @@ public class BossController : EntityBase
         AnimationClip[] bossClips = bossAnim.runtimeAnimatorController.animationClips;
         foreach (AnimationClip clip in bossClips)
         {
-            //Debug.Log(clip.name + " " + clip.length);
+            Debug.Log(clip.name + " " + clip.length);
             attackAnimTimes.Add(clip.length);
         }
-        //Boss_Idle(Start), Idle, Damage, A, B, C, D, E, Idle(Phase2?), F, Damage(2?), Damage(Segment?)
+        //Idle, Idle, WeaponDestroyed, AllWeaponsDestroy, A, B, C, D, E, CombatStateB, F, DramaticDeath, Damage
     }
 }

@@ -30,7 +30,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 3393478938653242819}
-  m_RootOrder: 2
+  m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!108 &8475674542945891708
 Light:
@@ -203,36 +203,6 @@ MonoBehaviour:
   showAdditionalSettings: 0
   m_AreaLightEmissiveMeshShadowCastingMode: 0
   m_AreaLightEmissiveMeshMotionVectorGenerationMode: 0
---- !u!1 &1018846646077733742
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 593820750807174451}
-  m_Layer: 0
-  m_Name: Health-Art
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!4 &593820750807174451
-Transform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1018846646077733742}
-  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: -0.14058319, y: 1.0926578, z: -2.8679807}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_Children: []
-  m_Father: {fileID: 3393478938653242819}
-  m_RootOrder: 1
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &3393478938653242816
 GameObject:
   m_ObjectHideFlags: 0
@@ -243,6 +213,7 @@ GameObject:
   m_Component:
   - component: {fileID: 3393478938653242819}
   - component: {fileID: 2819669217217519575}
+  - component: {fileID: 3338785920686493457}
   - component: {fileID: 6525004711797415242}
   m_Layer: 0
   m_Name: Pickup_Health
@@ -262,10 +233,8 @@ Transform:
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
-  - {fileID: 3393478940193321308}
-  - {fileID: 593820750807174451}
-  - {fileID: 1415503433014686578}
   - {fileID: 5169908091116334119}
+  - {fileID: 1415503433014686578}
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -284,9 +253,21 @@ MonoBehaviour:
   PickedUp:
     m_PersistentCalls:
       m_Calls: []
-  _spinAngles: {x: 1, y: 1, z: 1}
-  _spinSpeed: 1
   _healValue: 10
+--- !u!114 &3338785920686493457
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3393478938653242816}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d2c1b43baccbc584480c1b9ce6558138, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _spingAngles: {x: 3, y: 4, z: 5}
+  _spinSpeed: 5
 --- !u!65 &6525004711797415242
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -300,36 +281,6 @@ BoxCollider:
   serializedVersion: 2
   m_Size: {x: 3, y: 3, z: 3}
   m_Center: {x: 0, y: 0, z: 0}
---- !u!1 &3393478940193321309
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 3393478940193321308}
-  m_Layer: 0
-  m_Name: VFX-Health
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!4 &3393478940193321308
-Transform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 3393478940193321309}
-  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_Children: []
-  m_Father: {fileID: 3393478938653242819}
-  m_RootOrder: 0
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1001 &4626759743071144908
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -375,7 +326,7 @@ PrefabInstance:
     - target: {fileID: -8679921383154817045, guid: 2c7a21da14d1c60418206d77ba912fef,
         type: 3}
       propertyPath: m_RootOrder
-      value: 3
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: 2c7a21da14d1c60418206d77ba912fef,
         type: 3}

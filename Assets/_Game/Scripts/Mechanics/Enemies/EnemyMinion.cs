@@ -20,12 +20,6 @@ public class EnemyMinion : EnemyBase
     [Header("Effects")]
     [SerializeField] UnityEvent OnShotFired;
 
-    protected override void Start()
-    {
-        base.Start();
-        bullet.GetComponent<EnemyProjectile>().SetDamage(AttackDamage);
-    }
-
     private void OnEnable()
     {
         _currentHealth = maxHealth;
@@ -49,7 +43,7 @@ public class EnemyMinion : EnemyBase
                 animator.SetTrigger("IsFiring");
 
                 //fire projectile
-                GameObject tempBullet = PoolUtility.InstantiateFromPool(_bulletPool, _spawnPoint, bullet);
+                GameObject tempBullet = PoolUtility.InstantiateFromPool(_bulletPool, _spawnPoint.transform.position, transform.rotation, bullet);
                 EnemyProjectile tempProjectile = tempBullet.GetComponent<EnemyProjectile>();
 
                 //set damage and speed
