@@ -40,6 +40,8 @@ public class DialogueList : MonoBehaviour
     public Dialogue[] PlayerDamagedDialogue;
     public Dialogue[] EnemyDefeatedDialogue;
     public Dialogue[] ZenoxFillerDialogue;
+    public Dialogue[] PlayerObstacleDamage;
+    public Dialogue[] ZenoxPartDestroyed;
 
 
 
