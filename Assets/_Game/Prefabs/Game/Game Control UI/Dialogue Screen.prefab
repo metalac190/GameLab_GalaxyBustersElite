@@ -571,6 +571,7 @@ RectTransform:
   - {fileID: 1283210541700463065}
   - {fileID: 1283210542013712062}
   - {fileID: 1283210542206010381}
+  - {fileID: 4291520503971649275}
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -1259,6 +1260,92 @@ MonoBehaviour:
   - npcName: Zenox
     sentences:
     - You and your puny friends are nothing compared to me!
+  PlayerObstacleDamage:
+  - npcName: Pilot
+    sentences:
+    - Oops!
+  - npcName: Pilot
+    sentences:
+    - My Bad!
+  - npcName: Pilot
+    sentences:
+    - That thing was the size of Texas!
+  - npcName: Pilot
+    sentences:
+    - Youch!
+  - npcName: Piledrive
+    sentences:
+    - You good there?
+  - npcName: Piledrive
+    sentences:
+    - Watch yourself, eh?
+  - npcName: Piledrive
+    sentences:
+    - This is no time to be Neil Armstrong, Zip.
+  - npcName: Matryoshka
+    sentences:
+    - Roar.
+  - npcName: Matryoshka
+    sentences:
+    - Grgrgrgrgr.
+  - npcName: Commander Twilight
+    sentences:
+    - I might change your callsign to Bad Pilot, Pilot.
+  - npcName: Commander Twilight
+    sentences:
+    - Do you even know how to fly?
+  - npcName: Commander Twilight
+    sentences:
+    - "Your mother wouldn\u2019t have hit that."
+  ZenoxPartDestroyed:
+  - npcName: Pilot
+    sentences:
+    - Eat that you enemy of liberty!
+  - npcName: Pilot
+    sentences:
+    - Touchdown!
+  - npcName: Pilot
+    sentences:
+    - "I am proud to be an American, and I\u2019m proud to be blowing up you!"
+  - npcName: Pilot
+    sentences:
+    - "And that one\u2019s for my mom!"
+  - npcName: Pilot
+    sentences:
+    - "You\u2019ll never win Zenox!"
+  - npcName: Pilot
+    sentences:
+    - "And that\u2019s the American way!"
+  - npcName: Piledrive
+    sentences:
+    - Eh.
+  - npcName: Piledrive
+    sentences:
+    - You better calm down there Mr. Zenox.
+  - npcName: Piledrive
+    sentences:
+    - Decent job kid.
+  - npcName: Piledrive
+    sentences:
+    - People always told me I was too excitable.
+  - npcName: Matryoshka
+    sentences:
+    - RAURGH!
+  - npcName: Matryoshka
+    sentences:
+    - GRRRRRRAAAAAHG!
+  - npcName: Commander Twilight
+    sentences:
+    - Good show Pilot!
+  - npcName: Commander Twilight
+    sentences:
+    - Yes, show him!
+  - npcName: Commander Twilight
+    sentences:
+    - "You\u2019ll be receiving accolades for this!"
+  - npcName: Commander Twilight
+    sentences:
+    - Good shot!
 --- !u!1 &1283210542206010382
 GameObject:
   m_ObjectHideFlags: 0
@@ -1673,3 +1760,55 @@ MonoBehaviour:
   m_FillOrigin: 0
   m_UseSpriteMesh: 0
   m_PixelsPerUnitMultiplier: 1
+--- !u!1 &9112754219238006901
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 4291520503971649275}
+  - component: {fileID: 8625830441947431326}
+  m_Layer: 0
+  m_Name: ZenoxFillerDialogue
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!224 &4291520503971649275
+RectTransform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 9112754219238006901}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 1283210541210876197}
+  m_RootOrder: 3
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_AnchorMin: {x: 0.5, y: 0.5}
+  m_AnchorMax: {x: 0.5, y: 0.5}
+  m_AnchoredPosition: {x: 0, y: 0}
+  m_SizeDelta: {x: 100, y: 100}
+  m_Pivot: {x: 0.5, y: 0.5}
+--- !u!114 &8625830441947431326
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 9112754219238006901}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 227a7966215e02044aad55990e243e6a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  ZenoxFillerActive: 0
+  delayPeriod: 0
+  minWait: 12
+  maxWait: 22
