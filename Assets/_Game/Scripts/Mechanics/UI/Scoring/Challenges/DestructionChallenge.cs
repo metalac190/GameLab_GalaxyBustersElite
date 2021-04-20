@@ -6,12 +6,19 @@ public class DestructionChallenge : ChallengeBase
 {
 	[SerializeField] EnemyTypes enemyType;
 
+	private void OnEnable()
+	{
+		challengeCompleted = false;
+		challengeFailed = false;
+		progress = 0;
+	}
+
 	private void Update()
 	{
-		progress = 0;
-
 		if (!challengeCompleted && !challengeFailed)
 		{
+			progress = 0;
+
 			// Determine which enemy to track
 			switch (enemyType)
 			{

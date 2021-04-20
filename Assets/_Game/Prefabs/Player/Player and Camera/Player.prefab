@@ -95,6 +95,7 @@ MonoBehaviour:
   collDuration: 2
   collForce: {x: 1000, y: 1000, z: 0}
   torqueForce: {x: 1000, y: 1000, z: 1000}
+  isHit: 0
   playerLimits: {x: 50, y: 25}
   rotateTargetTransform: {fileID: 0}
   shipsTransform: {fileID: 2473926699686103219}
@@ -1024,7 +1025,12 @@ PrefabInstance:
     - target: {fileID: 1554756656198432433, guid: fac00b2cc971f864bb2082dfc1305843,
         type: 3}
       propertyPath: m_Name
-      value: Energy Burst
+      value: Missing Prefab (Dummy)
+      objectReference: {fileID: 0}
+    - target: {fileID: 1554756656198432433, guid: fac00b2cc971f864bb2082dfc1305843,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 3727205299085060979, guid: fac00b2cc971f864bb2082dfc1305843,
         type: 3}
