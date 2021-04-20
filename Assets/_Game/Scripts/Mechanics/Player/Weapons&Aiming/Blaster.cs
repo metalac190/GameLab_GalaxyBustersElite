@@ -5,7 +5,7 @@ using UnityEngine.Events;
 
 public class Blaster : WeaponBase
 {
-	private List<GameObject> projectilePool = new List<GameObject>();
+	private Queue<GameObject> projectileQueue = new Queue<GameObject>();
 	private float cdTime = 0f;
 	private bool fireReady;
 
@@ -66,7 +66,7 @@ public class Blaster : WeaponBase
 				Quaternion randAng = Quaternion.Euler(Random.Range(projectileCone * -1, projectileCone), Random.Range(projectileCone * -1, projectileCone), 0);
 
 				//Object Pooling instead of Instantiate
-				GameObject bulletObj = PoolUtility.InstantiateFromPool(projectilePool, point.position, point.rotation * randAng, projectile);
+				GameObject bulletObj = PoolUtility.InstantiateFromQueue(projectileQueue, point.position, point.rotation * randAng, projectile);
 			}
 
 			if (overloaded) OnOverloadFire?.Invoke();
