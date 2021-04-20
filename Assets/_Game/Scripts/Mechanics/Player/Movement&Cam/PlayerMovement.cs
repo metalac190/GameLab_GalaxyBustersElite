@@ -25,7 +25,7 @@ public class PlayerMovement : MonoBehaviour
     [SerializeField] float collDuration;
     [SerializeField] Vector3 collForce;
     [SerializeField] Vector3 torqueForce;
-    bool isHit;
+    public bool isHit;
 
     [Header("Boundaries")]
     [Tooltip("Limit is the size of the whole rectangle, so player can travel half of x to the left, or half of x to the right")]

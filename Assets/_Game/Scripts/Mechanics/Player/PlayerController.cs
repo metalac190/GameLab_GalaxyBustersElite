@@ -86,7 +86,10 @@ public class PlayerController : MonoBehaviour
 			}
 			else
 			{
-				DialogueTrigger.TriggerPlayerDamagedDialogue();
+				if (GameManager.player.movement.isHit)
+					DialogueTrigger.TriggerPlayerObstacleDamamagedDialogue();
+				else
+					DialogueTrigger.TriggerPlayerDamagedDialogue();
 				CameraShaker.instance.Shake(cameraShakeOnHit);
 				OnHit.Invoke();
 			}
