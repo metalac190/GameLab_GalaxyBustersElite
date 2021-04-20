@@ -1,6 +1,7 @@
 ﻿using UnityEngine;
 using System.Collections;
 using UnityEngine.Events;
+using System;
 
 [RequireComponent(typeof(Collider))]
 public class PickupBase : MonoBehaviour
@@ -11,6 +12,8 @@ public class PickupBase : MonoBehaviour
     public UnityEvent PickedUp;
 
     private Collider triggerVolume = null;
+
+    public event Action onDestroy;
 
     //do all drops give Points? Do weapons give an ammount? 
     //Can we re-use PickupBase as Points-Default?
@@ -29,11 +32,16 @@ public class PickupBase : MonoBehaviour
             ApplyEffect(playerReference);
     }
 
-    /// <summary> Baseline ApplyEffect function
-    /// <para> Implements Event.Invoke + Destroy (or disable) this object.</para>
-    /// <para> All children need to override to implement </para>
-    /// </summary>
-    protected virtual void ApplyEffect(PlayerController player)
+	private void OnDestroy()
+	{
+        onDestroy?.Invoke();
+	}
+
+	/// <summary> Baseline ApplyEffect function
+	/// <para> Implements Event.Invoke + Destroy (or disable) this object.</para>
+	/// <para> All children need to override to implement </para>
+	/// </summary>
+	protected virtual void ApplyEffect(PlayerController player)
     {
         PickedUp.Invoke();
         Destroy(this.gameObject);

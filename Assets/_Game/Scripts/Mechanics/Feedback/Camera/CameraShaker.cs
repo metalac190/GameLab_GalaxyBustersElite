@@ -46,7 +46,6 @@ public class CameraShaker : MonoBehaviour
 
         while (shake != 0)
 		{
-            print("shakey");
             if (shake < 0.05) shake = 0;
 
             float shakeX = Random.Range(-range, range);

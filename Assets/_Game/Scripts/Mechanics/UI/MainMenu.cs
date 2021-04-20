@@ -77,6 +77,11 @@ public class MainMenu : MonoBehaviour
 
             menuBackgroundImage.sprite = menuBackgroundSprites[0];
 
+            foreach (GameObject o in optionsGroup)
+            {
+                o.SetActive(false);
+            }
+
             // movement group
             optionsGroup[0].SetActive(true);
             playerMovementUIGroup.SetActive(true);
