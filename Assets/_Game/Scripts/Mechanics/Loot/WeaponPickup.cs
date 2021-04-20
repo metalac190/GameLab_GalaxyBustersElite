@@ -9,6 +9,7 @@ public class WeaponPickup : PickupBase
     //but also manually when placed by LevelDesigner in Level
     [Tooltip("Assign Weapon Prefab (asset) to Apply to Player")]
     [SerializeField] private GameObject weaponReference = null;
+    public GameObject WeaponReference { get { return weaponReference; } }
 
     /// <summary> Applies new WeaponType to PlayerBase
     /// 

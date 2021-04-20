@@ -1,4 +1,5 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
@@ -58,15 +59,28 @@ public class ScoreHUD : MonoBehaviour
 	private Queue<int> incrementQueue = new Queue<int>();
 	private Coroutine incrementCoroutine;
 
+	private List<PickupBase> pickupsInLevel;
+
 	[SerializeField] private GameObject scoreBillboardPrefab;
+	[SerializeField] private GameObject powerupBillboardPrefab;
+
 	private static GameObject s_scoreBillboardPrefab;
+
+	private Camera cam;
 	private static Camera s_cam;
 	private static Transform s_overlayContainer;
 	private void Awake()
 	{
 		s_scoreBillboardPrefab = scoreBillboardPrefab;
-		s_cam = Camera.main;
+		cam = Camera.main;
+		s_cam = cam;
 		s_overlayContainer = overlayContainer;
+	}
+
+	private void Start()
+	{
+		pickupsInLevel = new List<PickupBase>(FindObjectsOfType<PickupBase>()); // TODO change if i want more than weps
+		StartCoroutine(CheckPowerups());
 	}
 
 	private void OnEnable()
@@ -273,5 +287,58 @@ public class ScoreHUD : MonoBehaviour
 		bb.cam = s_cam;
 		bb.objTransform = obj;
 		bb.DisplayedText = "+" + score.ToString();
+	}
+
+
+	IEnumerator CheckPowerups()
+	{
+		float distance = 100;
+
+		float distSq = distance * distance;
+		print(pickupsInLevel);
+		while (pickupsInLevel.Count > 0) {
+			yield return new WaitForSeconds(0.5f);
+			print("checking pickup");
+			// duplicate list bc it might be modified during the foreach loop since this is running in a coroutine
+			foreach (PickupBase pickup in new List<PickupBase>(pickupsInLevel))
+			{
+				if ((pickup.transform.position - cam.transform.position).sqrMagnitude < distSq)
+				{
+					if (pickup is WeaponPickup)
+					{
+						GameObject go = Instantiate(powerupBillboardPrefab, Vector3.zero, Quaternion.identity, s_overlayContainer);
+						ScoreBillboard bb = go.GetComponent<ScoreBillboard>();
+						bb.cam = cam;
+						bb.objTransform = pickup.transform;
+
+						pickup.onDestroy += () => Destroy(go);
+
+						WeaponPickup pick = (WeaponPickup)pickup;
+						Vector2 size = bb.optionalLine.sizeDelta;
+
+						if (pick.WeaponReference.GetComponentInChildren<Blaster>() != null)
+						{
+							bb.DisplayedText = "BLASTER";
+							size.y = 255;
+							bb.optionalLine.sizeDelta = size;
+						}
+						else if (pick.WeaponReference.GetComponentInChildren<EnergyBurst>() != null)
+						{
+							bb.DisplayedText = "ENERGY BURST";
+							size.y = 440;
+							bb.optionalLine.sizeDelta = size;
+						}
+						else if (pick.WeaponReference.GetComponentInChildren<Laser>() != null)
+						{
+							bb.DisplayedText = "LASER";
+							size.y = 185;
+							bb.optionalLine.sizeDelta = size;
+						}
+					}
+					pickupsInLevel.Remove(pickup);
+					continue;
+				}
+			}
+		}
 	}
 }

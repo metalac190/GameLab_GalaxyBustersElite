@@ -12,6 +12,7 @@ GameObject:
   - component: {fileID: 8314783982409224153}
   - component: {fileID: 5522045648843744065}
   - component: {fileID: 7799113794602990412}
+  - component: {fileID: 1703677860641302925}
   m_Layer: 0
   m_Name: ScoreBillboard
   m_TagString: Untagged
@@ -118,5 +119,21 @@ MonoBehaviour:
   fadeDuration: 1
   cam: {fileID: 0}
   objTransform: {fileID: 0}
+  canvGroup: {fileID: 1703677860641302925}
   text: {fileID: 5522045648843744065}
+  optionalLine: {fileID: 0}
   offsetPerSecond: {x: 0, y: 50}
+  fade: 1
+  scale: 0
+--- !u!225 &1703677860641302925
+CanvasGroup:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7425406410042524026}
+  m_Enabled: 1
+  m_Alpha: 1
+  m_Interactable: 0
+  m_BlocksRaycasts: 0
+  m_IgnoreParentGroups: 0
