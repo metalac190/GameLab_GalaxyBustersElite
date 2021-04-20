@@ -118,7 +118,7 @@ MonoBehaviour:
   givesPlayerMS: 1
   attackRateMin: 2
   attackRateMax: 2.5
-  projectileSpeed: 0
+  projectileSpeed: 50
   bullet: {fileID: 4817155437395576068, guid: e82c437c58d75354c9f99879dd39c338, type: 3}
   _spawnPoint: {fileID: 2545132061026240659}
   OnShotFired:
@@ -161,6 +161,7 @@ MonoBehaviour:
   waypoints: []
   moveSpeed: 0
   followPath: 0
+  followPathInverse: 0
   followPathSpeed: 0
   OnFinalWaypoint:
     m_PersistentCalls:
@@ -389,31 +390,12 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 381391312362710453}
     m_Modifications:
-    - target: {fileID: 260470340350908132, guid: e2173d47c9e8bde48b3c76dc503caa18,
+    - target: {fileID: 77051986146021427, guid: e2173d47c9e8bde48b3c76dc503caa18,
         type: 3}
-      propertyPath: allSounds.Array.size
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 260470340350908132, guid: e2173d47c9e8bde48b3c76dc503caa18,
-        type: 3}
-      propertyPath: allSounds.Array.data[0].label
-      value: 0. Sound
-      objectReference: {fileID: 0}
-    - target: {fileID: 260470340350908132, guid: e2173d47c9e8bde48b3c76dc503caa18,
-        type: 3}
-      propertyPath: allSounds.Array.data[0].audioSource
+      propertyPath: OutputAudioMixerGroup
       value: 
-      objectReference: {fileID: 0}
-    - target: {fileID: 260470340350908132, guid: e2173d47c9e8bde48b3c76dc503caa18,
-        type: 3}
-      propertyPath: allSounds.Array.data[0].playOnAwake
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 260470340350908132, guid: e2173d47c9e8bde48b3c76dc503caa18,
-        type: 3}
-      propertyPath: allSounds.Array.data[0].loop
-      value: 0
-      objectReference: {fileID: 0}
+      objectReference: {fileID: -8787827183966225327, guid: 53b70d30c87c52d489a54a31ce181114,
+        type: 2}
     - target: {fileID: 2761138719027367857, guid: e2173d47c9e8bde48b3c76dc503caa18,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -484,21 +466,24 @@ PrefabInstance:
       propertyPath: allParticles.Array.data[0].particleSystem
       value: 
       objectReference: {fileID: 0}
-    - target: {fileID: 3219540236098076025, guid: e2173d47c9e8bde48b3c76dc503caa18,
+    - target: {fileID: 5293266176654085664, guid: e2173d47c9e8bde48b3c76dc503caa18,
         type: 3}
-      propertyPath: allSounds.Array.size
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 3219540236098076025, guid: e2173d47c9e8bde48b3c76dc503caa18,
-        type: 3}
-      propertyPath: allSounds.Array.data[0].label
-      value: 0. Sound
-      objectReference: {fileID: 0}
-    - target: {fileID: 3219540236098076025, guid: e2173d47c9e8bde48b3c76dc503caa18,
-        type: 3}
-      propertyPath: allSounds.Array.data[0].audioSource
+      propertyPath: OutputAudioMixerGroup
       value: 
-      objectReference: {fileID: 0}
+      objectReference: {fileID: 5692345227411947315, guid: 53b70d30c87c52d489a54a31ce181114,
+        type: 2}
+    - target: {fileID: 5411250291725779647, guid: e2173d47c9e8bde48b3c76dc503caa18,
+        type: 3}
+      propertyPath: OutputAudioMixerGroup
+      value: 
+      objectReference: {fileID: -1765838596785076601, guid: 53b70d30c87c52d489a54a31ce181114,
+        type: 2}
+    - target: {fileID: 6010641039064866927, guid: e2173d47c9e8bde48b3c76dc503caa18,
+        type: 3}
+      propertyPath: OutputAudioMixerGroup
+      value: 
+      objectReference: {fileID: -1765838596785076601, guid: 53b70d30c87c52d489a54a31ce181114,
+        type: 2}
     - target: {fileID: 8694380840567688564, guid: e2173d47c9e8bde48b3c76dc503caa18,
         type: 3}
       propertyPath: m_Name

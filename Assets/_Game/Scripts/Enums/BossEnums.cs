@@ -1,5 +1,6 @@
 ﻿public enum BossState
 {
+    PreFight = -1,
     Idle = 0,
     Attack,
     Move,
@@ -8,8 +9,8 @@
 
 public enum BossAttacks
 {
-    RingAttack = 1,
-    MissileAttack,
+    MissileAttack = 1,
+    RingAttack,
     LaserAttack,
     SummonMinions
 }

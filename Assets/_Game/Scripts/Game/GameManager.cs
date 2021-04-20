@@ -74,6 +74,7 @@ public class GameManager : MonoBehaviour {
     private void Awake() {
         // Initialize singleton
         if(gm == null) {
+            transform.parent = null;
             gm = this;
             DontDestroyOnLoad(gameObject);
         } else
@@ -206,19 +207,19 @@ public class GameManager : MonoBehaviour {
                 break;
             case Levels.Mission1:
                 currentState = GameState.Briefing;
-                LoadScene("Level1_Alpha");
+                LoadScene("Level1_Beta");
                 currentLevel = 1;
                 break;
             case Levels.Mission2:
                 currentState = GameState.Briefing;
                 unlockedLevel = Mathf.Max(unlockedLevel, 2);
-                LoadScene("Level2_Alpha");
+                LoadScene("Level2_Beta");
                 currentLevel = 2;
                 break;
             case Levels.Mission3:
                 currentState = GameState.Briefing;
                 unlockedLevel = 3;
-                LoadScene("Level3_Alpha");
+                LoadScene("Level3_Beta");
                 currentLevel = 3;
                 break;
             default:
