@@ -6,6 +6,9 @@ public class DialogueStoryCollider : MonoBehaviour
 {
     [Header("Level 1 Story Dialogue")]
     public bool StartOfL1Dialogue = false;
+    public bool MoveDialogue = false;
+    public bool ShootDialogue = false;
+    public bool OverloadPickupDialogue = false;
     public bool FirstEnemyAppearsDialogue = false;
     public bool BreachFirstBecomesVisibleDialogue = false;
     public bool Level1EndingDialogue;
@@ -41,6 +44,18 @@ public class DialogueStoryCollider : MonoBehaviour
             if(StartOfL1Dialogue == true)
             {
                 DialogueTrigger.TriggerL1StartDialogue();
+            }
+            else if(MoveDialogue == true)
+            {
+                DialogueTrigger.TriggerMoveDialogue();
+            }
+            else if (ShootDialogue == true)
+            {
+                DialogueTrigger.TriggerShootDialogue();
+            }
+            else if (OverloadPickupDialogue == true)
+            {
+                DialogueTrigger.TriggerOverloadPickupDialogue();
             }
             else if (FirstEnemyAppearsDialogue == true)
             {

@@ -28,6 +28,7 @@ public class LaserBeam : WeaponBase
 	//[SerializeField] float damageMultiplier = 1.3f;
 
 	[Header("Effects")]
+	[SerializeField] UnityEvent OnLaserStart;
 	[SerializeField] UnityEvent OnLaserStop;
 	[SerializeField] bool laserActive;
 	[SerializeField] UnityEvent OnOverloadFired;
@@ -54,6 +55,11 @@ public class LaserBeam : WeaponBase
 		fireReady = (GameManager.gm.currentState == GameState.Gameplay && !GameManager.gm.Paused);
 		chargeMeter = GameManager.player.controller.GetOverloadCharge();
 		line.SetPosition(0, spawnPoints[0].position);
+
+		if (Input.GetButtonDown("Primary Fire") && !overloaded && fireReady)
+        {
+			OnLaserStart.Invoke();
+		}
 
 		if (Input.GetButton("Primary Fire") && !overloaded && fireReady)
 		{
