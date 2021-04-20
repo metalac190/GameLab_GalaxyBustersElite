@@ -17,13 +17,25 @@ public class ScoreSystem : MonoBehaviour
 	static float scoreToOverchargeMultiplier = 0.1f;
 
 	// Tracking for each destroyed enemy type
-	static int destroyedTotal = 0;
-	static int destroyedBandit = 0;
-	static int destroyedDrone = 0;
-	static int destroyedMinion = 0;
-	static int destroyedRammer = 0;
-	static int destroyedSpearhead = 0;
-	static int destroyedTank = 0;
+	public static int destroyedTotal = 0;
+	public static int destroyedBandit = 0;
+	public static int destroyedDrone = 0;
+	public static int destroyedMinion = 0;
+	public static int destroyedRammer = 0;
+	public static int destroyedSpearhead = 0;
+
+	// List of Challenges
+	public static Challenges challenges;
+
+	private void Awake()
+	{
+		destroyedTotal = 0;
+		destroyedBandit = 0;
+		destroyedDrone = 0;
+		destroyedMinion = 0;
+		destroyedRammer = 0;
+		destroyedSpearhead = 0;
+	}
 
 	void Update()
     {
@@ -34,7 +46,7 @@ public class ScoreSystem : MonoBehaviour
 	{
 		GameManager.gm.score += (amount * comboMultiplier);
 
-		if( GameManager.player.controller.GetOverloadCharge() <= 100 && !GameManager.player.controller.IsPlayerOverloaded())
+		if (!GameManager.player.controller.IsPlayerOverloaded())
 			GameManager.player.controller.IncreaseOverload(amount * scoreToOverchargeMultiplier);
 
 		Debug.Log("<color=yellow>" + (amount * comboMultiplier) + " Points!</color>");
@@ -45,8 +57,16 @@ public class ScoreSystem : MonoBehaviour
 	{
 		GameManager.gm.score += amount;
 
-		if (GameManager.player.controller.GetOverloadCharge() <= 100 && !GameManager.player.controller.IsPlayerOverloaded())
+		if (!GameManager.player.controller.IsPlayerOverloaded())
 			GameManager.player.controller.IncreaseOverload(amount * scoreToOverchargeMultiplier);
+
+		Debug.Log("<color=yellow>" + amount + " Points!</color>");
+		onScoreIncreased?.Invoke(source, amount);
+	}
+
+	public static void IncreaseScoreFlat(string source, int amount)
+	{
+		GameManager.gm.score += amount;
 
 		Debug.Log("<color=yellow>" + amount + " Points!</color>");
 		onScoreIncreased?.Invoke(source, amount);
@@ -55,6 +75,7 @@ public class ScoreSystem : MonoBehaviour
 	public static void ScorePickup(int amount)
 	{
 		GameManager.gm.score += amount;
+
 		Debug.Log("<color=yellow>" + amount + " Points!</color>");
 		onScoreIncreased?.Invoke("", amount);
 	}
@@ -104,38 +125,33 @@ public class ScoreSystem : MonoBehaviour
 		IncreaseScore("NearMiss", nearMissScore);
 	}
 
-	public static void DestroyedEnemyType(string type)
+	public static void DestroyedEnemyType(EnemyTypes type)
 	{
 		switch (type)
 		{
-			case "Bandit":
+			case EnemyTypes.Bandit:
 				destroyedTotal++;
 				destroyedBandit++;
 				break;
 
-			case "Drone":
+			case EnemyTypes.Drone:
 				destroyedTotal++;
 				destroyedDrone++;
 				break;
 
-			case "Minion":
+			case EnemyTypes.Minion:
 				destroyedTotal++;
 				destroyedMinion++;
 				break;
 
-			case "Rammer":
+			case EnemyTypes.Rammer:
 				destroyedTotal++;
 				destroyedRammer++;
 				break;
 
-			case "Spearhead":
+			case EnemyTypes.Spearhead:
 				destroyedTotal++;
 				destroyedSpearhead++;
-				break;
-
-			case "Tank":
-				destroyedTotal++;
-				destroyedTank++;
 				break;
 		}
 	}

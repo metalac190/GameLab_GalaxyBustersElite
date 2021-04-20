@@ -28,7 +28,8 @@ public class ScoreHUD : MonoBehaviour
 		{ "Minion", "Nice shot!" },
 		{ "Bandit", "Nice shot!" },
 		{ "Spearhead", "Nice shot!" },
-		{ "NearMiss", "Close Call!" }
+		{ "NearMiss", "Close Call!" },
+		{ "Challenge", "Objective Completed!" }
 	};
 
 	Queue<ScoreEvent> scoreEventObjects = new Queue<ScoreEvent>();
@@ -42,7 +43,7 @@ public class ScoreHUD : MonoBehaviour
 		set 
 		{
 			_hudScore = value;
-			hudScoreText.text = _hudScore.ToString("00000");
+			hudScoreText.text = _hudScore.ToString("000000");
 		}
 	}
 	private int comboMultiplier;

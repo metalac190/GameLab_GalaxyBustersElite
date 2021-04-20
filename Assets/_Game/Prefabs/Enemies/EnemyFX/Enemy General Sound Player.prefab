@@ -46,23 +46,35 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   allSounds:
-  - label: General Enemy Hit
+  - label: 0. General Enemy Hit
     audioSource: {fileID: 7885332458042498414}
     playOnAwake: 0
     loop: 0
-    useSoundVariations: 0
-    soundVariations: []
+    useSoundVariations: 1
+    soundVariations:
+    - {fileID: 8300000, guid: 8ced33d452f8b9a49ba9771829fa4f36, type: 3}
+    - {fileID: 8300000, guid: 6727c7b2b19f68a4792d3a29d1457ca5, type: 3}
+    - {fileID: 8300000, guid: 33840400a2d1c924ba2fdcd9b288e2f9, type: 3}
+    - {fileID: 8300000, guid: ad2cce02ebe4431469711bf1d3bc6714, type: 3}
+    - {fileID: 8300000, guid: 6290bc9ff7a7a384c8d5ed56daa29146, type: 3}
+    - {fileID: 8300000, guid: 59d2a1ece016ebb4d88caa73f7d502b0, type: 3}
+    - {fileID: 8300000, guid: a9da08eccc9a85640b8bf52aa71b3ece, type: 3}
+    - {fileID: 8300000, guid: 84ef6dc857b53324fa72025059c14acc, type: 3}
+    - {fileID: 8300000, guid: 96e94feadfcd8c84182aa56a457b9374, type: 3}
     usePitchRandomization: 0
     pitchShiftMin: 0
     pitchShiftMax: 0
     curPoolIteration: 0
     audioSourcePool: []
-  - label: General Enemy Death
+  - label: 1. General Enemy Death
     audioSource: {fileID: 8438863077887770558}
     playOnAwake: 0
     loop: 0
-    useSoundVariations: 0
-    soundVariations: []
+    useSoundVariations: 1
+    soundVariations:
+    - {fileID: 8300000, guid: 6ff783192fadc32438bc1fbb2971e07f, type: 3}
+    - {fileID: 8300000, guid: ed87b2e5ce16d2549a9829e09e1c8d18, type: 3}
+    - {fileID: 8300000, guid: 55e072f3088373449945bcff175cf88b, type: 3}
     usePitchRandomization: 0
     pitchShiftMin: 0
     pitchShiftMax: 0
@@ -141,12 +153,13 @@ PrefabInstance:
         type: 3}
       propertyPath: m_audioClip
       value: 
-      objectReference: {fileID: 8300000, guid: 1ced5ceb8388d934783a6f2c14605b37, type: 3}
+      objectReference: {fileID: 8300000, guid: 6ff783192fadc32438bc1fbb2971e07f, type: 3}
     - target: {fileID: 1388270348251091530, guid: 2cc2698f828e41b41886d3eb6aecd52b,
         type: 3}
       propertyPath: OutputAudioMixerGroup
       value: 
-      objectReference: {fileID: 0}
+      objectReference: {fileID: -1765838596785076601, guid: 53b70d30c87c52d489a54a31ce181114,
+        type: 2}
     - target: {fileID: 1388270348251091530, guid: 2cc2698f828e41b41886d3eb6aecd52b,
         type: 3}
       propertyPath: panLevelCustomCurve.m_Curve.Array.data[0].value
@@ -252,12 +265,13 @@ PrefabInstance:
         type: 3}
       propertyPath: m_audioClip
       value: 
-      objectReference: {fileID: 8300000, guid: db9ae274e19066140834c5f943dd7a51, type: 3}
+      objectReference: {fileID: 8300000, guid: 8ced33d452f8b9a49ba9771829fa4f36, type: 3}
     - target: {fileID: 1388270348251091530, guid: 2cc2698f828e41b41886d3eb6aecd52b,
         type: 3}
       propertyPath: OutputAudioMixerGroup
       value: 
-      objectReference: {fileID: 0}
+      objectReference: {fileID: -1765838596785076601, guid: 53b70d30c87c52d489a54a31ce181114,
+        type: 2}
     - target: {fileID: 1388270348251091531, guid: 2cc2698f828e41b41886d3eb6aecd52b,
         type: 3}
       propertyPath: m_LocalPosition.x
