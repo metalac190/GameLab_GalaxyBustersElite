@@ -3,12 +3,15 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Events;
 using UnityEngine.UI;
+using TMPro;
 
 public class WinScreen : MonoBehaviour {
 
     [SerializeField] private Button nextLevel, mainMenu;
+	[SerializeField] private TextMeshProUGUI winScore;
+	[SerializeField] private GameObject referencedGM;
 
-    void Start() {
+	void Start() {
         GameManager.gm.SetWinScreen(gameObject);
         mainMenu.onClick.AddListener(() => {
             ScoreSystem.SetHighScore(); // Set high score for level
@@ -42,5 +45,14 @@ public class WinScreen : MonoBehaviour {
 
         gameObject.SetActive(false);
     }
+
+	private void Update()
+	{
+		referencedGM = GameObject.Find("Game Manager");
+		if (referencedGM != null)
+		{
+			winScore.text = referencedGM.GetComponent<GameManager>().score.ToString("00000");
+		}
+	}
 
 }

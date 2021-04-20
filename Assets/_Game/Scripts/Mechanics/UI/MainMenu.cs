@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
+using Cinemachine;
 
 public class MainMenu : MonoBehaviour
 {
@@ -10,6 +11,13 @@ public class MainMenu : MonoBehaviour
     public GameObject splashScreen;
 
     [SerializeField] private Button mission2, mission3;
+
+    [Header("Player Movement UI")]
+    [SerializeField] Image menuBackgroundImage;
+    [SerializeField] CinemachineDollyCart player;
+    [SerializeField] GameObject[] stuffToTurnOnForPM;
+    [SerializeField] GameObject[] stuffToTurnOffForPM;
+    [SerializeField] Sprite[] menuBackgroundSprites;
 
     private void Awake() {
         // Unlocked levels
@@ -56,5 +64,36 @@ public class MainMenu : MonoBehaviour
             mission2.interactable = true;
         if(level3)
             mission3.interactable = true;
+    }
+
+    public void ShowPlayerMovementControlSettings(bool show)
+    {
+        if (show)
+        {
+            menuBackgroundImage.sprite = menuBackgroundSprites[0];
+            player.m_Position = 0;
+
+            foreach (GameObject o in stuffToTurnOnForPM)
+            {
+                o.SetActive(true);
+            }
+            foreach (GameObject o in stuffToTurnOffForPM)
+            {
+                o.SetActive(false);
+            }
+        }
+        else
+        {
+            menuBackgroundImage.sprite = menuBackgroundSprites[1];
+
+            foreach (GameObject o in stuffToTurnOnForPM)
+            {
+                o.SetActive(false);
+            }
+            foreach (GameObject o in stuffToTurnOffForPM)
+            {
+                o.SetActive(true);
+            }
+        }
     }
 }
