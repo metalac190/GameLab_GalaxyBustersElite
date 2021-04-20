@@ -138,9 +138,11 @@ public class EnergyBurst : WeaponBase
 	{
 		if (chargingShot != null)
 		{
-			// Sets damage based on charge time
+			// Set damage and speed based on charge time
 			shotProjectile.SetDamage(Mathf.Lerp(damage, damage * damageMultiplier, chargeTimer / chargeUpTime));
-			// release projectile
+			shotProjectile.SetVelocity(Mathf.Lerp(projectileSpeed, projectileSpeed * speedMultiplier, chargeTimer / chargeUpTime));
+			Debug.Log(shotProjectile.Speed);
+			// Release projectile
 			shotProjectile.enabled = true;
 
 			chargingShot = null;
@@ -157,6 +159,7 @@ public class EnergyBurst : WeaponBase
 	{
 		overloaded = false;
 		StopCoroutine("ActivateOverload");
+		//StopCoroutine("EnergyOverload");
 		CancelInvoke();
 	}
 
