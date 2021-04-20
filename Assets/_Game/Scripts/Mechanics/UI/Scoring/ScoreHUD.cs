@@ -1,10 +1,13 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
 
 public class ScoreHUD : MonoBehaviour
 {
+	[SerializeField] private Transform overlayContainer;
+
 	[SerializeField] private TextMeshProUGUI hudScoreText;
 	[SerializeField] private TextMeshProUGUI hudMultiplierText;
 
@@ -56,17 +59,36 @@ public class ScoreHUD : MonoBehaviour
 	private Queue<int> incrementQueue = new Queue<int>();
 	private Coroutine incrementCoroutine;
 
-	// TODO add effect to multiplier
-	// flame effect w particles
+	private List<PickupBase> pickupsInLevel;
 
-	// TODO maybe like, rolling down effect for numbers changing
+	[SerializeField] private GameObject scoreBillboardPrefab;
+	[SerializeField] private GameObject powerupBillboardPrefab;
+
+	private static GameObject s_scoreBillboardPrefab;
+
+	private Camera cam;
+	private static Camera s_cam;
+	private static Transform s_overlayContainer;
+	private void Awake()
+	{
+		s_scoreBillboardPrefab = scoreBillboardPrefab;
+		cam = Camera.main;
+		s_cam = cam;
+		s_overlayContainer = overlayContainer;
+	}
+
+	private void Start()
+	{
+		pickupsInLevel = new List<PickupBase>(FindObjectsOfType<PickupBase>()); // TODO change if i want more than weps
+		StartCoroutine(CheckPowerups());
+	}
 
 	private void OnEnable()
 	{
 		ScoreSystem.onScoreIncreased += OnScoreAdded;
 		ScoreSystem.onMultiplierChanged += OnMultiplierChanged;
 		ScoreSystem.onScoreReset += ResetScore;
-		processingQueueCoroutine = StartCoroutine(ProcessScoreEventQueue());
+		//processingQueueCoroutine = StartCoroutine(ProcessScoreEventQueue());
 	}
 
 	private void OnDisable()
@@ -74,14 +96,14 @@ public class ScoreHUD : MonoBehaviour
 		ScoreSystem.onScoreIncreased -= OnScoreAdded;
 		ScoreSystem.onMultiplierChanged -= OnMultiplierChanged;
 		ScoreSystem.onScoreReset -= ResetScore;
-		StopCoroutine(processingQueueCoroutine);
+		//StopCoroutine(processingQueueCoroutine);
 	}
 
 	void OnScoreAdded(string source, int amount)
 	{
 		incrementQueue.Enqueue(amount);
 		if (incrementCoroutine == null) incrementCoroutine = StartCoroutine(IncrementScore(incrementQueue.Peek()));
-		scoreEventQueue.Enqueue(new ScoreEvent(this, eventTextDictionary[source] + " +" + amount.ToString()));
+		//scoreEventQueue.Enqueue(new ScoreEvent(this, eventTextDictionary[source] + " +" + amount.ToString()));
 	}
 
 	void OnMultiplierChanged()
@@ -253,6 +275,70 @@ public class ScoreHUD : MonoBehaviour
 			//else Debug.LogError("Score queue got messed up somehow");
 
 			Destroy(eventObject);
+		}
+	}
+
+	public static void CreateScoreBillboard(Transform obj, int score)
+	{
+		if (s_cam == null || s_overlayContainer == null || s_scoreBillboardPrefab == null) return;
+
+		GameObject go = Instantiate(s_scoreBillboardPrefab, Vector3.zero, Quaternion.identity, s_overlayContainer);
+		ScoreBillboard bb = go.GetComponent<ScoreBillboard>();
+		bb.cam = s_cam;
+		bb.objTransform = obj;
+		bb.DisplayedText = "+" + score.ToString();
+	}
+
+
+	IEnumerator CheckPowerups()
+	{
+		float distance = 100;
+
+		float distSq = distance * distance;
+		print(pickupsInLevel);
+		while (pickupsInLevel.Count > 0) {
+			yield return new WaitForSeconds(0.5f);
+			print("checking pickup");
+			// duplicate list bc it might be modified during the foreach loop since this is running in a coroutine
+			foreach (PickupBase pickup in new List<PickupBase>(pickupsInLevel))
+			{
+				if ((pickup.transform.position - cam.transform.position).sqrMagnitude < distSq)
+				{
+					if (pickup is WeaponPickup)
+					{
+						GameObject go = Instantiate(powerupBillboardPrefab, Vector3.zero, Quaternion.identity, s_overlayContainer);
+						ScoreBillboard bb = go.GetComponent<ScoreBillboard>();
+						bb.cam = cam;
+						bb.objTransform = pickup.transform;
+
+						pickup.onDestroy += () => Destroy(go);
+
+						WeaponPickup pick = (WeaponPickup)pickup;
+						Vector2 size = bb.optionalLine.sizeDelta;
+
+						if (pick.WeaponReference.GetComponentInChildren<Blaster>() != null)
+						{
+							bb.DisplayedText = "BLASTER";
+							size.y = 255;
+							bb.optionalLine.sizeDelta = size;
+						}
+						else if (pick.WeaponReference.GetComponentInChildren<EnergyBurst>() != null)
+						{
+							bb.DisplayedText = "ENERGY BURST";
+							size.y = 440;
+							bb.optionalLine.sizeDelta = size;
+						}
+						else if (pick.WeaponReference.GetComponentInChildren<Laser>() != null)
+						{
+							bb.DisplayedText = "LASER";
+							size.y = 185;
+							bb.optionalLine.sizeDelta = size;
+						}
+					}
+					pickupsInLevel.Remove(pickup);
+					continue;
+				}
+			}
 		}
 	}
 }
