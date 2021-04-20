@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
+using Cinemachine;
 
 public class MainMenu : MonoBehaviour
 {
@@ -10,6 +11,16 @@ public class MainMenu : MonoBehaviour
     public GameObject splashScreen;
 
     [SerializeField] private Button mission2, mission3;
+
+    [Header("Player Movement UI")]
+    [SerializeField] Image menuBackgroundImage;
+    [SerializeField] Sprite[] menuBackgroundSprites;
+    [SerializeField] CinemachineDollyCart player;
+    [SerializeField] GameObject optionsGameObj;
+    [SerializeField] GameObject[] optionsGroup;
+    [SerializeField] GameObject settingsBox;
+    [SerializeField] Button movementButton;
+    [SerializeField] GameObject playerMovementUIGroup;
 
     private void Awake() {
         // Unlocked levels
@@ -56,5 +67,62 @@ public class MainMenu : MonoBehaviour
             mission2.interactable = true;
         if(level3)
             mission3.interactable = true;
+    }
+
+    public void ShowPlayerMovementControlSettings(bool show)
+    {
+        if (show)
+        {
+            player.m_Position = 0;
+
+            menuBackgroundImage.sprite = menuBackgroundSprites[0];
+
+            foreach (GameObject o in optionsGroup)
+            {
+                o.SetActive(false);
+            }
+
+            // movement group
+            optionsGroup[0].SetActive(true);
+            playerMovementUIGroup.SetActive(true);
+
+            StartCoroutine(MovementButtonSelected());
+
+            settingsBox.SetActive(false);
+        }
+        else
+        {
+            menuBackgroundImage.sprite = menuBackgroundSprites[1];
+
+            // movement group
+            optionsGroup[0].SetActive(false);
+            playerMovementUIGroup.SetActive(false);
+
+            settingsBox.SetActive(true);
+        }
+    }
+
+    // workaround to selecting movement button visually
+    IEnumerator MovementButtonSelected()
+    {
+        yield return null;
+        movementButton.Select();
+    }
+
+    public void ShowOptionsGroup(bool show)
+    {
+        if (show)
+        {
+            optionsGameObj.SetActive(true);
+        }
+        else
+        {
+            optionsGameObj.SetActive(false);
+
+            foreach (GameObject o in optionsGroup)
+            {
+                o.SetActive(false);
+            }
+        }
     }
 }

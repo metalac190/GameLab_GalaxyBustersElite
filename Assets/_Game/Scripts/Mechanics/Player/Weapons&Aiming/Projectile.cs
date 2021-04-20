@@ -16,10 +16,9 @@ public class Projectile : MonoBehaviour
                 rb.velocity = transform.forward * _speed;
         }
     }
-	[SerializeField] protected float _damage = 2;
 
+	[SerializeField] protected float _damage = 2;
     [SerializeField] private float lifeTime = 2f;
-    [SerializeField] private bool disableOnHit = true;
 
     private Rigidbody rb;
     private float _time = 0;
@@ -67,7 +66,7 @@ public class Projectile : MonoBehaviour
         if (entity != null)
         {
             entity?.TakeDamage(_damage);
-            if (disableOnHit) gameObject.SetActive(false);
+            gameObject.SetActive(false);
         }
     }
 

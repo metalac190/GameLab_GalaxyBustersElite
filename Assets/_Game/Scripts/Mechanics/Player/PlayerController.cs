@@ -97,14 +97,14 @@ public class PlayerController : MonoBehaviour
 
 	public void HealPlayer(float amount)
 	{
-		playerHealth += amount;
+		playerHealth = (playerHealth + amount >= 100) ? 100 : playerHealth + amount;
 
 		OnHealthIncreased.Invoke();
 	}
 
 	public void IncreaseOverload(float amount)
 	{
-		overloadCharge += amount;
+		overloadCharge = (overloadCharge + amount >= 100) ? 100 : overloadCharge + amount;
 
 		OnOverloadChargeIncreased.Invoke();
 	}

@@ -13,6 +13,10 @@ public class DialogueManager : MonoBehaviour
     public TextMeshProUGUI nameText;
     public TextMeshProUGUI dialogueText;
     public GameObject PilotImage;
+    public GameObject PiledriveImage;
+    public GameObject MatryoshkaImage;
+    public GameObject TwilightImage;
+    public GameObject ZenoxImage;
     public GameObject RandomImage;
     public float typingDelay = .05f;
     public float speakerTransionDelay = .5f;
@@ -40,10 +44,50 @@ public class DialogueManager : MonoBehaviour
                 case "Pilot":
                     PilotImage.SetActive(true);
                     RandomImage.SetActive(false);
+                    TwilightImage.SetActive(false);
+                    PiledriveImage.SetActive(false);
+                    MatryoshkaImage.SetActive(false);
+                    ZenoxImage.SetActive(false);
+                    break;
+                case "Commander Twilight":
+                    TwilightImage.SetActive(true);
+                    RandomImage.SetActive(false);
+                    PilotImage.SetActive(false);
+                    PiledriveImage.SetActive(false);
+                    MatryoshkaImage.SetActive(false);
+                    ZenoxImage.SetActive(false);
+                    break;
+                case "Piledrive":
+                    PiledriveImage.SetActive(true);
+                    RandomImage.SetActive(false);
+                    TwilightImage.SetActive(false);
+                    PilotImage.SetActive(false);
+                    MatryoshkaImage.SetActive(false);
+                    ZenoxImage.SetActive(false);
+                    break;
+                case "Zenox":
+                    ZenoxImage.SetActive(true);
+                    RandomImage.SetActive(false);
+                    TwilightImage.SetActive(false);
+                    PiledriveImage.SetActive(false);
+                    MatryoshkaImage.SetActive(false);
+                    PilotImage.SetActive(false);
+                    break;
+                case "Matryoshka":
+                    MatryoshkaImage.SetActive(true);
+                    RandomImage.SetActive(false);
+                    TwilightImage.SetActive(false);
+                    PiledriveImage.SetActive(false);
+                    PilotImage.SetActive(false);
+                    ZenoxImage.SetActive(false);
                     break;
                 default:
                     PilotImage.SetActive(false);
                     RandomImage.SetActive(true);
+                    TwilightImage.SetActive(false);
+                    PiledriveImage.SetActive(false);
+                    MatryoshkaImage.SetActive(false);
+                    ZenoxImage.SetActive(false);
                     break;
             }
 
@@ -128,10 +172,50 @@ public class DialogueManager : MonoBehaviour
                 case "Pilot":
                     PilotImage.SetActive(true);
                     RandomImage.SetActive(false);
+                    TwilightImage.SetActive(false);
+                    PiledriveImage.SetActive(false);
+                    MatryoshkaImage.SetActive(false);
+                    ZenoxImage.SetActive(false);
+                    break;
+                case "Commander Twilight":
+                    TwilightImage.SetActive(true);
+                    RandomImage.SetActive(false);
+                    PilotImage.SetActive(false);
+                    PiledriveImage.SetActive(false);
+                    MatryoshkaImage.SetActive(false);
+                    ZenoxImage.SetActive(false);
+                    break;
+                case "Piledrive":
+                    PiledriveImage.SetActive(true);
+                    RandomImage.SetActive(false);
+                    TwilightImage.SetActive(false);
+                    PilotImage.SetActive(false);
+                    MatryoshkaImage.SetActive(false);
+                    ZenoxImage.SetActive(false);
+                    break;
+                case "Zenox":
+                    ZenoxImage.SetActive(true);
+                    RandomImage.SetActive(false);
+                    TwilightImage.SetActive(false);
+                    PiledriveImage.SetActive(false);
+                    MatryoshkaImage.SetActive(false);
+                    PilotImage.SetActive(false);
+                    break;
+                case "Matryoshka":
+                    MatryoshkaImage.SetActive(true);
+                    RandomImage.SetActive(false);
+                    TwilightImage.SetActive(false);
+                    PiledriveImage.SetActive(false);
+                    PilotImage.SetActive(false);
+                    ZenoxImage.SetActive(false);
                     break;
                 default:
                     PilotImage.SetActive(false);
                     RandomImage.SetActive(true);
+                    TwilightImage.SetActive(false);
+                    PiledriveImage.SetActive(false);
+                    MatryoshkaImage.SetActive(false);
+                    ZenoxImage.SetActive(false);
                     break;
             }
         }

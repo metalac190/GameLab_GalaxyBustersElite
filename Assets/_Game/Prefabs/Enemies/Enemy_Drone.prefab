@@ -113,9 +113,9 @@ MonoBehaviour:
         m_CallState: 2
   maxHealth: 10
   currentState: 0
-  id: Drone
+  enemyType: 2
   attackDamage: 15
-  enemyDetectionRadius: 0
+  enemyDetectionRadius: 20
   enemyScore: 100
   givesPlayerMS: 1
 --- !u!114 &1796994892
@@ -133,6 +133,7 @@ MonoBehaviour:
   waypoints: []
   moveSpeed: 2
   followPath: 0
+  followPathInverse: 0
   followPathSpeed: 0
   OnFinalWaypoint:
     m_PersistentCalls:
@@ -252,8 +253,9 @@ MonoBehaviour:
     dropChance: 0
   _healAmount: 1
   _overchargeRef:
-    prefabReference: {fileID: 0}
-    dropChance: 0
+    prefabReference: {fileID: 5240054451046245164, guid: 45113c912639ce046b0e158ec171497d,
+      type: 3}
+    dropChance: 5
   _overloadAmount: 10
 --- !u!1001 &1005099110324028449
 PrefabInstance:
@@ -262,6 +264,11 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 976279426414310990}
     m_Modifications:
+    - target: {fileID: 3955022682087430505, guid: dde184ba4458a364c84f3793f6a63fa2,
+        type: 3}
+      propertyPath: m_RootOrder
+      value: 3
+      objectReference: {fileID: 0}
     - target: {fileID: 3955022682087430505, guid: dde184ba4458a364c84f3793f6a63fa2,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -279,6 +286,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 3955022682087430505, guid: dde184ba4458a364c84f3793f6a63fa2,
         type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 3955022682087430505, guid: dde184ba4458a364c84f3793f6a63fa2,
+        type: 3}
       propertyPath: m_LocalRotation.x
       value: -0
       objectReference: {fileID: 0}
@@ -291,16 +303,6 @@ PrefabInstance:
         type: 3}
       propertyPath: m_LocalRotation.z
       value: -0
-      objectReference: {fileID: 0}
-    - target: {fileID: 3955022682087430505, guid: dde184ba4458a364c84f3793f6a63fa2,
-        type: 3}
-      propertyPath: m_LocalRotation.w
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 3955022682087430505, guid: dde184ba4458a364c84f3793f6a63fa2,
-        type: 3}
-      propertyPath: m_RootOrder
-      value: 3
       objectReference: {fileID: 0}
     - target: {fileID: 3955022682087430505, guid: dde184ba4458a364c84f3793f6a63fa2,
         type: 3}
@@ -354,15 +356,15 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 976279426414310990}
     m_Modifications:
-    - target: {fileID: 4593882456272799428, guid: df51be8f854c2674f908c7d266c6b02d,
-        type: 3}
-      propertyPath: OutputAudioMixerGroup
-      value: 
-      objectReference: {fileID: 0}
     - target: {fileID: 4630179527383863692, guid: df51be8f854c2674f908c7d266c6b02d,
         type: 3}
       propertyPath: m_Name
       value: Enemy_Drone's Sound Player
+      objectReference: {fileID: 0}
+    - target: {fileID: 4630179527383863695, guid: df51be8f854c2674f908c7d266c6b02d,
+        type: 3}
+      propertyPath: m_RootOrder
+      value: 2
       objectReference: {fileID: 0}
     - target: {fileID: 4630179527383863695, guid: df51be8f854c2674f908c7d266c6b02d,
         type: 3}
@@ -381,6 +383,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 4630179527383863695, guid: df51be8f854c2674f908c7d266c6b02d,
         type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 4630179527383863695, guid: df51be8f854c2674f908c7d266c6b02d,
+        type: 3}
       propertyPath: m_LocalRotation.x
       value: -0
       objectReference: {fileID: 0}
@@ -393,16 +400,6 @@ PrefabInstance:
         type: 3}
       propertyPath: m_LocalRotation.z
       value: -0
-      objectReference: {fileID: 0}
-    - target: {fileID: 4630179527383863695, guid: df51be8f854c2674f908c7d266c6b02d,
-        type: 3}
-      propertyPath: m_LocalRotation.w
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 4630179527383863695, guid: df51be8f854c2674f908c7d266c6b02d,
-        type: 3}
-      propertyPath: m_RootOrder
-      value: 2
       objectReference: {fileID: 0}
     - target: {fileID: 4630179527383863695, guid: df51be8f854c2674f908c7d266c6b02d,
         type: 3}
@@ -439,10 +436,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: Enemy_General Sound Player
       objectReference: {fileID: 0}
-    - target: {fileID: 7885332458042498414, guid: 855086e511841044682edb8a5f185cff,
+    - target: {fileID: 8185007489991476492, guid: 855086e511841044682edb8a5f185cff,
         type: 3}
-      propertyPath: OutputAudioMixerGroup
-      value: 
+      propertyPath: m_RootOrder
+      value: 4
       objectReference: {fileID: 0}
     - target: {fileID: 8185007489991476492, guid: 855086e511841044682edb8a5f185cff,
         type: 3}
@@ -461,6 +458,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 8185007489991476492, guid: 855086e511841044682edb8a5f185cff,
         type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 8185007489991476492, guid: 855086e511841044682edb8a5f185cff,
+        type: 3}
       propertyPath: m_LocalRotation.x
       value: -0
       objectReference: {fileID: 0}
@@ -476,16 +478,6 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 8185007489991476492, guid: 855086e511841044682edb8a5f185cff,
         type: 3}
-      propertyPath: m_LocalRotation.w
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 8185007489991476492, guid: 855086e511841044682edb8a5f185cff,
-        type: 3}
-      propertyPath: m_RootOrder
-      value: 4
-      objectReference: {fileID: 0}
-    - target: {fileID: 8185007489991476492, guid: 855086e511841044682edb8a5f185cff,
-        type: 3}
       propertyPath: m_LocalEulerAnglesHint.x
       value: 0
       objectReference: {fileID: 0}
@@ -498,11 +490,6 @@ PrefabInstance:
         type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 8438863077887770558, guid: 855086e511841044682edb8a5f185cff,
-        type: 3}
-      propertyPath: OutputAudioMixerGroup
-      value: 
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 855086e511841044682edb8a5f185cff, type: 3}
@@ -533,6 +520,11 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 8329761082981471130, guid: 4198ad50b2c474648980c3d307fa098c,
         type: 3}
+      propertyPath: m_RootOrder
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 8329761082981471130, guid: 4198ad50b2c474648980c3d307fa098c,
+        type: 3}
       propertyPath: m_LocalPosition.x
       value: 0
       objectReference: {fileID: 0}
@@ -548,6 +540,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 8329761082981471130, guid: 4198ad50b2c474648980c3d307fa098c,
         type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 8329761082981471130, guid: 4198ad50b2c474648980c3d307fa098c,
+        type: 3}
       propertyPath: m_LocalRotation.x
       value: -0
       objectReference: {fileID: 0}
@@ -560,16 +557,6 @@ PrefabInstance:
         type: 3}
       propertyPath: m_LocalRotation.z
       value: -0
-      objectReference: {fileID: 0}
-    - target: {fileID: 8329761082981471130, guid: 4198ad50b2c474648980c3d307fa098c,
-        type: 3}
-      propertyPath: m_LocalRotation.w
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 8329761082981471130, guid: 4198ad50b2c474648980c3d307fa098c,
-        type: 3}
-      propertyPath: m_RootOrder
-      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 8329761082981471130, guid: 4198ad50b2c474648980c3d307fa098c,
         type: 3}
@@ -591,6 +578,11 @@ PrefabInstance:
       propertyPath: m_Name
       value: Drone-Art
       objectReference: {fileID: 0}
+    - target: {fileID: 9158796037162685705, guid: 4198ad50b2c474648980c3d307fa098c,
+        type: 3}
+      propertyPath: m_Controller
+      value: 
+      objectReference: {fileID: 9100000, guid: 598a254b8be475c4daf296fb9f87872e, type: 2}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 4198ad50b2c474648980c3d307fa098c, type: 3}
 --- !u!4 &6666709010275793552 stripped
@@ -628,14 +620,19 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 4423708002237626055, guid: cad81f72c113be84683b8668c0dd3ece,
         type: 3}
-      propertyPath: OnEnter.m_PersistentCalls.m_Calls.Array.data[0].m_CallState
-      value: 2
-      objectReference: {fileID: 0}
-    - target: {fileID: 4423708002237626055, guid: cad81f72c113be84683b8668c0dd3ece,
-        type: 3}
       propertyPath: OnEnter.m_PersistentCalls.m_Calls.Array.data[0].m_Target
       value: 
       objectReference: {fileID: 279003710941757610}
+    - target: {fileID: 4423708002237626055, guid: cad81f72c113be84683b8668c0dd3ece,
+        type: 3}
+      propertyPath: OnEnter.m_PersistentCalls.m_Calls.Array.data[0].m_CallState
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 4981594373520114491, guid: cad81f72c113be84683b8668c0dd3ece,
+        type: 3}
+      propertyPath: m_RootOrder
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 4981594373520114491, guid: cad81f72c113be84683b8668c0dd3ece,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -653,6 +650,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 4981594373520114491, guid: cad81f72c113be84683b8668c0dd3ece,
         type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 4981594373520114491, guid: cad81f72c113be84683b8668c0dd3ece,
+        type: 3}
       propertyPath: m_LocalRotation.x
       value: 0
       objectReference: {fileID: 0}
@@ -664,16 +666,6 @@ PrefabInstance:
     - target: {fileID: 4981594373520114491, guid: cad81f72c113be84683b8668c0dd3ece,
         type: 3}
       propertyPath: m_LocalRotation.z
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 4981594373520114491, guid: cad81f72c113be84683b8668c0dd3ece,
-        type: 3}
-      propertyPath: m_LocalRotation.w
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 4981594373520114491, guid: cad81f72c113be84683b8668c0dd3ece,
-        type: 3}
-      propertyPath: m_RootOrder
       value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 4981594373520114491, guid: cad81f72c113be84683b8668c0dd3ece,

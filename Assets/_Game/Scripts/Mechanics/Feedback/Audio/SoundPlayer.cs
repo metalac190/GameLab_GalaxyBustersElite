@@ -74,6 +74,9 @@ public class SoundPlayer : MonoBehaviour
                 sound.audioSource.Stop();
             else if (!sound.audioSource.isPlaying && sound.playOnAwake) // Play if play on awake
                 Play(s);
+
+            if (sound.loop)
+                StartCoroutine(StopLoopingSoundWhilePaused(s));
         }
         else if (!warnedAboutMissingSoundOnce)
         {
@@ -246,6 +249,22 @@ public class SoundPlayer : MonoBehaviour
     }
     #endregion
 
+    #region Stop While Paused
+    IEnumerator StopLoopingSoundWhilePaused(int indexOfSound)
+    {
+        while (true)
+        {
+            if (GameManager.gm.Paused && allSounds[indexOfSound].audioSource.isPlaying)
+            {
+                float savedVolume = allSounds[indexOfSound].audioSource.volume;
+                allSounds[indexOfSound].audioSource.volume = 0;
+                yield return new WaitForSeconds(0.01f);
+                allSounds[indexOfSound].audioSource.volume = savedVolume;
+            }
+            yield return new WaitForSecondsRealtime(0.06f);
+        }
+    }
+    #endregion
 
     #region Debugging
     [ContextMenu("Test Play First Sound")]

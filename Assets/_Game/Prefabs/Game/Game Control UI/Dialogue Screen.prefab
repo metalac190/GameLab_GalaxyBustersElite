@@ -1,5 +1,79 @@
 %YAML 1.1
 %TAG !u! tag:unity3d.com,2011:
+--- !u!1 &1059978040291896975
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 3518770836283327596}
+  - component: {fileID: 1070241893505183830}
+  - component: {fileID: 8586636764601923913}
+  m_Layer: 0
+  m_Name: Piledrive_img
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 0
+--- !u!224 &3518770836283327596
+RectTransform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1059978040291896975}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 1283210542206010381}
+  m_RootOrder: 8
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_AnchorMin: {x: 0.5, y: 0.5}
+  m_AnchorMax: {x: 0.5, y: 0.5}
+  m_AnchoredPosition: {x: -311, y: -271}
+  m_SizeDelta: {x: 75, y: 75}
+  m_Pivot: {x: 0.5, y: 0.5}
+--- !u!222 &1070241893505183830
+CanvasRenderer:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1059978040291896975}
+  m_CullTransparentMesh: 0
+--- !u!114 &8586636764601923913
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1059978040291896975}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fe87c0e1cc204ed48ad3b37840f39efc, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_Material: {fileID: 0}
+  m_Color: {r: 1, g: 1, b: 1, a: 1}
+  m_RaycastTarget: 1
+  m_Maskable: 1
+  m_OnCullStateChanged:
+    m_PersistentCalls:
+      m_Calls: []
+  m_Sprite: {fileID: 21300000, guid: d57f564e9a91d4c4e935c33ade07c0c2, type: 3}
+  m_Type: 0
+  m_PreserveAspect: 0
+  m_FillCenter: 1
+  m_FillMethod: 4
+  m_FillAmount: 1
+  m_FillClockwise: 1
+  m_FillOrigin: 0
+  m_UseSpriteMesh: 0
+  m_PixelsPerUnitMultiplier: 1
 --- !u!1 &1283210540164553562
 GameObject:
   m_ObjectHideFlags: 0
@@ -28,14 +102,15 @@ RectTransform:
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
-  m_Children: []
+  m_Children:
+  - {fileID: 8057023538677992891}
   m_Father: {fileID: 1283210542206010381}
   m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 373, y: -287.99997}
-  m_SizeDelta: {x: 1200, y: 100}
+  m_AnchoredPosition: {x: 188.8, y: -287.99997}
+  m_SizeDelta: {x: 831.52466, y: 100}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &1283210540164553560
 CanvasRenderer:
@@ -74,7 +149,7 @@ MonoBehaviour:
   m_fontMaterials: []
   m_fontColor32:
     serializedVersion: 2
-    rgba: 4278190080
+    rgba: 4294967295
   m_fontColor: {r: 1, g: 1, b: 1, a: 1}
   m_enableVertexGradient: 0
   m_colorMode: 3
@@ -131,7 +206,7 @@ MonoBehaviour:
   m_firstVisibleCharacter: 0
   m_useMaxVisibleDescender: 1
   m_pageToDisplay: 1
-  m_margin: {x: 7.585454, y: 21.938887, z: 644.3743, w: 19.77194}
+  m_margin: {x: 7.585454, y: 21.938887, z: 17.225365, w: 19.77194}
   m_textInfo:
     textComponent: {fileID: 1283210540164553561}
     characterCount: 0
@@ -148,7 +223,7 @@ MonoBehaviour:
   m_hasFontAssetChanged: 0
   m_subTextObjects:
   - {fileID: 0}
-  - {fileID: 0}
+  - {fileID: 2493467726580560722}
   - {fileID: 0}
   - {fileID: 0}
   - {fileID: 0}
@@ -496,6 +571,7 @@ RectTransform:
   - {fileID: 1283210541700463065}
   - {fileID: 1283210542013712062}
   - {fileID: 1283210542206010381}
+  - {fileID: 4291520503971649275}
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -580,10 +656,16 @@ MonoBehaviour:
   nameText: {fileID: 1283210540722479892}
   dialogueText: {fileID: 1283210540164553561}
   PilotImage: {fileID: 1283210540836946846}
+  PiledriveImage: {fileID: 1059978040291896975}
+  MatryoshkaImage: {fileID: 3659660528334802194}
+  TwilightImage: {fileID: 8388571931578769631}
+  ZenoxImage: {fileID: 7310483297081433515}
   RandomImage: {fileID: 7322678365560830691}
   typingDelay: 0.025
   speakerTransionDelay: 0.5
   conversationEndDelay: 1
+  dialoguePriority: 0
+  activeDialogue: 0
 --- !u!1 &1283210541700463066
 GameObject:
   m_ObjectHideFlags: 0
@@ -632,7 +714,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ac8475f57bde1cb4184f616c368760fb, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  activeDialogue: 0
 --- !u!1 &1283210541919230412
 GameObject:
   m_ObjectHideFlags: 0
@@ -770,15 +851,25 @@ MonoBehaviour:
     sentences:
     - Matryoshka has a good point.
     - "Start with the basics and you\u2019ll be blasting enemies in no time, eh."
+  - npcName: Commander Twilight
+    sentences:
+    - "It\u2019s important for you to learn how to fly these top-of-the-line ships.
+      I\u2019ll have you know that each ship costs well over several million dollars.\u201D"
+    - "Move around the flight path using the keys labeled \u201CW\u201D, \u201CA\u201D,
+      \u201CS\u201D, and \u201CD\u201D. Very good."
+    - Now, use your left mouse button to shoot. Well done.
+    - "There\u2019s a bar that will measure a charge to use an overcharge shot. You
+      can use the right mouse button to fire an overcharged shot once it\u2019s full."
+    - On your basic gun, an overcharge will increase your rate of fire.
   FirstEnemyAppearsDialogue:
   - npcName: Pilot
     sentences:
     - By the beak of a bald eagle, what are those?!?!?
-  - npcName: Twilight
+  - npcName: Commander Twilight
     sentences:
     - Pilots, it appears we are facing a dimensional incursion.
     - Take every safety precaution.
-  - npcName: 'Matryoshka:'
+  - npcName: Matryoshka
     sentences:
     - GrrRrrRh!
   - npcName: Pilot
@@ -791,13 +882,13 @@ MonoBehaviour:
   - npcName: Pilot
     sentences:
     - What is that thing!?
-  - npcName: Twilight
+  - npcName: Commander Twilight
     sentences:
     - It appears to be a dimensional breach.
-    - That must be where these crystalline creatures, who we have now dubbed Enox,are
-      coming from.
+    - That must be where these crystalline creatures, who we have now dubbed Enox,
+      are coming from.
   Level1EndingDialogue:
-  - npcName: Twilight
+  - npcName: Commander Twilight
     sentences:
     - That seems to be the last of them for now.
     - Pilots, regroup at the station as we discuss what to do next.
@@ -812,12 +903,57 @@ MonoBehaviour:
     - "That\u2019s a negatory Commander Twilight!"
     - "We need to fly through that breach and stop them from coming back! I\u2019m
       going in!"
-  - npcName: Twilight
+  - npcName: Commander Twilight
     sentences:
     - I order you to regroup pilots!
   - npcName: Piledrive
     sentences:
     - Sorry boss, gotta go with the new guy.
+  EnergyWavePickup:
+  - npcName: Piledrive
+    sentences:
+    - "That\u2019s a new weapon. It\u2019s an energy burst."
+    - "A quick-fire will send a weak blast, but if you hold down, you\u2019ll build
+      up a stronger shot."
+  - npcName: Commander Twilight
+    sentences:
+    - Additionally, if you overload it, all quick shots will be a fully charged for
+      a short time.
+  LaserPickup:
+  - npcName: Commander Twilight
+    sentences:
+    - "That\u2019s an experimental laser. A quick shot will just be a small blast,
+      but holding fire will shoot a continuous laser."
+  - npcName: Piledrive
+    sentences:
+    - 'Overloading this bad boy is a bit complicated. '
+    - There will be a short charge time where you can target as many enemies as you
+      can.
+    - "At the end of the charging, the laser will shoot everyone you targeted.\u201D"
+  FirstBandit:
+  - npcName: Commander Twilight
+    sentences:
+    - Pilots, do you see that Bandit ship there?
+    - "Our sensors are telling us it\u2019s stolen experimental GBE creations. If
+      you shoot it, you may be able to recover and use them."
+    - It will probably try to get away quickly though.
+  FirstSpearhead:
+  - npcName: Commander Twilight
+    sentences:
+    - Radar indicates there is a powerful Spearhead ship nearby.
+    - "If you encounter one, be wary, they\u2019re quick and powerful."
+    - They will likely be vulnerable while they charge their thrusters.
+  - npcName: Piledrive
+    sentences:
+    - Commander?
+  - npcName: Commander Twilight
+    sentences:
+    - Yes Piledrive?
+  - npcName: Piledrive
+    sentences:
+    - I think we found the Spearhead.
+  FirstRammer: []
+  FirstMinion: []
   StartOfL2Dialogue:
   - npcName: Piledrive
     sentences:
@@ -826,7 +962,7 @@ MonoBehaviour:
     sentences:
     - You can say that again! Where are we?
     - "This doesn\u2019t look like American Space!"
-  - npcName: Twilight
+  - npcName: Commander Twilight
     sentences:
     - It seems you travelled through the breach to a different dimension.
     - Matryoshka should be able to explain more. She is a quantum physicist.
@@ -844,27 +980,83 @@ MonoBehaviour:
     sentences:
     - "It\u2019s the principle of the thing!"
   ZenoxHackingDialogue:
-  - npcName: Zenox
+  - npcName: 'Zenox '
     sentences:
     - Testing, testing, is this thing on?
   - npcName: Pilot
     sentences:
     - Who is that?!?
-  - npcName: Zenox
+  - npcName: 'Zenox '
     sentences:
     - Ah, you can hear me!
     - "I am Acting Supreme Overlord-In-Command, Count Zenox, and you\u2019re in my
       dimension now. "
     - Mwahahaha!
-  - npcName: Twilight
+  - npcName: Commander Twilight
     sentences:
     - How are you talking to us?
-  - npcName: Zenox
+  - npcName: 'Zenox '
     sentences:
     - "I hacked your radio waves! I\u2019m a mad genius!"
-  - npcName: Twilight
+  - npcName: Commander Twilight
     sentences:
     - Be on your guard pilots.
+  CrazyEnvironment:
+  - npcName: Piledrive
+    sentences:
+    - This is insane! How is all this possible?!?
+  - npcName: Matryoshka
+    sentences:
+    - Rawrgrgrgrgr. GRRhrg.
+    - Raur rawr grr.
+  - npcName: Piledrive
+    sentences:
+    - "I\u2019m not going to pretend I understood all that fancy technical jargon
+      Matryoshka just shared, that\u2019s why she has seven phd\u2019s and I don\u2019t,
+      but it sure is pretty outside."
+  GiantFormation:
+  - npcName: Commander Twilight
+    sentences:
+    - Sensor are indicating an outrageous number of enemies up ahead. Be careful
+      pilots!
+  - npcName: Pilot
+    sentences:
+    - Being careful is what I do worst!
+  MinefieldSighting:
+  - npcName: Commander Twilight
+    sentences:
+    - "Stay away from that minefield over there. If you blow up a GBE ship, it\u2019s
+      coming out of your pay."
+    - "I\u2019m talking to you specifically Pilot."
+  - npcName: Pilot
+    sentences:
+    - Hey! What did i do to deserve that?
+  - npcName: Piledrive
+    sentences:
+    - ...
+  - npcName: Pilot
+    sentences:
+    - Fine, I'll stay away for the minefield.
+  CubeSighting:
+  - npcName: Piledrive
+    sentences:
+    - "I never thought I\u2019d see such perfect cubes in nature."
+  - npcName: Pilot
+    sentences:
+    - Do you think about perfect cubes in nature often
+  - npcName: Piledrive
+    sentences:
+    - What I do in my own time is none of your business.
+  StartOfL3Dialogue:
+  - npcName: Pilot
+    sentences:
+    - "Let\u2019s go kick some Acting Supreme Overlord-In-Command behind!"
+  - npcName: Piledrive
+    sentences:
+    - "Did you just censor the word \u2018butt\u2019?"
+  - npcName: Pilot
+    sentences:
+    - "This game is rated \u2018E\u2019 for everyone sir!"
   ZenoxRevealDialogue:
   - npcName: Pilot
     sentences:
@@ -875,22 +1067,26 @@ MonoBehaviour:
   - npcName: Piledrive
     sentences:
     - "He\u2019s about as ugly as I expected, eh."
-  - npcName: Zenox
+  - npcName: Commander Twilight
     sentences:
-    - ...
+    - "It looks like he\u2019s drawing power from those spokes around the edge of
+      his wheel. Try shooting those."
   - npcName: Pilot
     sentences:
-    - ...
+    - Aye-Aye Commander!
   - npcName: Zenox
     sentences:
     - "So anyway, I\u2019m going to start blasting."
-  ZenoxFillerDialogue:
-  - npcName: Zenox
+  ZenoxHalfHealthDialogue:
+  - npcName: Matryoshka
     sentences:
-    - Can I interest you in a laserblast in these trying times?
-  - npcName: Zenox
+    - Roroggh!
+  - npcName: Pilot
     sentences:
-    - Eat lasers you Terrans!
+    - "You\u2019re right! He looks about halfway beaten!"
+  - npcName: Piledrive
+    sentences:
+    - Let's bring it home.
   AfterBossDialogue:
   - npcName: Zenox
     sentences:
@@ -900,47 +1096,256 @@ MonoBehaviour:
   - npcName: Matryoshka
     sentences:
     - Rawrgh.
-  - npcName: Twilight
+  - npcName: Commander Twilight
     sentences:
     - There pilots, do you see that portal?
   - npcName: Piledrive
     sentences:
     - "Yes ma\u2019am we do."
-  - npcName: Twilight
+  - npcName: Commander Twilight
     sentences:
-    - 'Fly into it, and may the stars see you home. '
-    - Pilot?
-  - npcName: Pilot
+    - "We don\u2019t know where it will go, but it might bring you home"
+    - It is your choice pilots.
+  - npcName: Piledrive
     sentences:
-    - Yes commander?
-  - npcName: Twilight
-    sentences:
-    - 'You would have made your mother proud. '
-    - You showcased everything she built the GBE around.
-    - Godspeed.
-  - npcName: Pilot
-    sentences:
-    - "We\u2019ll see you soon Commander."
+    - Let's do this.
   PlayerDamagedDialogue:
   - npcName: Pilot
     sentences:
     - Yowzers, that slapped like a bucking bronco.
+  - npcName: Pilot
+    sentences:
+    - Ouch!
+  - npcName: Pilot
+    sentences:
+    - By the stripes, stars, and stripes, that hurt!
+  - npcName: Pilot
+    sentences:
+    - I can hold it!
+  - npcName: Pilot
+    sentences:
+    - "There\u2019s too many of them!"
+  - npcName: Pilot
+    sentences:
+    - I thrive on your lasers enemy drones!
+  - npcName: Pilot
+    sentences:
+    - "shosg!, AaAohgb oripjtI\u2019,i-Whoops, sorryabout that, must have been a
+      bug!"
   - npcName: Piledrive
     sentences:
-    - Careful son.
+    - Careful there son.
+  - npcName: Piledrive
+    sentences:
+    - You almost made me spill my Tim Hortons.
+  - npcName: Piledrive
+    sentences:
+    - Eh.
+  - npcName: Piledrive
+    sentences:
+    - "You\u2019re not supposed to get shot Zap, you know?"
   - npcName: Matryoshka
     sentences:
-    - Raaughra
+    - Rggggr!
+  - npcName: Commander Twilight
+    sentences:
+    - Careful Pilot, that is GBE property!
+  - npcName: Commander Twilight
+    sentences:
+    - That ship is worth more than you Pilot!
+  - npcName: Commander Twilight
+    sentences:
+    - "You clearly aren\u2019t ready for the field!"
+  - npcName: Commander Twilight
+    sentences:
+    - "Can\u2019t you barrel roll away or something pilot? Stop getting hit."
   EnemyDefeatedDialogue:
   - npcName: Pilot
     sentences:
     - "Woo-hoo! That\u2019s the American way!"
   - npcName: Pilot
     sentences:
-    - "That ship\u2019s been straight Delaware destroyed!"
+    - That drone has been straight Deleware destroyed!
   - npcName: Pilot
     sentences:
-    - "I\u2019m red, white, and blue, but you\u2019re dead, white, and blue."
+    - "That\u2019s what you get for messing with America!"
+  - npcName: Pilot
+    sentences:
+    - "I\u2019m red, white, and blue, but you\u2019re about to be dead, white and
+      blue!"
+  - npcName: Pilot
+    sentences:
+    - "That\u2019s why they call us the Galaxy Busters Elite!"
+  - npcName: Pilot
+    sentences:
+    - Flashbang!
+  - npcName: Pilot
+    sentences:
+    - Eat laser you drones!
+  - npcName: Pilot
+    sentences:
+    - "This\u2019ll teach you to come into my house, into my home!"
+  - npcName: Pilot
+    sentences:
+    - "By the rocket\u2019s red glare!"
+  - npcName: Pilot
+    sentences:
+    - That laser was just for you!
+  - npcName: Piledrive
+    sentences:
+    - "That\u2019ll do Zap, that\u2019ll do."
+  - npcName: Piledrive
+    sentences:
+    - Sorry drone.
+  - npcName: Piledrive
+    sentences:
+    - This reminds me ofa friendly hockey game.
+  - npcName: Piledrive
+    sentences:
+    - "Ooh, that one\u2019s pretty, eh?"
+  - npcName: Piledrive
+    sentences:
+    - Kind of a disappointing explosion if you ask me, eh?
+  - npcName: Matryoshka
+    sentences:
+    - Grrrrrrrrr.
+  - npcName: Matryoshka
+    sentences:
+    - Ragrrr?
+  - npcName: Matryoshka
+    sentences:
+    - Grarrrrr!
+  - npcName: Commander Twilight
+    sentences:
+    - "Well done Zap, maybe there\u2019s more of your mother in you than I thought."
+  - npcName: Commander Twilight
+    sentences:
+    - Bravo Zap!
+  - npcName: Commander Twilight
+    sentences:
+    - Hmph, sufficiently executed Pilot.
+  ZenoxFillerDialogue:
+  - npcName: Zenox
+    sentences:
+    - Can I interest you in a laser in these trying times?
+  - npcName: Zenox
+    sentences:
+    - I am the enemy to truth, liberty, and the American way!
+  - npcName: Zenox
+    sentences:
+    - First I'll conquer you, then your whole dimension!
+  - npcName: Zenox
+    sentences:
+    - "I\u2019ll-blegh, bla, bleh. Sorry, a bug just flew into my mouth"
+  - npcName: Zenox
+    sentences:
+    - "I\u2019ll lose, and you can\u2019t stop me! Wait-I think I did that the wrong
+      way. Can I try again?"
+  - npcName: Zenox
+    sentences:
+    - My victory is basically, practically, almost guaranteed assured!
+  - npcName: Zenox
+    sentences:
+    - "I\u2019ll throw garbage at you, stop being so annoying!"
+  - npcName: Zenox
+    sentences:
+    - You carbon based life-forms are all essentially air-conditioners, and I hate
+      air conditioners!
+  - npcName: Zenox
+    sentences:
+    - Hahahahahahahaha!
+  - npcName: Zenox
+    sentences:
+    - All your dimension are belong to us.
+  - npcName: Zenox
+    sentences:
+    - You and your puny friends are nothing compared to me!
+  PlayerObstacleDamage:
+  - npcName: Pilot
+    sentences:
+    - Oops!
+  - npcName: Pilot
+    sentences:
+    - My Bad!
+  - npcName: Pilot
+    sentences:
+    - That thing was the size of Texas!
+  - npcName: Pilot
+    sentences:
+    - Youch!
+  - npcName: Piledrive
+    sentences:
+    - You good there?
+  - npcName: Piledrive
+    sentences:
+    - Watch yourself, eh?
+  - npcName: Piledrive
+    sentences:
+    - This is no time to be Neil Armstrong, Zip.
+  - npcName: Matryoshka
+    sentences:
+    - Roar.
+  - npcName: Matryoshka
+    sentences:
+    - Grgrgrgrgr.
+  - npcName: Commander Twilight
+    sentences:
+    - I might change your callsign to Bad Pilot, Pilot.
+  - npcName: Commander Twilight
+    sentences:
+    - Do you even know how to fly?
+  - npcName: Commander Twilight
+    sentences:
+    - "Your mother wouldn\u2019t have hit that."
+  ZenoxPartDestroyed:
+  - npcName: Pilot
+    sentences:
+    - Eat that you enemy of liberty!
+  - npcName: Pilot
+    sentences:
+    - Touchdown!
+  - npcName: Pilot
+    sentences:
+    - "I am proud to be an American, and I\u2019m proud to be blowing up you!"
+  - npcName: Pilot
+    sentences:
+    - "And that one\u2019s for my mom!"
+  - npcName: Pilot
+    sentences:
+    - "You\u2019ll never win Zenox!"
+  - npcName: Pilot
+    sentences:
+    - "And that\u2019s the American way!"
+  - npcName: Piledrive
+    sentences:
+    - Eh.
+  - npcName: Piledrive
+    sentences:
+    - You better calm down there Mr. Zenox.
+  - npcName: Piledrive
+    sentences:
+    - Decent job kid.
+  - npcName: Piledrive
+    sentences:
+    - People always told me I was too excitable.
+  - npcName: Matryoshka
+    sentences:
+    - RAURGH!
+  - npcName: Matryoshka
+    sentences:
+    - GRRRRRRAAAAAHG!
+  - npcName: Commander Twilight
+    sentences:
+    - Good show Pilot!
+  - npcName: Commander Twilight
+    sentences:
+    - Yes, show him!
+  - npcName: Commander Twilight
+    sentences:
+    - "You\u2019ll be receiving accolades for this!"
+  - npcName: Commander Twilight
+    sentences:
+    - Good shot!
 --- !u!1 &1283210542206010382
 GameObject:
   m_ObjectHideFlags: 0
@@ -974,6 +1379,10 @@ RectTransform:
   - {fileID: 1283210540323829197}
   - {fileID: 1283210540836946845}
   - {fileID: 1466238120484189111}
+  - {fileID: 4031936902126139917}
+  - {fileID: 9080655681383034812}
+  - {fileID: 3518770836283327596}
+  - {fileID: 4828459880062450165}
   m_Father: {fileID: 1283210541210876197}
   m_RootOrder: 2
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -982,6 +1391,227 @@ RectTransform:
   m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 100, y: 100}
   m_Pivot: {x: 0.5, y: 0.5}
+--- !u!1 &2074539801630466516
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 8057023538677992891}
+  - component: {fileID: 4335955866747840499}
+  - component: {fileID: 2493467726580560722}
+  m_Layer: 0
+  m_Name: TMP SubMeshUI [Adam-Bold SDF Material + LiberationSans SDF Atlas]
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!224 &8057023538677992891
+RectTransform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2074539801630466516}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 1283210540164553567}
+  m_RootOrder: 0
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_AnchorMin: {x: 0, y: 0}
+  m_AnchorMax: {x: 1, y: 1}
+  m_AnchoredPosition: {x: 0, y: 0}
+  m_SizeDelta: {x: 0, y: 0}
+  m_Pivot: {x: 0.5, y: 0.5}
+--- !u!222 &4335955866747840499
+CanvasRenderer:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2074539801630466516}
+  m_CullTransparentMesh: 0
+--- !u!114 &2493467726580560722
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2074539801630466516}
+  m_Enabled: 0
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 058cba836c1846c3aa1c5fd2e28aea77, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_Material: {fileID: 0}
+  m_Color: {r: 1, g: 1, b: 1, a: 1}
+  m_RaycastTarget: 1
+  m_Maskable: 1
+  m_OnCullStateChanged:
+    m_PersistentCalls:
+      m_Calls: []
+  m_fontAsset: {fileID: 11400000, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
+  m_spriteAsset: {fileID: 0}
+  m_material: {fileID: 0}
+  m_sharedMaterial: {fileID: 0}
+  m_isDefaultMaterial: 0
+  m_padding: 1.25
+  m_canvasRenderer: {fileID: 4335955866747840499}
+  m_TextComponent: {fileID: 1283210540164553561}
+  m_materialReferenceIndex: 1
+--- !u!1 &3659660528334802194
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 9080655681383034812}
+  - component: {fileID: 7426350261636997465}
+  - component: {fileID: 3718927734298204882}
+  m_Layer: 0
+  m_Name: Matryoshka_img
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 0
+--- !u!224 &9080655681383034812
+RectTransform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3659660528334802194}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 1283210542206010381}
+  m_RootOrder: 7
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_AnchorMin: {x: 0.5, y: 0.5}
+  m_AnchorMax: {x: 0.5, y: 0.5}
+  m_AnchoredPosition: {x: -311, y: -271}
+  m_SizeDelta: {x: 75, y: 75}
+  m_Pivot: {x: 0.5, y: 0.5}
+--- !u!222 &7426350261636997465
+CanvasRenderer:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3659660528334802194}
+  m_CullTransparentMesh: 0
+--- !u!114 &3718927734298204882
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3659660528334802194}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fe87c0e1cc204ed48ad3b37840f39efc, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_Material: {fileID: 0}
+  m_Color: {r: 1, g: 1, b: 1, a: 1}
+  m_RaycastTarget: 1
+  m_Maskable: 1
+  m_OnCullStateChanged:
+    m_PersistentCalls:
+      m_Calls: []
+  m_Sprite: {fileID: 21300000, guid: e2dbbd5eb3b4e424f8229d1f4ad5110e, type: 3}
+  m_Type: 0
+  m_PreserveAspect: 0
+  m_FillCenter: 1
+  m_FillMethod: 4
+  m_FillAmount: 1
+  m_FillClockwise: 1
+  m_FillOrigin: 0
+  m_UseSpriteMesh: 0
+  m_PixelsPerUnitMultiplier: 1
+--- !u!1 &7310483297081433515
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 4828459880062450165}
+  - component: {fileID: 9117363554136044006}
+  - component: {fileID: 7933789528667562221}
+  m_Layer: 0
+  m_Name: Zenox_img
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 0
+--- !u!224 &4828459880062450165
+RectTransform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7310483297081433515}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 1283210542206010381}
+  m_RootOrder: 9
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_AnchorMin: {x: 0.5, y: 0.5}
+  m_AnchorMax: {x: 0.5, y: 0.5}
+  m_AnchoredPosition: {x: -311, y: -271}
+  m_SizeDelta: {x: 75, y: 75}
+  m_Pivot: {x: 0.5, y: 0.5}
+--- !u!222 &9117363554136044006
+CanvasRenderer:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7310483297081433515}
+  m_CullTransparentMesh: 0
+--- !u!114 &7933789528667562221
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7310483297081433515}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fe87c0e1cc204ed48ad3b37840f39efc, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_Material: {fileID: 0}
+  m_Color: {r: 1, g: 1, b: 1, a: 1}
+  m_RaycastTarget: 1
+  m_Maskable: 1
+  m_OnCullStateChanged:
+    m_PersistentCalls:
+      m_Calls: []
+  m_Sprite: {fileID: 21300000, guid: 419a00f60a074bb4cb657e22d1050b89, type: 3}
+  m_Type: 0
+  m_PreserveAspect: 0
+  m_FillCenter: 1
+  m_FillMethod: 4
+  m_FillAmount: 1
+  m_FillClockwise: 1
+  m_FillOrigin: 0
+  m_UseSpriteMesh: 0
+  m_PixelsPerUnitMultiplier: 1
 --- !u!1 &7322678365560830691
 GameObject:
   m_ObjectHideFlags: 0
@@ -1056,3 +1686,129 @@ MonoBehaviour:
   m_FillOrigin: 0
   m_UseSpriteMesh: 0
   m_PixelsPerUnitMultiplier: 1
+--- !u!1 &8388571931578769631
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 4031936902126139917}
+  - component: {fileID: 4451385291512460905}
+  - component: {fileID: 510185658442796506}
+  m_Layer: 0
+  m_Name: CommTwilight_img
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 0
+--- !u!224 &4031936902126139917
+RectTransform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8388571931578769631}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 1283210542206010381}
+  m_RootOrder: 6
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_AnchorMin: {x: 0.5, y: 0.5}
+  m_AnchorMax: {x: 0.5, y: 0.5}
+  m_AnchoredPosition: {x: -311, y: -271}
+  m_SizeDelta: {x: 75, y: 75}
+  m_Pivot: {x: 0.5, y: 0.5}
+--- !u!222 &4451385291512460905
+CanvasRenderer:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8388571931578769631}
+  m_CullTransparentMesh: 0
+--- !u!114 &510185658442796506
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8388571931578769631}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fe87c0e1cc204ed48ad3b37840f39efc, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_Material: {fileID: 0}
+  m_Color: {r: 1, g: 1, b: 1, a: 1}
+  m_RaycastTarget: 1
+  m_Maskable: 1
+  m_OnCullStateChanged:
+    m_PersistentCalls:
+      m_Calls: []
+  m_Sprite: {fileID: 21300000, guid: e467482c692ca734f9ecf37d0927af47, type: 3}
+  m_Type: 0
+  m_PreserveAspect: 0
+  m_FillCenter: 1
+  m_FillMethod: 4
+  m_FillAmount: 1
+  m_FillClockwise: 1
+  m_FillOrigin: 0
+  m_UseSpriteMesh: 0
+  m_PixelsPerUnitMultiplier: 1
+--- !u!1 &9112754219238006901
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 4291520503971649275}
+  - component: {fileID: 8625830441947431326}
+  m_Layer: 0
+  m_Name: ZenoxFillerDialogue
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!224 &4291520503971649275
+RectTransform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 9112754219238006901}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 1283210541210876197}
+  m_RootOrder: 3
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_AnchorMin: {x: 0.5, y: 0.5}
+  m_AnchorMax: {x: 0.5, y: 0.5}
+  m_AnchoredPosition: {x: 0, y: 0}
+  m_SizeDelta: {x: 100, y: 100}
+  m_Pivot: {x: 0.5, y: 0.5}
+--- !u!114 &8625830441947431326
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 9112754219238006901}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 227a7966215e02044aad55990e243e6a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  ZenoxFillerActive: 0
+  delayPeriod: 0
+  minWait: 12
+  maxWait: 22

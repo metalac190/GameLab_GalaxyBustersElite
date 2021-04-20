@@ -28,8 +28,10 @@ public class LaserBeam : WeaponBase
 	//[SerializeField] float damageMultiplier = 1.3f;
 
 	[Header("Effects")]
+	[SerializeField] UnityEvent OnLaserStart;
 	[SerializeField] UnityEvent OnLaserStop;
 	[SerializeField] bool laserActive;
+	[SerializeField] UnityEvent OnOverloadFired;
 
 	private void OnEnable()
 	{
@@ -53,6 +55,11 @@ public class LaserBeam : WeaponBase
 		fireReady = (GameManager.gm.currentState == GameState.Gameplay && !GameManager.gm.Paused);
 		chargeMeter = GameManager.player.controller.GetOverloadCharge();
 		line.SetPosition(0, spawnPoints[0].position);
+
+		if (Input.GetButtonDown("Primary Fire") && !overloaded && fireReady)
+        {
+			OnLaserStart.Invoke();
+		}
 
 		if (Input.GetButton("Primary Fire") && !overloaded && fireReady)
 		{
@@ -99,7 +106,6 @@ public class LaserBeam : WeaponBase
 				tickDamage = nextDamage >= damageCap ? damageCap : nextDamage;
 				projectile.GetComponent<Beam>().SetTarget(target.gameObject);
 				target.GetComponent<EntityBase>().TakeDamage(tickDamage);
-				Debug.Log(tickDamage);
 				numTicks++;
 				OnStandardFire.Invoke();
 			}			
@@ -189,6 +195,8 @@ public class LaserBeam : WeaponBase
 		overloadTargets = firePoint.GetComponent<GroupTargetDetector>().targets;
 		DrawLasers(true);
 		firePoint.GetComponent<GroupTargetDetector>().pauseTracking = true;
+
+		if (overloadTargets.Count > 0) OnOverloadFired?.Invoke();
 
 		yield return new WaitForSeconds(0.5f);
 
