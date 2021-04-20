@@ -5,6 +5,8 @@ using UnityEngine;
 
 public class ScoreHUD : MonoBehaviour
 {
+	[SerializeField] private Transform overlayContainer;
+
 	[SerializeField] private TextMeshProUGUI hudScoreText;
 	[SerializeField] private TextMeshProUGUI hudMultiplierText;
 
@@ -56,17 +58,23 @@ public class ScoreHUD : MonoBehaviour
 	private Queue<int> incrementQueue = new Queue<int>();
 	private Coroutine incrementCoroutine;
 
-	// TODO add effect to multiplier
-	// flame effect w particles
-
-	// TODO maybe like, rolling down effect for numbers changing
+	[SerializeField] private GameObject scoreBillboardPrefab;
+	private static GameObject s_scoreBillboardPrefab;
+	private static Camera s_cam;
+	private static Transform s_overlayContainer;
+	private void Awake()
+	{
+		s_scoreBillboardPrefab = scoreBillboardPrefab;
+		s_cam = Camera.main;
+		s_overlayContainer = overlayContainer;
+	}
 
 	private void OnEnable()
 	{
 		ScoreSystem.onScoreIncreased += OnScoreAdded;
 		ScoreSystem.onMultiplierChanged += OnMultiplierChanged;
 		ScoreSystem.onScoreReset += ResetScore;
-		processingQueueCoroutine = StartCoroutine(ProcessScoreEventQueue());
+		//processingQueueCoroutine = StartCoroutine(ProcessScoreEventQueue());
 	}
 
 	private void OnDisable()
@@ -74,14 +82,14 @@ public class ScoreHUD : MonoBehaviour
 		ScoreSystem.onScoreIncreased -= OnScoreAdded;
 		ScoreSystem.onMultiplierChanged -= OnMultiplierChanged;
 		ScoreSystem.onScoreReset -= ResetScore;
-		StopCoroutine(processingQueueCoroutine);
+		//StopCoroutine(processingQueueCoroutine);
 	}
 
 	void OnScoreAdded(string source, int amount)
 	{
 		incrementQueue.Enqueue(amount);
 		if (incrementCoroutine == null) incrementCoroutine = StartCoroutine(IncrementScore(incrementQueue.Peek()));
-		scoreEventQueue.Enqueue(new ScoreEvent(this, eventTextDictionary[source] + " +" + amount.ToString()));
+		//scoreEventQueue.Enqueue(new ScoreEvent(this, eventTextDictionary[source] + " +" + amount.ToString()));
 	}
 
 	void OnMultiplierChanged()
@@ -254,5 +262,16 @@ public class ScoreHUD : MonoBehaviour
 
 			Destroy(eventObject);
 		}
+	}
+
+	public static void CreateScoreBillboard(Transform obj, int score)
+	{
+		if (s_cam == null || s_overlayContainer == null || s_scoreBillboardPrefab == null) return;
+
+		GameObject go = Instantiate(s_scoreBillboardPrefab, Vector3.zero, Quaternion.identity, s_overlayContainer);
+		ScoreBillboard bb = go.GetComponent<ScoreBillboard>();
+		bb.cam = s_cam;
+		bb.objTransform = obj;
+		bb.DisplayedText = "+" + score.ToString();
 	}
 }
