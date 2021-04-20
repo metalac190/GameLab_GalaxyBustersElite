@@ -15,8 +15,7 @@ public class Tutorial_Detect : MonoBehaviour
         {
             StartCoroutine(Wait_To_Detect());
         }
-    }
-
+    } 
     IEnumerator Wait_To_Detect()
     {
 
