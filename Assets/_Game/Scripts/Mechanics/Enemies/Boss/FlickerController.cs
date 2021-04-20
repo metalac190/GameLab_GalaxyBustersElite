@@ -36,20 +36,17 @@ public class FlickerController : MonoBehaviour
         //multiple damage instnaces will reset the timer but not extend it
         while (_flashCount > 0)
         {
-            Debug.Log("Set to Red");
             _meshRender.material = _flickerSettings.FlickerMaterial;
 
             yield return new WaitForSeconds(_flickerSettings.FlickerTime / 2);
-
-            Debug.Log("Set to Normal");
+            
             _meshRender.material = _startMat;
 
             yield return new WaitForSeconds(_flickerSettings.FlickerTime / 2);
 
             _flashCount--;
         }
-
-        Debug.Log("Done Flashing");
+        
         _flickerRoutine = null;
     }
 }

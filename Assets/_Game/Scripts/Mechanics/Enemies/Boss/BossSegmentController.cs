@@ -60,7 +60,7 @@ public class BossSegmentController : EntityBase
             if (_currentHealth <= 0)
             {
                 Died.Invoke();
-
+                
                 //control mesh visibility here, not in UnityEvents
                 _meshSegment.SetActive(false);
                 gameObject.SetActive(false);

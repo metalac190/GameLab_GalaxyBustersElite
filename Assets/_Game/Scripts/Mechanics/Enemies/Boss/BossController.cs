@@ -35,7 +35,7 @@ public class BossController : EntityBase
     [SerializeField] private float _attackWarmUpTime = 1f;
     [Tooltip("Minimum time spent in each attack state\nRegardless for animation time")]
     [SerializeField] private float _minAttackTime = 2f;
-    private List<float> attackAnimTimes = new List<float>();
+    private List<float> AnimTimes = new List<float>();
 
     [Header("Attack Settings")]
 
@@ -156,6 +156,8 @@ public class BossController : EntityBase
 
                 //Override to implement Boss Death Animation
                 _bossAnim.SetTrigger("Death");
+
+                ZenoxFiller.DisableZenoxFiller();
             }
             else
             {
@@ -216,10 +218,13 @@ public class BossController : EntityBase
     {
         if (_nextState == BossState.PreFight)
         {
-            Debug.Log("Fight Started");
+            ZenoxFiller.EnableZenoxFiller();
+
             isInvulnerable = false;
+
             _nextState = BossState.Idle;
             _bossAnim.SetTrigger("StartFight");
+
             NextBossState();
         }
     }
@@ -249,25 +254,27 @@ public class BossController : EntityBase
     private void OnSegmentDestroyed()
     {
         //If current or previous check returned any alive segments
-        if (isSegmentsAlive)
+        if (isSegmentsAlive == true)
         {
             //animation
             _bossAnim.SetTrigger("SegmentDestroyed");
 
-            //Set to False, and enable if any are still alive
-            _isSegAlive = false;
-            foreach (BossSegmentController segment in _segmentRefs)
+            int numSegments = 0;
+            foreach (BossSegmentController segments in _segmentRefs)
             {
-                if (segment.isActiveAndEnabled)
-                    _isSegAlive = true;
+                if (segments.isActiveAndEnabled)
+                {
+                    numSegments++;
+                }
             }
-
-            //If previous check returned alive, but now check returns false, call Bloodied state
-            if (_isSegAlive == false)
+            
+            if (numSegments > 1)
             {
-                //animation
+                DialogueTrigger.TriggerZenoxPartDestroyedDialogue();
+            }
+            else
+            {
                 _bossAnim.SetBool("SegmentsAlive", false);
-
                 _nextState = BossState.Bloodied;
             }
         }
@@ -385,9 +392,11 @@ public class BossController : EntityBase
 
         //set invulnerable
         isInvulnerable = true;
+        
+        DialogueTrigger.TriggerZenoxHalfHealthDialogue();
 
         //get animation time
-        yield return new WaitForSeconds(attackAnimTimes[3]);
+        yield return new WaitForSeconds(AnimTimes[3]);
 
         isInvulnerable = false;
 
@@ -484,7 +493,7 @@ public class BossController : EntityBase
         }
 
         //get animation time
-        float returnTime = Mathf.Max(_minAttackTime, attackAnimTimes[4] - _attackWarmUpTime);
+        float returnTime = Mathf.Max(_minAttackTime, AnimTimes[4] - _attackWarmUpTime);
         yield return new WaitForSeconds(_minAttackTime);
 
         NextBossState();
@@ -528,7 +537,7 @@ public class BossController : EntityBase
         }
 
         //get animation time
-        float returnTime = Mathf.Max(_minAttackTime, attackAnimTimes[5] - _attackWarmUpTime);
+        float returnTime = Mathf.Max(_minAttackTime, AnimTimes[5] - _attackWarmUpTime);
         yield return new WaitForSeconds(_minAttackTime);
 
         NextBossState();
@@ -561,7 +570,7 @@ public class BossController : EntityBase
         _laserBeam.GetComponent<LaserDamage>().SetDamage(_attackDamage);
         
         //source continues to follow player
-        while (timeCount < attackAnimTimes[6])
+        while (timeCount < AnimTimes[6])
         {
             LaserFollowPlayer();
 
@@ -625,7 +634,7 @@ public class BossController : EntityBase
         }
 
         //get animation time
-        float returnTime = Mathf.Max(_minAttackTime, attackAnimTimes[7] - _attackWarmUpTime);
+        float returnTime = Mathf.Max(_minAttackTime, AnimTimes[7] - _attackWarmUpTime);
         yield return new WaitForSeconds(_minAttackTime);
 
         NextBossState();
@@ -638,8 +647,8 @@ public class BossController : EntityBase
         AnimationClip[] bossClips = bossAnim.runtimeAnimatorController.animationClips;
         foreach (AnimationClip clip in bossClips)
         {
-            Debug.Log(clip.name + " " + clip.length);
-            attackAnimTimes.Add(clip.length);
+            //Debug.Log(clip.name + " " + clip.length);
+            AnimTimes.Add(clip.length);
         }
         //Idle, Idle, WeaponDestroyed, AllWeaponsDestroy, A, B, C, D, E, CombatStateB, F, DramaticDeath, Damage
     }
