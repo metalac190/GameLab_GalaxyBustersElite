@@ -9,7 +9,6 @@ public class AimWeapons : MonoBehaviour
 	Transform target;
 	Camera cam;
 	[SerializeField] Transform[] weapons;
-	[SerializeField] float angleClamp = 45f;
 	[SerializeField] float speed = 8f;
 	[SerializeField] bool debugRays = false;
 	[SerializeField] float debugRayLength = 25f;
@@ -20,8 +19,6 @@ public class AimWeapons : MonoBehaviour
 	public LayerMask targetMask;
 
 	Quaternion targetRotation;
-	Quaternion clampedRotation;
-	float xAngle, yAngle;
 	Vector3 mousePos;
 	bool targetFound = false;
 

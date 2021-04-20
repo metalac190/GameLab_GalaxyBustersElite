@@ -6,6 +6,12 @@ using UnityEngine;
 
 public class ScoreHUD : MonoBehaviour
 {
+	static ScoreHUD instance;
+	public static ScoreHUD Instance
+	{
+		get { return instance; }
+	}
+
 	[SerializeField] private Transform overlayContainer;
 
 	[SerializeField] private TextMeshProUGUI hudScoreText;
@@ -71,16 +77,31 @@ public class ScoreHUD : MonoBehaviour
 	private static Transform s_overlayContainer;
 	private void Awake()
 	{
+		if (instance == null) instance = this;
 		s_scoreBillboardPrefab = scoreBillboardPrefab;
 		cam = Camera.main;
 		s_cam = cam;
 		s_overlayContainer = overlayContainer;
 	}
 
+	private void OnDestroy()
+	{
+		if (instance == this) instance = null;
+	}
+
 	private void Start()
 	{
 		pickupsInLevel = new List<PickupBase>(FindObjectsOfType<PickupBase>()); // TODO change if i want more than weps
 		StartCoroutine(CheckPowerups());
+	}
+
+	public void PickupEnabled(PickupBase pickup)
+	{
+		if (pickupsInLevel == null) return;
+		if (!pickupsInLevel.Contains(pickup))
+		{
+			pickupsInLevel.Add(pickup);
+		}
 	}
 
 	private void OnEnable()
@@ -295,15 +316,16 @@ public class ScoreHUD : MonoBehaviour
 		float distance = 100;
 
 		float distSq = distance * distance;
-		print(pickupsInLevel);
 		while (pickupsInLevel.Count > 0) {
 			yield return new WaitForSeconds(0.5f);
-			print("checking pickup");
 			// duplicate list bc it might be modified during the foreach loop since this is running in a coroutine
 			foreach (PickupBase pickup in new List<PickupBase>(pickupsInLevel))
 			{
-				if ((pickup.transform.position - cam.transform.position).sqrMagnitude < distSq)
+				if ((pickup.transform.position - cam.transform.position).sqrMagnitude < distSq && pickup.enabled)
 				{
+					//MeshRenderer rend = GetComponentInChildren<MeshRenderer>();
+					//if (rend != null) { if (!rend.enabled) continue; }
+
 					if (pickup is WeaponPickup)
 					{
 						GameObject go = Instantiate(powerupBillboardPrefab, Vector3.zero, Quaternion.identity, s_overlayContainer);
@@ -328,7 +350,7 @@ public class ScoreHUD : MonoBehaviour
 							size.y = 440;
 							bb.optionalLine.sizeDelta = size;
 						}
-						else if (pick.WeaponReference.GetComponentInChildren<Laser>() != null)
+						else if (pick.WeaponReference.GetComponentInChildren<LaserBeam>() != null)
 						{
 							bb.DisplayedText = "LASER";
 							size.y = 185;

@@ -4,7 +4,8 @@
     Idle = 0,
     Attack,
     Moving,
-    Bloodied
+    Bloodied,
+    Dead
 }
 
 public enum BossAttacks
