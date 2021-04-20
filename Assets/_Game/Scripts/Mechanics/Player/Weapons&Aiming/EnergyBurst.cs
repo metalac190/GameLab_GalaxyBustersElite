@@ -5,7 +5,7 @@ using UnityEngine.Events;
 
 public class EnergyBurst : WeaponBase
 {
-	private List<GameObject> projectilePool = new List<GameObject>();
+	private Queue<GameObject> projectileQueue = new Queue<GameObject>();
 	private List<GameObject> chargedProjectilePool = new List<GameObject>();
 	private float cdTime = 0f;
 	private float chargeTimer = 0f;
@@ -71,7 +71,7 @@ public class EnergyBurst : WeaponBase
 
 				foreach (Transform point in spawnPoints)
 				{
-					chargingShot = PoolUtility.InstantiateFromPool(projectilePool, point.position, point.rotation, projectile);
+					chargingShot = PoolUtility.InstantiateFromQueue(projectileQueue, point.position, point.rotation, projectile);
 					shotRenderer = chargingShot.GetComponent<MeshRenderer>();
 					shotProjectile = chargingShot.GetComponent<Projectile>();
 
