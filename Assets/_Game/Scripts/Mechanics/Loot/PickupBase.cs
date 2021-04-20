@@ -37,6 +37,11 @@ public class PickupBase : MonoBehaviour
         onDestroy?.Invoke();
 	}
 
+	private void OnEnable()
+	{
+        ScoreHUD.Instance.PickupEnabled(this);
+	}
+
 	/// <summary> Baseline ApplyEffect function
 	/// <para> Implements Event.Invoke + Destroy (or disable) this object.</para>
 	/// <para> All children need to override to implement </para>
