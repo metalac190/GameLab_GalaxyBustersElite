@@ -18,7 +18,7 @@ public class BossSegmentController : EntityBase
     [SerializeField] private GameObject _missileRef = null;
     [Tooltip("Reference to SpawnPoint Transform objet")]
     [SerializeField] private Transform _missileSpawnPoint = null;
-    private List<GameObject> _missilePool = new List<GameObject>();
+    private Queue<GameObject> _missileQueue = new Queue<GameObject>();
 
     public float Health { get { return _currentHealth; } }
 
@@ -60,7 +60,7 @@ public class BossSegmentController : EntityBase
             if (_currentHealth <= 0)
             {
                 Died.Invoke();
-
+                
                 //control mesh visibility here, not in UnityEvents
                 _meshSegment.SetActive(false);
                 gameObject.SetActive(false);
@@ -128,7 +128,7 @@ public class BossSegmentController : EntityBase
     private void OnMissileAttack()
     {
         //TODO missile animation
-        GameObject missile = PoolUtility.InstantiateFromPool(_missilePool, _missileSpawnPoint, _missileRef);
+        GameObject missile = PoolUtility.InstantiateFromQueue(_missileQueue, _missileSpawnPoint, _missileRef);
 
         BossMissile bullet = missile.GetComponent<BossMissile>();
 

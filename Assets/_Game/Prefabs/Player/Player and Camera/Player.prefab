@@ -95,6 +95,7 @@ MonoBehaviour:
   collDuration: 2
   collForce: {x: 1000, y: 1000, z: 0}
   torqueForce: {x: 1000, y: 1000, z: 1000}
+  isHit: 0
   playerLimits: {x: 50, y: 25}
   rotateTargetTransform: {fileID: 0}
   shipsTransform: {fileID: 2473926699686103219}
@@ -782,6 +783,11 @@ PrefabInstance:
       propertyPath: m_Name
       value: Player's Particles Player
       objectReference: {fileID: 0}
+    - target: {fileID: 2726311120422235446, guid: 3e7bd995accabf04e8890ec614c659b8,
+        type: 3}
+      propertyPath: InitialModule.startLifetime.scalar
+      value: 0.26
+      objectReference: {fileID: 0}
     - target: {fileID: 4234064388278411199, guid: 3e7bd995accabf04e8890ec614c659b8,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -836,17 +842,6 @@ PrefabInstance:
         type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 8167018122877083882, guid: 3e7bd995accabf04e8890ec614c659b8,
-        type: 3}
-      propertyPath: allParticles.Array.data[6].particleSystem
-      value: 
-      objectReference: {fileID: 1065274769485429887, guid: bc392c8ef35805241b55881e632d5a80,
-        type: 3}
-    - target: {fileID: 8167018122877083882, guid: 3e7bd995accabf04e8890ec614c659b8,
-        type: 3}
-      propertyPath: allParticles.Array.data[6].playOnAwake
-      value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 3e7bd995accabf04e8890ec614c659b8, type: 3}
@@ -1030,7 +1025,12 @@ PrefabInstance:
     - target: {fileID: 1554756656198432433, guid: fac00b2cc971f864bb2082dfc1305843,
         type: 3}
       propertyPath: m_Name
-      value: Energy Burst
+      value: Missing Prefab (Dummy)
+      objectReference: {fileID: 0}
+    - target: {fileID: 1554756656198432433, guid: fac00b2cc971f864bb2082dfc1305843,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 3727205299085060979, guid: fac00b2cc971f864bb2082dfc1305843,
         type: 3}

@@ -58,27 +58,31 @@ public class PoolUtility : MonoBehaviour
     /// <param name="rotation"> Custom Rotation to aim projectile </param>
     /// <param name="projectileReference"> Projectile Prefab to instantiate, if needed </param>
     /// <returns></returns>
-    public static GameObject InstantiateFromPool(List<GameObject> pool, Vector3 position, Quaternion rotation, GameObject projectileReference)
+    public static GameObject InstantiateFromQueue(Queue<GameObject> que, Vector3 position, Quaternion rotation, GameObject projectileReference)
     {
         //Static Function to call from any script
 
-        //First checks for any available, inactive references that already exist
-        foreach (GameObject projectile in pool)
+
+        if (que.Count == 0 || que.Peek().activeInHierarchy)
         {
-            if (projectile != null && projectile.activeInHierarchy == false)
-            {
-                //Enables and positions projectile, to reuse
-                projectile.transform.position = position;
-                projectile.transform.rotation = rotation;
-                projectile.SetActive(true);
-                return projectile;
-            }
+            //Worst Case Scenario, instantiates for current and future use
+            GameObject newProjectile = Instantiate(projectileReference, position, rotation, null);
+            que.Enqueue(newProjectile);
+            return newProjectile;
+        }
+        else
+        {
+            GameObject projectile = que.Dequeue();
+            //Enables and positions projectile, to reuse
+            projectile.transform.position = position;
+            projectile.transform.rotation = rotation;
+            projectile.SetActive(true);
+
+            que.Enqueue(projectile);
+            return projectile;
         }
 
-        //Worst Case Scenario, instantiates for current and future use
-        GameObject newProjectile = Instantiate(projectileReference, position, rotation, null);
-        pool.Add(newProjectile);
-        return newProjectile;
+        
     }
 
 	/// <summary> Instantiates Projectiles from Pool
@@ -108,4 +112,30 @@ public class PoolUtility : MonoBehaviour
 		pool.Add(newProjectile);
 		return newProjectile;
 	}
+
+    public static GameObject InstantiateFromQueue(Queue<GameObject> que, Transform spawnPoint, GameObject prefabReference)
+    {
+        if(que.Count == 0 || que.Peek().activeInHierarchy)
+        {
+            //If the first item is ACTIVE then all items are assumed to be Active
+            GameObject newProjectile = Instantiate(prefabReference, spawnPoint.position, spawnPoint.rotation, ProjectileGroup);
+            que.Enqueue(newProjectile);
+
+            return newProjectile;
+        }
+        else
+        {
+            //If the first item is inactive, use it, and re-que
+            GameObject projectile = que.Dequeue();
+
+            //Enables and positions projectile, to reuse
+            projectile.transform.parent = ProjectileGroup;
+            projectile.transform.position = spawnPoint.position;
+            projectile.transform.rotation = spawnPoint.rotation;
+            projectile.SetActive(true);
+
+            que.Enqueue(projectile);
+            return projectile;
+        }
+    }
 }

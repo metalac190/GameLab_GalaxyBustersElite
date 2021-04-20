@@ -47,6 +47,69 @@ public class DialogueTrigger : MonoBehaviour
             Debug.Log("No DialogueListManager or Dialogue Manager in scene.");
         }
     }
+    static public void TriggerMoveDialogue()
+    {
+        if (FindObjectOfType<DialogueList>() && FindObjectOfType<DialogueManager>())
+        {
+            DialogueList dialogueListInfo = FindObjectOfType<DialogueList>();
+            if (dialogueListInfo.MoveDialogue != null)
+            {
+                //StartCoroutine(FindObjectOfType<DialogueManager>().StartDialogueArray(dialogueListInfo.StartOfL1Dialogue));
+                FindObjectOfType<DialogueManager>().startDialogueArrayFunction(dialogueListInfo.MoveDialogue);
+            }
+            else
+            {
+                Debug.Log("DialogueListManager's MoveDialogue is empty.");
+            }
+
+        }
+        else
+        {
+            Debug.Log("No DialogueListManager or Dialogue Manager in scene.");
+        }
+    }
+    static public void TriggerShootDialogue()
+    {
+        if (FindObjectOfType<DialogueList>() && FindObjectOfType<DialogueManager>())
+        {
+            DialogueList dialogueListInfo = FindObjectOfType<DialogueList>();
+            if (dialogueListInfo.ShootDialogue != null)
+            {
+                //StartCoroutine(FindObjectOfType<DialogueManager>().StartDialogueArray(dialogueListInfo.StartOfL1Dialogue));
+                FindObjectOfType<DialogueManager>().startDialogueArrayFunction(dialogueListInfo.ShootDialogue);
+            }
+            else
+            {
+                Debug.Log("DialogueListManager's ShootDialogue is empty.");
+            }
+
+        }
+        else
+        {
+            Debug.Log("No DialogueListManager or Dialogue Manager in scene.");
+        }
+    }
+    static public void TriggerOverloadPickupDialogue()
+    {
+        if (FindObjectOfType<DialogueList>() && FindObjectOfType<DialogueManager>())
+        {
+            DialogueList dialogueListInfo = FindObjectOfType<DialogueList>();
+            if (dialogueListInfo.OverloadPickupDialogue != null)
+            {
+                //StartCoroutine(FindObjectOfType<DialogueManager>().StartDialogueArray(dialogueListInfo.StartOfL1Dialogue));
+                FindObjectOfType<DialogueManager>().startDialogueArrayFunction(dialogueListInfo.OverloadPickupDialogue);
+            }
+            else
+            {
+                Debug.Log("DialogueListManager's OverloadPickupDialogue is empty.");
+            }
+
+        }
+        else
+        {
+            Debug.Log("No DialogueListManager or Dialogue Manager in scene.");
+        }
+    }
     static public void Trigger1stEnemyDialogue()
     {
         if (FindObjectOfType<DialogueList>() && FindObjectOfType<DialogueManager>())
