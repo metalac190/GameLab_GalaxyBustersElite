@@ -46,7 +46,7 @@ public class PauseScreen : MonoBehaviour {
         referencedGM = GameObject.Find("Game Manager");
         if (referencedGM!= null)
         {
-            pauseScore.text = referencedGM.GetComponent<GameManager>().score.ToString("00000");
+            pauseScore.text = referencedGM.GetComponent<GameManager>().score.ToString("000000");
         }
     }
 

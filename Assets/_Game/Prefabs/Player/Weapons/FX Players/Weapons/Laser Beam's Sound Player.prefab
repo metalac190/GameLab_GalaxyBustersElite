@@ -28,10 +28,10 @@ Transform:
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
-  - {fileID: 5982925331180592754}
   - {fileID: 5305994361454454965}
   - {fileID: 8938147241084976916}
   - {fileID: 8094450316061811216}
+  - {fileID: 5785113154379233696}
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -48,15 +48,15 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   allSounds:
-  - label: 0. Laser Firing
-    audioSource: {fileID: 4128824559684062852}
+  - label: 0. Laser Normal Firing Start
+    audioSource: {fileID: 8900367640703053464}
     playOnAwake: 0
-    loop: 1
+    loop: 0
     useSoundVariations: 0
     soundVariations: []
-    usePitchRandomization: 0
-    pitchShiftMin: 0
-    pitchShiftMax: 0
+    usePitchRandomization: 1
+    pitchShiftMin: -0.05
+    pitchShiftMax: 0.05
     curPoolIteration: 0
     audioSourcePool: []
   - label: 1. Overload Activated
@@ -92,6 +92,17 @@ MonoBehaviour:
     pitchShiftMax: 0.025
     curPoolIteration: 0
     audioSourcePool: []
+  - label: 4. Laser Normal Firing End
+    audioSource: {fileID: 0}
+    playOnAwake: 0
+    loop: 0
+    useSoundVariations: 0
+    soundVariations: []
+    usePitchRandomization: 0
+    pitchShiftMin: 0
+    pitchShiftMax: 0
+    curPoolIteration: 0
+    audioSourcePool: []
 --- !u!1 &352387709202825354
 GameObject:
   m_ObjectHideFlags: 0
@@ -121,7 +132,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 3376959874422658081}
-  m_RootOrder: 1
+  m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!82 &8814948059591289183
 AudioSource:
@@ -134,7 +145,7 @@ AudioSource:
   serializedVersion: 4
   OutputAudioMixerGroup: {fileID: 2376878648394226578, guid: 53b70d30c87c52d489a54a31ce181114,
     type: 2}
-  m_audioClip: {fileID: 8300000, guid: c74481de32910034796df551db6d3726, type: 3}
+  m_audioClip: {fileID: 8300000, guid: 7d780247ff499e143bdfefefbde8e7c8, type: 3}
   m_PlayOnAwake: 0
   m_Volume: 1
   m_Pitch: 1
@@ -249,7 +260,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 3376959874422658081}
-  m_RootOrder: 2
+  m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!82 &3371748730041472080
 AudioSource:
@@ -262,7 +273,7 @@ AudioSource:
   serializedVersion: 4
   OutputAudioMixerGroup: {fileID: 2376878648394226578, guid: 53b70d30c87c52d489a54a31ce181114,
     type: 2}
-  m_audioClip: {fileID: 8300000, guid: b5b50eda01205794fad2e8c3066eedc3, type: 3}
+  m_audioClip: {fileID: 8300000, guid: 377e432a3fda0404488cf63567c1251c, type: 3}
   m_PlayOnAwake: 0
   m_Volume: 1
   m_Pitch: 1
@@ -348,7 +359,7 @@ AudioSource:
     m_PreInfinity: 2
     m_PostInfinity: 2
     m_RotationOrder: 4
---- !u!1 &4078600976501293838
+--- !u!1 &4333560456378963347
 GameObject:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -356,8 +367,8 @@ GameObject:
   m_PrefabAsset: {fileID: 0}
   serializedVersion: 6
   m_Component:
-  - component: {fileID: 5982925331180592754}
-  - component: {fileID: 4128824559684062852}
+  - component: {fileID: 5785113154379233696}
+  - component: {fileID: 8900367640703053464}
   m_Layer: 0
   m_Name: Laser standard shot
   m_TagString: Untagged
@@ -365,36 +376,36 @@ GameObject:
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
---- !u!4 &5982925331180592754
+--- !u!4 &5785113154379233696
 Transform:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 4078600976501293838}
+  m_GameObject: {fileID: 4333560456378963347}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalPosition: {x: 0, y: 0.796, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 3376959874422658081}
-  m_RootOrder: 0
+  m_RootOrder: 3
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!82 &4128824559684062852
+--- !u!82 &8900367640703053464
 AudioSource:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 4078600976501293838}
+  m_GameObject: {fileID: 4333560456378963347}
   m_Enabled: 1
   serializedVersion: 4
   OutputAudioMixerGroup: {fileID: 2376878648394226578, guid: 53b70d30c87c52d489a54a31ce181114,
     type: 2}
-  m_audioClip: {fileID: 8300000, guid: c70f44f11afa2404b88132bb19446d91, type: 3}
+  m_audioClip: {fileID: 8300000, guid: 81f8643c79b1b8043b329e1c282aec63, type: 3}
   m_PlayOnAwake: 0
   m_Volume: 1
   m_Pitch: 1
-  Loop: 1
+  Loop: 0
   Mute: 0
   Spatialize: 0
   SpatializePostEffects: 0
@@ -505,7 +516,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 3376959874422658081}
-  m_RootOrder: 3
+  m_RootOrder: 2
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!82 &1661040533557491344
 AudioSource:
@@ -518,7 +529,7 @@ AudioSource:
   serializedVersion: 4
   OutputAudioMixerGroup: {fileID: 2376878648394226578, guid: 53b70d30c87c52d489a54a31ce181114,
     type: 2}
-  m_audioClip: {fileID: 8300000, guid: d0e1bf68e7b43bc4baf840125c87a204, type: 3}
+  m_audioClip: {fileID: 8300000, guid: 67c799c3c3404834c8c96dddadff6fb8, type: 3}
   m_PlayOnAwake: 0
   m_Volume: 1
   m_Pitch: 1

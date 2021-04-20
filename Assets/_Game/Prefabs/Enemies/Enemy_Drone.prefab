@@ -113,7 +113,7 @@ MonoBehaviour:
         m_CallState: 2
   maxHealth: 10
   currentState: 0
-  id: Drone
+  enemyType: 2
   attackDamage: 15
   enemyDetectionRadius: 20
   enemyScore: 100
@@ -356,11 +356,6 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 976279426414310990}
     m_Modifications:
-    - target: {fileID: 4593882456272799428, guid: df51be8f854c2674f908c7d266c6b02d,
-        type: 3}
-      propertyPath: OutputAudioMixerGroup
-      value: 
-      objectReference: {fileID: 0}
     - target: {fileID: 4630179527383863692, guid: df51be8f854c2674f908c7d266c6b02d,
         type: 3}
       propertyPath: m_Name
@@ -441,11 +436,6 @@ PrefabInstance:
       propertyPath: m_Name
       value: Enemy_General Sound Player
       objectReference: {fileID: 0}
-    - target: {fileID: 7885332458042498414, guid: 855086e511841044682edb8a5f185cff,
-        type: 3}
-      propertyPath: OutputAudioMixerGroup
-      value: 
-      objectReference: {fileID: 0}
     - target: {fileID: 8185007489991476492, guid: 855086e511841044682edb8a5f185cff,
         type: 3}
       propertyPath: m_RootOrder
@@ -500,11 +490,6 @@ PrefabInstance:
         type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 8438863077887770558, guid: 855086e511841044682edb8a5f185cff,
-        type: 3}
-      propertyPath: OutputAudioMixerGroup
-      value: 
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 855086e511841044682edb8a5f185cff, type: 3}
@@ -597,7 +582,7 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Controller
       value: 
-      objectReference: {fileID: 0}
+      objectReference: {fileID: 9100000, guid: 598a254b8be475c4daf296fb9f87872e, type: 2}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 4198ad50b2c474648980c3d307fa098c, type: 3}
 --- !u!4 &6666709010275793552 stripped

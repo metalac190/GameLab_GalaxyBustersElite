@@ -47,7 +47,7 @@ public class EnemyBandit : EnemyBase
                     animator.SetTrigger("IsFiring");
 
                     //fire projectile
-                    GameObject tempBullet = PoolUtility.InstantiateFromPool(_bulletPool, _spawnPoint, bulletPrefab);
+                    GameObject tempBullet = PoolUtility.InstantiateFromPool(_bulletPool, _spawnPoint.transform.position, transform.rotation, bulletPrefab);
                     EnemyProjectile tempProjectile = tempBullet.GetComponent<EnemyProjectile>();
 
                     //set damage and speed
@@ -87,9 +87,6 @@ public class EnemyBandit : EnemyBase
     public override void Dead()
     {
         Debug.Log("Enemy destroyed");
-
-        if (givesPlayerMS)
-            camRailManager.IncreaseCamRailSpeed();
 
         Destroy(transform.parent.gameObject);
     }

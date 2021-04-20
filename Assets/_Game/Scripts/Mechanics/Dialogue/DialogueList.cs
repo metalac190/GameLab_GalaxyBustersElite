@@ -7,6 +7,9 @@ public class DialogueList : MonoBehaviour
 
     [Header("Level 1 Story Dialogue")]
     public Dialogue[] StartOfL1Dialogue;
+    public Dialogue[] MoveDialogue;
+    public Dialogue[] ShootDialogue;
+    public Dialogue[] OverloadPickupDialogue;
     public Dialogue[] FirstEnemyAppearsDialogue;
     public Dialogue[] BreachFirstBecomesVisibleDialogue;
     public Dialogue[] Level1EndingDialogue;
@@ -40,6 +43,8 @@ public class DialogueList : MonoBehaviour
     public Dialogue[] PlayerDamagedDialogue;
     public Dialogue[] EnemyDefeatedDialogue;
     public Dialogue[] ZenoxFillerDialogue;
+    public Dialogue[] PlayerObstacleDamage;
+    public Dialogue[] ZenoxPartDestroyed;
 
 
 
