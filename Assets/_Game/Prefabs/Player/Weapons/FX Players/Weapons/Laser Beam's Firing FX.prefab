@@ -28,7 +28,7 @@ Transform:
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
-  - {fileID: 6489816535057708416}
+  - {fileID: 4834993001556355683}
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -47,9 +47,11 @@ MonoBehaviour:
   laserBeam: {fileID: 0}
   laserActive: 0
   laserFiringParticles: {fileID: 0}
-  laserFiringSound: {fileID: 3415296355370011182}
-  fadeInOutSpeed: 5
---- !u!1 &2724924831227736274
+  laserFiringLoopSound: {fileID: 5212143104288601171}
+  fadeInSpeed: 2
+  fadeOutSpeed: 5
+  loopingSoundDelay: 0.3
+--- !u!1 &3129937419147450102
 GameObject:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -57,22 +59,22 @@ GameObject:
   m_PrefabAsset: {fileID: 0}
   serializedVersion: 6
   m_Component:
-  - component: {fileID: 6489816535057708416}
-  - component: {fileID: 3415296355370011182}
+  - component: {fileID: 4834993001556355683}
+  - component: {fileID: 5212143104288601171}
   m_Layer: 0
-  m_Name: Laser standard shot
+  m_Name: Laser Firing Loop
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
---- !u!4 &6489816535057708416
+--- !u!4 &4834993001556355683
 Transform:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2724924831227736274}
+  m_GameObject: {fileID: 3129937419147450102}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
@@ -80,18 +82,18 @@ Transform:
   m_Father: {fileID: 7016648182915462097}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!82 &3415296355370011182
+--- !u!82 &5212143104288601171
 AudioSource:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2724924831227736274}
+  m_GameObject: {fileID: 3129937419147450102}
   m_Enabled: 1
   serializedVersion: 4
   OutputAudioMixerGroup: {fileID: 2376878648394226578, guid: 53b70d30c87c52d489a54a31ce181114,
     type: 2}
-  m_audioClip: {fileID: 8300000, guid: c70f44f11afa2404b88132bb19446d91, type: 3}
+  m_audioClip: {fileID: 8300000, guid: 9f5f8cfd526a9be45880c7a901f1f949, type: 3}
   m_PlayOnAwake: 0
   m_Volume: 1
   m_Pitch: 1

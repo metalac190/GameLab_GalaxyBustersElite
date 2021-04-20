@@ -15,6 +15,7 @@ public class ComicManager : MonoBehaviour
     public int angle4 = 90;
     public GameObject nextButton;
     public GameObject skipButton;
+    public GameObject background;
     int nextPanel = 0;
     float distance = 1000;
     float speed = 3000;
@@ -34,6 +35,9 @@ public class ComicManager : MonoBehaviour
         }
         nextButton.SetActive(false);
         skipButton.SetActive(false);
+        background.SetActive(false);
+
+        GameManager.gm.comicScreen = this;
     }
 
     private void Update()
@@ -55,6 +59,7 @@ public class ComicManager : MonoBehaviour
         Time.timeScale = 0;
         nextButton.SetActive(true);
         skipButton.SetActive(true);
+        background.SetActive(true);
         nextPanel = 1;
         Next();
     }
@@ -67,10 +72,10 @@ public class ComicManager : MonoBehaviour
         }
         else
         {
-            exitComic();
+            ExitComic();
         }
     }
-    public void exitComic()
+    public void ExitComic()
     {
         foreach (GameObject p in panels)
         {
@@ -78,10 +83,12 @@ public class ComicManager : MonoBehaviour
         }
         nextButton.SetActive(false);
         skipButton.SetActive(false);
+        background.SetActive(false);
         nextPanel = 0;
         Time.timeScale = savedTime;
 
         //Exit function goes here
+        GameManager.gm.EndComicSequence();
     }
 
     private IEnumerator AddPanel(int panelNum)
