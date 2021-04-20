@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 using TMPro;
+using System;
 
 public class DialogueManager : MonoBehaviour
 {
@@ -24,6 +25,23 @@ public class DialogueManager : MonoBehaviour
     private bool next = false;
     public int dialoguePriority = 0;  //0 is not active, 1 is reaction. 2 is dialogue
     public bool activeDialogue = false;
+
+    public event Action<string> onDisplayNextSentence;
+    Coroutine textCor;
+    bool _forcePauseDialogue = false;
+    public bool forcePauseDialogue
+	{
+        get { return _forcePauseDialogue; }
+        set
+		{
+            _forcePauseDialogue = value;
+            if (value == false)
+			{
+               if (textCor == null) DisplayNextSentence();
+            }
+		}
+	}
+    
 
     void Start()
     {
@@ -146,6 +164,7 @@ public class DialogueManager : MonoBehaviour
     }
     public void DisplayNextSentence() //for reaction dialogue
     {
+        if (forcePauseDialogue) return;
         if (sentences.Count == 0)
         {
             EndDialogue();
@@ -158,9 +177,10 @@ public class DialogueManager : MonoBehaviour
             return;
         }
         string nextSentence = sentences.Dequeue();
+        onDisplayNextSentence?.Invoke(nextSentence);
         //StopAllCoroutines();
         StopCoroutine("TypeSentence");
-        StartCoroutine(TypeSentence(nextSentence));
+        textCor = StartCoroutine(TypeSentence(nextSentence));
     }
     IEnumerator TypeSentence(string sentence)
     {
@@ -225,7 +245,9 @@ public class DialogueManager : MonoBehaviour
             yield return new WaitForSeconds(typingDelay);
         }
         yield return new WaitForSeconds(conversationEndDelay);
-		DisplayNextSentence();
+
+        textCor = null;
+        DisplayNextSentence();
     }
     void EndDialogue()
     {
