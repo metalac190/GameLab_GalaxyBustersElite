@@ -19,21 +19,23 @@ public class BossController : EntityBase
     [SerializeField] private float _moveMax = 20f;
     [Tooltip("Number of times to Move when Bloodied,\nInclusive Min, Exclusive Max")]
     [SerializeField] private Vector2 _numberOfMoves = new Vector2(1, 3);
-    
+
     [Header("Segment Settings")]
 
     [Tooltip("Starting Health for each Segment.\nTotal Segment Health derived from\nStarting Health * number of Segments")]
     [SerializeField] private float _segmentHealth = 10;
-    
+
     [Header("Timers")]
 
     [Tooltip("Time in Seconds to wait during Idle state.")]
     [SerializeField] private float _idleTime = 2f;
     [Tooltip("Delay between successive attacks\nEg. Missiles rapid fire")]
     [SerializeField] private float _delaySeconds = 0.2f;
-    [Tooltip("Time in Seconds for Laser animation to Warm Up\nBefore dealing damage.")]
-    [SerializeField] private float _laserWarmUpTime = 2f;
-    private List<float> attackAnimTimes = new List<float>();
+    [Tooltip("Time in Seconds for attack animations to Warm Up\nBefore dealing damage.")]
+    [SerializeField] private float _attackWarmUpTime = 1f;
+    [Tooltip("Minimum time spent in each attack state\nRegardless for animation time")]
+    [SerializeField] private float _minAttackTime = 2f;
+    private List<float> AnimTimes = new List<float>();
 
     [Header("Attack Settings")]
 
@@ -45,10 +47,10 @@ public class BossController : EntityBase
     [SerializeField] private int _bloodiedProjectileCount = 3;
     [Tooltip("The Laser's movespeed as a percentage of the Player's movespeed")]
     [SerializeField] private float _laserSpeedModifier = 0.8f;
-    
+
     [Header("Asset References! Do Not Touch!")]
     [SerializeField] private BossSegmentController[] _segmentRefs = new BossSegmentController[0];
-    
+
     [Header("Minion Refs")]
     [Tooltip("Reference to Minion Prefab.")]
     [SerializeField] private GameObject _minionRef = null;
@@ -74,7 +76,8 @@ public class BossController : EntityBase
     [SerializeField] private Transform _projectileSpawn = null;
 
     [Tooltip("Tracks and Damages player during Laser Attack")]
-    [SerializeField] private GameObject _laserTracker = null;
+    [SerializeField] private GameObject _laserSource = null;
+    [SerializeField] private GameObject _laserBeam = null;
     private Vector3 _laserEndPoint = Vector3.zero;
 
     [Header("Animation Refs")]
@@ -101,7 +104,7 @@ public class BossController : EntityBase
                 //shortcut to stop counting segs when determined false at least once
                 _isSegAlive = false;
             }
-            
+
             return false;
         }
     }
@@ -112,23 +115,26 @@ public class BossController : EntityBase
     public BossState State = BossState.PreFight;
     private Vector3 _startPosition = Vector3.zero;
 
+    private BossAttacks calledAttack = BossAttacks.None;
+
     private void Awake()
     {
         //save position to create bounds during movement behavior
         _startPosition = _bossRoot.transform.position;
-        _laserTracker.SetActive(false);
+        _laserSource.SetActive(false);
+        _laserBeam.SetActive(false);
 
         //find and override flash material to maintain consistency with segments
         flickerController = GetComponent<FlickerController>();
 
-        for (int i=0; i < _segmentRefs.Length; i++)
+        for (int i = 0; i < _segmentRefs.Length; i++)
         {
             _segmentRefs[i].SetHealth(_segmentHealth);
             _segmentRefs[i].SetDelay(i * _delaySeconds);
             _segmentRefs[i].SetDamage(_attackDamage);
         }
 
-        //GetAnimationTimes(_bossAnim);
+        GetAnimationTimes(_bossAnim);
     }
 
     public override void TakeDamage(float damage)
@@ -150,6 +156,8 @@ public class BossController : EntityBase
 
                 //Override to implement Boss Death Animation
                 _bossAnim.SetTrigger("Death");
+
+                ZenoxFiller.DisableZenoxFiller();
             }
             else
             {
@@ -159,7 +167,7 @@ public class BossController : EntityBase
                 flickerController.CallFlicker();
             }
         }
-        
+
     }
 
     #region Listeners
@@ -167,7 +175,7 @@ public class BossController : EntityBase
     {
         foreach (BossSegmentController segment in _segmentRefs)
             segment.Died.AddListener(OnSegmentDestroyed);
-        
+
         // End game when defeated
         //Please don't end game when defeated :) Teni F.
         //Died.AddListener(() => GameManager.gm.WinGame());
@@ -210,11 +218,27 @@ public class BossController : EntityBase
     {
         if (_nextState == BossState.PreFight)
         {
-            Debug.Log("Fight Started");
+            ZenoxFiller.EnableZenoxFiller();
+
             isInvulnerable = false;
+
             _nextState = BossState.Idle;
             _bossAnim.SetTrigger("StartFight");
+
             NextBossState();
+        }
+    }
+
+    public void CallAttack(BossAttacks attack)
+    {
+        calledAttack = attack;
+    }
+
+    public void StartPhaseTwo()
+    {
+        foreach (BossSegmentController segment in _segmentRefs)
+        {
+            segment.TakeDamage(999);
         }
     }
     #endregion
@@ -230,25 +254,27 @@ public class BossController : EntityBase
     private void OnSegmentDestroyed()
     {
         //If current or previous check returned any alive segments
-        if (isSegmentsAlive)
+        if (isSegmentsAlive == true)
         {
             //animation
             _bossAnim.SetTrigger("SegmentDestroyed");
 
-            //Set to False, and enable if any are still alive
-            _isSegAlive = false;
-            foreach (BossSegmentController segment in _segmentRefs)
+            int numSegments = 0;
+            foreach (BossSegmentController segments in _segmentRefs)
             {
-                if (segment.isActiveAndEnabled)
-                    _isSegAlive = true;
+                if (segments.isActiveAndEnabled)
+                {
+                    numSegments++;
+                }
             }
-
-            //If previous check returned alive, but now check returns false, call Bloodied state
-            if (_isSegAlive == false)
+            
+            if (numSegments > 1)
             {
-                //animation
+                DialogueTrigger.TriggerZenoxPartDestroyedDialogue();
+            }
+            else
+            {
                 _bossAnim.SetBool("SegmentsAlive", false);
-
                 _nextState = BossState.Bloodied;
             }
         }
@@ -305,9 +331,20 @@ public class BossController : EntityBase
         BossAttacks randomAttack;
 
         if (isSegmentsAlive)
-            randomAttack = (BossAttacks)Random.Range(1, 5);
+        {
+            if (calledAttack == BossAttacks.None)
+            {
+                randomAttack = (BossAttacks)Random.Range(1, 5);
+            }
+            else
+            {
+                randomAttack = calledAttack;
+                calledAttack = BossAttacks.None;
+            }
+        }
         else
             randomAttack = (BossAttacks)Random.Range(1, 3);
+
 
         //Signals to Segments which Attack is active, to animate/behave accordingly
         //public facing, accessible by animators, fx, other systems?
@@ -356,8 +393,10 @@ public class BossController : EntityBase
         //set invulnerable
         isInvulnerable = true;
         
+        DialogueTrigger.TriggerZenoxHalfHealthDialogue();
+
         //get animation time
-        yield return new WaitForSeconds(_idleTime);
+        yield return new WaitForSeconds(AnimTimes[3]);
 
         isInvulnerable = false;
 
@@ -400,7 +439,7 @@ public class BossController : EntityBase
             {
                 yield return new WaitForSeconds(_idleTime - moveTime);
             }
-            
+
             //recursive until 0
             StartCoroutine(MovePattern(count - 1));
         }
@@ -413,6 +452,12 @@ public class BossController : EntityBase
         //animation
         _bossAnim.SetInteger("AttackType", 1);
 
+        //warm up animation before attacking
+        yield return new WaitForSeconds(_attackWarmUpTime);
+
+        //reset animation trigger to avoid repeat triggers
+        _bossAnim.SetInteger("AttackType", 0);
+
         float delayTime = 0;
 
         //Dependant on Bloodied state
@@ -420,14 +465,14 @@ public class BossController : EntityBase
         {
             int segAlive = 0;
 
-            foreach(BossSegmentController segment in _segmentRefs)
+            foreach (BossSegmentController segment in _segmentRefs)
             {
                 if (segment.isActiveAndEnabled)
                 {
                     delayTime += _delaySeconds;
                     segAlive++;
                 }
-                    
+
             }
         }
         else
@@ -439,6 +484,7 @@ public class BossController : EntityBase
             {
                 GameObject bullet = PoolUtility.InstantiateFromPool(_missilePool, _projectileSpawn, _missileRef);
                 BossMissile missile = bullet.GetComponent<BossMissile>();
+                missile.SetTarget(GameManager.player.obj);
                 missile.SetDamage(_attackDamage);
 
                 delayTime += _delaySeconds;
@@ -447,7 +493,8 @@ public class BossController : EntityBase
         }
 
         //get animation time
-        yield return new WaitForSeconds(attackAnimTimes[3] - delayTime);
+        float returnTime = Mathf.Max(_minAttackTime, AnimTimes[4] - _attackWarmUpTime);
+        yield return new WaitForSeconds(_minAttackTime);
 
         NextBossState();
     }
@@ -456,6 +503,12 @@ public class BossController : EntityBase
     {
         //animation
         _bossAnim.SetInteger("AttackType", 2);
+        
+        //warm up animation before attacking
+        yield return new WaitForSeconds(_attackWarmUpTime);
+
+        //reset animation trigger to avoid repeat triggers
+        _bossAnim.SetInteger("AttackType", 0);
 
         _projectileSpawn.LookAt(GameManager.player.obj.transform);
 
@@ -469,10 +522,10 @@ public class BossController : EntityBase
             Projectile missile = bullet.GetComponent<Projectile>();
             missile.SetDamage(_attackDamage);
         }
-        else 
+        else
         {
             //Up to 3 Rings?
-            for (int i=0; i < _bloodiedProjectileCount; i++)
+            for (int i = 0; i < _bloodiedProjectileCount; i++)
             {
                 GameObject bullet = PoolUtility.InstantiateFromPool(_ringPool, _projectileSpawn, _ringRef);
                 Projectile missile = bullet.GetComponent<Projectile>();
@@ -483,8 +536,10 @@ public class BossController : EntityBase
             }
         }
 
-        //pass animation time as wait
-        yield return new WaitForSeconds(attackAnimTimes[4] - delayTime);
+        //get animation time
+        float returnTime = Mathf.Max(_minAttackTime, AnimTimes[5] - _attackWarmUpTime);
+        yield return new WaitForSeconds(_minAttackTime);
+
         NextBossState();
     }
 
@@ -492,36 +547,50 @@ public class BossController : EntityBase
     {
         //animation
         _bossAnim.SetInteger("AttackType", 3);
-
+        
         //laser find's player position
         _laserEndPoint = GameManager.player.obj.transform.position;
+        _laserSource.SetActive(true);
 
-        //delay for player to dodge, while animation warms up
-        //set by designer, animation needs to cut short or shrink with warm up time
-        yield return new WaitForSeconds(_laserWarmUpTime);
-
-        //laser starts moving towards player, but slow (or traces player path?)
-        _laserTracker.SetActive(true);  //TODO Laser VFX?    
-        
-        //can I have an inactive object just track for Transform purposes, or should I use collision?
-        _laserTracker.GetComponent<LaserDamage>().SetDamage(_attackDamage);
-
+        //source follows player without shooting
         float timeCount = 0;
-        while (timeCount < attackAnimTimes[5])
+        while (timeCount < _attackWarmUpTime)
         {
-            //laser tracks player position while firing
-            float laserSpeed = _laserSpeedModifier * GameManager.player.movement.MoveSpeed * Time.deltaTime;
-
-            _laserEndPoint = Vector3.MoveTowards(_laserEndPoint, GameManager.player.obj.transform.position, laserSpeed);
-            _laserTracker.transform.position = _laserEndPoint;
+            LaserFollowPlayer();
 
             timeCount += Time.deltaTime;
             yield return new WaitForEndOfFrame();
         }
 
-        //attack time set by animation?     //cut off or shrink any long attack animations, player should be focused on laser VFX though
-        _laserTracker.SetActive(false);
+        //reset animation trigger to avoid repeat triggers
+        _bossAnim.SetInteger("AttackType", 0);
+
+        //laserbeam activates, and starts dealing damage
+        _laserBeam.SetActive(true);
+        _laserBeam.GetComponent<LaserDamage>().SetDamage(_attackDamage);
+        
+        //source continues to follow player
+        while (timeCount < AnimTimes[6])
+        {
+            LaserFollowPlayer();
+
+            timeCount += Time.deltaTime;
+            yield return new WaitForEndOfFrame();
+        }
+
+        _laserSource.SetActive(false);
+        _laserBeam.SetActive(false);
+
         NextBossState();
+    }
+
+    private void LaserFollowPlayer()
+    {
+        //laser tracks player position while firing
+        float laserSpeed = _laserSpeedModifier * GameManager.player.movement.MoveSpeed * Time.deltaTime;
+
+        _laserEndPoint = Vector3.MoveTowards(_laserEndPoint, GameManager.player.obj.transform.position, laserSpeed);
+        _laserSource.transform.LookAt(_laserEndPoint);
     }
 
     private IEnumerator SummonMinions()
@@ -532,6 +601,12 @@ public class BossController : EntityBase
 
         //animation
         _bossAnim.SetInteger("AttackType", 4);
+
+        //warm up animation before attacking
+        yield return new WaitForSeconds(_attackWarmUpTime);
+
+        //reset animation trigger to avoid repeat triggers
+        _bossAnim.SetInteger("AttackType", 0);
 
         int waveCount = 0;
         foreach (GameObject minion in _minionWaveRef)
@@ -559,7 +634,8 @@ public class BossController : EntityBase
         }
 
         //get animation time
-        yield return new WaitForSeconds(attackAnimTimes[7] - delayTime);
+        float returnTime = Mathf.Max(_minAttackTime, AnimTimes[7] - _attackWarmUpTime);
+        yield return new WaitForSeconds(_minAttackTime);
 
         NextBossState();
     }
@@ -571,9 +647,9 @@ public class BossController : EntityBase
         AnimationClip[] bossClips = bossAnim.runtimeAnimatorController.animationClips;
         foreach (AnimationClip clip in bossClips)
         {
-            Debug.Log(clip.name + " " + clip.length);
-            attackAnimTimes.Add(clip.length);
+            //Debug.Log(clip.name + " " + clip.length);
+            AnimTimes.Add(clip.length);
         }
-        //"Boss_Idle(Start), Idle, Damage, A, B, C, D, E, Idle(Phase2?), F, Damage(2?), Damage(Segment?)"
+        //Idle, Idle, WeaponDestroyed, AllWeaponsDestroy, A, B, C, D, E, CombatStateB, F, DramaticDeath, Damage
     }
 }
