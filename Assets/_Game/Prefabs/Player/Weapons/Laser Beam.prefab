@@ -248,8 +248,11 @@ MonoBehaviour:
           m_BoolArgument: 0
         m_CallState: 2
   damageCap: 5
-  timeToCharge: 1
   tickRate: 0.1
+  damageMultiplier: 1.3
+  tickDamage: 1
+  anticipationTime: 0.5
+  trackingEnd: {fileID: 7643126217517762587}
   OnLaserStart:
     m_PersistentCalls:
       m_Calls:
@@ -264,12 +267,6 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
-  damageCap: 7
-  tickRate: 0.1
-  damageMultiplier: 1.3
-  tickDamage: 1
-  anticipationTime: 0.5
-  trackingEnd: {fileID: 7643126217517762587}
   OnLaserStop:
     m_PersistentCalls:
       m_Calls:

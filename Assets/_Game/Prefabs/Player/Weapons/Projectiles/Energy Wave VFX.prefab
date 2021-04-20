@@ -12,8 +12,8 @@ GameObject:
   - component: {fileID: 1269560932093111578}
   - component: {fileID: 1269560932093111577}
   - component: {fileID: 1269560932093111583}
-  - component: {fileID: 1269560932093111572}
   - component: {fileID: 7502403474468787243}
+  - component: {fileID: 124158199758540603}
   m_Layer: 16
   m_Name: Energy Wave VFX
   m_TagString: Untagged
@@ -29,7 +29,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1269560932093111582}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 19.72646, y: -5.752842, z: -52.26}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 2119745635897834568}
@@ -99,21 +99,6 @@ Rigidbody:
   m_Interpolate: 0
   m_Constraints: 0
   m_CollisionDetection: 0
---- !u!114 &1269560932093111572
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1269560932093111582}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 2101f2d89ec5bcc4094caded5480a684, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  _speed: 50
-  _damage: 10
-  lifeTime: 2
 --- !u!136 &7502403474468787243
 CapsuleCollider:
   m_ObjectHideFlags: 0
@@ -128,6 +113,26 @@ CapsuleCollider:
   m_Height: 6.6
   m_Direction: 0
   m_Center: {x: 0, y: 0, z: 0}
+--- !u!114 &124158199758540603
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1269560932093111582}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8793bd287a24a4f42bad18f7dcc799c0, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  projectileVFX: {fileID: 2922127787031344078}
+  chargePercentage: 50
+  _speed: 0
+  _damage: 2
+  _scale: 0
+  lifeTime: 2
+  enemiesDamaged: 0
+  projectileActive: 0
 --- !u!1001 &6701800958649730316
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -340,6 +345,12 @@ PrefabInstance:
 --- !u!4 &2119745635897834568 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 4641888615510538564, guid: a77cee59aa93a214c8c3286b88303325,
+    type: 3}
+  m_PrefabInstance: {fileID: 6701800958649730316}
+  m_PrefabAsset: {fileID: 0}
+--- !u!1 &2922127787031344078 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 8470408657186436802, guid: a77cee59aa93a214c8c3286b88303325,
     type: 3}
   m_PrefabInstance: {fileID: 6701800958649730316}
   m_PrefabAsset: {fileID: 0}

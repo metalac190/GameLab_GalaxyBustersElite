@@ -6,17 +6,16 @@ using UnityEngine.Events;
 public class EnergyBurst : WeaponBase
 {
 	private List<GameObject> projectilePool = new List<GameObject>();
-	private List<GameObject> chargedProjectilePool = new List<GameObject>();
 	private float cdTime = 0f;
 	private float chargeTimer = 0f;
 	private bool fireReady;
+	private Vector3 newScale;
 
 	[Header("Primary Fire Settings")]
 	[SerializeField] float projectileSpeed = 40f;
 	[SerializeField] float fireRate = 2f;
 
 	[Header("Hold Fire Settings")]
-	[SerializeField] GameObject chargedProjectile;
 	[SerializeField] float chargeUpTime = 0.5f;
 	[SerializeField] float damageMultiplier = 2f;
 	[SerializeField] float speedMultiplier = 1.5f;
@@ -33,20 +32,12 @@ public class EnergyBurst : WeaponBase
 	[SerializeField] UnityEvent OnChargedFire;
 	private GameObject chargingShot;
 	private MeshRenderer shotRenderer;
-	private Projectile shotProjectile;
+	private EnergyWave shotProjectile;
 
 	private void OnEnable()
 	{
 		overloaded = false;
 		weaponCharged = false;
-
-		// Set instantiated projectile's speed and damage
-		projectile.GetComponent<Projectile>().SetVelocity(projectileSpeed);
-		projectile.GetComponent<Projectile>().SetDamage(damage);
-
-		// Set charged projectile's speed and damage
-		chargedProjectile.GetComponent<Projectile>().SetVelocity(projectileSpeed * speedMultiplier);
-		chargedProjectile.GetComponent<Projectile>().SetDamage(damage * damageMultiplier);
 
 		GradientColorKey[] colorKeys = new GradientColorKey[2];
 		GradientAlphaKey[] alphaKeys = new GradientAlphaKey[2];
@@ -73,11 +64,10 @@ public class EnergyBurst : WeaponBase
 				{
 					chargingShot = PoolUtility.InstantiateFromPool(projectilePool, point.position, point.rotation, projectile);
 					shotRenderer = chargingShot.GetComponent<MeshRenderer>();
-					shotProjectile = chargingShot.GetComponent<Projectile>();
-
-					shotProjectile.GetComponent<Rigidbody>().velocity = Vector3.zero;
-					chargingShot.transform.localScale = new Vector3(minScale, minScale, minScale);
-					shotProjectile.enabled = false;
+					shotProjectile = chargingShot.GetComponent<EnergyWave>();
+					newScale = new Vector3(minScale, minScale, minScale);
+					chargingShot.transform.localScale = newScale;
+					chargingShot.GetComponent<EnergyWave>().projectileVFX.transform.localScale = newScale;
 				}
 			}
 		}
@@ -121,7 +111,9 @@ public class EnergyBurst : WeaponBase
 			shotRenderer.material.SetColor("_UnlitColor", chargeColorGradient.Evaluate(chargeTimer / chargeUpTime));
 			// Sets scale based on charge time
 			float shotScale = Mathf.Lerp(minScale, maxScale, chargeTimer / chargeUpTime);
-			chargingShot.transform.localScale = new Vector3(shotScale, shotScale, shotScale);
+			newScale = new Vector3(shotScale, shotScale, shotScale);
+			chargingShot.transform.localScale = newScale;
+			chargingShot.GetComponent<EnergyWave>().projectileVFX.transform.localScale = newScale;
 		}
 	}
 
@@ -138,12 +130,15 @@ public class EnergyBurst : WeaponBase
 	{
 		if (chargingShot != null)
 		{
+			float chargeAmount = chargeTimer / chargeUpTime;
+
 			// Set damage and speed based on charge time
-			shotProjectile.SetDamage(Mathf.Lerp(damage, damage * damageMultiplier, chargeTimer / chargeUpTime));
-			shotProjectile.SetVelocity(Mathf.Lerp(projectileSpeed, projectileSpeed * speedMultiplier, chargeTimer / chargeUpTime));
-			Debug.Log(shotProjectile.Speed);
+			float finalDamage = Mathf.Lerp(damage, damage * damageMultiplier, chargeAmount);
+			float finalSpeed = Mathf.Lerp(projectileSpeed, projectileSpeed * speedMultiplier, chargeAmount);
+			float finalSize = Mathf.Lerp(minScale, maxScale, chargeTimer / chargeUpTime);
+
 			// Release projectile
-			shotProjectile.enabled = true;
+			shotProjectile.ActivateProjectile(chargeAmount, finalDamage, finalSpeed, finalSize);
 
 			chargingShot = null;
 			OnStandardFire.Invoke();
