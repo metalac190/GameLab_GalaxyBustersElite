@@ -46,13 +46,11 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   allSounds:
   - label: 0. Appear
-    audioSource: {fileID: 4593882456272799428}
-    playOnAwake: 1
+    audioSource: {fileID: 0}
+    playOnAwake: 0
     loop: 1
-    useSoundVariations: 1
-    soundVariations:
-    - {fileID: 8300000, guid: cbc8a6e0da3008c42a75130c68201366, type: 3}
-    - {fileID: 8300000, guid: d8c55bdb74229a5428fd3f3cfa69ac88, type: 3}
+    useSoundVariations: 0
+    soundVariations: []
     usePitchRandomization: 0
     pitchShiftMin: 0
     pitchShiftMax: 0
@@ -197,12 +195,6 @@ PrefabInstance:
 --- !u!4 &4593882456272799429 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 1388270348251091531, guid: 2cc2698f828e41b41886d3eb6aecd52b,
-    type: 3}
-  m_PrefabInstance: {fileID: 3207863964398310542}
-  m_PrefabAsset: {fileID: 0}
---- !u!82 &4593882456272799428 stripped
-AudioSource:
-  m_CorrespondingSourceObject: {fileID: 1388270348251091530, guid: 2cc2698f828e41b41886d3eb6aecd52b,
     type: 3}
   m_PrefabInstance: {fileID: 3207863964398310542}
   m_PrefabAsset: {fileID: 0}
