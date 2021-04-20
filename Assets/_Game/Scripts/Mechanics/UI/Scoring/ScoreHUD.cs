@@ -97,6 +97,7 @@ public class ScoreHUD : MonoBehaviour
 
 	public void PickupEnabled(PickupBase pickup)
 	{
+		if (pickupsInLevel == null) return;
 		if (!pickupsInLevel.Contains(pickup))
 		{
 			pickupsInLevel.Add(pickup);
