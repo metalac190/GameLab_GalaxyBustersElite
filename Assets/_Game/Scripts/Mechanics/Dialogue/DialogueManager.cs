@@ -6,9 +6,12 @@ using TMPro;
 
 public class DialogueManager : MonoBehaviour
 {
-
     private Queue<string> sentences;
     private Queue<Dialogue> dialogueQueue;
+    public float typingDelay = .05f;
+    public float speakerTransionDelay = .5f;
+    public float conversationEndDelay = 1.5f;
+
     public GameObject DialoguePopUp;
     public TextMeshProUGUI nameText;
     public TextMeshProUGUI dialogueText;
@@ -18,9 +21,18 @@ public class DialogueManager : MonoBehaviour
     public GameObject TwilightImage;
     public GameObject ZenoxImage;
     public GameObject RandomImage;
-    public float typingDelay = .05f;
-    public float speakerTransionDelay = .5f;
-    public float conversationEndDelay = 1.5f;
+
+    public GameObject DialoguePopUp_STORY;
+    public TextMeshProUGUI nameText_STORY;
+    public TextMeshProUGUI dialogueText_STORY;
+    public GameObject PilotImage_STORY;
+    public GameObject PiledriveImage_STORY;
+    public GameObject MatryoshkaImage_STORY;
+    public GameObject TwilightImage_STORY;
+    public GameObject ZenoxImage_STORY;
+    public GameObject RandomImage_STORY;
+
+
     private bool next = false;
     public int dialoguePriority = 0;  //0 is not active, 1 is reaction. 2 is dialogue
     public bool activeDialogue = false;
@@ -90,8 +102,6 @@ public class DialogueManager : MonoBehaviour
                     ZenoxImage.SetActive(false);
                     break;
             }
-
-
             sentences.Clear();
             foreach (string sentence in dialogue.sentences)
             {
@@ -107,6 +117,7 @@ public class DialogueManager : MonoBehaviour
         {
             StopAllCoroutines();
             dialogueText.text = "";
+            dialogueText_STORY.text = "";
             next = false;
             sentences.Clear();         
 
@@ -133,9 +144,19 @@ public class DialogueManager : MonoBehaviour
     }
     public IEnumerator StartDialogueCoroutine(Dialogue dialogue)
     {
-        DialoguePopUp.SetActive(true);
-        nameText.text = dialogue.npcName;
+        if(dialoguePriority == 1)
+        {
+            DialoguePopUp.SetActive(true);
+            DialoguePopUp_STORY.SetActive(false);
+            nameText.text = dialogue.npcName;
 
+        }
+        else if (dialoguePriority == 2)
+        {
+            DialoguePopUp_STORY.SetActive(true);
+            DialoguePopUp.SetActive(false);
+            nameText_STORY.text = dialogue.npcName;
+        }
         sentences.Clear();
         foreach (string sentence in dialogue.sentences)
         {
@@ -165,65 +186,78 @@ public class DialogueManager : MonoBehaviour
     IEnumerator TypeSentence(string sentence)
     {
         dialogueText.text = "";
+        dialogueText_STORY.text = "";
         if (dialoguePriority == 2)
         {
-            switch (nameText.text)
+            switch (nameText_STORY.text)
             {
                 case "Pilot":
-                    PilotImage.SetActive(true);
-                    RandomImage.SetActive(false);
-                    TwilightImage.SetActive(false);
-                    PiledriveImage.SetActive(false);
-                    MatryoshkaImage.SetActive(false);
-                    ZenoxImage.SetActive(false);
+                    PilotImage_STORY.SetActive(true);
+                    RandomImage_STORY.SetActive(false);
+                    TwilightImage_STORY.SetActive(false);
+                    PiledriveImage_STORY.SetActive(false);
+                    MatryoshkaImage_STORY.SetActive(false);
+                    ZenoxImage_STORY.SetActive(false);
                     break;
                 case "Commander Twilight":
-                    TwilightImage.SetActive(true);
-                    RandomImage.SetActive(false);
-                    PilotImage.SetActive(false);
-                    PiledriveImage.SetActive(false);
-                    MatryoshkaImage.SetActive(false);
-                    ZenoxImage.SetActive(false);
+                    TwilightImage_STORY.SetActive(true);
+                    RandomImage_STORY.SetActive(false);
+                    PilotImage_STORY.SetActive(false);
+                    PiledriveImage_STORY.SetActive(false);
+                    MatryoshkaImage_STORY.SetActive(false);
+                    ZenoxImage_STORY.SetActive(false);
                     break;
                 case "Piledrive":
-                    PiledriveImage.SetActive(true);
-                    RandomImage.SetActive(false);
-                    TwilightImage.SetActive(false);
-                    PilotImage.SetActive(false);
-                    MatryoshkaImage.SetActive(false);
-                    ZenoxImage.SetActive(false);
+                    PiledriveImage_STORY.SetActive(true);
+                    RandomImage_STORY.SetActive(false);
+                    TwilightImage_STORY.SetActive(false);
+                    PilotImage_STORY.SetActive(false);
+                    MatryoshkaImage_STORY.SetActive(false);
+                    ZenoxImage_STORY.SetActive(false);
                     break;
                 case "Zenox":
-                    ZenoxImage.SetActive(true);
-                    RandomImage.SetActive(false);
-                    TwilightImage.SetActive(false);
-                    PiledriveImage.SetActive(false);
-                    MatryoshkaImage.SetActive(false);
-                    PilotImage.SetActive(false);
+                    ZenoxImage_STORY.SetActive(true);
+                    RandomImage_STORY.SetActive(false);
+                    TwilightImage_STORY.SetActive(false);
+                    PiledriveImage_STORY.SetActive(false);
+                    MatryoshkaImage_STORY.SetActive(false);
+                    PilotImage_STORY.SetActive(false);
                     break;
                 case "Matryoshka":
-                    MatryoshkaImage.SetActive(true);
-                    RandomImage.SetActive(false);
-                    TwilightImage.SetActive(false);
-                    PiledriveImage.SetActive(false);
-                    PilotImage.SetActive(false);
-                    ZenoxImage.SetActive(false);
+                    MatryoshkaImage_STORY.SetActive(true);
+                    RandomImage_STORY.SetActive(false);
+                    TwilightImage_STORY.SetActive(false);
+                    PiledriveImage_STORY.SetActive(false);
+                    PilotImage_STORY.SetActive(false);
+                    ZenoxImage_STORY.SetActive(false);
                     break;
                 default:
-                    PilotImage.SetActive(false);
-                    RandomImage.SetActive(true);
-                    TwilightImage.SetActive(false);
-                    PiledriveImage.SetActive(false);
-                    MatryoshkaImage.SetActive(false);
-                    ZenoxImage.SetActive(false);
+                    PilotImage_STORY.SetActive(false);
+                    RandomImage_STORY.SetActive(true);
+                    TwilightImage_STORY.SetActive(false);
+                    PiledriveImage_STORY.SetActive(false);
+                    MatryoshkaImage_STORY.SetActive(false);
+                    ZenoxImage_STORY.SetActive(false);
                     break;
             }
         }
-        foreach (char letter in sentence.ToCharArray())
+        if(dialoguePriority == 2)
         {
-            dialogueText.text += letter;
-            yield return new WaitForSeconds(typingDelay);
+            foreach (char letter in sentence.ToCharArray())
+            {
+                dialogueText_STORY.text += letter;
+                yield return new WaitForSeconds(typingDelay);
+            }
         }
+        else if(dialoguePriority == 1)
+        {
+            foreach (char letter in sentence.ToCharArray())
+            {
+                dialogueText.text += letter;
+                yield return new WaitForSeconds(typingDelay);
+            }
+        }
+
         yield return new WaitForSeconds(conversationEndDelay);
 		DisplayNextSentence();
     }
@@ -231,6 +265,7 @@ public class DialogueManager : MonoBehaviour
     {
         Debug.Log("End of Conversation.");
         DialoguePopUp.SetActive(false);
+        DialoguePopUp_STORY.SetActive(false);
     }
 
 
