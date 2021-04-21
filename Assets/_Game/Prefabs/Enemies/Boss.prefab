@@ -164,7 +164,6 @@ MeshRenderer:
   m_LightProbeUsage: 1
   m_ReflectionProbeUsage: 1
   m_RayTracingMode: 2
-  m_RayTraceProcedural: 0
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
@@ -189,7 +188,6 @@ MeshRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
-  m_AdditionalVertexStreams: {fileID: 0}
 --- !u!136 &3998797738770408305
 CapsuleCollider:
   m_ObjectHideFlags: 0
@@ -609,7 +607,6 @@ MonoBehaviour:
     m_PersistentCalls:
       m_Calls:
       - m_Target: {fileID: 8596181258582637232}
-        m_TargetAssemblyTypeName: 
         m_MethodName: StartBossFight
         m_Mode: 1
         m_Arguments:
@@ -706,7 +703,6 @@ MonoBehaviour:
     m_PersistentCalls:
       m_Calls:
       - m_Target: {fileID: 722685955714886198}
-        m_TargetAssemblyTypeName: 
         m_MethodName: TryPlay
         m_Mode: 3
         m_Arguments:
@@ -718,7 +714,6 @@ MonoBehaviour:
           m_BoolArgument: 0
         m_CallState: 2
       - m_Target: {fileID: 8801587704968937087}
-        m_TargetAssemblyTypeName: 
         m_MethodName: TryPlay
         m_Mode: 3
         m_Arguments:
@@ -733,7 +728,6 @@ MonoBehaviour:
     m_PersistentCalls:
       m_Calls:
       - m_Target: {fileID: 722685955714886198}
-        m_TargetAssemblyTypeName: 
         m_MethodName: TryDetachPlayThenDestroy
         m_Mode: 3
         m_Arguments:
@@ -745,7 +739,6 @@ MonoBehaviour:
           m_BoolArgument: 0
         m_CallState: 2
       - m_Target: {fileID: 8801587704968937087}
-        m_TargetAssemblyTypeName: 
         m_MethodName: TryPlay
         m_Mode: 3
         m_Arguments:
@@ -757,7 +750,6 @@ MonoBehaviour:
           m_BoolArgument: 0
         m_CallState: 2
       - m_Target: {fileID: 4097383395491550940}
-        m_TargetAssemblyTypeName: 
         m_MethodName: SetActive
         m_Mode: 6
         m_Arguments:
@@ -773,7 +765,6 @@ MonoBehaviour:
     m_PersistentCalls:
       m_Calls:
       - m_Target: {fileID: 722685955714886198}
-        m_TargetAssemblyTypeName: 
         m_MethodName: TryPlay
         m_Mode: 3
         m_Arguments:
@@ -788,7 +779,6 @@ MonoBehaviour:
     m_PersistentCalls:
       m_Calls:
       - m_Target: {fileID: 722685955714886198}
-        m_TargetAssemblyTypeName: 
         m_MethodName: TryPlay
         m_Mode: 3
         m_Arguments:
@@ -932,12 +922,16 @@ PrefabInstance:
     m_TransformParent: {fileID: 5155529460610493695}
     m_Modifications:
     - target: {fileID: 1071172245, guid: 735cf5ac771618e45a8620d2e982d48a, type: 3}
-      propertyPath: moveSpeed
-      value: 10
-      objectReference: {fileID: 0}
-    - target: {fileID: 1071172245, guid: 735cf5ac771618e45a8620d2e982d48a, type: 3}
       propertyPath: waypoints.Array.size
       value: 6
+      objectReference: {fileID: 0}
+    - target: {fileID: 1071172245, guid: 735cf5ac771618e45a8620d2e982d48a, type: 3}
+      propertyPath: OnFinalWaypoint.m_PersistentCalls.m_Calls.Array.size
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 1071172245, guid: 735cf5ac771618e45a8620d2e982d48a, type: 3}
+      propertyPath: moveSpeed
+      value: 10
       objectReference: {fileID: 0}
     - target: {fileID: 1071172245, guid: 735cf5ac771618e45a8620d2e982d48a, type: 3}
       propertyPath: waypoints.Array.data[0]
@@ -963,10 +957,6 @@ PrefabInstance:
       propertyPath: waypoints.Array.data[5]
       value: 
       objectReference: {fileID: 4694745772788379158}
-    - target: {fileID: 1071172245, guid: 735cf5ac771618e45a8620d2e982d48a, type: 3}
-      propertyPath: OnFinalWaypoint.m_PersistentCalls.m_Calls.Array.size
-      value: 1
-      objectReference: {fileID: 0}
     - target: {fileID: 1071172245, guid: 735cf5ac771618e45a8620d2e982d48a, type: 3}
       propertyPath: OnFinalWaypoint.m_PersistentCalls.m_Calls.Array.data[0].m_Mode
       value: 1
@@ -1091,12 +1081,16 @@ PrefabInstance:
     m_TransformParent: {fileID: 5155529460610493695}
     m_Modifications:
     - target: {fileID: 1071172245, guid: 735cf5ac771618e45a8620d2e982d48a, type: 3}
-      propertyPath: moveSpeed
-      value: 10
-      objectReference: {fileID: 0}
-    - target: {fileID: 1071172245, guid: 735cf5ac771618e45a8620d2e982d48a, type: 3}
       propertyPath: waypoints.Array.size
       value: 6
+      objectReference: {fileID: 0}
+    - target: {fileID: 1071172245, guid: 735cf5ac771618e45a8620d2e982d48a, type: 3}
+      propertyPath: OnFinalWaypoint.m_PersistentCalls.m_Calls.Array.size
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 1071172245, guid: 735cf5ac771618e45a8620d2e982d48a, type: 3}
+      propertyPath: moveSpeed
+      value: 10
       objectReference: {fileID: 0}
     - target: {fileID: 1071172245, guid: 735cf5ac771618e45a8620d2e982d48a, type: 3}
       propertyPath: waypoints.Array.data[0]
@@ -1122,10 +1116,6 @@ PrefabInstance:
       propertyPath: waypoints.Array.data[5]
       value: 
       objectReference: {fileID: 4694745772788379158}
-    - target: {fileID: 1071172245, guid: 735cf5ac771618e45a8620d2e982d48a, type: 3}
-      propertyPath: OnFinalWaypoint.m_PersistentCalls.m_Calls.Array.size
-      value: 1
-      objectReference: {fileID: 0}
     - target: {fileID: 1071172245, guid: 735cf5ac771618e45a8620d2e982d48a, type: 3}
       propertyPath: OnFinalWaypoint.m_PersistentCalls.m_Calls.Array.data[0].m_Mode
       value: 1
@@ -1250,12 +1240,16 @@ PrefabInstance:
     m_TransformParent: {fileID: 5155529460610493695}
     m_Modifications:
     - target: {fileID: 1071172245, guid: 735cf5ac771618e45a8620d2e982d48a, type: 3}
-      propertyPath: moveSpeed
-      value: 10
-      objectReference: {fileID: 0}
-    - target: {fileID: 1071172245, guid: 735cf5ac771618e45a8620d2e982d48a, type: 3}
       propertyPath: waypoints.Array.size
       value: 6
+      objectReference: {fileID: 0}
+    - target: {fileID: 1071172245, guid: 735cf5ac771618e45a8620d2e982d48a, type: 3}
+      propertyPath: OnFinalWaypoint.m_PersistentCalls.m_Calls.Array.size
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 1071172245, guid: 735cf5ac771618e45a8620d2e982d48a, type: 3}
+      propertyPath: moveSpeed
+      value: 10
       objectReference: {fileID: 0}
     - target: {fileID: 1071172245, guid: 735cf5ac771618e45a8620d2e982d48a, type: 3}
       propertyPath: waypoints.Array.data[0]
@@ -1281,10 +1275,6 @@ PrefabInstance:
       propertyPath: waypoints.Array.data[5]
       value: 
       objectReference: {fileID: 4694745772788379158}
-    - target: {fileID: 1071172245, guid: 735cf5ac771618e45a8620d2e982d48a, type: 3}
-      propertyPath: OnFinalWaypoint.m_PersistentCalls.m_Calls.Array.size
-      value: 1
-      objectReference: {fileID: 0}
     - target: {fileID: 1071172245, guid: 735cf5ac771618e45a8620d2e982d48a, type: 3}
       propertyPath: OnFinalWaypoint.m_PersistentCalls.m_Calls.Array.data[0].m_Mode
       value: 1
@@ -1518,12 +1508,16 @@ PrefabInstance:
     m_TransformParent: {fileID: 5155529460610493695}
     m_Modifications:
     - target: {fileID: 1071172245, guid: 735cf5ac771618e45a8620d2e982d48a, type: 3}
-      propertyPath: moveSpeed
-      value: 10
-      objectReference: {fileID: 0}
-    - target: {fileID: 1071172245, guid: 735cf5ac771618e45a8620d2e982d48a, type: 3}
       propertyPath: waypoints.Array.size
       value: 6
+      objectReference: {fileID: 0}
+    - target: {fileID: 1071172245, guid: 735cf5ac771618e45a8620d2e982d48a, type: 3}
+      propertyPath: OnFinalWaypoint.m_PersistentCalls.m_Calls.Array.size
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 1071172245, guid: 735cf5ac771618e45a8620d2e982d48a, type: 3}
+      propertyPath: moveSpeed
+      value: 10
       objectReference: {fileID: 0}
     - target: {fileID: 1071172245, guid: 735cf5ac771618e45a8620d2e982d48a, type: 3}
       propertyPath: waypoints.Array.data[0]
@@ -1549,10 +1543,6 @@ PrefabInstance:
       propertyPath: waypoints.Array.data[5]
       value: 
       objectReference: {fileID: 4694745772788379158}
-    - target: {fileID: 1071172245, guid: 735cf5ac771618e45a8620d2e982d48a, type: 3}
-      propertyPath: OnFinalWaypoint.m_PersistentCalls.m_Calls.Array.size
-      value: 1
-      objectReference: {fileID: 0}
     - target: {fileID: 1071172245, guid: 735cf5ac771618e45a8620d2e982d48a, type: 3}
       propertyPath: OnFinalWaypoint.m_PersistentCalls.m_Calls.Array.data[0].m_Mode
       value: 1
@@ -1677,12 +1667,16 @@ PrefabInstance:
     m_TransformParent: {fileID: 5155529460610493695}
     m_Modifications:
     - target: {fileID: 1071172245, guid: 735cf5ac771618e45a8620d2e982d48a, type: 3}
-      propertyPath: moveSpeed
-      value: 10
-      objectReference: {fileID: 0}
-    - target: {fileID: 1071172245, guid: 735cf5ac771618e45a8620d2e982d48a, type: 3}
       propertyPath: waypoints.Array.size
       value: 6
+      objectReference: {fileID: 0}
+    - target: {fileID: 1071172245, guid: 735cf5ac771618e45a8620d2e982d48a, type: 3}
+      propertyPath: OnFinalWaypoint.m_PersistentCalls.m_Calls.Array.size
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 1071172245, guid: 735cf5ac771618e45a8620d2e982d48a, type: 3}
+      propertyPath: moveSpeed
+      value: 10
       objectReference: {fileID: 0}
     - target: {fileID: 1071172245, guid: 735cf5ac771618e45a8620d2e982d48a, type: 3}
       propertyPath: waypoints.Array.data[0]
@@ -1708,10 +1702,6 @@ PrefabInstance:
       propertyPath: waypoints.Array.data[5]
       value: 
       objectReference: {fileID: 4694745772788379158}
-    - target: {fileID: 1071172245, guid: 735cf5ac771618e45a8620d2e982d48a, type: 3}
-      propertyPath: OnFinalWaypoint.m_PersistentCalls.m_Calls.Array.size
-      value: 1
-      objectReference: {fileID: 0}
     - target: {fileID: 1071172245, guid: 735cf5ac771618e45a8620d2e982d48a, type: 3}
       propertyPath: OnFinalWaypoint.m_PersistentCalls.m_Calls.Array.data[0].m_Mode
       value: 1
