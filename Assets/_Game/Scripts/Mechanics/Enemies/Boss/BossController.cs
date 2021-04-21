@@ -9,8 +9,11 @@ public class BossController : EntityBase
     //Refer to Ben Friedman for QA/Bugfixing on Boss System scripts
 
     [Header("Boss Events")]
+    [Tooltip("When the Death Animation ends\nNot just zero hp")]
+    public UnityEvent FullyDead;
     public UnityEvent InvulnerableHit;
     public IntEvent Attacking;
+    
 
     [Header("Boss Settings")]
 
@@ -55,7 +58,7 @@ public class BossController : EntityBase
     [Tooltip("Reference to Minion Prefab.")]
     [SerializeField] private GameObject _minionRef = null;
     [Tooltip("Staring Group of Minions, with Waypoints")]
-    [SerializeField] private List<GameObject> _minionWaveRef = new List<GameObject>();
+    [SerializeField] private Queue<GameObject> _minionWaveRef = new Queue<GameObject>();
     [Tooltip("Variable Spawn Points\nDefault to 2")]
     [SerializeField] private Transform[] _minionSpawns = new Transform[2];
     [Tooltip("Middle Waypoint Idenfitied, for Minions that spawn in secondary Position[s]")]
@@ -65,12 +68,12 @@ public class BossController : EntityBase
     //Ring Attack Pooling
     [Tooltip("Reference to Ring Attack Prefab.")]
     [SerializeField] private GameObject _ringRef = null;
-    private List<GameObject> _ringPool = new List<GameObject>();
+    private Queue<GameObject> _ringQueue = new Queue<GameObject>();
 
     //Missile Pooling
     [Tooltip("Reference to Bloodied Boss Missile Prefab")]
     [SerializeField] private GameObject _missileRef = null;
-    private List<GameObject> _missilePool = new List<GameObject>();
+    private Queue<GameObject> _missileQueue = new Queue<GameObject>();
 
     [Tooltip("Reference to Game Object where Ring Attack originates from.")]
     [SerializeField] private Transform _projectileSpawn = null;
@@ -152,10 +155,12 @@ public class BossController : EntityBase
 
             if (_currentHealth <= 0)
             {
+                Debug.Log("Death");
                 Died.Invoke();
 
                 //Override to implement Boss Death Animation
-                _bossAnim.SetTrigger("Death");
+                _nextState = BossState.Dead;
+                NextBossState();
 
                 ZenoxFiller.DisableZenoxFiller();
             }
@@ -256,9 +261,7 @@ public class BossController : EntityBase
         //If current or previous check returned any alive segments
         if (isSegmentsAlive == true)
         {
-            //animation
-            _bossAnim.SetTrigger("SegmentDestroyed");
-
+            
             int numSegments = 0;
             foreach (BossSegmentController segments in _segmentRefs)
             {
@@ -274,7 +277,7 @@ public class BossController : EntityBase
             }
             else
             {
-                _bossAnim.SetBool("SegmentsAlive", false);
+                _bossAnim.SetTrigger("AllSegmentsDead");
                 _nextState = BossState.Bloodied;
             }
         }
@@ -317,6 +320,10 @@ public class BossController : EntityBase
                 _nextState = BossState.Moving;
 
                 _BossBehavior = StartCoroutine(Bloodied());
+                break;
+
+            case BossState.Dead:
+                _BossBehavior = StartCoroutine(DeathAnimation());
                 break;
 
             default:
@@ -380,7 +387,7 @@ public class BossController : EntityBase
         //Idle Anim is Unconditional return from other states.
 
         //wait predetermined amount of time
-        yield return new WaitForSeconds(_idleTime);
+        yield return new WaitForSeconds(Mathf.Max(_idleTime, AnimTimes[0]));
 
         NextBossState();
     }
@@ -396,7 +403,7 @@ public class BossController : EntityBase
         DialogueTrigger.TriggerZenoxHalfHealthDialogue();
 
         //get animation time
-        yield return new WaitForSeconds(AnimTimes[3]);
+        yield return new WaitForSeconds(AnimTimes[2]);
 
         isInvulnerable = false;
 
@@ -444,6 +451,19 @@ public class BossController : EntityBase
             StartCoroutine(MovePattern(count - 1));
         }
     }
+
+    private IEnumerator DeathAnimation()
+    {
+        _bossAnim.SetTrigger("Death");
+        isInvulnerable = true;
+
+        Debug.Log("Calling Death");
+        yield return new WaitForSeconds(AnimTimes[10] + _delaySeconds);
+        Debug.Log("Death Answers");
+
+        FullyDead.Invoke();
+        _bossRoot.SetActive(false);
+    }
     #endregion
 
     #region Attacks
@@ -482,7 +502,7 @@ public class BossController : EntityBase
             //amount of missiles determined by Designer
             for (int i = 0; i < _bloodiedProjectileCount; i++)
             {
-                GameObject bullet = PoolUtility.InstantiateFromPool(_missilePool, _projectileSpawn, _missileRef);
+                GameObject bullet = PoolUtility.InstantiateFromQueue(_missileQueue, _projectileSpawn, _missileRef);
                 BossMissile missile = bullet.GetComponent<BossMissile>();
                 missile.SetTarget(GameManager.player.obj);
                 missile.SetDamage(_attackDamage);
@@ -493,7 +513,7 @@ public class BossController : EntityBase
         }
 
         //get animation time
-        float returnTime = Mathf.Max(_minAttackTime, AnimTimes[4] - _attackWarmUpTime);
+        float returnTime = Mathf.Max(_minAttackTime, AnimTimes[3] - _attackWarmUpTime);
         yield return new WaitForSeconds(_minAttackTime);
 
         NextBossState();
@@ -518,7 +538,7 @@ public class BossController : EntityBase
         if (isSegmentsAlive)
         {
             //Single Ring Attack
-            GameObject bullet = PoolUtility.InstantiateFromPool(_ringPool, _projectileSpawn, _ringRef);
+            GameObject bullet = PoolUtility.InstantiateFromQueue(_ringQueue, _projectileSpawn, _ringRef);
             Projectile missile = bullet.GetComponent<Projectile>();
             missile.SetDamage(_attackDamage);
         }
@@ -527,7 +547,7 @@ public class BossController : EntityBase
             //Up to 3 Rings?
             for (int i = 0; i < _bloodiedProjectileCount; i++)
             {
-                GameObject bullet = PoolUtility.InstantiateFromPool(_ringPool, _projectileSpawn, _ringRef);
+                GameObject bullet = PoolUtility.InstantiateFromQueue(_ringQueue, _projectileSpawn, _ringRef);
                 Projectile missile = bullet.GetComponent<Projectile>();
                 missile.SetDamage(_attackDamage);
 
@@ -537,7 +557,7 @@ public class BossController : EntityBase
         }
 
         //get animation time
-        float returnTime = Mathf.Max(_minAttackTime, AnimTimes[5] - _attackWarmUpTime);
+        float returnTime = Mathf.Max(_minAttackTime, AnimTimes[4] - _attackWarmUpTime);
         yield return new WaitForSeconds(_minAttackTime);
 
         NextBossState();
@@ -570,7 +590,7 @@ public class BossController : EntityBase
         _laserBeam.GetComponent<LaserDamage>().SetDamage(_attackDamage);
         
         //source continues to follow player
-        while (timeCount < AnimTimes[6])
+        while (timeCount < AnimTimes[5])
         {
             LaserFollowPlayer();
 
@@ -621,7 +641,7 @@ public class BossController : EntityBase
         {
             //reliant on Minions being Disabled when killed, and not Destroyed()
             int spawnRand = Random.Range(0, _minionSpawns.Length);
-            GameObject minionObject = PoolUtility.InstantiateFromPool(_minionWaveRef, _minionSpawns[spawnRand], _minionRef);
+            GameObject minionObject = PoolUtility.InstantiateFromQueue(_minionWaveRef, _minionSpawns[spawnRand], _minionRef);
             EnemyMovement minionMove = minionObject.GetComponentInChildren<EnemyMovement>();
             minionMove?.RestartPath();
 
@@ -634,7 +654,7 @@ public class BossController : EntityBase
         }
 
         //get animation time
-        float returnTime = Mathf.Max(_minAttackTime, AnimTimes[7] - _attackWarmUpTime);
+        float returnTime = Mathf.Max(_minAttackTime, AnimTimes[6] - _attackWarmUpTime);
         yield return new WaitForSeconds(_minAttackTime);
 
         NextBossState();
@@ -650,6 +670,6 @@ public class BossController : EntityBase
             //Debug.Log(clip.name + " " + clip.length);
             AnimTimes.Add(clip.length);
         }
-        //Idle, Idle, WeaponDestroyed, AllWeaponsDestroy, A, B, C, D, E, CombatStateB, F, DramaticDeath, Damage
+        //Idle, Idle, AllWeaponsDestroy, A, B, C, D, E, CombatStateB, F, DramaticDeath
     }
 }

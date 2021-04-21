@@ -6,16 +6,18 @@ public class DialogueTrigger : MonoBehaviour
 {
     public static DialogueTrigger instance = new DialogueTrigger();
     public void Update()
-    {/*
+    {
+        /*
         if (Input.GetKeyDown(KeyCode.Keypad1))          //random player damage test
         {
-            ZenoxFiller.EnableZenoxFiller();
+            TriggerZenoxPartDestroyedDialogue();
         }
         
         if (Input.GetKeyDown(KeyCode.Keypad2))          //random player damage test
         {
-            ZenoxFiller.DisableZenoxFiller();
-        }     
+            TriggerZenoxHalfHealthDialogue();
+        } ;
+        
         ZenoxFiller.EnableZenoxFiller();        //call when you set boss active to start filler dialouge
         ZenoxFiller.DisableZenoxFiller();       //call when boss reaches half health
         DialogueTrigger.TriggerZenoxHalfHealthDialogue();           //call on enemy defeat to stop cycle

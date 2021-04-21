@@ -19,6 +19,7 @@ public class test_bossRemote : MonoBehaviour
         if (Input.GetKeyDown(KeyCode.Q))
         {
             _segRef?.TakeDamage(1f);
+            _bossRef.TakeDamage(1f);
         }
 
         if (Input.GetKeyDown(KeyCode.Alpha1))

@@ -95,6 +95,7 @@ MonoBehaviour:
   collDuration: 2
   collForce: {x: 1000, y: 1000, z: 0}
   torqueForce: {x: 1000, y: 1000, z: 1000}
+  isHit: 0
   playerLimits: {x: 50, y: 25}
   rotateTargetTransform: {fileID: 0}
   shipsTransform: {fileID: 2473926699686103219}
@@ -251,7 +252,7 @@ MonoBehaviour:
   currentWeapon: {fileID: 4587364871884471440}
   weapons:
   - {fileID: 4587364871884471440}
-  - {fileID: 8179300219240267795}
+  - {fileID: 8161048759202589625}
   - {fileID: 4105299737162226496}
   isDodging: 0
   isInvincible: 0
@@ -498,7 +499,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 2151478074821847683}
-  - {fileID: 8179300218599468398}
+  - {fileID: 8161048758568322756}
   - {fileID: 4105299738324079619}
   m_Father: {fileID: 2473926700306051215}
   m_RootOrder: 1
@@ -959,7 +960,7 @@ GameObject:
     type: 3}
   m_PrefabInstance: {fileID: 3488430911488284442}
   m_PrefabAsset: {fileID: 0}
---- !u!1001 &7210593708720715426
+--- !u!1001 &7264944377435790600
 PrefabInstance:
   m_ObjectHideFlags: 0
   serializedVersion: 2
@@ -1026,24 +1027,19 @@ PrefabInstance:
       propertyPath: m_Name
       value: Energy Burst
       objectReference: {fileID: 0}
-    - target: {fileID: 3727205299085060979, guid: fac00b2cc971f864bb2082dfc1305843,
-        type: 3}
-      propertyPath: playerShipMeshRenderer
-      value: 
-      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: fac00b2cc971f864bb2082dfc1305843, type: 3}
---- !u!1 &8179300219240267795 stripped
+--- !u!1 &8161048759202589625 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 1554756656198432433, guid: fac00b2cc971f864bb2082dfc1305843,
     type: 3}
-  m_PrefabInstance: {fileID: 7210593708720715426}
+  m_PrefabInstance: {fileID: 7264944377435790600}
   m_PrefabAsset: {fileID: 0}
---- !u!4 &8179300218599468398 stripped
+--- !u!4 &8161048758568322756 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 1554756655631277004, guid: fac00b2cc971f864bb2082dfc1305843,
     type: 3}
-  m_PrefabInstance: {fileID: 7210593708720715426}
+  m_PrefabInstance: {fileID: 7264944377435790600}
   m_PrefabAsset: {fileID: 0}
 --- !u!1001 &7314156903411662432
 PrefabInstance:
