@@ -195,6 +195,7 @@ public class DialogueManager : MonoBehaviour
                 dialoguePriority = 0;
             }
             next = true;
+            onDisplayNextSentence?.Invoke("end");
             return;
         }
         string nextSentence = sentences.Dequeue();
