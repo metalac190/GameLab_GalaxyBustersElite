@@ -10,6 +10,8 @@ public class EnergyBurst : WeaponBase
 	private float chargeTimer = 0f;
 	private bool fireReady;
 	private Vector3 newScale;
+	private ParticleSystem shotParticles;
+	private ParticleSystem.MainModule psMain; 
 
 	[Header("Primary Fire Settings")]
 	[SerializeField] float projectileSpeed = 40f;
@@ -109,6 +111,10 @@ public class EnergyBurst : WeaponBase
 		{
 			// Sets color based on charge time
 			shotRenderer.material.SetColor("_UnlitColor", chargeColorGradient.Evaluate(chargeTimer / chargeUpTime));
+			shotParticles = chargingShot.GetComponent<EnergyWave>().projectileVFX.GetComponent<ParticleSystem>();
+			psMain = shotParticles.main;
+			psMain.startColor = chargeColorGradient.Evaluate(chargeTimer / chargeUpTime);
+
 			// Sets scale based on charge time
 			float shotScale = Mathf.Lerp(minScale, maxScale, chargeTimer / chargeUpTime);
 			newScale = new Vector3(shotScale, shotScale, shotScale);
