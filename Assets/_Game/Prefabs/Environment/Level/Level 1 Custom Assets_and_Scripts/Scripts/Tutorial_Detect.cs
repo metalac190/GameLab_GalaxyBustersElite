@@ -19,7 +19,7 @@ public class Tutorial_Detect : MonoBehaviour
     private void NewSentenceDisplayed(string sentence)
 	{
         if (sentence.Contains("Move around the flight path using the keys"))
-		{
+        {
             // ceheck for keys
             waitForMove = true;
 
@@ -50,8 +50,16 @@ public class Tutorial_Detect : MonoBehaviour
                 waitForMove = false;
                 FindObjectOfType<DialogueManager>().onDisplayNextSentence += StartSecondDialogue;
                 FindObjectOfType<DialogueManager>().forcePauseDialogue = false;
+                StartCoroutine(buffer());
             }
-
         }
     }
+
+    IEnumerator buffer()
+    {
+        yield return new WaitForSeconds(1f);
+        DialogueTrigger.TriggerMoveDialogue();
+        activate_object.SetActive(true);
+    }
+
 }

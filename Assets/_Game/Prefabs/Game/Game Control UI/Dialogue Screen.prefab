@@ -104,7 +104,7 @@ RectTransform:
   m_LocalScale: {x: 1.6874968, y: 1.6874968, z: 1.6874968}
   m_Children: []
   m_Father: {fileID: 3731165316677657779}
-  m_RootOrder: 4
+  m_RootOrder: 5
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
@@ -638,15 +638,15 @@ RectTransform:
   m_GameObject: {fileID: 1283210540836946846}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 0.65799016, y: 0.65799016, z: 0.65799016}
+  m_LocalScale: {x: 0.058753587, y: 0.058753587, z: 0.058753587}
   m_Children: []
   m_Father: {fileID: 1283210542206010381}
   m_RootOrder: 4
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: -280.99994, y: -243.6}
-  m_SizeDelta: {x: 142, y: 193}
+  m_AnchoredPosition: {x: -284.3, y: -246.3}
+  m_SizeDelta: {x: 2048, y: 2048}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &1283210540836946851
 CanvasRenderer:
@@ -675,7 +675,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: 21300000, guid: fbeb830490d8a1645a4aa7a160502ad5, type: 3}
+  m_Sprite: {fileID: 21300000, guid: 8795c07a54b21514493813ee5e7bc6a7, type: 3}
   m_Type: 0
   m_PreserveAspect: 0
   m_FillCenter: 1
@@ -925,31 +925,37 @@ MonoBehaviour:
   StartOfL1Dialogue:
   - npcName: Piledrive
     sentences:
-    - "We\u2019re just gonna take it nice and slow, eh?"
-    - Start with blasting those asteroids.
+    - "Let\u2019s take it nice and slow against dummies Pilot."
   - npcName: Pilot
     sentences:
-    - "I didn\u2019t join the Galaxy Busters Elite to shoot rocks, Piledrive!"
-  - npcName: Matryoshka
-    sentences:
-    - Rawwrgh.
-  - npcName: Piledrive
-    sentences:
-    - Matryoshka has a good point.
-    - "Start with the basics and you\u2019ll be blasting enemies in no time, eh."
+    - "I don\u2019t want to take it slow, let\u2019s get going!"
+  MoveDialogue:
   - npcName: Commander Twilight
     sentences:
-    - "It\u2019s important for you to learn how to fly these top-of-the-line ships.
-      I\u2019ll have you know that each ship costs well over several million dollars."
+    - "It\u2019s important for you to learn how to fly these top-of-the-line ships. "
+    - "I\u2019ll have you know that each ship costs well over several million dollars."
     - "Move around the flight path using the keys labeled \u201CW\u201D, \u201CA\u201D,
-      \u201CS\u201D, and \u201CD\u201D. Very good."
-    - Now, use your left mouse button to shoot. Well done.
-    - "There\u2019s a bar that will measure a charge to use an overcharge shot. You
-      can use the right mouse button to fire an overcharged shot once it\u2019s full."
+      \u201CS\u201D, and \u201CD\u201D. "
+    - Very good.
+    - You can use your spacebar to dodge. Try it now.
+  ShootDialogue:
+  - npcName: Commander Twilight
+    sentences:
+    - 'Now, use your left mouse button to shoot. '
+    - Well done.
+  OverloadPickupDialogue:
+  - npcName: Commander Twilight
+    sentences:
+    - "There\u2019s a bar that will measure a charge to use an overcharge shot."
+    - "You can use the right mouse button to fire an overcharged shot once it\u2019s
+      full."
+  - npcName: Piledrive
+    sentences:
+    - A little trick I picked up over the years Pilot, grab those overload pickups.
+    - They'll help you charge your overload engine.
+  - npcName: Commander Twilight
+    sentences:
     - On your basic gun, an overcharge will increase your rate of fire.
-  MoveDialogue: []
-  ShootDialogue: []
-  OverloadPickupDialogue: []
   FirstEnemyAppearsDialogue:
   - npcName: Pilot
     sentences:
@@ -981,12 +987,6 @@ MonoBehaviour:
     sentences:
     - That seems to be the last of them for now.
     - Pilots, regroup at the station as we discuss what to do next.
-  - npcName: Matryoshka
-    sentences:
-    - Grrrrrrrr
-  - npcName: Piledrive
-    sentences:
-    - Returning now Commander.
   - npcName: Pilot
     sentences:
     - "That\u2019s a negatory Commander Twilight!"
@@ -1022,10 +1022,8 @@ MonoBehaviour:
   FirstBandit:
   - npcName: Commander Twilight
     sentences:
-    - Pilots, do you see that Bandit ship there?
-    - "Our sensors are telling us it\u2019s stolen experimental GBE creations. If
-      you shoot it, you may be able to recover and use them."
-    - It will probably try to get away quickly though.
+    - Pilots, that Bandit has stolen experimental GBE technology.
+    - Shoot it before it gets away!
   FirstSpearhead:
   - npcName: Commander Twilight
     sentences:
@@ -1126,7 +1124,7 @@ MonoBehaviour:
     - ...
   - npcName: Pilot
     sentences:
-    - Fine, I'll stay away for the minefield.
+    - Fine, I'll stay away from the minefield.
   CubeSighting:
   - npcName: Piledrive
     sentences:
@@ -1194,9 +1192,9 @@ MonoBehaviour:
     - "Yes ma\u2019am we do."
   - npcName: Commander Twilight
     sentences:
-    - "We don\u2019t know where it will go, but it might bring you home"
+    - "We don\u2019t know where it will go, but it might bring you home."
     - It is your choice pilots.
-  - npcName: Piledrive
+  - npcName: Pilot
     sentences:
     - Let's do this.
   PlayerDamagedDialogue:
@@ -1220,7 +1218,7 @@ MonoBehaviour:
     - I thrive on your lasers enemy drones!
   - npcName: Pilot
     sentences:
-    - "shosg!, AaAohgb oripjtI\u2019,i-Whoops, sorryabout that, must have been a
+    - "shosg!, AaAohgb oripjtI\u2019,i-Whoops, sorry about that, must have been a
       bug!"
   - npcName: Piledrive
     sentences:
@@ -1289,7 +1287,7 @@ MonoBehaviour:
     - Sorry drone.
   - npcName: Piledrive
     sentences:
-    - This reminds me ofa friendly hockey game.
+    - This reminds me of a friendly hockey game.
   - npcName: Piledrive
     sentences:
     - "Ooh, that one\u2019s pretty, eh?"
@@ -1747,7 +1745,7 @@ RectTransform:
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
   m_AnchoredPosition: {x: 44, y: -243}
-  m_SizeDelta: {x: 1046, y: 282}
+  m_SizeDelta: {x: 1055, y: 282}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &113952695856541420
 CanvasRenderer:
@@ -1960,14 +1958,14 @@ RectTransform:
   m_GameObject: {fileID: 3591181252699187600}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 0.20564498, y: 0.20564498, z: 0.20564498}
+  m_LocalScale: {x: 0.28935716, y: 0.28935716, z: 0.28935716}
   m_Children: []
   m_Father: {fileID: 3731165316677657779}
   m_RootOrder: 8
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: -426, y: -293}
+  m_AnchoredPosition: {x: -429, y: -251}
   m_SizeDelta: {x: 1295, y: 1349}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &3409435896642085489
@@ -1997,7 +1995,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: 21300000, guid: 419a00f60a074bb4cb657e22d1050b89, type: 3}
+  m_Sprite: {fileID: 21300000, guid: 3c8b6394090f1c24ea9ef5845aaae389, type: 3}
   m_Type: 0
   m_PreserveAspect: 0
   m_FillCenter: 1
@@ -2418,8 +2416,8 @@ RectTransform:
   - {fileID: 8097693659639225273}
   - {fileID: 667077017091380974}
   - {fileID: 7220188228330689736}
-  - {fileID: 2719729200892555643}
   - {fileID: 2690257400714450907}
+  - {fileID: 2719729200892555643}
   - {fileID: 560485246153653239}
   - {fileID: 7748141725366378983}
   - {fileID: 5426450375467474672}
@@ -2607,15 +2605,15 @@ RectTransform:
   m_GameObject: {fileID: 7241914692074175961}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1.6874968, y: 1.6874968, z: 1.6874968}
+  m_LocalScale: {x: 0.17824, y: 0.17824, z: 0.17824}
   m_Children: []
   m_Father: {fileID: 3731165316677657779}
-  m_RootOrder: 5
+  m_RootOrder: 4
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: -324, y: -289}
-  m_SizeDelta: {x: 142, y: 193}
+  m_AnchoredPosition: {x: -370.7, y: -270.1}
+  m_SizeDelta: {x: 2048, y: 2048}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &6092352720464834680
 CanvasRenderer:
@@ -2644,7 +2642,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: 21300000, guid: fbeb830490d8a1645a4aa7a160502ad5, type: 3}
+  m_Sprite: {fileID: 21300000, guid: 8795c07a54b21514493813ee5e7bc6a7, type: 3}
   m_Type: 0
   m_PreserveAspect: 0
   m_FillCenter: 1
@@ -2681,14 +2679,14 @@ RectTransform:
   m_GameObject: {fileID: 7310483297081433515}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 0.09357652, y: 0.09357652, z: 0.09357652}
+  m_LocalScale: {x: 0.11624889, y: 0.11624889, z: 0.11624889}
   m_Children: []
   m_Father: {fileID: 1283210542206010381}
   m_RootOrder: 8
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: -289.6, y: -243.3}
+  m_AnchoredPosition: {x: -295, y: -256.1}
   m_SizeDelta: {x: 1295, y: 1349}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &9117363554136044006
@@ -2718,7 +2716,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: 21300000, guid: 419a00f60a074bb4cb657e22d1050b89, type: 3}
+  m_Sprite: {fileID: 21300000, guid: 3c8b6394090f1c24ea9ef5845aaae389, type: 3}
   m_Type: 0
   m_PreserveAspect: 0
   m_FillCenter: 1
