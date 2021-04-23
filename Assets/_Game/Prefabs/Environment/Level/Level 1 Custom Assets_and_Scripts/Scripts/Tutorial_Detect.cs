@@ -20,7 +20,7 @@ public class Tutorial_Detect : MonoBehaviour
 	{
         print(sentence);
         if (sentence.Contains("Move around the flight path using the keys"))
-		{
+        {
             // ceheck for keys
             waitForMove = true;
 
@@ -36,12 +36,18 @@ public class Tutorial_Detect : MonoBehaviour
         {
             if (Input.GetKeyDown(KeyCode.W) || Input.GetKeyDown(KeyCode.A) || Input.GetKeyDown(KeyCode.S) || Input.GetKeyDown(KeyCode.D))
             {
-                DialogueTrigger.TriggerMoveDialogue();
-                activate_object.SetActive(true);
                 waitForMove = false;
                 FindObjectOfType<DialogueManager>().forcePauseDialogue = false;
+                StartCoroutine(buffer());
             }
-
         }
     }
+
+    IEnumerator buffer()
+    {
+        yield return new WaitForSeconds(1f);
+        DialogueTrigger.TriggerMoveDialogue();
+        activate_object.SetActive(true);
+    }
+
 }
