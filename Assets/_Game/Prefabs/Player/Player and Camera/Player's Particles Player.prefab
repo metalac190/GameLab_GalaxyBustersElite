@@ -36,7 +36,7 @@ Transform:
   - {fileID: 5698514973514363767}
   - {fileID: 2005597107246591477}
   - {fileID: 5734252223861112763}
-  - {fileID: 856919744466023824}
+  - {fileID: 885450060902398339}
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -72,7 +72,8 @@ MonoBehaviour:
     particleSystem: {fileID: 2005597106684826301}
     playOnAwake: 0
   - label: 6. Jet Effect Behind Player (No Hookup Needed)
-    particleSystem: {fileID: 2483856487667196197}
+    particleSystem: {fileID: 1065274769485429887, guid: bc392c8ef35805241b55881e632d5a80,
+      type: 3}
     playOnAwake: 1
 --- !u!1001 &101724737580932580
 PrefabInstance:
@@ -277,54 +278,9 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 4234064388278411199}
     m_Modifications:
-    - target: {fileID: 7350120272830179465, guid: d901ee141e524ab4bae696e92f11daba,
+    - target: {fileID: 6456898986217256859, guid: d901ee141e524ab4bae696e92f11daba,
         type: 3}
       propertyPath: playOnAwake
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 7350120272830179465, guid: d901ee141e524ab4bae696e92f11daba,
-        type: 3}
-      propertyPath: looping
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 7350120272965794246, guid: d901ee141e524ab4bae696e92f11daba,
-        type: 3}
-      propertyPath: playOnAwake
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 7350120272965794246, guid: d901ee141e524ab4bae696e92f11daba,
-        type: 3}
-      propertyPath: looping
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 7350120273086679586, guid: d901ee141e524ab4bae696e92f11daba,
-        type: 3}
-      propertyPath: playOnAwake
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 7350120273086679586, guid: d901ee141e524ab4bae696e92f11daba,
-        type: 3}
-      propertyPath: looping
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 7350120274011272435, guid: d901ee141e524ab4bae696e92f11daba,
-        type: 3}
-      propertyPath: playOnAwake
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 7350120274011272435, guid: d901ee141e524ab4bae696e92f11daba,
-        type: 3}
-      propertyPath: looping
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 7350120274140255743, guid: d901ee141e524ab4bae696e92f11daba,
-        type: 3}
-      propertyPath: playOnAwake
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 7350120274140255743, guid: d901ee141e524ab4bae696e92f11daba,
-        type: 3}
-      propertyPath: looping
       value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 7350120274446740216, guid: d901ee141e524ab4bae696e92f11daba,
@@ -386,16 +342,6 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: VFX_PlayerHit
-      objectReference: {fileID: 0}
-    - target: {fileID: 7350120274446740222, guid: d901ee141e524ab4bae696e92f11daba,
-        type: 3}
-      propertyPath: playOnAwake
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 7350120274446740222, guid: d901ee141e524ab4bae696e92f11daba,
-        type: 3}
-      propertyPath: looping
-      value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: d901ee141e524ab4bae696e92f11daba, type: 3}
@@ -608,13 +554,23 @@ ParticleSystem:
     type: 3}
   m_PrefabInstance: {fileID: 1048807290705923321}
   m_PrefabAsset: {fileID: 0}
---- !u!1001 &3220341546174815578
+--- !u!1001 &3106727582900130121
 PrefabInstance:
   m_ObjectHideFlags: 0
   serializedVersion: 2
   m_Modification:
     m_TransformParent: {fileID: 4234064388278411199}
     m_Modifications:
+    - target: {fileID: 1065274769485429887, guid: bc392c8ef35805241b55881e632d5a80,
+        type: 3}
+      propertyPath: InitialModule.startLifetime.scalar
+      value: 0.44
+      objectReference: {fileID: 0}
+    - target: {fileID: 1065274769485429887, guid: bc392c8ef35805241b55881e632d5a80,
+        type: 3}
+      propertyPath: ColorModule.gradient.maxGradient.atime1
+      value: 43176
+      objectReference: {fileID: 0}
     - target: {fileID: 2769529051730236592, guid: bc392c8ef35805241b55881e632d5a80,
         type: 3}
       propertyPath: m_Name
@@ -623,17 +579,17 @@ PrefabInstance:
     - target: {fileID: 2834048830377617610, guid: bc392c8ef35805241b55881e632d5a80,
         type: 3}
       propertyPath: m_LocalPosition.x
-      value: 0.108
+      value: 0.01
       objectReference: {fileID: 0}
     - target: {fileID: 2834048830377617610, guid: bc392c8ef35805241b55881e632d5a80,
         type: 3}
       propertyPath: m_LocalPosition.y
-      value: 0.371
+      value: 0.33
       objectReference: {fileID: 0}
     - target: {fileID: 2834048830377617610, guid: bc392c8ef35805241b55881e632d5a80,
         type: 3}
       propertyPath: m_LocalPosition.z
-      value: -1.166
+      value: -1.39
       objectReference: {fileID: 0}
     - target: {fileID: 2834048830377617610, guid: bc392c8ef35805241b55881e632d5a80,
         type: 3}
@@ -677,17 +633,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: bc392c8ef35805241b55881e632d5a80, type: 3}
---- !u!4 &856919744466023824 stripped
+--- !u!4 &885450060902398339 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 2834048830377617610, guid: bc392c8ef35805241b55881e632d5a80,
     type: 3}
-  m_PrefabInstance: {fileID: 3220341546174815578}
-  m_PrefabAsset: {fileID: 0}
---- !u!198 &2483856487667196197 stripped
-ParticleSystem:
-  m_CorrespondingSourceObject: {fileID: 1065274769485429887, guid: bc392c8ef35805241b55881e632d5a80,
-    type: 3}
-  m_PrefabInstance: {fileID: 3220341546174815578}
+  m_PrefabInstance: {fileID: 3106727582900130121}
   m_PrefabAsset: {fileID: 0}
 --- !u!1001 &7642603734706076965
 PrefabInstance:

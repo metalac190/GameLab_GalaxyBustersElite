@@ -14,9 +14,12 @@ public class LaserBeamFiringFX : MonoBehaviour
     [SerializeField] ParticleSystem laserFiringParticles;
 
     [Header("SFX")]
-    [SerializeField] AudioSource laserFiringSound;
+    [SerializeField] AudioSource laserFiringLoopSound;
     [Range(1, 100)]
-    [SerializeField] float fadeInOutSpeed = 5;
+    [SerializeField] float fadeInSpeed = 5;
+    [Range(1, 100)]
+    [SerializeField] float fadeOutSpeed = 5;
+    [SerializeField] float loopingSoundDelay = 0.5f;
 
 #if UNITY_EDITOR
     void OnValidate()
@@ -28,10 +31,11 @@ public class LaserBeamFiringFX : MonoBehaviour
             particlesMain.loop = true;
         }
 
-        if (laserFiringSound)
+
+        if (laserFiringLoopSound)
         {
-            laserFiringSound.loop = true;
-            laserFiringSound.playOnAwake = false;
+            laserFiringLoopSound.loop = true;
+            laserFiringLoopSound.playOnAwake = false;
         }
     }
 #endif
@@ -60,12 +64,12 @@ public class LaserBeamFiringFX : MonoBehaviour
                 laserFiringParticles.Stop();
         }
 
-        if (laserFiringSound)
+        if (laserFiringLoopSound)
         {
             if (laserActive)
             {
                 StopAllCoroutines();
-                StartCoroutine(FadeInLaserSound());
+                StartCoroutine(FadeInLaserSoundAfterDelay(loopingSoundDelay));
             }
             else
             {
@@ -75,30 +79,32 @@ public class LaserBeamFiringFX : MonoBehaviour
         }
     }
 
-    IEnumerator FadeInLaserSound()
+    IEnumerator FadeInLaserSoundAfterDelay(float delay)
     {
-        if (!laserFiringSound.isPlaying) laserFiringSound.Play();
+        yield return new WaitForSeconds(delay);
 
-        while (laserFiringSound.volume < 0.99f)
+        if (!laserFiringLoopSound.isPlaying) laserFiringLoopSound.Play();
+
+        while (laserFiringLoopSound.volume < 0.99f)
         {
-            laserFiringSound.volume = Mathf.Clamp(laserFiringSound.volume + 0.01f * fadeInOutSpeed, 0, 1);
+            laserFiringLoopSound.volume = Mathf.Clamp(laserFiringLoopSound.volume + 0.01f * fadeInSpeed, 0, 1);
             yield return new WaitForFixedUpdate();
         }
 
-        laserFiringSound.volume = 1;
+        laserFiringLoopSound.volume = 1;
     }
 
     IEnumerator FadeOutLaserSound()
     {
-        if (!laserFiringSound.isPlaying) yield break;
+        if (!laserFiringLoopSound.isPlaying) yield break;
 
-        while (laserFiringSound.volume > 0.01f)
+        while (laserFiringLoopSound.volume > 0.01f)
         {
-            laserFiringSound.volume = Mathf.Clamp(laserFiringSound.volume - 0.01f * fadeInOutSpeed, 0, 1);
+            laserFiringLoopSound.volume = Mathf.Clamp(laserFiringLoopSound.volume - 0.01f * fadeOutSpeed, 0, 1);
             yield return new WaitForFixedUpdate();
         }
 
-        laserFiringSound.Stop();
+        laserFiringLoopSound.Stop();
     }
 
     private void CheckPauseToStopLaserSound()

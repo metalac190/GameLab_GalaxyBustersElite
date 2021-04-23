@@ -5,12 +5,13 @@ using UnityEngine;
 public class Object_Movement : MonoBehaviour
 {
     public float speed = 0;
+    public bool dont_destroy;
     [SerializeField] Transform object_waypoint = null;
 
     void Update()
     {
         object_move();
-        if(transform.position == object_waypoint.position)
+        if(transform.position == object_waypoint.position && dont_destroy == false)
         {
             Destroy(gameObject);
 

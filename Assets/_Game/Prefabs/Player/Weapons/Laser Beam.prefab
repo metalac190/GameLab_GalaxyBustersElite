@@ -30,7 +30,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 4184412915183278225}
-  m_RootOrder: 0
+  m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &3982392244362247470
 MonoBehaviour:
@@ -159,7 +159,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &617434267887059737
 Transform:
   m_ObjectHideFlags: 0
@@ -191,12 +191,11 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   weapons:
   - {fileID: 2122522393657540368}
-  angleClamp: 75
   speed: 8
   debugRays: 0
   debugRayLength: 25
   currentTarget: {fileID: 0}
-  aimAssistDistance: 50
+  aimAssistDistance: 100
   aimAssistWidth: 2
   targetMask:
     serializedVersion: 2
@@ -214,7 +213,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   weaponID: Laser Beam
-  projectileType: 2
   projectile: {fileID: 298172225218822927}
   spawnPoints:
   - {fileID: 4184412915183278225}
@@ -235,17 +233,6 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
-      - m_Target: {fileID: 1547039881378838909}
-        m_MethodName: TryPlay
-        m_Mode: 3
-        m_Arguments:
-          m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 0
-          m_FloatArgument: 0
-          m_StringArgument: 
-          m_BoolArgument: 0
-        m_CallState: 2
   OnOverloadActivated:
     m_PersistentCalls:
       m_Calls:
@@ -261,18 +248,35 @@ MonoBehaviour:
           m_BoolArgument: 0
         m_CallState: 2
   damageCap: 5
-  timeToCharge: 1
   tickRate: 0.1
-  OnLaserStop:
+  damageMultiplier: 1.3
+  tickDamage: 1
+  anticipationTime: 0.5
+  trackingEnd: {fileID: 7643126217517762587}
+  OnLaserStart:
     m_PersistentCalls:
       m_Calls:
       - m_Target: {fileID: 1547039881378838909}
-        m_MethodName: TryStop
+        m_MethodName: TryPlay
         m_Mode: 3
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
           m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
           m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+  OnLaserStop:
+    m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 1547039881378838909}
+        m_MethodName: TryPlay
+        m_Mode: 3
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 4
           m_FloatArgument: 0
           m_StringArgument: 
           m_BoolArgument: 0
@@ -433,6 +437,7 @@ Transform:
   m_LocalPosition: {x: -0, y: -0.051, z: 1.45}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
+  - {fileID: 8167956319181023803}
   - {fileID: 6444489982758020416}
   m_Father: {fileID: 2122522393657540368}
   m_RootOrder: 1
@@ -481,6 +486,36 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
+--- !u!1 &7643126217517762587
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 8167956319181023803}
+  m_Layer: 16
+  m_Name: TrackingEnd
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &8167956319181023803
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7643126217517762587}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 10}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 4184412915183278225}
+  m_RootOrder: 0
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1001 &1382024391290519264
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -739,7 +774,7 @@ PrefabInstance:
     - target: {fileID: 1523406801370209447, guid: 5b109b87797888647a3acdd44565e07c,
         type: 3}
       propertyPath: m_Name
-      value: Laser Beam's Firing VFX
+      value: Laser Beam's Firing FX
       objectReference: {fileID: 0}
     - target: {fileID: 6116514067929585968, guid: 5b109b87797888647a3acdd44565e07c,
         type: 3}

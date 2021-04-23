@@ -15,7 +15,7 @@ public class EnemyMinion : EnemyBase
     [SerializeField] private float projectileSpeed;
     [SerializeField] private GameObject bullet;
     [SerializeField] private Transform _spawnPoint;
-    private List<GameObject> _bulletPool = new List<GameObject>();
+    private Queue<GameObject> _bulletQueue = new Queue<GameObject>();
 
     [Header("Effects")]
     [SerializeField] UnityEvent OnShotFired;
@@ -43,7 +43,7 @@ public class EnemyMinion : EnemyBase
                 animator.SetTrigger("IsFiring");
 
                 //fire projectile
-                GameObject tempBullet = PoolUtility.InstantiateFromPool(_bulletPool, _spawnPoint.transform.position, transform.rotation, bullet);
+                GameObject tempBullet = PoolUtility.InstantiateFromQueue(_bulletQueue, _spawnPoint.transform.position, transform.rotation, bullet);
                 EnemyProjectile tempProjectile = tempBullet.GetComponent<EnemyProjectile>();
 
                 //set damage and speed

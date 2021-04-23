@@ -28,6 +28,7 @@ public class GameManager : MonoBehaviour {
 
     [Header("Game Stats")]
     public int score;
+	public Challenges challenges;
 
     [Header("Briefing")]
     [SerializeField] private GameObject missionBriefingGO;
@@ -45,8 +46,10 @@ public class GameManager : MonoBehaviour {
 		public PlayerMovement movement;
 		public PlayerController controller;
 	}
+
     [Header("UI Reference")]
     public GameObject HUD;
+    public ComicManager comicScreen;
 
     // ----------------------------------------------------------------------------------------------------
 
@@ -148,6 +151,11 @@ public class GameManager : MonoBehaviour {
         EndLevel();
         currentState = GameState.Win;
         HUD.SetActive(false);
+        //winScreen.SetActive(true);
+        comicScreen.StartSequence();
+    }
+
+    public void EndComicSequence() {
         winScreen.SetActive(true);
     }
 
@@ -234,10 +242,10 @@ public class GameManager : MonoBehaviour {
         // Fade to black
         blackScreen.raycastTarget = true;
         float fraction;
-        for(float i = 0f; i <= 0.9f; i += 0.05f) {
+        for(float i = 0f; i <= 0.9f; i += Time.unscaledDeltaTime) {
             fraction = i / 0.9f;
             blackScreen.color = new Color32(0, 0, 0, (byte)(255 * fraction));
-            yield return new WaitForSecondsRealtime(0.05f);
+            yield return null;
         }
         blackScreen.color = new Color32(0, 0, 0, 255);
         yield return new WaitForSecondsRealtime(0.1f);
@@ -253,12 +261,13 @@ public class GameManager : MonoBehaviour {
         AsyncOperation asyncLoad = SceneManager.LoadSceneAsync(scene, LoadSceneMode.Single);
         while(!asyncLoad.isDone)
             yield return null;
+        yield return null;
 
         // Fade out
-        for(float i = 0f; i <= 0.6f; i += 0.05f) {
+        for(float i = 0f; i <= 0.6f; i += Time.unscaledDeltaTime) {
             fraction = 1 - (i / 0.6f);
             blackScreen.color = new Color32(0, 0, 0, (byte)(255 * fraction));
-            yield return new WaitForSecondsRealtime(0.05f);
+            yield return null;
         }
         blackScreen.raycastTarget = false;
         blackScreen.color = new Color32(0, 0, 0, 0);

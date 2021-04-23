@@ -10,12 +10,19 @@ public class DialogueTrigger : MonoBehaviour
         /*
         if (Input.GetKeyDown(KeyCode.Keypad1))          //random player damage test
         {
-            TriggerPlayerDamagedDialogue();
+            TriggerZenoxPartDestroyedDialogue();
         }
+        
         if (Input.GetKeyDown(KeyCode.Keypad2))          //random player damage test
         {
-            TriggerEnemyDefeatedDialogue();
-        }
+            TriggerZenoxHalfHealthDialogue();
+        } ;
+        
+        ZenoxFiller.EnableZenoxFiller();        //call when you set boss active to start filler dialouge
+        ZenoxFiller.DisableZenoxFiller();       //call when boss reaches half health
+        DialogueTrigger.TriggerZenoxHalfHealthDialogue();           //call on enemy defeat to stop cycle
+        DialogueTrigger.TriggerZenoxPartDestroyedDialogue();        //call when a part of the boss is destroyed
+        DialogueTrigger.TriggerPlayerObstacleDamamagedDialogue();   //call when player specifically takes damage from obstacles
         */
     }
     
@@ -34,6 +41,69 @@ public class DialogueTrigger : MonoBehaviour
             else
             {
                 Debug.Log("DialogueListManager's StartOfL1Dialogue is empty.");
+            }
+
+        }
+        else
+        {
+            Debug.Log("No DialogueListManager or Dialogue Manager in scene.");
+        }
+    }
+    static public void TriggerMoveDialogue()
+    {
+        if (FindObjectOfType<DialogueList>() && FindObjectOfType<DialogueManager>())
+        {
+            DialogueList dialogueListInfo = FindObjectOfType<DialogueList>();
+            if (dialogueListInfo.MoveDialogue != null)
+            {
+                //StartCoroutine(FindObjectOfType<DialogueManager>().StartDialogueArray(dialogueListInfo.StartOfL1Dialogue));
+                FindObjectOfType<DialogueManager>().startDialogueArrayFunction(dialogueListInfo.MoveDialogue);
+            }
+            else
+            {
+                Debug.Log("DialogueListManager's MoveDialogue is empty.");
+            }
+
+        }
+        else
+        {
+            Debug.Log("No DialogueListManager or Dialogue Manager in scene.");
+        }
+    }
+    static public void TriggerShootDialogue()
+    {
+        if (FindObjectOfType<DialogueList>() && FindObjectOfType<DialogueManager>())
+        {
+            DialogueList dialogueListInfo = FindObjectOfType<DialogueList>();
+            if (dialogueListInfo.ShootDialogue != null)
+            {
+                //StartCoroutine(FindObjectOfType<DialogueManager>().StartDialogueArray(dialogueListInfo.StartOfL1Dialogue));
+                FindObjectOfType<DialogueManager>().startDialogueArrayFunction(dialogueListInfo.ShootDialogue);
+            }
+            else
+            {
+                Debug.Log("DialogueListManager's ShootDialogue is empty.");
+            }
+
+        }
+        else
+        {
+            Debug.Log("No DialogueListManager or Dialogue Manager in scene.");
+        }
+    }
+    static public void TriggerOverloadPickupDialogue()
+    {
+        if (FindObjectOfType<DialogueList>() && FindObjectOfType<DialogueManager>())
+        {
+            DialogueList dialogueListInfo = FindObjectOfType<DialogueList>();
+            if (dialogueListInfo.OverloadPickupDialogue != null)
+            {
+                //StartCoroutine(FindObjectOfType<DialogueManager>().StartDialogueArray(dialogueListInfo.StartOfL1Dialogue));
+                FindObjectOfType<DialogueManager>().startDialogueArrayFunction(dialogueListInfo.OverloadPickupDialogue);
+            }
+            else
+            {
+                Debug.Log("DialogueListManager's OverloadPickupDialogue is empty.");
             }
 
         }
@@ -463,7 +533,7 @@ public class DialogueTrigger : MonoBehaviour
     {
         if (FindObjectOfType<DialogueList>() && FindObjectOfType<DialogueManager>())
         {
-            int randomChance = Random.Range(1, 8); ///1 in 7 chance 14 percent chance
+            int randomChance = Random.Range(1, 17); ///1 in 7 chance 14 percent chance
             if (randomChance == 1)
             {
             DialogueList dialogueListInfo = FindObjectOfType<DialogueList>();
@@ -483,11 +553,35 @@ public class DialogueTrigger : MonoBehaviour
             Debug.Log("No DialogueListManager or Dialogue Manager in scene.");
         }
     }
+    static public void TriggerPlayerObstacleDamamagedDialogue()
+    {
+        if (FindObjectOfType<DialogueList>() && FindObjectOfType<DialogueManager>())
+        {
+            int randomChance = Random.Range(1, 17); ///1 in 7 chance 14 percent chance
+            if (randomChance == 1)
+            {
+                DialogueList dialogueListInfo = FindObjectOfType<DialogueList>();
+                if (dialogueListInfo.PlayerObstacleDamage != null)
+                {
+                    int randomDialogue = Random.Range(0, dialogueListInfo.PlayerObstacleDamage.Length);
+                    FindObjectOfType<DialogueManager>().StartDialogue(dialogueListInfo.PlayerObstacleDamage[randomDialogue]);
+                }
+                else
+                {
+                    Debug.Log("DialogueListManager's PlayerObstacleDamage Dialogue List is empty.");
+                }
+            }
+        }
+        else
+        {
+            Debug.Log("No DialogueListManager or Dialogue Manager in scene.");
+        }
+    }
     static public void TriggerEnemyDefeatedDialogue()
     {
         if (FindObjectOfType<DialogueList>() && FindObjectOfType<DialogueManager>())
         {
-            int randomChance = Random.Range(1, 8); ///1 in 7 chance 14 percent chance
+            int randomChance = Random.Range(1, 17); ///1 in 7 chance 14 percent chance
             if (randomChance == 1)
             {
             DialogueList dialogueListInfo = FindObjectOfType<DialogueList>();
@@ -507,13 +601,12 @@ public class DialogueTrigger : MonoBehaviour
             Debug.Log("No DialogueListManager or Dialogue Manager in scene.");
         }
     }
+
+
     static public void TriggerZenoxFillerDialogue()
     {
         if (FindObjectOfType<DialogueList>() && FindObjectOfType<DialogueManager>())
         {
-            int randomChance = Random.Range(1, 8); ///1 in 7 chance 14 percent chance
-            if (randomChance == 1)
-            {
                 DialogueList dialogueListInfo = FindObjectOfType<DialogueList>();
                 if (dialogueListInfo.ZenoxFillerDialogue != null)
                 {
@@ -524,6 +617,25 @@ public class DialogueTrigger : MonoBehaviour
                 {
                     Debug.Log("DialogueListManager's ZenoxFillerDialogue List is empty.");
                 }
+        }
+        else
+        {
+            Debug.Log("No DialogueListManager or Dialogue Manager in scene.");
+        }
+    }
+    static public void TriggerZenoxPartDestroyedDialogue()
+    {
+        if (FindObjectOfType<DialogueList>() && FindObjectOfType<DialogueManager>())
+        {
+            DialogueList dialogueListInfo = FindObjectOfType<DialogueList>();
+            if (dialogueListInfo.ZenoxPartDestroyed != null)
+            {
+                int randomDialogue = Random.Range(0, dialogueListInfo.ZenoxPartDestroyed.Length);
+                FindObjectOfType<DialogueManager>().StartDialogue(dialogueListInfo.ZenoxPartDestroyed[randomDialogue]);
+            }
+            else
+            {
+                Debug.Log("DialogueListManager's ZenoxPartDestroyed List is empty.");
             }
         }
         else
