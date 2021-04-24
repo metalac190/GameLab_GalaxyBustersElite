@@ -6,6 +6,7 @@ public class SoundPlayer : MonoBehaviour
 {
     [SerializeField] Sound[] allSounds = new Sound[1];
     bool surpressMissingSoundWarnings = true;
+    const float LOOPING_FADE_IN_TIME = 1;
 
     // Syncing loop and play on awake variables with Particle System
 #if UNITY_EDITOR
@@ -70,7 +71,9 @@ public class SoundPlayer : MonoBehaviour
             sound.audioSourcePool.Add(sound.audioSource);
             sound.curPoolIteration = 0;
 
-            if (sound.audioSource.isPlaying && !sound.playOnAwake) // Stop if not play on awake
+            if (sound.loop && sound.playOnAwake) // Fade in sound if looping
+                StartCoroutine(FadeInSound(indexOfSound));
+            else if (sound.audioSource.isPlaying && !sound.playOnAwake) // Stop if not play on awake
                 sound.audioSource.Stop();
             else if (!sound.audioSource.isPlaying && sound.playOnAwake) // Play if play on awake
                 Play(indexOfSound);
@@ -138,11 +141,14 @@ public class SoundPlayer : MonoBehaviour
         if (curSound.audioSourcePool.Count < Sound.MAX_POOL_SIZE && curSound.audioSourcePool[curSound.curPoolIteration].isPlaying)
             ExpandAudioSourcePool(curSound);
 
-        if (curSound.usePitchRandomization)
+        if (curSound.usePitchRandomization) // Pitch randomization
             curSound.audioSourcePool[curSound.curPoolIteration].pitch = Random.Range(curSound.pitchShiftMin + 1, curSound.pitchShiftMax + 1);
-        if (curSound.useSoundVariations && curSound.soundVariations.Length > 0)
+        if (curSound.useSoundVariations && curSound.soundVariations.Length > 0) // Sound variations
             curSound.audioSourcePool[curSound.curPoolIteration].clip = curSound.soundVariations[Random.Range(0, curSound.soundVariations.Length)];
-        curSound.audioSourcePool[curSound.curPoolIteration].Play();
+        if (curSound.loop) // Fade in if looping
+            StartCoroutine(FadeInSound(indexSoundToPlay));
+        else
+            curSound.audioSourcePool[curSound.curPoolIteration].Play();
 
         curSound.curPoolIteration++;
         if (curSound.curPoolIteration >= curSound.audioSourcePool.Count)
@@ -156,6 +162,20 @@ public class SoundPlayer : MonoBehaviour
         curSound.audioSourcePool.Add(newAudioSourceForPool);
 
         curSound.curPoolIteration++;
+    }
+
+    IEnumerator FadeInSound(int indexSoundToPlay)
+    {
+        Sound curSound = allSounds[indexSoundToPlay];
+
+        curSound.audioSourcePool[curSound.curPoolIteration].volume = 0;
+        curSound.audioSourcePool[curSound.curPoolIteration].Play();
+        while (curSound.audioSourcePool[curSound.curPoolIteration].volume < 0.99f)
+        {
+            curSound.audioSourcePool[curSound.curPoolIteration].volume += 0.02f / LOOPING_FADE_IN_TIME;
+            yield return new WaitForSeconds(0.02f);
+        }
+        curSound.audioSourcePool[curSound.curPoolIteration].volume = 1;
     }
     #endregion
 
@@ -256,7 +276,7 @@ public class SoundPlayer : MonoBehaviour
         {
             while (true)
             {
-                if (GameManager.gm.Paused && allSounds[indexOfSound].audioSource.isPlaying)
+                if (GameManager.gm && GameManager.gm.Paused && allSounds[indexOfSound].audioSource.isPlaying)
                 {
                     allSounds[indexOfSound].audioSource.Pause();
                     yield return new WaitForSeconds(0.01f);
@@ -271,7 +291,7 @@ public class SoundPlayer : MonoBehaviour
             bool soundPlaying;
             while (true)
             {
-                if (GameManager.gm.Paused)
+                if (GameManager.gm && GameManager.gm.Paused)
                 {
                     soundPlaying = false;
                     foreach (AudioSource audioSource in allSounds[indexOfSound].audioSourcePool)
