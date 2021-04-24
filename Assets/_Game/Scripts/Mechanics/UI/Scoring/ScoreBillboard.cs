@@ -38,20 +38,24 @@ public class ScoreBillboard : MonoBehaviour
 
 	void LateUpdate()
     {
-        if (Vector3.Dot(objTransform.position - cam.transform.position, cam.transform.forward) < 0)
+        if(objTransform != null)
 		{
-            Destroy(gameObject);
-		}
-        rectTransform.position = RectTransformUtility.WorldToScreenPoint(cam, objTransform.position) + offset;
-        offset += offsetPerSecond * Time.deltaTime;
-        if (scale)
-		{
-            scaleF = 1 / ((objTransform.position - cam.transform.position).magnitude / 15);
-            transform.localScale = new Vector3(scaleF, scaleF, scaleF);
-        }
+			if (Vector3.Dot(objTransform.position - cam.transform.position, cam.transform.forward) < 0)
+			{
+				Destroy(gameObject);
+			}
+			rectTransform.position = RectTransformUtility.WorldToScreenPoint(cam, objTransform.position) + offset;
+			offset += offsetPerSecond * Time.deltaTime;
+			if (scale)
+			{
+				scaleF = 1 / ((objTransform.position - cam.transform.position).magnitude / 15);
+				transform.localScale = new Vector3(scaleF, scaleF, scaleF);
+			}
 
-        if ((objTransform.position - cam.transform.position).sqrMagnitude < fadeOutDistance * fadeOutDistance) {
-            if (fadeOutCoroutine == null) fadeOutCoroutine = StartCoroutine(TweenAlpha(fadeOutCurve, fadeOutDuration));
+			if ((objTransform.position - cam.transform.position).sqrMagnitude < fadeOutDistance * fadeOutDistance)
+			{
+				if (fadeOutCoroutine == null) fadeOutCoroutine = StartCoroutine(TweenAlpha(fadeOutCurve, fadeOutDuration));
+			}
 		}
     }
 

@@ -5,14 +5,13 @@ using UnityEngine.Events;
 
 public class Blaster : WeaponBase
 {
-	private List<GameObject> projectilePool = new List<GameObject>();
+	private Queue<GameObject> projectileQueue = new Queue<GameObject>();
 	private float cdTime = 0f;
 	private bool fireReady;
 
 	[Header("Primary Fire Settings")]
 	[SerializeField] float projectileSpeed = 200f;
 	[SerializeField] [Range(0, 45)] float projectileCone = 1f;
-	[SerializeField] float clickCooldown = 0.5f;
 
 	[Header("Hold Fire Settings")]
 	[SerializeField] float fireRate = 3f;
@@ -36,7 +35,6 @@ public class Blaster : WeaponBase
 		fireReady = (!overloaded && GameManager.gm.currentState == GameState.Gameplay && !GameManager.gm.Paused);
 		chargeMeter = GameManager.player.controller.GetOverloadCharge();
 
-		// TODO: Add slight bonus for clicking rapidly over holding fire
 		if (Input.GetButton("Primary Fire") && fireReady)
 		{
 			FireBullet();
@@ -68,7 +66,7 @@ public class Blaster : WeaponBase
 				Quaternion randAng = Quaternion.Euler(Random.Range(projectileCone * -1, projectileCone), Random.Range(projectileCone * -1, projectileCone), 0);
 
 				//Object Pooling instead of Instantiate
-				GameObject bulletObj = PoolUtility.InstantiateFromPool(projectilePool, point.position, point.rotation * randAng, projectile);
+				GameObject bulletObj = PoolUtility.InstantiateFromQueue(projectileQueue, point.position, point.rotation * randAng, projectile);
 			}
 
 			if (overloaded) OnOverloadFire?.Invoke();
