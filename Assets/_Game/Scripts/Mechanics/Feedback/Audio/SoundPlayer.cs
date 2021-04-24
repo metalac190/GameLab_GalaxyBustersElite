@@ -55,9 +55,9 @@ public class SoundPlayer : MonoBehaviour
             SetupSound(ref warnedAboutMissingSoundOnce, s);
     }
 
-    private bool SetupSound(ref bool warnedAboutMissingSoundOnce, int s)
+    private bool SetupSound(ref bool warnedAboutMissingSoundOnce, int indexOfSound)
     {
-        Sound sound = allSounds[s];
+        Sound sound = allSounds[indexOfSound];
 
         if (sound.audioSource != null)
         {
@@ -73,10 +73,9 @@ public class SoundPlayer : MonoBehaviour
             if (sound.audioSource.isPlaying && !sound.playOnAwake) // Stop if not play on awake
                 sound.audioSource.Stop();
             else if (!sound.audioSource.isPlaying && sound.playOnAwake) // Play if play on awake
-                Play(s);
+                Play(indexOfSound);
 
-            if (sound.loop)
-                StartCoroutine(StopLoopingSoundWhilePaused(s));
+            StartCoroutine(StopSoundWhilePaused(indexOfSound));
         }
         else if (!warnedAboutMissingSoundOnce)
         {
@@ -250,18 +249,48 @@ public class SoundPlayer : MonoBehaviour
     #endregion
 
     #region Stop While Paused
-    IEnumerator StopLoopingSoundWhilePaused(int indexOfSound)
+    IEnumerator StopSoundWhilePaused(int indexOfSound)
     {
-        while (true)
+        // If looping
+        if (allSounds[indexOfSound].loop)
         {
-            if (GameManager.gm.Paused && allSounds[indexOfSound].audioSource.isPlaying)
+            while (true)
             {
-                float savedVolume = allSounds[indexOfSound].audioSource.volume;
-                allSounds[indexOfSound].audioSource.volume = 0;
-                yield return new WaitForSeconds(0.01f);
-                allSounds[indexOfSound].audioSource.volume = savedVolume;
+                if (GameManager.gm.Paused && allSounds[indexOfSound].audioSource.isPlaying)
+                {
+                    allSounds[indexOfSound].audioSource.Pause();
+                    yield return new WaitForSeconds(0.01f);
+                    allSounds[indexOfSound].audioSource.UnPause();
+                }
+                yield return new WaitForSecondsRealtime(0.06f);
             }
-            yield return new WaitForSecondsRealtime(0.06f);
+        }
+        // If not looping
+        else
+        {
+            bool soundPlaying;
+            while (true)
+            {
+                if (GameManager.gm.Paused)
+                {
+                    soundPlaying = false;
+                    foreach (AudioSource audioSource in allSounds[indexOfSound].audioSourcePool)
+                        if (audioSource.isPlaying)
+                            soundPlaying = true;
+
+                    if (soundPlaying)
+                    {
+                        for (int s = 0; s < allSounds[indexOfSound].audioSourcePool.Count; s++)
+                            allSounds[indexOfSound].audioSourcePool[s].Pause();
+
+                        yield return new WaitForSeconds(0.01f);
+
+                        for (int s = 0; s < allSounds[indexOfSound].audioSourcePool.Count; s++)
+                            allSounds[indexOfSound].audioSourcePool[s].UnPause();
+                    }
+                }
+                yield return new WaitForSecondsRealtime(0.06f);
+            }
         }
     }
     #endregion
