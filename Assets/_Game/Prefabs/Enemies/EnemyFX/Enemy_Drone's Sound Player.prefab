@@ -46,9 +46,10 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   allSounds:
   - label: 0. Appear
-    audioSource: {fileID: 0}
+    audioSource: {fileID: 4593882456272799428}
     playOnAwake: 0
     loop: 1
+    startVolume: 0
     useSoundVariations: 0
     soundVariations: []
     usePitchRandomization: 0
@@ -102,7 +103,7 @@ PrefabInstance:
     - target: {fileID: 1388270348251091530, guid: 2cc2698f828e41b41886d3eb6aecd52b,
         type: 3}
       propertyPath: m_PlayOnAwake
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 1388270348251091530, guid: 2cc2698f828e41b41886d3eb6aecd52b,
         type: 3}
@@ -195,6 +196,12 @@ PrefabInstance:
 --- !u!4 &4593882456272799429 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 1388270348251091531, guid: 2cc2698f828e41b41886d3eb6aecd52b,
+    type: 3}
+  m_PrefabInstance: {fileID: 3207863964398310542}
+  m_PrefabAsset: {fileID: 0}
+--- !u!82 &4593882456272799428 stripped
+AudioSource:
+  m_CorrespondingSourceObject: {fileID: 1388270348251091530, guid: 2cc2698f828e41b41886d3eb6aecd52b,
     type: 3}
   m_PrefabInstance: {fileID: 3207863964398310542}
   m_PrefabAsset: {fileID: 0}

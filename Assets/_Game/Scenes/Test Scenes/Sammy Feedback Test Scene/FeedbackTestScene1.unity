@@ -771,7 +771,7 @@ AudioSource:
   m_PlayOnAwake: 0
   m_Volume: 1
   m_Pitch: 1
-  Loop: 1
+  Loop: 0
   Mute: 0
   Spatialize: 0
   SpatializePostEffects: 0
@@ -6071,6 +6071,7 @@ MonoBehaviour:
     audioSource: {fileID: 361789399}
     playOnAwake: 0
     loop: 0
+    startVolume: 0
     useSoundVariations: 0
     soundVariations: []
     usePitchRandomization: 0
@@ -6082,6 +6083,7 @@ MonoBehaviour:
     audioSource: {fileID: 913712426}
     playOnAwake: 0
     loop: 0
+    startVolume: 0
     useSoundVariations: 1
     soundVariations:
     - {fileID: 8300000, guid: 7a54bb75da66eaa49b2721d98b4125b0, type: 3}
@@ -6095,7 +6097,8 @@ MonoBehaviour:
   - label: 2. Laser
     audioSource: {fileID: 811189566}
     playOnAwake: 0
-    loop: 1
+    loop: 0
+    startVolume: 0
     useSoundVariations: 0
     soundVariations: []
     usePitchRandomization: 1
