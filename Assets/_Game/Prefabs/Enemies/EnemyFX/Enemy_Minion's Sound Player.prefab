@@ -81,6 +81,7 @@ MonoBehaviour:
     audioSource: {fileID: 5829044227603157614}
     playOnAwake: 1
     loop: 1
+    startVolume: 0
     useSoundVariations: 0
     soundVariations: []
     usePitchRandomization: 0
@@ -92,6 +93,7 @@ MonoBehaviour:
     audioSource: {fileID: 1765453943743548541}
     playOnAwake: 0
     loop: 0
+    startVolume: 0
     useSoundVariations: 0
     soundVariations: []
     usePitchRandomization: 0
@@ -287,7 +289,7 @@ PrefabInstance:
     - target: {fileID: 1388270348251091530, guid: 2cc2698f828e41b41886d3eb6aecd52b,
         type: 3}
       propertyPath: m_Volume
-      value: 0.503
+      value: 0.21
       objectReference: {fileID: 0}
     - target: {fileID: 1388270348251091530, guid: 2cc2698f828e41b41886d3eb6aecd52b,
         type: 3}
@@ -295,6 +297,11 @@ PrefabInstance:
       value: 
       objectReference: {fileID: 5692345227411947315, guid: 53b70d30c87c52d489a54a31ce181114,
         type: 2}
+    - target: {fileID: 1388270348251091530, guid: 2cc2698f828e41b41886d3eb6aecd52b,
+        type: 3}
+      propertyPath: m_Pitch
+      value: -1.11
+      objectReference: {fileID: 0}
     - target: {fileID: 1388270348251091531, guid: 2cc2698f828e41b41886d3eb6aecd52b,
         type: 3}
       propertyPath: m_LocalPosition.x
