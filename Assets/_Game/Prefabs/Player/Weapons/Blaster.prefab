@@ -51,12 +51,11 @@ MonoBehaviour:
   weapons:
   - {fileID: 4018402609521200948}
   - {fileID: 4018402609996550872}
-  angleClamp: 75
   speed: 8
   debugRays: 0
   debugRayLength: 25
   currentTarget: {fileID: 0}
-  aimAssistDistance: 50
+  aimAssistDistance: 70
   aimAssistWidth: 1
   targetMask:
     serializedVersion: 2
@@ -74,13 +73,12 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   weaponID: Blaster
-  projectileType: 0
   projectile: {fileID: 7837384869982803700, guid: 7f007536520c2e44e9cb6dc594d42d5b,
     type: 3}
   spawnPoints:
   - {fileID: 4018402611312316131}
   - {fileID: 4018402611035822444}
-  damage: 4
+  damage: 6
   meterRequired: 100
   overloadTime: 3
   OnStandardFire:
@@ -157,8 +155,7 @@ MonoBehaviour:
         m_CallState: 2
   projectileSpeed: 200
   projectileCone: 1
-  clickCooldown: 0.5
-  fireRate: 9
+  fireRate: 6
   fireRateMultiplier: 4
   OnOverloadFire:
     m_PersistentCalls:
@@ -220,7 +217,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   shakeInfos:
-  - shakeAmount: 1
+  - shakeAmount: 0.75
     decay: 0.95
     range: 0.5
   - shakeAmount: 0.2
