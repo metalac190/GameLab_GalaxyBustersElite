@@ -13,6 +13,7 @@ public class Sound
     [Space(5)]
     public bool playOnAwake = false;
     public bool loop = false;
+    [HideInInspector] public float startVolume;
 
     [Header("Sound Variations")]
     public bool useSoundVariations;
