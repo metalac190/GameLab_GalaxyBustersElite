@@ -146,6 +146,28 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
+      - m_Target: {fileID: 3508699072723599169}
+        m_MethodName: TryStop
+        m_Mode: 3
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 2
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+      - m_Target: {fileID: 3508699072723599169}
+        m_MethodName: TryStop
+        m_Mode: 3
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 3
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
   OnOverloadActivated:
     m_PersistentCalls:
       m_Calls: []
@@ -160,9 +182,45 @@ MonoBehaviour:
   chargeStartColor: {r: 1, g: 0.9414656, b: 0.17647058, a: 0.78431374}
   chargeEndColor: {r: 1, g: 0, b: 0, a: 0.78431374}
   overloadChargeSpeedMultiplier: 8
+  OnWeaponChargingStart:
+    m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 3508699072723599169}
+        m_MethodName: TryPlay
+        m_Mode: 3
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 2
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+      - m_Target: {fileID: 3508699072723599169}
+        m_MethodName: TryPlay
+        m_Mode: 3
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 3
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
   OnWeaponCharged:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 3508699072723599169}
+        m_MethodName: TryStop
+        m_Mode: 3
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 2
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
   OnChargedFire:
     m_PersistentCalls:
       m_Calls:
@@ -184,6 +242,28 @@ MonoBehaviour:
           m_ObjectArgument: {fileID: 0}
           m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
           m_IntArgument: 1
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+      - m_Target: {fileID: 3508699072723599169}
+        m_MethodName: TryStop
+        m_Mode: 3
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 2
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+      - m_Target: {fileID: 3508699072723599169}
+        m_MethodName: TryStop
+        m_Mode: 3
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 3
           m_FloatArgument: 0
           m_StringArgument: 
           m_BoolArgument: 0
@@ -467,21 +547,6 @@ PrefabInstance:
         type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 4662019384568272058, guid: fe3a8e6d18e39d44b8d9c3dc9ad6b831,
-        type: 3}
-      propertyPath: allSounds.Array.data[0].label
-      value: 0. Standard Shot
-      objectReference: {fileID: 0}
-    - target: {fileID: 4662019384568272058, guid: fe3a8e6d18e39d44b8d9c3dc9ad6b831,
-        type: 3}
-      propertyPath: allSounds.Array.data[1].label
-      value: 1. Charge Shot
-      objectReference: {fileID: 0}
-    - target: {fileID: 4662019384568272058, guid: fe3a8e6d18e39d44b8d9c3dc9ad6b831,
-        type: 3}
-      propertyPath: allSounds.Array.data[2].label
-      value: 2. Charging Shot
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: fe3a8e6d18e39d44b8d9c3dc9ad6b831, type: 3}

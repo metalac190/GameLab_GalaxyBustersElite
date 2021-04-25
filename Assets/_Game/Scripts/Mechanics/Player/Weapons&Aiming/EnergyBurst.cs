@@ -30,6 +30,7 @@ public class EnergyBurst : WeaponBase
 	[SerializeField] private int overloadChargeSpeedMultiplier = 4;
 
 	[Header("Effects")]
+	[SerializeField] UnityEvent OnWeaponChargingStart;
 	[SerializeField] UnityEvent OnWeaponCharged;
 	[SerializeField] UnityEvent OnChargedFire;
 	private GameObject chargingShot;
@@ -71,6 +72,8 @@ public class EnergyBurst : WeaponBase
 					chargingShot.transform.localScale = newScale;
 					chargingShot.GetComponent<EnergyWave>().projectileVFX.transform.localScale = newScale;
 				}
+
+				OnWeaponChargingStart.Invoke();
 			}
 		}
 
@@ -82,6 +85,7 @@ public class EnergyBurst : WeaponBase
 		if(chargeTimer >= chargeUpTime && !weaponCharged)
 		{
 			weaponCharged = true;
+
 			OnWeaponCharged.Invoke();
 		}
 		else if (chargeTimer <= chargeUpTime)
