@@ -87,7 +87,8 @@ public class EnemyBandit : EnemyBase
     public override void Dead()
     {
         Debug.Log("Enemy destroyed");
-
+        base.Dead();
         Destroy(transform.parent.gameObject);
+
     }
 }

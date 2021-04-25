@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Events;
+using UnityEngine.UI;
 
 public class LaserBeam : WeaponBase
 {
@@ -17,7 +18,9 @@ public class LaserBeam : WeaponBase
 	float numTicks;
 	float nextDamage;
 	LayerMask targetLayers;
-	GameObject targetingMode;
+	Image targetingPercentage;
+	bool targetingActive = false;
+	float targetingTime = 0f;
 
 	[Header("Beam Settings")]
 	[SerializeField] float damageCap = 5f;
@@ -26,6 +29,7 @@ public class LaserBeam : WeaponBase
 	[SerializeField] float tickDamage = 1f;
 	[SerializeField] float anticipationTime = 0.5f;
 	[SerializeField] private GameObject trackingEnd;
+	[SerializeField] GameObject targetingMode;
 
 	[Header("Effects")]
 	[SerializeField] UnityEvent OnLaserStart;
@@ -46,7 +50,10 @@ public class LaserBeam : WeaponBase
 		trackingDistance = GetComponent<AimWeapons>().aimAssistDistance;
 		aimAssistRadius = GetComponent<AimWeapons>().aimAssistWidth;
 		targetLayers = GetComponent<AimWeapons>().targetMask;
-		targetingMode = GameManager.gm.HUD.transform.Find("TargetingMode").gameObject;
+		if(targetingMode == null)
+			targetingMode = GameManager.gm.HUD.transform.Find("TargetingMode").gameObject;
+		targetingPercentage = targetingMode.transform.Find("TargetingModeCountdown").GetComponent<Image>();
+		targetingTime = overloadTime - anticipationTime - .1f;
 		trackingEnd.transform.localPosition = new Vector3(0, 0, trackingDistance);
 	}
 
@@ -85,6 +92,10 @@ public class LaserBeam : WeaponBase
 
 		}
 
+		if (targetingActive)
+		{
+			targetingPercentage.fillAmount -= 1.0f / targetingTime * Time.deltaTime;
+		}
 	}
 
 	void FireLaser()
@@ -186,12 +197,15 @@ public class LaserBeam : WeaponBase
 	IEnumerator LaserOverload()
 	{
 		targetingMode.SetActive(true);
+		targetingActive = true;
 		firePoint.GetComponent<GroupTargetDetector>().pauseTracking = false;
 		firePoint.GetComponent<GroupTargetDetector>().SetCollider(true);
 
 		yield return new WaitForSeconds(overloadTime - anticipationTime);
 
 		targetingMode.SetActive(false);
+		targetingActive = false;
+		targetingPercentage.fillAmount = 1;
 		overloadTargets = firePoint.GetComponent<GroupTargetDetector>().targets;
 		DrawLasers(true);
 		firePoint.GetComponent<GroupTargetDetector>().pauseTracking = true;

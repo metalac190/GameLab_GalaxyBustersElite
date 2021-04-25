@@ -82,6 +82,14 @@ public class EnemySpearhead : EnemyBase
         {
             chargeTimer = chargeTimerMax;
             OnChargeAttackExit.Invoke();
+
+            // Fixes bug of enemy charging at player, but player leaving range before charge finished
+            if (isCharging == true)
+            {
+                currentTime += Time.deltaTime;
+                if (currentTime > despawnTime)
+                    transform.parent.gameObject.SetActive(false);
+            }
         }
     }
 
