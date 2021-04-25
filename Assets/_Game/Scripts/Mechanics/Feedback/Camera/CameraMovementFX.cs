@@ -108,6 +108,14 @@ public class CameraMovementFX : MonoBehaviour
     {
         while (true)
         {
+            if (GameManager.gm.Paused)
+            {
+                speedSound.Pause();
+                yield return new WaitForSeconds(0.01f);
+                speedSound.UnPause();
+            }
+
+
             if (speeding && !wispyParticles.isPlaying)
             {
                 wispyParticles.Play();
