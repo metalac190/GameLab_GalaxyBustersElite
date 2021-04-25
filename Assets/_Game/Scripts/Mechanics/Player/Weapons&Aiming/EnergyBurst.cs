@@ -5,39 +5,49 @@ using UnityEngine.Events;
 
 public class EnergyBurst : WeaponBase
 {
-	private List<GameObject> projectilePool = new List<GameObject>();
-	private List<GameObject> chargedProjectilePool = new List<GameObject>();
+	private Queue<GameObject> projectileQueue = new Queue<GameObject>();
 	private float cdTime = 0f;
 	private float chargeTimer = 0f;
 	private bool fireReady;
+	private Vector3 newScale;
+	private ParticleSystem shotParticles;
+	private ParticleSystem.MainModule psMain; 
 
 	[Header("Primary Fire Settings")]
 	[SerializeField] float projectileSpeed = 40f;
 	[SerializeField] float fireRate = 2f;
 
 	[Header("Hold Fire Settings")]
-	[SerializeField] GameObject chargedProjectile;
 	[SerializeField] float chargeUpTime = 0.5f;
 	[SerializeField] float damageMultiplier = 2f;
 	[SerializeField] float speedMultiplier = 1.5f;
 	[SerializeField] private bool weaponCharged;
+	[SerializeField] private float minScale = 1f;
+	[SerializeField] private float maxScale = 1.75f;
+	[SerializeField] private Color chargeStartColor;
+	[SerializeField] private Color chargeEndColor;
+	private Gradient chargeColorGradient = new Gradient();
+	[SerializeField] private int overloadChargeSpeedMultiplier = 4;
 
 	[Header("Effects")]
 	[SerializeField] UnityEvent OnWeaponCharged;
 	[SerializeField] UnityEvent OnChargedFire;
+	private GameObject chargingShot;
+	private MeshRenderer shotRenderer;
+	private EnergyWave shotProjectile;
 
 	private void OnEnable()
 	{
 		overloaded = false;
 		weaponCharged = false;
 
-		// Set instantiated projectile's speed and damage
-		projectile.GetComponent<Projectile>().SetVelocity(projectileSpeed);
-		projectile.GetComponent<Projectile>().SetDamage(damage);
-
-		// Set charged projectile's speed and damage
-		chargedProjectile.GetComponent<Projectile>().SetVelocity(projectileSpeed * speedMultiplier);
-		chargedProjectile.GetComponent<Projectile>().SetDamage(damage * damageMultiplier);
+		GradientColorKey[] colorKeys = new GradientColorKey[2];
+		GradientAlphaKey[] alphaKeys = new GradientAlphaKey[2];
+		colorKeys[0] = new GradientColorKey(chargeStartColor, 0);
+		colorKeys[1] = new GradientColorKey(chargeEndColor, 1);
+		alphaKeys[0] = new GradientAlphaKey(chargeStartColor.a, 0);
+		alphaKeys[1] = new GradientAlphaKey(chargeEndColor.a, 1);
+		chargeColorGradient.SetKeys(colorKeys, alphaKeys);
 	}
 
 	void Update()
@@ -45,17 +55,36 @@ public class EnergyBurst : WeaponBase
 		fireReady = (GameManager.gm.currentState == GameState.Gameplay && !GameManager.gm.Paused);
 		chargeMeter = GameManager.player.controller.GetOverloadCharge();
 
-		if (Input.GetButton("Primary Fire") && !overloaded && fireReady)
+		if (Input.GetButtonDown("Primary Fire") && fireReady)
 		{
-			chargeTimer += Time.deltaTime;
+			// Set fire rate based on a cooldown
+			if (Time.time - cdTime > 1 / fireRate)
+			{
+				cdTime = Time.time;
+
+				foreach (Transform point in spawnPoints)
+				{
+					chargingShot = PoolUtility.InstantiateFromQueue(projectileQueue, point.position, point.rotation, projectile);
+					shotRenderer = chargingShot.GetComponent<MeshRenderer>();
+					shotProjectile = chargingShot.GetComponent<EnergyWave>();
+					newScale = new Vector3(minScale, minScale, minScale);
+					chargingShot.transform.localScale = newScale;
+					chargingShot.GetComponent<EnergyWave>().projectileVFX.transform.localScale = newScale;
+				}
+			}
 		}
 
-		if(chargeTimer >= chargeUpTime && !overloaded && !weaponCharged)
+		if (Input.GetButton("Primary Fire") && fireReady)
+		{
+			chargeTimer += Time.deltaTime * (overloaded ? overloadChargeSpeedMultiplier : 1);
+		}
+
+		if(chargeTimer >= chargeUpTime && !weaponCharged)
 		{
 			weaponCharged = true;
 			OnWeaponCharged.Invoke();
 		}
-		else if (chargeTimer <= chargeUpTime && !overloaded)
+		else if (chargeTimer <= chargeUpTime)
 		{
 			weaponCharged = false;
 		}
@@ -72,41 +101,53 @@ public class EnergyBurst : WeaponBase
 
 			// Start the overload countdown
 			StartCoroutine("ActivateOverload");
-			StartCoroutine("EnergyOverload");
-
 		}
 
 	}
 
+	private void FixedUpdate()
+	{
+		if (Input.GetButton("Primary Fire") && fireReady && chargingShot != null)
+		{
+			// Sets color based on charge time
+			shotRenderer.material.SetColor("_UnlitColor", chargeColorGradient.Evaluate(chargeTimer / chargeUpTime));
+			shotParticles = chargingShot.GetComponent<EnergyWave>().projectileVFX.GetComponent<ParticleSystem>();
+			psMain = shotParticles.main;
+			psMain.startColor = chargeColorGradient.Evaluate(chargeTimer / chargeUpTime);
+
+			// Sets scale based on charge time
+			float shotScale = Mathf.Lerp(minScale, maxScale, chargeTimer / chargeUpTime);
+			newScale = new Vector3(shotScale, shotScale, shotScale);
+			chargingShot.transform.localScale = newScale;
+			chargingShot.GetComponent<EnergyWave>().projectileVFX.transform.localScale = newScale;
+		}
+	}
+
+	private void LateUpdate()
+	{
+		if (Input.GetButton("Primary Fire") && fireReady && chargingShot != null)
+		{
+			chargingShot.transform.rotation = spawnPoints[0].transform.rotation;
+			chargingShot.transform.position = spawnPoints[0].transform.position;
+		}
+	}
+
 	void FireEnergy()
 	{
-		// Set fire rate based on a cooldown
-		if (Time.time - cdTime > 1 / fireRate)
+		if (chargingShot != null)
 		{
-			cdTime = Time.time;
+			float chargeAmount = chargeTimer / chargeUpTime;
 
-			if (weaponCharged)
-			{
-				// Instantiate projectile at each spawn point
-				foreach (Transform point in spawnPoints)
-				{
-					//Object Pooling instead of Instantiate
-					GameObject bulletObj = PoolUtility.InstantiateFromPool(chargedProjectilePool, point.position, point.rotation, chargedProjectile);
-				}
+			// Set damage and speed based on charge time
+			float finalDamage = Mathf.Lerp(damage, damage * damageMultiplier, chargeAmount);
+			float finalSpeed = Mathf.Lerp(projectileSpeed, projectileSpeed * speedMultiplier, chargeAmount);
+			float finalSize = Mathf.Lerp(minScale, maxScale, chargeTimer / chargeUpTime);
 
-				OnStandardFire.Invoke();
-			}
-			else
-			{
-				// Instantiate projectile at each spawn point
-				foreach (Transform point in spawnPoints)
-				{
-					//Object Pooling instead of Instantiate
-					GameObject bulletObj = PoolUtility.InstantiateFromPool(projectilePool, point.position, point.rotation, projectile);
-				}
+			// Release projectile
+			shotProjectile.ActivateProjectile(chargeAmount, finalDamage, finalSpeed, finalSize);
 
-				OnStandardFire.Invoke();
-			}
+			chargingShot = null;
+			OnStandardFire.Invoke();
 		}
 	}
 
@@ -115,18 +156,11 @@ public class EnergyBurst : WeaponBase
 		return weaponCharged;
 	}
 
-	IEnumerator EnergyOverload()
-	{
-		weaponCharged = true;
-		yield return new WaitForSeconds(overloadTime);
-		weaponCharged = false;
-	}
-
 	public override void DeactivateOverload()
 	{
 		overloaded = false;
 		StopCoroutine("ActivateOverload");
-		StopCoroutine("EnergyOverload");
+		//StopCoroutine("EnergyOverload");
 		CancelInvoke();
 	}
 

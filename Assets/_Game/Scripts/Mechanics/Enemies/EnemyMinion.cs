@@ -12,18 +12,13 @@ public class EnemyMinion : EnemyBase
     private float shotTime;
 
     [Header("Enemy Minion Bullet Prefab")]
+    [SerializeField] private float projectileSpeed;
     [SerializeField] private GameObject bullet;
     [SerializeField] private Transform _spawnPoint;
-    private List<GameObject> _bulletPool = new List<GameObject>();
+    private Queue<GameObject> _bulletQueue = new Queue<GameObject>();
 
     [Header("Effects")]
     [SerializeField] UnityEvent OnShotFired;
-
-    protected override void Start()
-    {
-        base.Start();
-        bullet.GetComponent<EnemyProjectile>().SetDamage(AttackDamage);
-    }
 
     private void OnEnable()
     {
@@ -37,18 +32,23 @@ public class EnemyMinion : EnemyBase
         //player in range
         if (Vector3.Distance(transform.position, GameManager.player.obj.transform.position) < EnemyDetectionRadius)
         {
+            animator.SetBool("InPlayerRange", true);
+
             //constantly looks to player's position, doing it here to make it less choppy
             transform.LookAt(GameManager.player.obj.transform.position);
 
             //attack cooldown
             if (shotTime <= 0)
             {
+                animator.SetTrigger("IsFiring");
+
                 //fire projectile
-                GameObject tempBullet = PoolUtility.InstantiateFromPool(_bulletPool, _spawnPoint, bullet);
+                GameObject tempBullet = PoolUtility.InstantiateFromQueue(_bulletQueue, _spawnPoint.transform.position, transform.rotation, bullet);
                 EnemyProjectile tempProjectile = tempBullet.GetComponent<EnemyProjectile>();
 
-                //set damage
+                //set damage and speed
                 tempProjectile.SetDamage(AttackDamage);
+                tempProjectile.SetVelocity(projectileSpeed);
 
                 //adjust RNG attackRate, restrict to 2 decimal places
                 attackRate = Random.Range(attackRateMin, attackRateMax);
@@ -62,6 +62,10 @@ public class EnemyMinion : EnemyBase
             {
                 shotTime -= Time.deltaTime;
             }
+        }
+        else
+        {
+            animator.SetBool("InPlayerRange", false);
         }
     }
 }

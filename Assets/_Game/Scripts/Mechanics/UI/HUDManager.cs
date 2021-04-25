@@ -14,6 +14,11 @@ public class HUDManager : MonoBehaviour
     public GameObject blaster2Image;
     public GameObject blaster3Image;
 
+    [Header("Health Flash")]
+    public int numberOfFlashes;
+    public float timeBtwnFlashes;
+    public Color flashColor;
+    public Image healthBar;
 
     [Header("Hud Debugging")]
     public float hudScore;
@@ -49,13 +54,14 @@ public class HUDManager : MonoBehaviour
     void Update()
     {
         //update score
-        
+        /* now handled by seperate script
         if (referencedGM != null)
         {
             hudScore = ScoreSystem.GetScore();
 			hudScoreText.text = hudScore.ToString("00000");
 			hudMultiplierText.text = hudScore.ToString("(x" + ScoreSystem.GetComboMultiplier() + ")");
 		}
+        */
         if (referencedPlayer != null)
         {
             playerHealth = referencedPlayer.GetComponent<PlayerController>().GetPlayerHealth();
@@ -88,5 +94,27 @@ public class HUDManager : MonoBehaviour
         //update weapon icon
 
 
+    }
+
+    public void FlashHPHUD()
+    {
+        StartCoroutine(FlashHPHUDCoroutine());
+    }
+
+    IEnumerator FlashHPHUDCoroutine()
+    {
+        Color originalColor = healthBar.color;
+
+        for (int i = 0; i < numberOfFlashes; i++)
+        {
+            print("hit");
+            healthBar.color = flashColor;
+
+            yield return new WaitForSeconds(timeBtwnFlashes);
+
+            healthBar.color = originalColor;
+
+            yield return new WaitForSeconds(timeBtwnFlashes);
+        }
     }
 }
