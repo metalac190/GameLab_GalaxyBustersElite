@@ -26,23 +26,23 @@ public class SoundPlayerEditor : Editor
                 if (i > 0)
                     GUILayout.Space(5);
 
-                GUILayout.Label("Sound #" + (i + 1), EditorStyles.miniBoldLabel);
+                GUILayout.Label(sp.GetSoundLabel(i), EditorStyles.miniBoldLabel);
 
-                if (GUILayout.Button("Play Sound #" + (i + 1)))
+                if (GUILayout.Button("Play " + sp.GetSoundLabel(i)))
                     sp.TryPlay(i);
-                if (GUILayout.Button("Stop Sound #" + (i + 1)))
+                if (GUILayout.Button("Stop " + sp.GetSoundLabel(i)))
                     sp.TryStop(i);
-                if (GUILayout.Button("Detach, Play, Destroy Sound #" + (i + 1)))
+                if (GUILayout.Button("Detach, Play, Destroy " + sp.GetSoundLabel(i)))
                     sp.TryDetachPlayThenDestroy(i);
-                if (GUILayout.Button("Detach, Play, Reattach Sound #" + (i + 1)))
+                if (GUILayout.Button("Detach, Play, Reattach " + sp.GetSoundLabel(i)))
                     sp.TryDetachPlayThenReattach(i);
 
                 GUILayout.Space(3);
-                if (GUILayout.Button("Sound Pooling Sound #" + (i + 1) + " x5"))
+                if (GUILayout.Button("Sound Pooling " + sp.GetSoundLabel(i) + " x5"))
                     sp.TestSoundPoolingHelper(i, 5);
-                if (GUILayout.Button("Sound Pooling Sound #" + (i + 1) + " x10"))
+                if (GUILayout.Button("Sound Pooling " + sp.GetSoundLabel(i) + " x10"))
                     sp.TestSoundPoolingHelper(i, 10);
-                if (GUILayout.Button("Sound Pooling Sound #" + (i + 1) + " x30"))
+                if (GUILayout.Button("Sound Pooling " + sp.GetSoundLabel(i) + " x30"))
                     sp.TestSoundPoolingHelper(i, 30);
             }
         }
