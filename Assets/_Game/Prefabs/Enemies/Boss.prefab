@@ -730,7 +730,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _flickerSettings: {fileID: 11400000, guid: 451e10f5367da1e4487796eccd835a89, type: 2}
-  _meshSegment: {fileID: 508509857930883634}
+  _meshSegments:
+  - {fileID: 151406573937137056}
 --- !u!65 &6582933599247529167
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -1290,9 +1291,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0e6a59fca9f238d4ea819d001565d958, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
---- !u!1 &508509857930883634 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 4105643962895531159, guid: 1a4dc6cd17b14dd46bb9866f3012700d,
+--- !u!137 &151406573937137056 stripped
+SkinnedMeshRenderer:
+  m_CorrespondingSourceObject: {fileID: 4462325137289698053, guid: 1a4dc6cd17b14dd46bb9866f3012700d,
     type: 3}
   m_PrefabInstance: {fileID: 4608513291597926053}
   m_PrefabAsset: {fileID: 0}

@@ -35,6 +35,7 @@ Transform:
   - {fileID: 6666709009686334754}
   - {fileID: 4256399161685171528}
   - {fileID: 6702033054200007845}
+  - {fileID: 3701433961602429162}
   m_Father: {fileID: 6666709010102455568}
   m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -67,6 +68,17 @@ MonoBehaviour:
       - m_Target: {fileID: 4011600155108547933}
         m_MethodName: TryPlay
         m_Mode: 3
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+      - m_Target: {fileID: 5434258303851822837}
+        m_MethodName: CallFlicker
+        m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
           m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
@@ -162,6 +174,52 @@ BoxCollider:
   serializedVersion: 2
   m_Size: {x: 3.1868024, y: 1.9981408, z: 3.2910242}
   m_Center: {x: -0.059752285, y: 0.943954, z: -0.2700827}
+--- !u!1 &499533244159777878
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 3701433961602429162}
+  - component: {fileID: 5434258303851822837}
+  m_Layer: 0
+  m_Name: Flicker Controller
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &3701433961602429162
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 499533244159777878}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 976279426414310990}
+  m_RootOrder: 5
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &5434258303851822837
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 499533244159777878}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 0900919680551f7439dd1aeb5873586e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _flickerSettings: {fileID: 11400000, guid: 597af86c40c6780448a0b604bb75d0aa, type: 2}
+  _meshSegments:
+  - {fileID: 930098139353248846}
 --- !u!1 &6666709010102455599
 GameObject:
   m_ObjectHideFlags: 0
@@ -356,6 +414,11 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 976279426414310990}
     m_Modifications:
+    - target: {fileID: 4593882456272799428, guid: df51be8f854c2674f908c7d266c6b02d,
+        type: 3}
+      propertyPath: m_PlayOnAwake
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 4630179527383863692, guid: df51be8f854c2674f908c7d266c6b02d,
         type: 3}
       propertyPath: m_Name
@@ -588,6 +651,12 @@ PrefabInstance:
 --- !u!4 &6666709010275793552 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 8329761082981471130, guid: 4198ad50b2c474648980c3d307fa098c,
+    type: 3}
+  m_PrefabInstance: {fileID: 3395055612581226762}
+  m_PrefabAsset: {fileID: 0}
+--- !u!137 &930098139353248846 stripped
+SkinnedMeshRenderer:
+  m_CorrespondingSourceObject: {fileID: 2591247932388760900, guid: 4198ad50b2c474648980c3d307fa098c,
     type: 3}
   m_PrefabInstance: {fileID: 3395055612581226762}
   m_PrefabAsset: {fileID: 0}
