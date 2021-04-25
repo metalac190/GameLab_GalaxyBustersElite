@@ -50,6 +50,7 @@ MonoBehaviour:
     audioSource: {fileID: 7885332458042498414}
     playOnAwake: 0
     loop: 0
+    startVolume: 0
     useSoundVariations: 0
     soundVariations: []
     usePitchRandomization: 0
@@ -61,6 +62,7 @@ MonoBehaviour:
     audioSource: {fileID: 8438863077887770558}
     playOnAwake: 0
     loop: 0
+    startVolume: 0
     useSoundVariations: 0
     soundVariations: []
     usePitchRandomization: 0
@@ -152,6 +154,11 @@ PrefabInstance:
         type: 3}
       propertyPath: panLevelCustomCurve.m_Curve.Array.data[0].value
       value: 0.689
+      objectReference: {fileID: 0}
+    - target: {fileID: 1388270348251091530, guid: 2cc2698f828e41b41886d3eb6aecd52b,
+        type: 3}
+      propertyPath: m_Volume
+      value: 0.83
       objectReference: {fileID: 0}
     - target: {fileID: 1388270348251091531, guid: 2cc2698f828e41b41886d3eb6aecd52b,
         type: 3}
@@ -260,6 +267,11 @@ PrefabInstance:
       value: 
       objectReference: {fileID: -1765838596785076601, guid: 53b70d30c87c52d489a54a31ce181114,
         type: 2}
+    - target: {fileID: 1388270348251091530, guid: 2cc2698f828e41b41886d3eb6aecd52b,
+        type: 3}
+      propertyPath: m_Volume
+      value: 0.905
+      objectReference: {fileID: 0}
     - target: {fileID: 1388270348251091531, guid: 2cc2698f828e41b41886d3eb6aecd52b,
         type: 3}
       propertyPath: m_LocalPosition.x
