@@ -54,7 +54,7 @@ MonoBehaviour:
     playOnAwake: 0
   - label: 2. Ambient (No Hookup Needed)
     particleSystem: {fileID: 4827936845628106477}
-    playOnAwake: 0
+    playOnAwake: 1
 --- !u!1001 &3397793126974974117
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -62,11 +62,6 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 5797128298632628061}
     m_Modifications:
-    - target: {fileID: 3501624260972835831, guid: b7d881b6652effc45b104e4f26229682,
-        type: 3}
-      propertyPath: playOnAwake
-      value: 0
-      objectReference: {fileID: 0}
     - target: {fileID: 3501624262483528368, guid: b7d881b6652effc45b104e4f26229682,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -151,12 +146,17 @@ PrefabInstance:
     - target: {fileID: 2580301727344770083, guid: db2e17dd4008de54a919cf154ac6881c,
         type: 3}
       propertyPath: playOnAwake
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 6444377842046053168, guid: db2e17dd4008de54a919cf154ac6881c,
         type: 3}
       propertyPath: m_Name
       value: AsteroidFront_VFX
+      objectReference: {fileID: 0}
+    - target: {fileID: 6444377842046053168, guid: db2e17dd4008de54a919cf154ac6881c,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 6608512364360146215, guid: db2e17dd4008de54a919cf154ac6881c,
         type: 3}

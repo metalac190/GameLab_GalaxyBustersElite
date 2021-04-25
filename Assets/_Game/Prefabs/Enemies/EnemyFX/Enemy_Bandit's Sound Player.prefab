@@ -109,9 +109,10 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   allSounds:
   - label: 0. Appear
-    audioSource: {fileID: 0}
+    audioSource: {fileID: 5926581568540506275}
     playOnAwake: 1
     loop: 1
+    startVolume: 0
     useSoundVariations: 0
     soundVariations: []
     usePitchRandomization: 0
@@ -123,6 +124,7 @@ MonoBehaviour:
     audioSource: {fileID: 2734997473068786471}
     playOnAwake: 0
     loop: 0
+    startVolume: 0
     useSoundVariations: 1
     soundVariations:
     - {fileID: 8300000, guid: c1695ccbced8c274e94a9462fae8d03d, type: 3}
@@ -150,6 +152,11 @@ PrefabInstance:
       value: 
       objectReference: {fileID: -8787827183966225327, guid: 53b70d30c87c52d489a54a31ce181114,
         type: 2}
+    - target: {fileID: 1388270348251091530, guid: 2cc2698f828e41b41886d3eb6aecd52b,
+        type: 3}
+      propertyPath: m_Volume
+      value: 0.599
+      objectReference: {fileID: 0}
     - target: {fileID: 1388270348251091531, guid: 2cc2698f828e41b41886d3eb6aecd52b,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -270,7 +277,7 @@ PrefabInstance:
     - target: {fileID: 1388270348251091530, guid: 2cc2698f828e41b41886d3eb6aecd52b,
         type: 3}
       propertyPath: m_Volume
-      value: 0.657
+      value: 0.483
       objectReference: {fileID: 0}
     - target: {fileID: 1388270348251091531, guid: 2cc2698f828e41b41886d3eb6aecd52b,
         type: 3}
@@ -352,6 +359,12 @@ PrefabInstance:
 --- !u!4 &5926581568540506274 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 1388270348251091531, guid: 2cc2698f828e41b41886d3eb6aecd52b,
+    type: 3}
+  m_PrefabInstance: {fileID: 4718455263182269161}
+  m_PrefabAsset: {fileID: 0}
+--- !u!82 &5926581568540506275 stripped
+AudioSource:
+  m_CorrespondingSourceObject: {fileID: 1388270348251091530, guid: 2cc2698f828e41b41886d3eb6aecd52b,
     type: 3}
   m_PrefabInstance: {fileID: 4718455263182269161}
   m_PrefabAsset: {fileID: 0}
