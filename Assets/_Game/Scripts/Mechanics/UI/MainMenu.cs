@@ -12,6 +12,12 @@ public class MainMenu : MonoBehaviour
 
     [SerializeField] private Button mission2, mission3;
 
+    [Header("Hover Options Button")]
+    [SerializeField] Button[] optionsButtons;
+    [SerializeField] Vector3 hoverScale;
+    [SerializeField] float hoverTransitonDuration;
+    Coroutine hoverCoroutine;
+
     [Header("Player Movement UI")]
     [SerializeField] Image menuBackgroundImage;
     [SerializeField] Sprite[] menuBackgroundSprites;
@@ -67,6 +73,30 @@ public class MainMenu : MonoBehaviour
             mission2.interactable = true;
         if(level3)
             mission3.interactable = true;
+    }
+
+    public void HoverOptionsButton(int index)
+    {
+        hoverCoroutine = StartCoroutine(HoverOptionsButtonCoroutine(index));
+    }
+
+    IEnumerator HoverOptionsButtonCoroutine(int index)
+    {
+        float currentTime = 0;
+        Vector3 originalScale = optionsButtons[index].transform.localScale;
+
+        while (currentTime < hoverTransitonDuration)
+        {
+            optionsButtons[index].transform.localScale = Vector3.Lerp(originalScale, hoverScale, currentTime / hoverTransitonDuration);
+            currentTime += Time.deltaTime;
+            yield return null;
+        }
+    }
+
+    public void UnHoverOptionsButton(int index)
+    {
+        StopCoroutine(hoverCoroutine);
+        optionsButtons[index].transform.localScale = new Vector3(1, 1, 1);
     }
 
     public void ShowPlayerMovementControlSettings(bool show)
