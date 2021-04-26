@@ -151,6 +151,7 @@ public class PlayerController : MonoBehaviour
 			{
 				// Stop overload if currently active
 				weapon.GetComponent<WeaponBase>().DeactivateOverload();
+				TogglePlayerOverloaded(false);
 
 				// Deactivate GameObject
 				weapon.SetActive(false);
