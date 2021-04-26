@@ -9,6 +9,9 @@ public class SoundPlayer : MonoBehaviour
     const float LOOPING_FADE_IN_TIME = 1;
     const float FADE_OUT_TIME = 0.6f;
 
+    Coroutine[] fadingInCoroutines;
+    Coroutine[] fadingOutCoroutines;
+
     // Syncing loop and play on awake variables with Particle System
 #if UNITY_EDITOR
     void OnValidate()
@@ -45,7 +48,12 @@ public class SoundPlayer : MonoBehaviour
 #endif
 
     #region Setup
-    void Awake() => SetupAllSounds();
+    void Awake()
+    {
+        fadingInCoroutines = new Coroutine[allSounds.Length];
+        fadingOutCoroutines = new Coroutine[allSounds.Length];
+        SetupAllSounds();
+    }
 
     private void SetupAllSounds()
     {
@@ -75,7 +83,7 @@ public class SoundPlayer : MonoBehaviour
             sound.curPoolIteration = 0;
 
             if (sound.loop && sound.playOnAwake) // Fade in sound if looping
-                StartCoroutine(FadeInSound(indexOfSound));
+                fadingInCoroutines[indexOfSound] = StartCoroutine(FadeInSound(indexOfSound));
             else if (sound.audioSource.isPlaying && !sound.playOnAwake) // Stop if not play on awake
                 sound.audioSource.Stop();
             else if (!sound.audioSource.isPlaying && sound.playOnAwake) // Play if play on awake
@@ -148,9 +156,12 @@ public class SoundPlayer : MonoBehaviour
             curSound.audioSourcePool[curSound.curPoolIteration].pitch = Random.Range(curSound.pitchShiftMin + 1, curSound.pitchShiftMax + 1);
         if (curSound.useSoundVariations && curSound.soundVariations.Length > 0) // Sound variations
             curSound.audioSourcePool[curSound.curPoolIteration].clip = curSound.soundVariations[Random.Range(0, curSound.soundVariations.Length)];
-        
+
         if (curSound.loop) // Fade in if looping, and don't use sound pooling
-            StartCoroutine(FadeInSound(indexSoundToPlay));
+        {
+            if (fadingInCoroutines[indexSoundToPlay] == null)
+                fadingInCoroutines[indexSoundToPlay] = StartCoroutine(FadeInSound(indexSoundToPlay));
+        }
         else // Play sound normally
         {
             curSound.audioSourcePool[curSound.curPoolIteration].volume = curSound.startVolume;
@@ -175,14 +186,28 @@ public class SoundPlayer : MonoBehaviour
     {
         Sound curSound = allSounds[indexSoundToPlay];
 
+        if (fadingOutCoroutines[indexSoundToPlay] != null)
+        {
+            StopCoroutine(fadingOutCoroutines[indexSoundToPlay]);
+            fadingOutCoroutines[indexSoundToPlay] = null;
+        }
+
         curSound.audioSourcePool[curSound.curPoolIteration].volume = 0;
         curSound.audioSourcePool[curSound.curPoolIteration].Play();
         while (curSound.audioSourcePool[curSound.curPoolIteration].volume < curSound.startVolume)
         {
-            curSound.audioSourcePool[curSound.curPoolIteration].volume += curSound.startVolume * 0.02f / LOOPING_FADE_IN_TIME;
+            if (fadingOutCoroutines[indexSoundToPlay] != null)
+            {
+                StopCoroutine(fadingOutCoroutines[indexSoundToPlay]);
+                fadingOutCoroutines[indexSoundToPlay] = null;
+            }
+            curSound.audioSourcePool[curSound.curPoolIteration].volume =
+                Mathf.Clamp(curSound.audioSourcePool[curSound.curPoolIteration].volume + curSound.startVolume * 0.02f / LOOPING_FADE_IN_TIME, 0, 1);
             yield return new WaitForSeconds(0.02f);
         }
         curSound.audioSourcePool[curSound.curPoolIteration].volume = curSound.startVolume;
+
+        fadingInCoroutines[indexSoundToPlay] = null;
     }
     #endregion
 
@@ -202,19 +227,35 @@ public class SoundPlayer : MonoBehaviour
         if (curSound.curPoolIteration < 0)
             curSound.curPoolIteration = curSound.audioSourcePool.Count - 1;
 
-        StartCoroutine(FadeOutSound(indexSoundToStop));
+        if (fadingOutCoroutines[indexSoundToStop] == null)
+            fadingOutCoroutines[indexSoundToStop] = StartCoroutine(FadeOutSound(indexSoundToStop));
     }
 
     IEnumerator FadeOutSound(int indexSoundToPlay)
     {
         Sound curSound = allSounds[indexSoundToPlay];
 
-        while (curSound.audioSourcePool[curSound.curPoolIteration].volume > 0)
+        if (fadingInCoroutines[indexSoundToPlay] != null)
         {
-            curSound.audioSourcePool[curSound.curPoolIteration].volume -= 0.02f / FADE_OUT_TIME;
+            StopCoroutine(fadingInCoroutines[indexSoundToPlay]);
+            fadingInCoroutines[indexSoundToPlay] = null;
+        }
+
+        while (curSound.audioSourcePool[curSound.curPoolIteration].volume > 0.01)
+        {
+            if (fadingInCoroutines[indexSoundToPlay] != null)
+            {
+                StopCoroutine(fadingInCoroutines[indexSoundToPlay]);
+                fadingInCoroutines[indexSoundToPlay] = null;
+            }
+            curSound.audioSourcePool[curSound.curPoolIteration].volume =
+                Mathf.Clamp(curSound.audioSourcePool[curSound.curPoolIteration].volume - 0.02f / FADE_OUT_TIME, 0, 1);
             yield return new WaitForSeconds(0.02f);
         }
+        curSound.audioSourcePool[curSound.curPoolIteration].volume = 0;
         curSound.audioSourcePool[curSound.curPoolIteration].Stop();
+
+        fadingOutCoroutines[indexSoundToPlay] = null;
     }
     #endregion
 
@@ -380,5 +421,7 @@ public class SoundPlayer : MonoBehaviour
     }
 
     public int GetNumSounds() { return allSounds.Length; }
+    public string GetSoundLabel(int indexOfSound) { return allSounds[indexOfSound].label; }
+    public float GetSoundStartVolume(int indexOfSound) { return allSounds[indexOfSound].startVolume; }
     #endregion
 }
