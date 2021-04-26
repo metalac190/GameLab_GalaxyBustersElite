@@ -58,11 +58,12 @@ public class BossController : EntityBase
     [Tooltip("Reference to Minion Prefab.")]
     [SerializeField] private GameObject _minionRef = null;
     [Tooltip("Staring Group of Minions, with Waypoints")]
-    [SerializeField] private Queue<GameObject> _minionWaveRef = new Queue<GameObject>();
+    [SerializeField] private GameObject[] _minionWaveRef;
     [Tooltip("Variable Spawn Points\nDefault to 2")]
     [SerializeField] private Transform[] _minionSpawns = new Transform[2];
     [Tooltip("Middle Waypoint Idenfitied, for Minions that spawn in secondary Position[s]")]
     [SerializeField] private int[] _minionMidpoint = new int[1];
+    private Queue<GameObject> _minionQueue = new Queue<GameObject>();
 
     [Header("Attack & Projectile Refs")]
     //Ring Attack Pooling
@@ -136,6 +137,9 @@ public class BossController : EntityBase
             _segmentRefs[i].SetDelay(i * _delaySeconds);
             _segmentRefs[i].SetDamage(_attackDamage);
         }
+
+        foreach (GameObject minion in _minionWaveRef)
+            _minionQueue.Enqueue(minion);
 
         GetAnimationTimes(_bossAnim);
     }
@@ -387,7 +391,7 @@ public class BossController : EntityBase
         //Idle Anim is Unconditional return from other states.
 
         //wait predetermined amount of time
-        yield return new WaitForSeconds(Mathf.Max(_idleTime, AnimTimes[0]));
+        yield return new WaitForSeconds(_idleTime);
 
         NextBossState();
     }
@@ -458,7 +462,7 @@ public class BossController : EntityBase
         isInvulnerable = true;
 
         Debug.Log("Calling Death");
-        yield return new WaitForSeconds(AnimTimes[10] + _delaySeconds);
+        yield return new WaitForSeconds(AnimTimes[10]);
         Debug.Log("Death Answers");
 
         FullyDead.Invoke();
@@ -629,7 +633,7 @@ public class BossController : EntityBase
         _bossAnim.SetInteger("AttackType", 0);
 
         int waveCount = 0;
-        foreach (GameObject minion in _minionWaveRef)
+        foreach (GameObject minion in _minionQueue)
         {
             if (minion != null && minion.activeInHierarchy)
                 waveCount++;
@@ -641,7 +645,7 @@ public class BossController : EntityBase
         {
             //reliant on Minions being Disabled when killed, and not Destroyed()
             int spawnRand = Random.Range(0, _minionSpawns.Length);
-            GameObject minionObject = PoolUtility.InstantiateFromQueue(_minionWaveRef, _minionSpawns[spawnRand], _minionRef);
+            GameObject minionObject = PoolUtility.InstantiateFromQueue(_minionQueue, _minionSpawns[spawnRand], _minionRef);
             EnemyMovement minionMove = minionObject.GetComponentInChildren<EnemyMovement>();
             minionMove?.RestartPath();
 
