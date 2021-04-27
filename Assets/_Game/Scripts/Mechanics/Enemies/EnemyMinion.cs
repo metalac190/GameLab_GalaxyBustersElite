@@ -40,7 +40,7 @@ public class EnemyMinion : EnemyBase
             //attack cooldown
             if (shotTime <= 0)
             {
-                animator.SetTrigger("IsFiring");
+                animator.SetTrigger("isFiring");
 
                 //fire projectile
                 GameObject tempBullet = PoolUtility.InstantiateFromQueue(_bulletQueue, _spawnPoint.transform.position, transform.rotation, bullet);
