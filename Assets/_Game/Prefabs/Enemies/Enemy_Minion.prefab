@@ -33,6 +33,7 @@ Transform:
   - {fileID: 2140272928758844331}
   - {fileID: 5025519212991727282}
   - {fileID: 2545132061026240659}
+  - {fileID: 2417480639593187212}
   m_Father: {fileID: 7615693625565889175}
   m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -65,6 +66,17 @@ MonoBehaviour:
       - m_Target: {fileID: 2132983922320770203}
         m_MethodName: TryPlay
         m_Mode: 3
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+      - m_Target: {fileID: 7968987708026576784}
+        m_MethodName: CallFlicker
+        m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
           m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
@@ -209,6 +221,57 @@ Transform:
   m_Father: {fileID: 381391312362710453}
   m_RootOrder: 2
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &6871618520283080540
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 2417480639593187212}
+  - component: {fileID: 7968987708026576784}
+  m_Layer: 0
+  m_Name: Flicker Controller
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &2417480639593187212
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6871618520283080540}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 381391312362710453}
+  m_RootOrder: 3
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &7968987708026576784
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6871618520283080540}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 0900919680551f7439dd1aeb5873586e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _flickerSettings: {fileID: 11400000, guid: 597af86c40c6780448a0b604bb75d0aa, type: 2}
+  _meshSegments:
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
 --- !u!1 &7615693625565889174
 GameObject:
   m_ObjectHideFlags: 0
@@ -396,6 +459,11 @@ PrefabInstance:
       value: 
       objectReference: {fileID: -8787827183966225327, guid: 53b70d30c87c52d489a54a31ce181114,
         type: 2}
+    - target: {fileID: 1540326772521619590, guid: e2173d47c9e8bde48b3c76dc503caa18,
+        type: 3}
+      propertyPath: m_Materials.Array.data[0]
+      value: 
+      objectReference: {fileID: 2100000, guid: 8f342eec444579c458b896ee7ec39713, type: 2}
     - target: {fileID: 2761138719027367857, guid: e2173d47c9e8bde48b3c76dc503caa18,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -466,6 +534,16 @@ PrefabInstance:
       propertyPath: allParticles.Array.data[0].particleSystem
       value: 
       objectReference: {fileID: 0}
+    - target: {fileID: 4077599269350562361, guid: e2173d47c9e8bde48b3c76dc503caa18,
+        type: 3}
+      propertyPath: m_Materials.Array.data[0]
+      value: 
+      objectReference: {fileID: 2100000, guid: 8f342eec444579c458b896ee7ec39713, type: 2}
+    - target: {fileID: 4310653898399109538, guid: e2173d47c9e8bde48b3c76dc503caa18,
+        type: 3}
+      propertyPath: m_Materials.Array.data[0]
+      value: 
+      objectReference: {fileID: 2100000, guid: 8f342eec444579c458b896ee7ec39713, type: 2}
     - target: {fileID: 5293266176654085664, guid: e2173d47c9e8bde48b3c76dc503caa18,
         type: 3}
       propertyPath: OutputAudioMixerGroup
@@ -484,6 +562,16 @@ PrefabInstance:
       value: 
       objectReference: {fileID: -1765838596785076601, guid: 53b70d30c87c52d489a54a31ce181114,
         type: 2}
+    - target: {fileID: 7983508497310236675, guid: e2173d47c9e8bde48b3c76dc503caa18,
+        type: 3}
+      propertyPath: m_Materials.Array.data[0]
+      value: 
+      objectReference: {fileID: 2100000, guid: 8f342eec444579c458b896ee7ec39713, type: 2}
+    - target: {fileID: 8540499119370575653, guid: e2173d47c9e8bde48b3c76dc503caa18,
+        type: 3}
+      propertyPath: m_Materials.Array.data[0]
+      value: 
+      objectReference: {fileID: 2100000, guid: 6c7b0491d4c753843890db45f15aa579, type: 2}
     - target: {fileID: 8694380840567688564, guid: e2173d47c9e8bde48b3c76dc503caa18,
         type: 3}
       propertyPath: m_Name

@@ -161,6 +161,7 @@ MonoBehaviour:
     m_PersistentCalls:
       m_Calls: []
   score: 0
+  challenges: {fileID: 0}
   missionBriefingGO: {fileID: 0}
   missionBriefing1: {fileID: 0}
   missionBriefing2: {fileID: 0}
@@ -284,6 +285,7 @@ MonoBehaviour:
   collDuration: 0
   collForce: {x: 0, y: 0, z: 0}
   torqueForce: {x: 0, y: 0, z: 0}
+  isHit: 0
   playerLimits: {x: 20, y: 20}
   rotateTargetTransform: {fileID: 0}
   shipsTransform: {fileID: 0}
@@ -833,6 +835,11 @@ PrefabInstance:
     - target: {fileID: 8596181258582637232, guid: 180ee2ade64c39e4f8b1783a189e7caa,
         type: 3}
       propertyPath: _segmentHealth
+      value: 10
+      objectReference: {fileID: 0}
+    - target: {fileID: 8596181258582637232, guid: 180ee2ade64c39e4f8b1783a189e7caa,
+        type: 3}
+      propertyPath: maxHealth
       value: 10
       objectReference: {fileID: 0}
     m_RemovedComponents: []

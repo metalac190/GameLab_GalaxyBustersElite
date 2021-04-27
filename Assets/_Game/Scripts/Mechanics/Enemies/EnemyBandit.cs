@@ -23,7 +23,7 @@ public class EnemyBandit : EnemyBase
     [SerializeField] private float projectileSpeed;
     [SerializeField] private GameObject bulletPrefab;
     [SerializeField] private Transform _spawnPoint;
-    private List<GameObject> _bulletPool = new List<GameObject>();
+    private Queue<GameObject> _bulletQueue = new Queue<GameObject>();
 
     [Header("Effects")]
     [SerializeField] UnityEvent OnShotFired;
@@ -47,7 +47,7 @@ public class EnemyBandit : EnemyBase
                     animator.SetTrigger("IsFiring");
 
                     //fire projectile
-                    GameObject tempBullet = PoolUtility.InstantiateFromPool(_bulletPool, _spawnPoint.transform.position, transform.rotation, bulletPrefab);
+                    GameObject tempBullet = PoolUtility.InstantiateFromQueue(_bulletQueue, _spawnPoint.transform.position, transform.rotation, bulletPrefab);
                     EnemyProjectile tempProjectile = tempBullet.GetComponent<EnemyProjectile>();
 
                     //set damage and speed
@@ -87,7 +87,8 @@ public class EnemyBandit : EnemyBase
     public override void Dead()
     {
         Debug.Log("Enemy destroyed");
-
+        base.Dead();
         Destroy(transform.parent.gameObject);
+
     }
 }

@@ -32,6 +32,7 @@ public class CameraMovementFX : MonoBehaviour
 
     [Header("Speed Sound")]
     [SerializeField] AudioSource speedSound;
+    float speedSoundStartVolume;
 
 
 #if UNITY_EDITOR
@@ -45,6 +46,11 @@ public class CameraMovementFX : MonoBehaviour
         }
     }
 #endif
+
+    private void Awake()
+    {
+        speedSoundStartVolume = speedSound.volume;
+    }
 
     private void Start()
     {
@@ -108,18 +114,26 @@ public class CameraMovementFX : MonoBehaviour
     {
         while (true)
         {
+            if (GameManager.gm.Paused)
+            {
+                speedSound.Pause();
+                yield return new WaitForSeconds(0.01f);
+                speedSound.UnPause();
+            }
+
+
             if (speeding && !wispyParticles.isPlaying)
             {
                 wispyParticles.Play();
 
-                speedSound.volume = 1;
+                speedSound.volume = speedSoundStartVolume;
                 speedSound.Play();
             }
             else if (!speeding && wispyParticles.isPlaying)
             {
                 wispyParticles.Stop();
 
-                speedSound.volume -= 0.02f;
+                speedSound.volume -= 0.02f * speedSoundStartVolume;
             }
 
             yield return null;

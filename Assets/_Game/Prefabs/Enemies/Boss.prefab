@@ -643,18 +643,10 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
-      - m_Target: {fileID: 4097383395491550940}
-        m_MethodName: SetActive
-        m_Mode: 6
-        m_Arguments:
-          m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 0
-          m_FloatArgument: 0
-          m_StringArgument: 
-          m_BoolArgument: 0
-        m_CallState: 2
   maxHealth: 100
+  FullyDead:
+    m_PersistentCalls:
+      m_Calls: []
   InvulnerableHit:
     m_PersistentCalls:
       m_Calls:
@@ -688,7 +680,7 @@ MonoBehaviour:
   _numberOfMoves: {x: 3, y: 5}
   _segmentHealth: 50
   _idleTime: 2
-  _delaySeconds: 0.2
+  _delaySeconds: 0.5
   _attackWarmUpTime: 1
   _minAttackTime: 2
   _attackDamage: 1
@@ -744,7 +736,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _flickerSettings: {fileID: 11400000, guid: 451e10f5367da1e4487796eccd835a89, type: 2}
-  _meshSegment: {fileID: 508509857930883634}
+  _meshSegments:
+  - {fileID: 151406573937137056}
 --- !u!65 &6582933599247529167
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -892,6 +885,11 @@ PrefabInstance:
       propertyPath: waypoints.Array.data[5]
       value: 
       objectReference: {fileID: 4694745772788379158}
+    - target: {fileID: 6689900922072749708, guid: 735cf5ac771618e45a8620d2e982d48a,
+        type: 3}
+      propertyPath: Died.m_PersistentCalls.m_Calls.Array.size
+      value: 2
+      objectReference: {fileID: 0}
     - target: {fileID: 7615693625565889174, guid: 735cf5ac771618e45a8620d2e982d48a,
         type: 3}
       propertyPath: m_Name
@@ -1346,9 +1344,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0e6a59fca9f238d4ea819d001565d958, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
---- !u!1 &508509857930883634 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 4105643962895531159, guid: 1a4dc6cd17b14dd46bb9866f3012700d,
+--- !u!137 &151406573937137056 stripped
+SkinnedMeshRenderer:
+  m_CorrespondingSourceObject: {fileID: 4462325137289698053, guid: 1a4dc6cd17b14dd46bb9866f3012700d,
     type: 3}
   m_PrefabInstance: {fileID: 4608513291597926053}
   m_PrefabAsset: {fileID: 0}
@@ -1539,6 +1537,11 @@ PrefabInstance:
       propertyPath: waypoints.Array.data[5]
       value: 
       objectReference: {fileID: 4694745772788379158}
+    - target: {fileID: 6689900922072749708, guid: 735cf5ac771618e45a8620d2e982d48a,
+        type: 3}
+      propertyPath: Died.m_PersistentCalls.m_Calls.Array.size
+      value: 2
+      objectReference: {fileID: 0}
     - target: {fileID: 7615693625565889174, guid: 735cf5ac771618e45a8620d2e982d48a,
         type: 3}
       propertyPath: m_Name
@@ -1697,6 +1700,11 @@ PrefabInstance:
       propertyPath: waypoints.Array.data[5]
       value: 
       objectReference: {fileID: 4694745772788379158}
+    - target: {fileID: 6689900922072749708, guid: 735cf5ac771618e45a8620d2e982d48a,
+        type: 3}
+      propertyPath: Died.m_PersistentCalls.m_Calls.Array.size
+      value: 2
+      objectReference: {fileID: 0}
     - target: {fileID: 7615693625565889174, guid: 735cf5ac771618e45a8620d2e982d48a,
         type: 3}
       propertyPath: m_Name
@@ -1855,6 +1863,11 @@ PrefabInstance:
       propertyPath: waypoints.Array.data[5]
       value: 
       objectReference: {fileID: 4694745772788379158}
+    - target: {fileID: 6689900922072749708, guid: 735cf5ac771618e45a8620d2e982d48a,
+        type: 3}
+      propertyPath: Died.m_PersistentCalls.m_Calls.Array.size
+      value: 2
+      objectReference: {fileID: 0}
     - target: {fileID: 7615693625565889174, guid: 735cf5ac771618e45a8620d2e982d48a,
         type: 3}
       propertyPath: m_Name
@@ -2013,6 +2026,11 @@ PrefabInstance:
       propertyPath: waypoints.Array.data[5]
       value: 
       objectReference: {fileID: 4694745772788379158}
+    - target: {fileID: 6689900922072749708, guid: 735cf5ac771618e45a8620d2e982d48a,
+        type: 3}
+      propertyPath: Died.m_PersistentCalls.m_Calls.Array.size
+      value: 2
+      objectReference: {fileID: 0}
     - target: {fileID: 7615693625565889174, guid: 735cf5ac771618e45a8620d2e982d48a,
         type: 3}
       propertyPath: m_Name
