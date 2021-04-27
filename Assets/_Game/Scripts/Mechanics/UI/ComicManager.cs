@@ -44,7 +44,7 @@ public class ComicManager : MonoBehaviour
     {
         if (nextPanel > 0)
         {
-            if (Input.GetKeyDown(KeyCode.Space)|| Input.GetButton("Primary Fire"))
+            if (Input.GetKeyDown(KeyCode.Space)|| Input.GetButtonDown("Primary Fire"))
             {
                 Next(nextPanel);
             }
