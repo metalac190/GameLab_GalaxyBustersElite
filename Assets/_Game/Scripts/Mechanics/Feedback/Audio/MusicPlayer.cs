@@ -214,24 +214,28 @@ public class MusicPlayer : MonoBehaviour
         StopAllCoroutines(); // Stopping any fading
 
         // If crossfading
-        if (standardMusic.audioSource.isPlaying && alternativeMusic.audioSource.isPlaying)
+        if (standardMusic.audioSource.isPlaying && alternativeMusic.audioSource != null && alternativeMusic.audioSource.isPlaying)
         {
-            if (altMusicPlaying)
+            if (alternativeMusic.audioSource.isPlaying)
             {
-                standardMusic.audioSource.Stop();
-                alternativeMusic.audioSource.volume = alternativeMusic.volume * GlobalAudioSliders.masterVolume * GlobalAudioSliders.musicVolume;
-            }
-            else
-            {
-                alternativeMusic.audioSource.Stop();
-                standardMusic.audioSource.volume = standardMusic.volume * GlobalAudioSliders.masterVolume * GlobalAudioSliders.musicVolume;
+                if (altMusicPlaying)
+                {
+                    standardMusic.audioSource.Stop();
+                    alternativeMusic.audioSource.volume = alternativeMusic.volume * GlobalAudioSliders.masterVolume * GlobalAudioSliders.musicVolume;
+                }
+                else
+                {
+                    alternativeMusic.audioSource.Stop();
+                    standardMusic.audioSource.volume = standardMusic.volume * GlobalAudioSliders.masterVolume * GlobalAudioSliders.musicVolume;
+                }
             }
         }
         // If not crossfading
         else
         {
             standardMusic.audioSource.volume = standardMusic.volume * GlobalAudioSliders.masterVolume * GlobalAudioSliders.musicVolume;
-            alternativeMusic.audioSource.volume = alternativeMusic.volume * GlobalAudioSliders.masterVolume * GlobalAudioSliders.musicVolume;
+            if (alternativeMusic.audioSource != null)
+                alternativeMusic.audioSource.volume = alternativeMusic.volume * GlobalAudioSliders.masterVolume * GlobalAudioSliders.musicVolume;
         }
     }
     #endregion
