@@ -396,8 +396,10 @@ public class SoundPlayer : MonoBehaviour
         for (int s = 0; s < allSounds.Length; s++)
         {
             if (fadingInCoroutines[s] == null && fadingOutCoroutines[s] == null)
-                allSounds[s].audioSource.volume =
-                    allSounds[s].startVolume * GlobalAudioSliders.masterVolume * GlobalAudioSliders.soundVolume;
+            {
+                if (allSounds[s].audioSource != null)
+                    allSounds[s].audioSource.volume = allSounds[s].startVolume * GlobalAudioSliders.masterVolume * GlobalAudioSliders.soundVolume;
+            }
         }
     }
     #endregion
