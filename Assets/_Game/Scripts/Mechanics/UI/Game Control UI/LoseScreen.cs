@@ -3,12 +3,15 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Events;
 using UnityEngine.UI;
+using TMPro;
 
 public class LoseScreen : MonoBehaviour {
 
     [SerializeField] private Button restart, mainMenu;
+	[SerializeField] private TextMeshProUGUI loseScore;
+	[SerializeField] private GameObject referencedGM;
 
-    void Start() {
+	void Start() {
         GameManager.gm.SetLoseScreen(gameObject);
         mainMenu.onClick.AddListener(() => {
             GameManager.gm.LoadScene(Levels.MainMenu);
@@ -37,5 +40,14 @@ public class LoseScreen : MonoBehaviour {
 
         gameObject.SetActive(false);
     }
+
+	private void Update()
+	{
+		referencedGM = GameObject.Find("Game Manager");
+		if (referencedGM != null)
+		{
+			loseScore.text = referencedGM.GetComponent<GameManager>().score.ToString("00000");
+		}
+	}
 
 }

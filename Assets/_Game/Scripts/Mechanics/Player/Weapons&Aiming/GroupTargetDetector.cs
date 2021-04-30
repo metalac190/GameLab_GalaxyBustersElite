@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Events;
 
 public class GroupTargetDetector : MonoBehaviour
 {
@@ -8,6 +9,9 @@ public class GroupTargetDetector : MonoBehaviour
 	[SerializeField] GameObject targetedIcon;
 	public List<GameObject> targets = new List<GameObject>();
 	public bool pauseTracking = false;
+
+	[Header("Effects")]
+	[SerializeField] UnityEvent OnTargetAdded;
 
 	private void OnEnable()
 	{
@@ -27,6 +31,8 @@ public class GroupTargetDetector : MonoBehaviour
 		{
 			targets.Add(other.gameObject);
 			Instantiate(targetedIcon, other.transform);
+
+			OnTargetAdded.Invoke();
 		}
 	}
 

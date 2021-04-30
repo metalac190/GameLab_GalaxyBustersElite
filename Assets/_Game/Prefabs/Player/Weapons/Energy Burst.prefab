@@ -42,6 +42,7 @@ GameObject:
   - component: {fileID: 1554756655631277004}
   - component: {fileID: 7419795802843804139}
   - component: {fileID: 5386123523495093522}
+  - component: {fileID: 8998090071918397114}
   m_Layer: 0
   m_Name: Energy Burst
   m_TagString: Untagged
@@ -80,12 +81,11 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   weapons:
   - {fileID: 3207628797658290543}
-  angleClamp: 75
   speed: 8
   debugRays: 0
   debugRayLength: 25
   currentTarget: {fileID: 0}
-  aimAssistDistance: 50
+  aimAssistDistance: 70
   aimAssistWidth: 1
   targetMask:
     serializedVersion: 2
@@ -103,12 +103,11 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   weaponID: Energy Burst
-  projectileType: 1
-  projectile: {fileID: 9165934621370101705, guid: d9d7eedd2b5591e4892473dee466de43,
+  projectile: {fileID: 1269560932093111582, guid: 6ded8dcd9a5eab64b9c07efc96afaa74,
     type: 3}
   spawnPoints:
   - {fileID: 1554756655449818847}
-  damage: 3
+  damage: 10
   meterRequired: 100
   overloadTime: 4
   OnStandardFire:
@@ -136,25 +135,92 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
+      - m_Target: {fileID: 8998090071918397114}
+        m_MethodName: TriggerShake
+        m_Mode: 3
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+      - m_Target: {fileID: 3508699072723599169}
+        m_MethodName: TryStop
+        m_Mode: 3
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 2
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+      - m_Target: {fileID: 3508699072723599169}
+        m_MethodName: TryStop
+        m_Mode: 3
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 3
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
   OnOverloadActivated:
     m_PersistentCalls:
       m_Calls: []
   projectileSpeed: 50
   fireRate: 3
-  chargedProjectile: {fileID: 2642568059696232079, guid: ce1ad958971df8540bbf5253ffef1172,
-    type: 3}
-  chargeUpTime: 1.5
-  damageMultiplier: 8
+  chargeUpTime: 0.66
+  damageMultiplier: 3
   speedMultiplier: 1.5
   weaponCharged: 0
-  minScale: 0.25
+  minScale: 1
   maxScale: 1.75
-  chargeStartColor: {r: 0.3324203, g: 1, b: 0.1745283, a: 0.78431374}
+  chargeStartColor: {r: 1, g: 0.9414656, b: 0.17647058, a: 0.78431374}
   chargeEndColor: {r: 1, g: 0, b: 0, a: 0.78431374}
   overloadChargeSpeedMultiplier: 8
+  OnWeaponChargingStart:
+    m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 3508699072723599169}
+        m_MethodName: TryPlay
+        m_Mode: 3
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 2
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+      - m_Target: {fileID: 3508699072723599169}
+        m_MethodName: TryPlay
+        m_Mode: 3
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 3
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
   OnWeaponCharged:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 3508699072723599169}
+        m_MethodName: TryStop
+        m_Mode: 3
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 2
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
   OnChargedFire:
     m_PersistentCalls:
       m_Calls:
@@ -180,6 +246,44 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
+      - m_Target: {fileID: 3508699072723599169}
+        m_MethodName: TryStop
+        m_Mode: 3
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 2
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+      - m_Target: {fileID: 3508699072723599169}
+        m_MethodName: TryStop
+        m_Mode: 3
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 3
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+--- !u!114 &8998090071918397114
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1554756656198432433}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 470c8d69afb310f43b6a89901bf44042, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  shakeInfos:
+  - shakeAmount: 0.25
+    decay: 0.95
+    range: 0.5
 --- !u!1 &2866569514253550549
 GameObject:
   m_ObjectHideFlags: 0
@@ -384,20 +488,10 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 1554756655631277004}
     m_Modifications:
-    - target: {fileID: 1374604265781177030, guid: fe3a8e6d18e39d44b8d9c3dc9ad6b831,
-        type: 3}
-      propertyPath: OutputAudioMixerGroup
-      value: 
-      objectReference: {fileID: 0}
     - target: {fileID: 1464058070388688789, guid: fe3a8e6d18e39d44b8d9c3dc9ad6b831,
         type: 3}
       propertyPath: m_Name
       value: Energy Burst's Sound Player
-      objectReference: {fileID: 0}
-    - target: {fileID: 3006416441342362700, guid: fe3a8e6d18e39d44b8d9c3dc9ad6b831,
-        type: 3}
-      propertyPath: OutputAudioMixerGroup
-      value: 
       objectReference: {fileID: 0}
     - target: {fileID: 4388395419690101988, guid: fe3a8e6d18e39d44b8d9c3dc9ad6b831,
         type: 3}
@@ -453,26 +547,6 @@ PrefabInstance:
         type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 4662019384568272058, guid: fe3a8e6d18e39d44b8d9c3dc9ad6b831,
-        type: 3}
-      propertyPath: allSounds.Array.data[0].label
-      value: 0. Standard Shot
-      objectReference: {fileID: 0}
-    - target: {fileID: 4662019384568272058, guid: fe3a8e6d18e39d44b8d9c3dc9ad6b831,
-        type: 3}
-      propertyPath: allSounds.Array.data[1].label
-      value: 1. Charge Shot
-      objectReference: {fileID: 0}
-    - target: {fileID: 4662019384568272058, guid: fe3a8e6d18e39d44b8d9c3dc9ad6b831,
-        type: 3}
-      propertyPath: allSounds.Array.data[2].label
-      value: 2. Charging Shot
-      objectReference: {fileID: 0}
-    - target: {fileID: 7601540749416033156, guid: fe3a8e6d18e39d44b8d9c3dc9ad6b831,
-        type: 3}
-      propertyPath: OutputAudioMixerGroup
-      value: 
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: fe3a8e6d18e39d44b8d9c3dc9ad6b831, type: 3}

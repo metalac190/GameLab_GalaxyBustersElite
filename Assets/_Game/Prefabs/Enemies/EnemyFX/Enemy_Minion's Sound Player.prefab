@@ -77,10 +77,11 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   allSounds:
-  - label: Appear
+  - label: 0. Appear
     audioSource: {fileID: 5829044227603157614}
     playOnAwake: 1
     loop: 1
+    startVolume: 0
     useSoundVariations: 0
     soundVariations: []
     usePitchRandomization: 0
@@ -88,10 +89,11 @@ MonoBehaviour:
     pitchShiftMax: 0
     curPoolIteration: 0
     audioSourcePool: []
-  - label: Shoot
-    audioSource: {fileID: 0}
+  - label: 1. Shoot
+    audioSource: {fileID: 1765453943743548541}
     playOnAwake: 0
     loop: 0
+    startVolume: 0
     useSoundVariations: 0
     soundVariations: []
     usePitchRandomization: 0
@@ -141,7 +143,7 @@ PrefabInstance:
         type: 3}
       propertyPath: m_audioClip
       value: 
-      objectReference: {fileID: 8300000, guid: 51ef899d038645348a5c8ef83c1f5964, type: 3}
+      objectReference: {fileID: 8300000, guid: e69208f21a33c4441a3b275ddff355cf, type: 3}
     - target: {fileID: 1388270348251091530, guid: 2cc2698f828e41b41886d3eb6aecd52b,
         type: 3}
       propertyPath: m_Volume
@@ -151,6 +153,27 @@ PrefabInstance:
         type: 3}
       propertyPath: OutputAudioMixerGroup
       value: 
+      objectReference: {fileID: -8787827183966225327, guid: 53b70d30c87c52d489a54a31ce181114,
+        type: 2}
+    - target: {fileID: 1388270348251091530, guid: 2cc2698f828e41b41886d3eb6aecd52b,
+        type: 3}
+      propertyPath: reverbZoneMixCustomCurve.m_Curve.Array.data[0].time
+      value: 0.050771713
+      objectReference: {fileID: 0}
+    - target: {fileID: 1388270348251091530, guid: 2cc2698f828e41b41886d3eb6aecd52b,
+        type: 3}
+      propertyPath: reverbZoneMixCustomCurve.m_Curve.Array.data[0].value
+      value: 1.0097313
+      objectReference: {fileID: 0}
+    - target: {fileID: 1388270348251091530, guid: 2cc2698f828e41b41886d3eb6aecd52b,
+        type: 3}
+      propertyPath: rolloffCustomCurve.m_Curve.Array.data[0].time
+      value: 0.46357536
+      objectReference: {fileID: 0}
+    - target: {fileID: 1388270348251091530, guid: 2cc2698f828e41b41886d3eb6aecd52b,
+        type: 3}
+      propertyPath: rolloffCustomCurve.m_Curve.Array.data[0].value
+      value: 0.8212204
       objectReference: {fileID: 0}
     - target: {fileID: 1388270348251091531, guid: 2cc2698f828e41b41886d3eb6aecd52b,
         type: 3}
@@ -225,13 +248,19 @@ PrefabInstance:
     - target: {fileID: 1388270348251091532, guid: 2cc2698f828e41b41886d3eb6aecd52b,
         type: 3}
       propertyPath: m_Name
-      value: SoundPrefabEnemy3D
+      value: Shoot
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 2cc2698f828e41b41886d3eb6aecd52b, type: 3}
 --- !u!4 &1765453943743548540 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 1388270348251091531, guid: 2cc2698f828e41b41886d3eb6aecd52b,
+    type: 3}
+  m_PrefabInstance: {fileID: 847810896315244087}
+  m_PrefabAsset: {fileID: 0}
+--- !u!82 &1765453943743548541 stripped
+AudioSource:
+  m_CorrespondingSourceObject: {fileID: 1388270348251091530, guid: 2cc2698f828e41b41886d3eb6aecd52b,
     type: 3}
   m_PrefabInstance: {fileID: 847810896315244087}
   m_PrefabAsset: {fileID: 0}
@@ -246,7 +275,7 @@ PrefabInstance:
         type: 3}
       propertyPath: m_audioClip
       value: 
-      objectReference: {fileID: 8300000, guid: 2da6d299676cceb478f8621709768b0d, type: 3}
+      objectReference: {fileID: 8300000, guid: dc48f1c73ea97d345ae71a1625c3830e, type: 3}
     - target: {fileID: 1388270348251091530, guid: 2cc2698f828e41b41886d3eb6aecd52b,
         type: 3}
       propertyPath: m_PlayOnAwake
@@ -260,12 +289,18 @@ PrefabInstance:
     - target: {fileID: 1388270348251091530, guid: 2cc2698f828e41b41886d3eb6aecd52b,
         type: 3}
       propertyPath: m_Volume
-      value: 0.503
+      value: 0.21
       objectReference: {fileID: 0}
     - target: {fileID: 1388270348251091530, guid: 2cc2698f828e41b41886d3eb6aecd52b,
         type: 3}
       propertyPath: OutputAudioMixerGroup
       value: 
+      objectReference: {fileID: 5692345227411947315, guid: 53b70d30c87c52d489a54a31ce181114,
+        type: 2}
+    - target: {fileID: 1388270348251091530, guid: 2cc2698f828e41b41886d3eb6aecd52b,
+        type: 3}
+      propertyPath: m_Pitch
+      value: -1.11
       objectReference: {fileID: 0}
     - target: {fileID: 1388270348251091531, guid: 2cc2698f828e41b41886d3eb6aecd52b,
         type: 3}

@@ -10,8 +10,8 @@ public abstract class EnemyBase : EntityBase
     public EnemyState currentState;
 
     [Header("Additional Enemy Settings")]
-	[SerializeField] private string id;
-	public string EnemyID { get { return id; } }
+	[SerializeField] private EnemyTypes enemyType;
+	public string EnemyID { get { return enemyType.ToString(); } }
 
 	[SerializeField] private int attackDamage = 0;
 	public int AttackDamage { get { return attackDamage; } }
@@ -91,8 +91,9 @@ public abstract class EnemyBase : EntityBase
 				Died.Invoke();
 				Dead();
 				ScoreSystem.IncreaseCombo();
-				ScoreSystem.IncreaseScore(id, enemyScore);
-				ScoreSystem.DestroyedEnemyType(id);
+				ScoreSystem.IncreaseScore(EnemyID, enemyScore);
+                ScoreHUD.CreateScoreBillboard(transform, enemyScore);
+				ScoreSystem.DestroyedEnemyType(enemyType);
 				//disable or destroy as needed?
 			}
 			else
@@ -111,6 +112,14 @@ public abstract class EnemyBase : EntityBase
                 else if (GetComponent<EnemyRammer>())
                 {
                     animator.SetTrigger("DamageTaken");
+                }
+                else if (GetComponent<EnemySpearhead>())
+                {
+                    animator.SetTrigger("DamageTaken");
+                }
+                else if (GetComponent<EnemyBandit>())
+                {
+                    animator.SetTrigger("TakeDamage");
                 }
 
                 Damaged.Invoke();

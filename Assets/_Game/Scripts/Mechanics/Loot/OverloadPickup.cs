@@ -12,7 +12,7 @@ public class OverloadPickup : PickupBase
     protected override void ApplyEffect(PlayerController player)
     {
         player.IncreaseOverload(_overchargeValue);
-
+        PickedUp.Invoke();
         //Invoke Event, Destroy Object
         base.ApplyEffect(player);
     }

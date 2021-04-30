@@ -270,7 +270,7 @@ MonoBehaviour:
         m_CallState: 2
   maxHealth: 20
   currentState: 0
-  id: Tank
+  enemyType: 0
   attackDamage: 0
   enemyDetectionRadius: 0
   enemyScore: 10
@@ -324,6 +324,7 @@ MonoBehaviour:
   waypoints: []
   moveSpeed: 0
   followPath: 0
+  followPathInverse: 0
   followPathSpeed: 0
   OnFinalWaypoint:
     m_PersistentCalls:

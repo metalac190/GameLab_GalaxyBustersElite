@@ -43,7 +43,7 @@ MeshFilter:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 9165934621370101705}
-  m_Mesh: {fileID: 5714770461977062574, guid: d5653386ecac69047928e8105754ca85, type: 3}
+  m_Mesh: {fileID: 5714770461977062574, guid: 4855722ed034eaa479b27dea67e2ba47, type: 3}
 --- !u!23 &9165934621370101710
 MeshRenderer:
   m_ObjectHideFlags: 0
@@ -112,7 +112,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _speed: 50
-  _damage: 3
+  _damage: 10
   lifeTime: 2
 --- !u!136 &482015162454890236
 CapsuleCollider:
@@ -128,83 +128,78 @@ CapsuleCollider:
   m_Height: 6.6
   m_Direction: 0
   m_Center: {x: 0, y: 0, z: 0}
---- !u!1001 &5584723316285785697
+--- !u!1001 &3723358137556076507
 PrefabInstance:
   m_ObjectHideFlags: 0
   serializedVersion: 2
   m_Modification:
     m_TransformParent: {fileID: 9165934621370101708}
     m_Modifications:
-    - target: {fileID: 1410270782538958398, guid: c66d205cb60844649a6210deae486956,
-        type: 3}
-      propertyPath: m_Name
-      value: Wave's Particles Player
-      objectReference: {fileID: 0}
-    - target: {fileID: 4487739318084188414, guid: c66d205cb60844649a6210deae486956,
+    - target: {fileID: 4641888615510538564, guid: a77cee59aa93a214c8c3286b88303325,
         type: 3}
       propertyPath: m_LocalPosition.x
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: 4487739318084188414, guid: c66d205cb60844649a6210deae486956,
+    - target: {fileID: 4641888615510538564, guid: a77cee59aa93a214c8c3286b88303325,
         type: 3}
       propertyPath: m_LocalPosition.y
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: 4487739318084188414, guid: c66d205cb60844649a6210deae486956,
+    - target: {fileID: 4641888615510538564, guid: a77cee59aa93a214c8c3286b88303325,
         type: 3}
       propertyPath: m_LocalPosition.z
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: 4487739318084188414, guid: c66d205cb60844649a6210deae486956,
+    - target: {fileID: 4641888615510538564, guid: a77cee59aa93a214c8c3286b88303325,
         type: 3}
       propertyPath: m_LocalRotation.x
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: 4487739318084188414, guid: c66d205cb60844649a6210deae486956,
+    - target: {fileID: 4641888615510538564, guid: a77cee59aa93a214c8c3286b88303325,
         type: 3}
       propertyPath: m_LocalRotation.y
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: 4487739318084188414, guid: c66d205cb60844649a6210deae486956,
+    - target: {fileID: 4641888615510538564, guid: a77cee59aa93a214c8c3286b88303325,
         type: 3}
       propertyPath: m_LocalRotation.z
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: 4487739318084188414, guid: c66d205cb60844649a6210deae486956,
+    - target: {fileID: 4641888615510538564, guid: a77cee59aa93a214c8c3286b88303325,
         type: 3}
       propertyPath: m_LocalRotation.w
       value: 1
       objectReference: {fileID: 0}
-    - target: {fileID: 4487739318084188414, guid: c66d205cb60844649a6210deae486956,
+    - target: {fileID: 4641888615510538564, guid: a77cee59aa93a214c8c3286b88303325,
         type: 3}
       propertyPath: m_RootOrder
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: 4487739318084188414, guid: c66d205cb60844649a6210deae486956,
+    - target: {fileID: 4641888615510538564, guid: a77cee59aa93a214c8c3286b88303325,
         type: 3}
       propertyPath: m_LocalEulerAnglesHint.x
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: 4487739318084188414, guid: c66d205cb60844649a6210deae486956,
+    - target: {fileID: 4641888615510538564, guid: a77cee59aa93a214c8c3286b88303325,
         type: 3}
       propertyPath: m_LocalEulerAnglesHint.y
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: 4487739318084188414, guid: c66d205cb60844649a6210deae486956,
+    - target: {fileID: 4641888615510538564, guid: a77cee59aa93a214c8c3286b88303325,
         type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: 7001654180811835416, guid: c66d205cb60844649a6210deae486956,
+    - target: {fileID: 7907938272175818628, guid: a77cee59aa93a214c8c3286b88303325,
         type: 3}
-      propertyPath: allParticles.Array.data[0].label
-      value: 0. Trailing Particles
+      propertyPath: m_Name
+      value: Wave's Particles Player
       objectReference: {fileID: 0}
     m_RemovedComponents: []
-  m_SourcePrefab: {fileID: 100100000, guid: c66d205cb60844649a6210deae486956, type: 3}
+  m_SourcePrefab: {fileID: 100100000, guid: a77cee59aa93a214c8c3286b88303325, type: 3}
 --- !u!4 &8342719734692216479 stripped
 Transform:
-  m_CorrespondingSourceObject: {fileID: 4487739318084188414, guid: c66d205cb60844649a6210deae486956,
+  m_CorrespondingSourceObject: {fileID: 4641888615510538564, guid: a77cee59aa93a214c8c3286b88303325,
     type: 3}
-  m_PrefabInstance: {fileID: 5584723316285785697}
+  m_PrefabInstance: {fileID: 3723358137556076507}
   m_PrefabAsset: {fileID: 0}

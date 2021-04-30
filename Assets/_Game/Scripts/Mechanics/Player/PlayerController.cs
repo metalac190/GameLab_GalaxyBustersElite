@@ -86,7 +86,10 @@ public class PlayerController : MonoBehaviour
 			}
 			else
 			{
-				DialogueTrigger.TriggerPlayerDamagedDialogue();
+				if (GameManager.player.movement.isHit)
+					DialogueTrigger.TriggerPlayerObstacleDamamagedDialogue();
+				else
+					DialogueTrigger.TriggerPlayerDamagedDialogue();
 				CameraShaker.instance.Shake(cameraShakeOnHit);
 				OnHit.Invoke();
 			}
@@ -97,14 +100,14 @@ public class PlayerController : MonoBehaviour
 
 	public void HealPlayer(float amount)
 	{
-		playerHealth += amount;
+		playerHealth = (playerHealth + amount >= 100) ? 100 : playerHealth + amount;
 
 		OnHealthIncreased.Invoke();
 	}
 
 	public void IncreaseOverload(float amount)
 	{
-		overloadCharge += amount;
+		overloadCharge = (overloadCharge + amount >= 100) ? 100 : overloadCharge + amount;
 
 		OnOverloadChargeIncreased.Invoke();
 	}
@@ -148,6 +151,7 @@ public class PlayerController : MonoBehaviour
 			{
 				// Stop overload if currently active
 				weapon.GetComponent<WeaponBase>().DeactivateOverload();
+				TogglePlayerOverloaded(false);
 
 				// Deactivate GameObject
 				weapon.SetActive(false);

@@ -20,7 +20,7 @@ public class EnemyTank : EnemyBase
     [Header("Enemy Tank Bullet Prefab")]
     [SerializeField] private GameObject bullet;
     [SerializeField] private Transform _spawnPoint;
-    private List<GameObject> _bulletPool = new List<GameObject>();
+    private Queue<GameObject> _bulletQueue = new Queue<GameObject>();
 
     [Header("Enemy Collider Ref (Don't Touch)")]
     [SerializeField] private BoxCollider invulnToggle;
@@ -62,7 +62,7 @@ public class EnemyTank : EnemyBase
                     _spawnPoint.LookAt(GameManager.player.obj.transform.position);
 
                     //fire projectile
-                    GameObject tempBullet = PoolUtility.InstantiateFromPool(_bulletPool, _spawnPoint, bullet);
+                    GameObject tempBullet = PoolUtility.InstantiateFromQueue(_bulletQueue, _spawnPoint, bullet);
                     EnemyProjectile tempProjectile = tempBullet.GetComponent<EnemyProjectile>();
 
                     //set damage

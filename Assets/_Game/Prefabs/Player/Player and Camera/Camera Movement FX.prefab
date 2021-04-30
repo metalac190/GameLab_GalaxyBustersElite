@@ -48,7 +48,7 @@ Canvas:
   m_GameObject: {fileID: 166615192724000674}
   m_Enabled: 1
   serializedVersion: 3
-  m_RenderMode: 1
+  m_RenderMode: 0
   m_Camera: {fileID: 0}
   m_PlaneDistance: 1
   m_PixelPerfect: 0
@@ -72,12 +72,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0cd44c1031e13a943bb63640046fad76, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_UiScaleMode: 0
+  m_UiScaleMode: 1
   m_ReferencePixelsPerUnit: 100
   m_ScaleFactor: 1
-  m_ReferenceResolution: {x: 800, y: 600}
+  m_ReferenceResolution: {x: 1920, y: 1080}
   m_ScreenMatchMode: 0
-  m_MatchWidthOrHeight: 0
+  m_MatchWidthOrHeight: 1
   m_PhysicalUnit: 3
   m_FallbackScreenDPI: 96
   m_DefaultSpriteDPI: 96
@@ -223,6 +223,7 @@ MonoBehaviour:
   speedingThreshold: 21
   speeding: 0
   curSpeed: 0
+  speedLineOverride: 0
   wispyParticles: {fileID: 7914409787732450385}
   playerShip: {fileID: 0}
   speedLinesRenderer: {fileID: 166615194086436763}
@@ -267,6 +268,9 @@ MonoBehaviour:
   - {fileID: 21300000, guid: 83ce0f4b54239e64480dcfcbe67567d5, type: 3}
   - {fileID: 21300000, guid: 4e9304e173594bd43a348301968a9959, type: 3}
   delayBetweenSpeedLineFrames: 0.01
+  maxSpeedingTime: 8
+  fadeInTime: 0.2
+  fadeOutTime: 1
   speedSound: {fileID: 5291265705660670338}
 --- !u!1 &3757911897601204183
 GameObject:
@@ -308,10 +312,11 @@ AudioSource:
   m_GameObject: {fileID: 3757911897601204183}
   m_Enabled: 1
   serializedVersion: 4
-  OutputAudioMixerGroup: {fileID: 0}
+  OutputAudioMixerGroup: {fileID: 7530775134393775298, guid: 53b70d30c87c52d489a54a31ce181114,
+    type: 2}
   m_audioClip: {fileID: 8300000, guid: 5e44b03b8df9d52419c79d09a28cc082, type: 3}
   m_PlayOnAwake: 0
-  m_Volume: 1
+  m_Volume: 0.3
   m_Pitch: 1
   Loop: 0
   Mute: 0

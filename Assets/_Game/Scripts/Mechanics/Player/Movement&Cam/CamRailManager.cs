@@ -6,8 +6,14 @@ using Cinemachine;
 
 public class CamRailManager : MonoBehaviour
 {
+    [Header("Debugger")]
+    [SerializeField] float playerSpeed;
+    [SerializeField] float movementTrackerSpeed;
+    [SerializeField] float currentWaypointIndex;
+    [SerializeField] float currentWaypointSpeed;
+
     [Header("Cam Rail Settings")]
-    [SerializeField] int waypointIndex;
+    [SerializeField] int nextWaypointIndex;
     [SerializeField] List<float> waypointSpeeds;
     [SerializeField] float increaseMSAmt;
     [SerializeField] float transitionMSDuration;
@@ -40,35 +46,36 @@ public class CamRailManager : MonoBehaviour
         cineDollyCart.m_Speed = waypointSpeeds[0];
         movementTrackerDollyCart.m_Speed = cineDollyCart.m_Speed;
 
-        waypointIndex = 1;
+        // debugger
+        playerSpeed = waypointSpeeds[0];
+        movementTrackerSpeed = waypointSpeeds[0];
+        currentWaypointIndex = 0;
+        currentWaypointSpeed = waypointSpeeds[0];
+
+        nextWaypointIndex = 1;
     }
 
     // Update is called once per frame
     void Update()
     {
-        // Removed by Bill for Pre-Alpha
-        /*if (Input.GetKeyDown(KeyCode.Escape))
-        {
-            Application.Quit();
-        }*/
-
-        // TODO- prob need to find a better fix
         Vector2 movementTrackerPosXY = new Vector2(movementTrackerTrans.position.x, movementTrackerTrans.position.y);
         Vector2 movementTrackerPosYZ = new Vector2(movementTrackerTrans.position.y, movementTrackerTrans.position.z);
 
-        Vector2 nextWaypointPosXY = new Vector2(cineSmoothPath.m_Waypoints[waypointIndex].position.x, cineSmoothPath.m_Waypoints[waypointIndex].position.y);
-        Vector2 nextWaypointPosYZ = new Vector2(cineSmoothPath.m_Waypoints[waypointIndex].position.y, cineSmoothPath.m_Waypoints[waypointIndex].position.z);
+        Vector2 nextWaypointPosXY = new Vector2(cineSmoothPath.m_Waypoints[nextWaypointIndex].position.x, cineSmoothPath.m_Waypoints[nextWaypointIndex].position.y);
+        Vector2 nextWaypointPosYZ = new Vector2(cineSmoothPath.m_Waypoints[nextWaypointIndex].position.y, cineSmoothPath.m_Waypoints[nextWaypointIndex].position.z);
 
         if ((Vector2.Distance(movementTrackerPosXY, nextWaypointPosXY) < 10f || Vector2.Distance(movementTrackerPosYZ, nextWaypointPosYZ) < 10f)
-            && waypointIndex < waypointSpeeds.Count - 1)
+            && nextWaypointIndex < waypointSpeeds.Count - 1)
         {
-            SetCamRailSpeed(waypointSpeeds[waypointIndex]);
+            SetCamRailSpeed(waypointSpeeds[nextWaypointIndex]);
+            currentWaypointSpeed = waypointSpeeds[nextWaypointIndex];
 
-            waypointIndex++;
+            currentWaypointIndex = nextWaypointIndex;
+            nextWaypointIndex++;
         }
     }
 
-    void SetCamRailSpeed(float newMS)
+    public void SetCamRailSpeed(float newMS)
     {
         StopAllCoroutines();
         StartCoroutine(SetCamRailSpeedCoroutine(newMS));
@@ -93,6 +100,9 @@ public class CamRailManager : MonoBehaviour
             counter += Time.deltaTime / transitionMSDuration;
             cineDollyCart.m_Speed = Mathf.Lerp(cineDollyCart.m_Speed, ms, counter);
             movementTrackerDollyCart.m_Speed = cineDollyCart.m_Speed;
+
+            playerSpeed = cineDollyCart.m_Speed;
+            movementTrackerSpeed = movementTrackerDollyCart.m_Speed;
 
             yield return null;
         }

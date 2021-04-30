@@ -45,12 +45,15 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   allSounds:
-  - label: Appear
+  - label: 0. Appear
     audioSource: {fileID: 6247615042268631107}
     playOnAwake: 1
     loop: 1
-    useSoundVariations: 0
-    soundVariations: []
+    startVolume: 0
+    useSoundVariations: 1
+    soundVariations:
+    - {fileID: 8300000, guid: 54e207fd351a533418e7e317f387c9a8, type: 3}
+    - {fileID: 8300000, guid: 6fe2879be3ab9b34f801a05a2e46d797, type: 3}
     usePitchRandomization: 0
     pitchShiftMin: 0
     pitchShiftMax: 0
@@ -108,7 +111,7 @@ PrefabInstance:
         type: 3}
       propertyPath: m_audioClip
       value: 
-      objectReference: {fileID: 8300000, guid: a1460267851b42a4d96bbccebff3ff7c, type: 3}
+      objectReference: {fileID: 8300000, guid: 54e207fd351a533418e7e317f387c9a8, type: 3}
     - target: {fileID: 1388270348251091530, guid: 2cc2698f828e41b41886d3eb6aecd52b,
         type: 3}
       propertyPath: m_PlayOnAwake
@@ -123,7 +126,8 @@ PrefabInstance:
         type: 3}
       propertyPath: OutputAudioMixerGroup
       value: 
-      objectReference: {fileID: 0}
+      objectReference: {fileID: 5692345227411947315, guid: 53b70d30c87c52d489a54a31ce181114,
+        type: 2}
     - target: {fileID: 1388270348251091530, guid: 2cc2698f828e41b41886d3eb6aecd52b,
         type: 3}
       propertyPath: rolloffCustomCurve.m_Curve.Array.data[1].time
@@ -282,7 +286,7 @@ PrefabInstance:
     - target: {fileID: 1388270348251091530, guid: 2cc2698f828e41b41886d3eb6aecd52b,
         type: 3}
       propertyPath: m_Volume
-      value: 0.8
+      value: 0.647
       objectReference: {fileID: 0}
     - target: {fileID: 1388270348251091531, guid: 2cc2698f828e41b41886d3eb6aecd52b,
         type: 3}
