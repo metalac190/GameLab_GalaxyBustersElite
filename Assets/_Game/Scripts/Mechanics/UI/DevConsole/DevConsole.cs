@@ -17,6 +17,9 @@ public class DevConsole : MonoBehaviour
     
     void Update()
     {
+        if(!GameManager.devMode && !isActive)
+            return;
+
         if (Input.GetKeyDown(KeyCode.BackQuote))
         {
             if (isActive)
