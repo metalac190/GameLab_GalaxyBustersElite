@@ -92,7 +92,7 @@ public class ScoreHUD : MonoBehaviour
 	private void Start()
 	{
 		pickupsInLevel = new List<PickupBase>(FindObjectsOfType<PickupBase>()); // TODO change if i want more than weps
-		StartCoroutine(CheckPowerups());
+		CoroutineHost.Instance.StartCoroutineFromHost(CheckPowerups());
 	}
 
 	public void PickupEnabled(PickupBase pickup)
@@ -123,7 +123,7 @@ public class ScoreHUD : MonoBehaviour
 	void OnScoreAdded(string source, int amount)
 	{
 		incrementQueue.Enqueue(amount);
-		if (incrementCoroutine == null) incrementCoroutine = StartCoroutine(IncrementScore(incrementQueue.Peek()));
+		if (incrementCoroutine == null) incrementCoroutine = CoroutineHost.Instance.StartCoroutineFromHost(IncrementScore(incrementQueue.Peek()));
 		//scoreEventQueue.Enqueue(new ScoreEvent(this, eventTextDictionary[source] + " +" + amount.ToString()));
 	}
 
@@ -187,7 +187,7 @@ public class ScoreHUD : MonoBehaviour
 			yield return new WaitForSeconds(secondsToIncrementPerEvent / amountToIncrement);
 			hudScore++;
 		}*/
-		if (incrementQueue.Count > 0) incrementCoroutine = StartCoroutine(IncrementScore(incrementQueue.Peek()));
+		if (incrementQueue.Count > 0) incrementCoroutine = CoroutineHost.Instance.StartCoroutineFromHost(IncrementScore(incrementQueue.Peek()));
 		else incrementCoroutine = null;
 	}
 

@@ -95,6 +95,7 @@ public class EnemySpearhead : EnemyBase
 
     private void Charge()
     {
+        animator.SetTrigger("WindupDistance");
         transform.position = Vector3.MoveTowards(transform.position, positionToChargeTowards, chargingSpeed * Time.deltaTime);
 
         if (Vector3.Distance(transform.position, positionToChargeTowards) == 0)
