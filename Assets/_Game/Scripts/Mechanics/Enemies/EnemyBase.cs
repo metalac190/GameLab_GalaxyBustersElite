@@ -119,7 +119,7 @@ public abstract class EnemyBase : EntityBase
                 }
                 else if (GetComponent<EnemyBandit>())
                 {
-                    animator.SetTrigger("DamageTaken");
+                    animator.SetTrigger("TakeDamage");
                 }
 
                 Damaged.Invoke();

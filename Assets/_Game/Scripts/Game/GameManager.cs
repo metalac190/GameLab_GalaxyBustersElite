@@ -215,19 +215,19 @@ public class GameManager : MonoBehaviour {
                 break;
             case Levels.Mission1:
                 currentState = GameState.Briefing;
-                LoadScene("Level1_Beta");
+                LoadScene("Level1_Final");
                 currentLevel = 1;
                 break;
             case Levels.Mission2:
                 currentState = GameState.Briefing;
                 unlockedLevel = Mathf.Max(unlockedLevel, 2);
-                LoadScene("Level2_Beta");
+                LoadScene("Level2_Final");
                 currentLevel = 2;
                 break;
             case Levels.Mission3:
                 currentState = GameState.Briefing;
                 unlockedLevel = 3;
-                LoadScene("Level3_Beta");
+                LoadScene("Level3_Final");
                 currentLevel = 3;
                 break;
             default:

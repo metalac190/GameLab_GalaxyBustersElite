@@ -76,6 +76,7 @@ public class SoundPlayer : MonoBehaviour
             sound.audioSource.playOnAwake = sound.playOnAwake;
 
             sound.startVolume = sound.audioSource.volume;
+            sound.audioSource.volume = sound.startVolume * GlobalAudioSliders.masterVolume * GlobalAudioSliders.soundVolume;
 
             // Sound pooling setup
             sound.audioSourcePool = new List<AudioSource>();
@@ -164,7 +165,9 @@ public class SoundPlayer : MonoBehaviour
         }
         else // Play sound normally
         {
-            curSound.audioSourcePool[curSound.curPoolIteration].volume = curSound.startVolume;
+            curSound.audioSourcePool[curSound.curPoolIteration].volume =
+                curSound.startVolume * GlobalAudioSliders.masterVolume * GlobalAudioSliders.soundVolume;
+
             curSound.audioSourcePool[curSound.curPoolIteration].Play();
 
             curSound.curPoolIteration++;
@@ -194,7 +197,8 @@ public class SoundPlayer : MonoBehaviour
 
         curSound.audioSourcePool[curSound.curPoolIteration].volume = 0;
         curSound.audioSourcePool[curSound.curPoolIteration].Play();
-        while (curSound.audioSourcePool[curSound.curPoolIteration].volume < curSound.startVolume)
+        while (curSound.audioSourcePool[curSound.curPoolIteration].volume <
+            curSound.startVolume * GlobalAudioSliders.masterVolume * GlobalAudioSliders.soundVolume)
         {
             if (fadingOutCoroutines[indexSoundToPlay] != null)
             {
@@ -202,10 +206,13 @@ public class SoundPlayer : MonoBehaviour
                 fadingOutCoroutines[indexSoundToPlay] = null;
             }
             curSound.audioSourcePool[curSound.curPoolIteration].volume =
-                Mathf.Clamp(curSound.audioSourcePool[curSound.curPoolIteration].volume + curSound.startVolume * 0.02f / LOOPING_FADE_IN_TIME, 0, 1);
+                Mathf.Clamp(curSound.audioSourcePool[curSound.curPoolIteration].volume +
+                curSound.startVolume * GlobalAudioSliders.masterVolume * GlobalAudioSliders.soundVolume
+                * 0.02f / LOOPING_FADE_IN_TIME, 0, 1);
             yield return new WaitForSeconds(0.02f);
         }
-        curSound.audioSourcePool[curSound.curPoolIteration].volume = curSound.startVolume;
+        curSound.audioSourcePool[curSound.curPoolIteration].volume =
+            curSound.startVolume * GlobalAudioSliders.masterVolume * GlobalAudioSliders.soundVolume;
 
         fadingInCoroutines[indexSoundToPlay] = null;
     }
@@ -263,6 +270,7 @@ public class SoundPlayer : MonoBehaviour
     public void TryDetachPlayThenDestroy(int indexSoundToPlay)
     {
         if (!CheckIfSoundAtIndexIsInitialized(indexSoundToPlay)) return;
+        if (transform.parent == null) return;
 
         if (allSounds[indexSoundToPlay].loop)
         {
@@ -277,6 +285,9 @@ public class SoundPlayer : MonoBehaviour
     void DetachPlayThenDestroy(int indexSoundToPlay)
     {
         transform.parent = null;
+
+        allSounds[indexSoundToPlay].audioSourcePool[allSounds[indexSoundToPlay].curPoolIteration].volume =
+            allSounds[indexSoundToPlay].startVolume * GlobalAudioSliders.masterVolume * GlobalAudioSliders.soundVolume;
         allSounds[indexSoundToPlay].audioSource.Play();
 
         StopAllCoroutines();
@@ -296,6 +307,7 @@ public class SoundPlayer : MonoBehaviour
     public void TryDetachPlayThenReattach(int indexSoundToPlay)
     {
         if (!CheckIfSoundAtIndexIsInitialized(indexSoundToPlay)) return;
+        if (transform.parent == null) return;
 
         if (allSounds[indexSoundToPlay].loop)
         {
@@ -312,6 +324,9 @@ public class SoundPlayer : MonoBehaviour
         Transform savedParent = transform.parent;
 
         transform.parent = null;
+
+        allSounds[indexSoundToPlay].audioSourcePool[allSounds[indexSoundToPlay].curPoolIteration].volume =
+            allSounds[indexSoundToPlay].startVolume * GlobalAudioSliders.masterVolume * GlobalAudioSliders.soundVolume;
         allSounds[indexSoundToPlay].audioSource.Play();
 
         StopAllCoroutines();
@@ -370,6 +385,20 @@ public class SoundPlayer : MonoBehaviour
                     }
                 }
                 yield return new WaitForSecondsRealtime(0.06f);
+            }
+        }
+    }
+    #endregion
+
+    #region Volume Sliders
+    public void RefreshSoundVolumes()
+    {
+        for (int s = 0; s < allSounds.Length; s++)
+        {
+            if (fadingInCoroutines[s] == null && fadingOutCoroutines[s] == null)
+            {
+                if (allSounds[s].audioSource != null)
+                    allSounds[s].audioSource.volume = allSounds[s].startVolume * GlobalAudioSliders.masterVolume * GlobalAudioSliders.soundVolume;
             }
         }
     }

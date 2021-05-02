@@ -222,6 +222,17 @@ public class LaserBeam : WeaponBase
 	public override void DeactivateOverload()
 	{
 		overloaded = false;
+		if (targetingMode != null)
+		{
+			targetingMode.SetActive(false);
+			targetingPercentage.fillAmount = 1;
+		}
+		if (firePoint != null)
+		{
+			firePoint.GetComponent<GroupTargetDetector>().SetCollider(false);
+		}
+		DrawLasers(false);
+		targetingActive = false;
 		StopCoroutine("ActivateOverload");
 		StopCoroutine("LaserOverload");
 		CancelInvoke();
