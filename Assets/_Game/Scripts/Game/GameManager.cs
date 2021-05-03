@@ -210,6 +210,9 @@ public class GameManager : MonoBehaviour {
         ScoreSystem.ResetScore();
         switch(scene) {
             case Levels.MainMenu:
+                if(currentState == GameState.Win)
+                    unlockedLevel = Mathf.Max(unlockedLevel, currentLevel + 1);
+
                 currentState = GameState.MainMenu;
                 LoadScene("Main Menu");
                 currentLevel = 0;
