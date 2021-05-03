@@ -51,6 +51,9 @@ public class GameManager : MonoBehaviour {
     public GameObject HUD;
     public ComicManager comicScreen;
 
+    [Header("Random Stuff Because Unity Hates Me")]
+    public Material flickerMaterial;
+
     // ----------------------------------------------------------------------------------------------------
 
     #region Variables

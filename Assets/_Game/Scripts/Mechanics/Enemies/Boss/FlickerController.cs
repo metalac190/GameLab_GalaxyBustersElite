@@ -26,7 +26,9 @@ public class FlickerController : MonoBehaviour
 
     public void CallFlicker()
     {
-        _flashCount = _flickerSettings.FlickerNumber;
+        //if(!_flickerSettings)
+        //    Debug.Log(_flickerSettings);
+        _flashCount = _flickerSettings ? _flickerSettings.FlickerNumber : 5;
 
         if(_flickerRoutine == null)
             _flickerRoutine = StartCoroutine(RepeatFlash());
@@ -39,14 +41,14 @@ public class FlickerController : MonoBehaviour
         while (_flashCount > 0)
         {
             for (int m = 0; m < _meshSegments.Length; m++)
-                _meshSegments[m].material = _flickerSettings.FlickerMaterial;
+                _meshSegments[m].material = _flickerSettings ? _flickerSettings.FlickerMaterial : GameManager.gm.flickerMaterial;
 
-            yield return new WaitForSeconds(_flickerSettings.FlickerTime / 2);
+            yield return new WaitForSeconds((_flickerSettings ? _flickerSettings.FlickerTime : 0.1f) / 2);
 
             for (int m = 0; m < _meshSegments.Length; m++)
                 _meshSegments[m].material = _startMats[m];
 
-            yield return new WaitForSeconds(_flickerSettings.FlickerTime / 2);
+            yield return new WaitForSeconds((_flickerSettings ? _flickerSettings.FlickerTime : 0.1f) / 2);
 
             _flashCount--;
         }
