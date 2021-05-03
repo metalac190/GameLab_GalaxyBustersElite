@@ -25,7 +25,7 @@ public class DevKey : MonoBehaviour {
             konamiIndex++;
             if(konamiIndex >= konamiCode.Length)
                 EnableDevMode();
-        } else if(Input.anyKeyDown) {
+        } else if(/*Input.anyKeyDown*/Input.inputString != "") {
             konamiIndex = 0;
         }
     }
