@@ -207,6 +207,7 @@ public class GameManager : MonoBehaviour {
 
     public void LoadScene(Levels scene) {
         Cursor.visible = true;
+        ScoreSystem.ResetScore();
         switch(scene) {
             case Levels.MainMenu:
                 currentState = GameState.MainMenu;

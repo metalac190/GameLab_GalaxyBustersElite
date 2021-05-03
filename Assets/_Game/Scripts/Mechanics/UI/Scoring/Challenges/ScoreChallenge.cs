@@ -18,4 +18,9 @@ public class ScoreChallenge : ChallengeBase
 		}
 
 	}
+
+	public override string GetProgress()
+	{
+		return progress + "\n/" + threshold;
+	}
 }

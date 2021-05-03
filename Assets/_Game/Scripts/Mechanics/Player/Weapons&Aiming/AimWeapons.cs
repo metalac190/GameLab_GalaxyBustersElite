@@ -41,7 +41,7 @@ public class AimWeapons : MonoBehaviour
 			{
 				// Rotate weapons to be parallel with weapon center
 				Vector3 newDir = Vector3.RotateTowards(weapon.forward, targetDir, step, 0.0F);
-				targetRotation = Quaternion.LookRotation(newDir);
+				targetRotation = Quaternion.LookRotation(newDir, transform.up);
 				weapon.rotation = targetRotation;
 
 				// Debug
@@ -74,7 +74,7 @@ public class AimWeapons : MonoBehaviour
 			{
 				// Rotate weapons to be parallel with weapon center
 				Vector3 newDir = Vector3.RotateTowards(weapon.forward, targetDir, step, 0.0F);
-				targetRotation = Quaternion.LookRotation(newDir);
+				targetRotation = Quaternion.LookRotation(newDir, transform.up);
 				weapon.rotation = targetRotation;
 
 				// Debug
