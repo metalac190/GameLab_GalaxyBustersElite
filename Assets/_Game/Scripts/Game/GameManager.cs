@@ -90,7 +90,7 @@ public class GameManager : MonoBehaviour {
         if(Input.GetButtonDown("Pause"))
             Paused = !Paused;
 
-        if(currentState == GameState.Gameplay && Input.GetKey(KeyCode.LeftControl) && Input.GetKey(KeyCode.K))
+        if(devMode && currentState == GameState.Gameplay && Input.GetKey(KeyCode.LeftControl) && Input.GetKey(KeyCode.K))
             WinGame();
     }
 
