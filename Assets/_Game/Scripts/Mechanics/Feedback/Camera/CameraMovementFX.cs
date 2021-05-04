@@ -13,6 +13,7 @@ public class CameraMovementFX : MonoBehaviour
     [Header("Speeding Status (View Only)")]
     public bool speeding = false;
     [SerializeField] float curSpeed;
+    public bool speedLineOverride = false;
 
 
     [Header("Wispy Particles")]
@@ -25,11 +26,14 @@ public class CameraMovementFX : MonoBehaviour
     int curSpeedLinesFrame;
     [Range(0.01f, 2)]
     [SerializeField] float delayBetweenSpeedLineFrames = 0.2f;
+    [SerializeField] float maxSpeedingTime = 8;
+    [SerializeField] float fadeInTime = 0.2f;
+    [SerializeField] float fadeOutTime = 1;
 
     [Header("Speed Sound")]
     [SerializeField] AudioSource speedSound;
+    float speedSoundStartVolume;
 
-    public bool speedLineOverride = false;
 
 #if UNITY_EDITOR
     void OnValidate()
@@ -42,6 +46,11 @@ public class CameraMovementFX : MonoBehaviour
         }
     }
 #endif
+
+    private void Awake()
+    {
+        speedSoundStartVolume = speedSound.volume;
+    }
 
     private void Start()
     {
@@ -71,28 +80,60 @@ public class CameraMovementFX : MonoBehaviour
 
     IEnumerator RefreshingSpeedingStatus()
     {
+        bool canSpeedAgain = true; // If speeding timed out, can't speed again until going below and then above speeding threshold
         while (true)
         {
             yield return new WaitForSeconds(DELAY_BETWEEN_REFRESHING_SPEEDING_VARIABLE);
 
             curSpeed = cinemachineDolly.m_Speed;
-            speeding = (curSpeed >= speedingThreshold) || speedLineOverride;
+            if (speedLineOverride)
+                speeding = true;
+            else if (curSpeed >= speedingThreshold && canSpeedAgain)
+            {
+                speeding = true;
+                canSpeedAgain = false;
+                StartCoroutine(StopSpeedingIfSpeedingTooLong());
+            }
+            else if (curSpeed < speedingThreshold)
+            {
+                speeding = false;
+                canSpeedAgain = true;
+            }
         }
+    }
+
+    IEnumerator StopSpeedingIfSpeedingTooLong()
+    {
+        float timeToStopSpeeding = Time.time + maxSpeedingTime;
+        while (timeToStopSpeeding > Time.time && speeding)
+            yield return null;
+        speeding = false;
     }
 
     IEnumerator PlayingAndStoppingWispyParticlesAndSpeedSound()
     {
         while (true)
         {
+            if (GameManager.gm.Paused)
+            {
+                speedSound.Pause();
+                yield return new WaitForSeconds(0.01f);
+                speedSound.UnPause();
+            }
+
+
             if (speeding && !wispyParticles.isPlaying)
             {
                 wispyParticles.Play();
+
+                speedSound.volume = speedSoundStartVolume;
                 speedSound.Play();
             }
             else if (!speeding && wispyParticles.isPlaying)
             {
                 wispyParticles.Stop();
-                speedSound.volume -= 0.02f;
+
+                speedSound.volume -= 0.02f * speedSoundStartVolume;
             }
 
             yield return null;
@@ -101,22 +142,32 @@ public class CameraMovementFX : MonoBehaviour
 
     IEnumerator SpeedLinesAnimation()
     {
+        speedLinesRenderer.CrossFadeAlpha(0, 0, true); // Needs to crossfade here rather than set transparency to 0 for effect to work :/
+        speedLinesRenderer.enabled = true;
+
+        bool speedingLastFrame = !speeding;
+
         while (true)
         {
-            if (speeding)
+            if (speedLinesRenderer.color.a > 0.02f)
             {
-                if (!speedLinesRenderer.enabled)
-                    speedLinesRenderer.enabled = true;
-
                 speedLinesRenderer.sprite = speedLinesFrames[curSpeedLinesFrame];
+
                 curSpeedLinesFrame++;
                 if (curSpeedLinesFrame >= speedLinesFrames.Length)
                     curSpeedLinesFrame = 0;
             }
-            else if (speedLinesRenderer.enabled)
-                speedLinesRenderer.enabled = false;
+
+            if (speeding && !speedingLastFrame)
+                speedLinesRenderer.CrossFadeAlpha(1, fadeInTime, false);
+            else if (!speeding && speedingLastFrame)
+                speedLinesRenderer.CrossFadeAlpha(0, fadeOutTime, false);
+
+
+            speedingLastFrame = speeding;
 
             yield return new WaitForSeconds(delayBetweenSpeedLineFrames);
         }
     }
+
 }

@@ -81,6 +81,7 @@ MonoBehaviour:
     audioSource: {fileID: 5829044227603157614}
     playOnAwake: 1
     loop: 1
+    startVolume: 0
     useSoundVariations: 0
     soundVariations: []
     usePitchRandomization: 0
@@ -89,9 +90,10 @@ MonoBehaviour:
     curPoolIteration: 0
     audioSourcePool: []
   - label: 1. Shoot
-    audioSource: {fileID: 0}
+    audioSource: {fileID: 1765453943743548541}
     playOnAwake: 0
     loop: 0
+    startVolume: 0
     useSoundVariations: 0
     soundVariations: []
     usePitchRandomization: 0
@@ -153,6 +155,26 @@ PrefabInstance:
       value: 
       objectReference: {fileID: -8787827183966225327, guid: 53b70d30c87c52d489a54a31ce181114,
         type: 2}
+    - target: {fileID: 1388270348251091530, guid: 2cc2698f828e41b41886d3eb6aecd52b,
+        type: 3}
+      propertyPath: reverbZoneMixCustomCurve.m_Curve.Array.data[0].time
+      value: 0.050771713
+      objectReference: {fileID: 0}
+    - target: {fileID: 1388270348251091530, guid: 2cc2698f828e41b41886d3eb6aecd52b,
+        type: 3}
+      propertyPath: reverbZoneMixCustomCurve.m_Curve.Array.data[0].value
+      value: 1.0097313
+      objectReference: {fileID: 0}
+    - target: {fileID: 1388270348251091530, guid: 2cc2698f828e41b41886d3eb6aecd52b,
+        type: 3}
+      propertyPath: rolloffCustomCurve.m_Curve.Array.data[0].time
+      value: 0.46357536
+      objectReference: {fileID: 0}
+    - target: {fileID: 1388270348251091530, guid: 2cc2698f828e41b41886d3eb6aecd52b,
+        type: 3}
+      propertyPath: rolloffCustomCurve.m_Curve.Array.data[0].value
+      value: 0.8212204
+      objectReference: {fileID: 0}
     - target: {fileID: 1388270348251091531, guid: 2cc2698f828e41b41886d3eb6aecd52b,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -226,13 +248,19 @@ PrefabInstance:
     - target: {fileID: 1388270348251091532, guid: 2cc2698f828e41b41886d3eb6aecd52b,
         type: 3}
       propertyPath: m_Name
-      value: SoundPrefabEnemy3D
+      value: Shoot
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 2cc2698f828e41b41886d3eb6aecd52b, type: 3}
 --- !u!4 &1765453943743548540 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 1388270348251091531, guid: 2cc2698f828e41b41886d3eb6aecd52b,
+    type: 3}
+  m_PrefabInstance: {fileID: 847810896315244087}
+  m_PrefabAsset: {fileID: 0}
+--- !u!82 &1765453943743548541 stripped
+AudioSource:
+  m_CorrespondingSourceObject: {fileID: 1388270348251091530, guid: 2cc2698f828e41b41886d3eb6aecd52b,
     type: 3}
   m_PrefabInstance: {fileID: 847810896315244087}
   m_PrefabAsset: {fileID: 0}
@@ -261,7 +289,7 @@ PrefabInstance:
     - target: {fileID: 1388270348251091530, guid: 2cc2698f828e41b41886d3eb6aecd52b,
         type: 3}
       propertyPath: m_Volume
-      value: 0.503
+      value: 0.21
       objectReference: {fileID: 0}
     - target: {fileID: 1388270348251091530, guid: 2cc2698f828e41b41886d3eb6aecd52b,
         type: 3}
@@ -269,6 +297,11 @@ PrefabInstance:
       value: 
       objectReference: {fileID: 5692345227411947315, guid: 53b70d30c87c52d489a54a31ce181114,
         type: 2}
+    - target: {fileID: 1388270348251091530, guid: 2cc2698f828e41b41886d3eb6aecd52b,
+        type: 3}
+      propertyPath: m_Pitch
+      value: -1.11
+      objectReference: {fileID: 0}
     - target: {fileID: 1388270348251091531, guid: 2cc2698f828e41b41886d3eb6aecd52b,
         type: 3}
       propertyPath: m_LocalPosition.x

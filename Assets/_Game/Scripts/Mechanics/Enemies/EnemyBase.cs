@@ -92,6 +92,7 @@ public abstract class EnemyBase : EntityBase
 				Dead();
 				ScoreSystem.IncreaseCombo();
 				ScoreSystem.IncreaseScore(EnemyID, enemyScore);
+                ScoreHUD.CreateScoreBillboard(transform, enemyScore);
 				ScoreSystem.DestroyedEnemyType(enemyType);
 				//disable or destroy as needed?
 			}
@@ -118,7 +119,7 @@ public abstract class EnemyBase : EntityBase
                 }
                 else if (GetComponent<EnemyBandit>())
                 {
-                    animator.SetTrigger("DamageTaken");
+                    animator.SetTrigger("TakeDamage");
                 }
 
                 Damaged.Invoke();

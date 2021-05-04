@@ -12,12 +12,21 @@ public class MainMenu : MonoBehaviour
 
     [SerializeField] private Button mission2, mission3;
 
+    [Header("Hover Options Button")]
+    [SerializeField] Button[] optionsButtons;
+    [SerializeField] Vector3 hoverScale;
+    [SerializeField] float hoverTransitonDuration;
+    Coroutine hoverCoroutine;
+
     [Header("Player Movement UI")]
     [SerializeField] Image menuBackgroundImage;
-    [SerializeField] CinemachineDollyCart player;
-    [SerializeField] GameObject[] stuffToTurnOnForPM;
-    [SerializeField] GameObject[] stuffToTurnOffForPM;
     [SerializeField] Sprite[] menuBackgroundSprites;
+    [SerializeField] CinemachineDollyCart player;
+    [SerializeField] GameObject optionsGameObj;
+    [SerializeField] GameObject[] optionsGroup;
+    [SerializeField] GameObject settingsBox;
+    [SerializeField] Button movementButton;
+    [SerializeField] GameObject playerMovementUIGroup;
 
     private void Awake() {
         // Unlocked levels
@@ -66,33 +75,83 @@ public class MainMenu : MonoBehaviour
             mission3.interactable = true;
     }
 
+    public void HoverOptionsButton(int index)
+    {
+        hoverCoroutine = StartCoroutine(HoverOptionsButtonCoroutine(index));
+    }
+
+    IEnumerator HoverOptionsButtonCoroutine(int index)
+    {
+        float currentTime = 0;
+        Vector3 originalScale = optionsButtons[index].transform.localScale;
+
+        while (currentTime < hoverTransitonDuration)
+        {
+            optionsButtons[index].transform.localScale = Vector3.Lerp(originalScale, hoverScale, currentTime / hoverTransitonDuration);
+            currentTime += Time.deltaTime;
+            yield return null;
+        }
+    }
+
+    public void UnHoverOptionsButton(int index)
+    {
+        StopCoroutine(hoverCoroutine);
+        optionsButtons[index].transform.localScale = new Vector3(1, 1, 1);
+    }
+
     public void ShowPlayerMovementControlSettings(bool show)
     {
         if (show)
         {
-            menuBackgroundImage.sprite = menuBackgroundSprites[0];
             player.m_Position = 0;
 
-            foreach (GameObject o in stuffToTurnOnForPM)
-            {
-                o.SetActive(true);
-            }
-            foreach (GameObject o in stuffToTurnOffForPM)
+            menuBackgroundImage.sprite = menuBackgroundSprites[0];
+
+            foreach (GameObject o in optionsGroup)
             {
                 o.SetActive(false);
             }
+
+            // movement group
+            optionsGroup[0].SetActive(true);
+            playerMovementUIGroup.SetActive(true);
+
+            StartCoroutine(MovementButtonSelected());
+
+            settingsBox.SetActive(false);
         }
         else
         {
             menuBackgroundImage.sprite = menuBackgroundSprites[1];
 
-            foreach (GameObject o in stuffToTurnOnForPM)
+            // movement group
+            optionsGroup[0].SetActive(false);
+            playerMovementUIGroup.SetActive(false);
+
+            settingsBox.SetActive(true);
+        }
+    }
+
+    // workaround to selecting movement button visually
+    IEnumerator MovementButtonSelected()
+    {
+        yield return null;
+        movementButton.Select();
+    }
+
+    public void ShowOptionsGroup(bool show)
+    {
+        if (show)
+        {
+            optionsGameObj.SetActive(true);
+        }
+        else
+        {
+            optionsGameObj.SetActive(false);
+
+            foreach (GameObject o in optionsGroup)
             {
                 o.SetActive(false);
-            }
-            foreach (GameObject o in stuffToTurnOffForPM)
-            {
-                o.SetActive(true);
             }
         }
     }

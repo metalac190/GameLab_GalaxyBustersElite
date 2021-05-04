@@ -15,16 +15,10 @@ public class EnemyMinion : EnemyBase
     [SerializeField] private float projectileSpeed;
     [SerializeField] private GameObject bullet;
     [SerializeField] private Transform _spawnPoint;
-    private List<GameObject> _bulletPool = new List<GameObject>();
+    private Queue<GameObject> _bulletQueue = new Queue<GameObject>();
 
     [Header("Effects")]
     [SerializeField] UnityEvent OnShotFired;
-
-    protected override void Start()
-    {
-        base.Start();
-        bullet.GetComponent<EnemyProjectile>().SetDamage(AttackDamage);
-    }
 
     private void OnEnable()
     {
@@ -46,10 +40,10 @@ public class EnemyMinion : EnemyBase
             //attack cooldown
             if (shotTime <= 0)
             {
-                animator.SetTrigger("IsFiring");
+                animator.SetTrigger("isFiring");
 
                 //fire projectile
-                GameObject tempBullet = PoolUtility.InstantiateFromPool(_bulletPool, _spawnPoint, bullet);
+                GameObject tempBullet = PoolUtility.InstantiateFromQueue(_bulletQueue, _spawnPoint.transform.position, transform.rotation, bullet);
                 EnemyProjectile tempProjectile = tempBullet.GetComponent<EnemyProjectile>();
 
                 //set damage and speed

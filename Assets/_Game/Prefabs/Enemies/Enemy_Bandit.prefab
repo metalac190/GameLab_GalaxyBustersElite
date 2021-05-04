@@ -1,5 +1,51 @@
 %YAML 1.1
 %TAG !u! tag:unity3d.com,2011:
+--- !u!1 &132733741762784686
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 3312328716348426519}
+  - component: {fileID: 4047007209310918379}
+  m_Layer: 0
+  m_Name: Flicker Controller
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &3312328716348426519
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 132733741762784686}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 2108437693947293221}
+  m_RootOrder: 6
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &4047007209310918379
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 132733741762784686}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 0900919680551f7439dd1aeb5873586e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _flickerSettings: {fileID: 11400000, guid: 75f898d9eda8baf4da5691bfc518b49b, type: 2}
+  _meshSegments:
+  - {fileID: 6728099745164693918}
 --- !u!1 &354318188913335506
 GameObject:
   m_ObjectHideFlags: 0
@@ -254,6 +300,7 @@ Transform:
   - {fileID: 602582841801187954}
   - {fileID: 6805946719179039138}
   - {fileID: 1230182441865655088}
+  - {fileID: 3312328716348426519}
   m_Father: {fileID: 354318188913335509}
   m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -286,6 +333,17 @@ MonoBehaviour:
       - m_Target: {fileID: 2683504567936599558}
         m_MethodName: TryPlay
         m_Mode: 3
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+      - m_Target: {fileID: 4047007209310918379}
+        m_MethodName: CallFlicker
+        m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
           m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
@@ -341,7 +399,7 @@ MonoBehaviour:
   attackRate: 0.4
   nextBurstMin: 1.5
   nextBurstMax: 2
-  projectileSpeed: 0
+  projectileSpeed: 55
   bulletPrefab: {fileID: 4817155437395576068, guid: ba5a3b4a6ff5405478bd4aded6ec18ba,
     type: 3}
   _spawnPoint: {fileID: 1230182441865655088}
@@ -402,7 +460,7 @@ BoxCollider:
   m_Enabled: 1
   serializedVersion: 2
   m_Size: {x: 4.4320707, y: 2.07583, z: 3.8222435}
-  m_Center: {x: -0.01999998, y: 0.062085032, z: 0.14512193}
+  m_Center: {x: -0.01999998, y: 0.58, z: 0.14512193}
 --- !u!1001 &1300092876641914051
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -557,6 +615,12 @@ PrefabInstance:
       objectReference: {fileID: 2100000, guid: fbb21912d3ffcc44bab3e0844351206e, type: 2}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 37b456ff3fcafd645a74884d477e4ef5, type: 3}
+--- !u!137 &6728099745164693918 stripped
+SkinnedMeshRenderer:
+  m_CorrespondingSourceObject: {fileID: 9213870858558848028, guid: 37b456ff3fcafd645a74884d477e4ef5,
+    type: 3}
+  m_PrefabInstance: {fileID: 2486336264023387522}
+  m_PrefabAsset: {fileID: 0}
 --- !u!4 &5335803114003991949 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 7533863576657240079, guid: 37b456ff3fcafd645a74884d477e4ef5,
@@ -806,12 +870,6 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 2270acdf5e3f70c4b951c0769412a6cc, type: 3}
---- !u!4 &354318187759789013 stripped
-Transform:
-  m_CorrespondingSourceObject: {fileID: 6147327587969435411, guid: 2270acdf5e3f70c4b951c0769412a6cc,
-    type: 3}
-  m_PrefabInstance: {fileID: 5883244126383727814}
-  m_PrefabAsset: {fileID: 0}
 --- !u!114 &6535912943543933273 stripped
 MonoBehaviour:
   m_CorrespondingSourceObject: {fileID: 797490546415320479, guid: 2270acdf5e3f70c4b951c0769412a6cc,
@@ -824,3 +882,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: bb72c580b0553274b89d7b1db74018c3, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!4 &354318187759789013 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 6147327587969435411, guid: 2270acdf5e3f70c4b951c0769412a6cc,
+    type: 3}
+  m_PrefabInstance: {fileID: 5883244126383727814}
+  m_PrefabAsset: {fileID: 0}

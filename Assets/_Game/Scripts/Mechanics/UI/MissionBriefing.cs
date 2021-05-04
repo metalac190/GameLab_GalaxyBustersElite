@@ -5,6 +5,7 @@ using UnityEngine;
 public class MissionBriefing : MonoBehaviour
 {
     [SerializeField] private GameObject debrief1, debrief2, debrief3;
+    [SerializeField] private GameObject missionStartButton;
     void OnEnable()
     {       
         GameManager.gm.SetMissionBriefing(gameObject, debrief1, debrief2, debrief3);
@@ -36,4 +37,17 @@ public class MissionBriefing : MonoBehaviour
         GameManager.gm.EndMissionBriefing();
     }
 
+
+    //mission buttons
+    public void SetStartMissionButtonActive(bool activity)
+    {
+        if(activity == true)
+        {
+            missionStartButton.SetActive(true);
+        }
+        else
+        {
+            missionStartButton.SetActive(false);
+        }
+    }
 }

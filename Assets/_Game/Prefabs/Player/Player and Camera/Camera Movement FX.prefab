@@ -223,6 +223,7 @@ MonoBehaviour:
   speedingThreshold: 21
   speeding: 0
   curSpeed: 0
+  speedLineOverride: 0
   wispyParticles: {fileID: 7914409787732450385}
   playerShip: {fileID: 0}
   speedLinesRenderer: {fileID: 166615194086436763}
@@ -267,8 +268,10 @@ MonoBehaviour:
   - {fileID: 21300000, guid: 83ce0f4b54239e64480dcfcbe67567d5, type: 3}
   - {fileID: 21300000, guid: 4e9304e173594bd43a348301968a9959, type: 3}
   delayBetweenSpeedLineFrames: 0.01
+  maxSpeedingTime: 8
+  fadeInTime: 0.2
+  fadeOutTime: 1
   speedSound: {fileID: 5291265705660670338}
-  speedLineOverride: 0
 --- !u!1 &3757911897601204183
 GameObject:
   m_ObjectHideFlags: 0
@@ -309,10 +312,11 @@ AudioSource:
   m_GameObject: {fileID: 3757911897601204183}
   m_Enabled: 1
   serializedVersion: 4
-  OutputAudioMixerGroup: {fileID: 0}
+  OutputAudioMixerGroup: {fileID: 7530775134393775298, guid: 53b70d30c87c52d489a54a31ce181114,
+    type: 2}
   m_audioClip: {fileID: 8300000, guid: 5e44b03b8df9d52419c79d09a28cc082, type: 3}
   m_PlayOnAwake: 0
-  m_Volume: 1
+  m_Volume: 0.3
   m_Pitch: 1
   Loop: 0
   Mute: 0

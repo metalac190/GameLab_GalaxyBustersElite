@@ -9,7 +9,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 785775467458301124}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: Chain_Blocks
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -41,7 +41,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 8570549180472086168}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: GameObject
   m_TagString: Untagged
   m_Icon: {fileID: 7174288486110832750, guid: 0000000000000000d000000000000000, type: 0}
@@ -73,7 +73,7 @@ GameObject:
   - component: {fileID: 6306460731060121846}
   - component: {fileID: 7806610246144378001}
   - component: {fileID: 1124394239612538916}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: Block_Object
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -135,6 +135,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   speed: 15
+  dont_destroy: 0
   object_waypoint: {fileID: 8570549180472086168}
 --- !u!1001 &430531023217070925
 PrefabInstance:
@@ -628,6 +629,11 @@ PrefabInstance:
       propertyPath: m_Name
       value: Geo Shape_01 (1)
       objectReference: {fileID: 0}
+    - target: {fileID: 7341957855074425875, guid: fc2df465cd707dc47a8c1c895ee77141,
+        type: 3}
+      propertyPath: m_Layer
+      value: 9
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: fc2df465cd707dc47a8c1c895ee77141, type: 3}
 --- !u!4 &1960703938843171996 stripped
@@ -753,6 +759,11 @@ PrefabInstance:
       propertyPath: m_Name
       value: Geo Shape_01 (2)
       objectReference: {fileID: 0}
+    - target: {fileID: 7341957855074425875, guid: fc2df465cd707dc47a8c1c895ee77141,
+        type: 3}
+      propertyPath: m_Layer
+      value: 9
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: fc2df465cd707dc47a8c1c895ee77141, type: 3}
 --- !u!4 &1386849602765424858 stripped
@@ -877,6 +888,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: Geo Shape_01
+      objectReference: {fileID: 0}
+    - target: {fileID: 7341957855074425875, guid: fc2df465cd707dc47a8c1c895ee77141,
+        type: 3}
+      propertyPath: m_Layer
+      value: 9
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: fc2df465cd707dc47a8c1c895ee77141, type: 3}
@@ -1127,6 +1143,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: Geo Shape_01 (3)
+      objectReference: {fileID: 0}
+    - target: {fileID: 7341957855074425875, guid: fc2df465cd707dc47a8c1c895ee77141,
+        type: 3}
+      propertyPath: m_Layer
+      value: 9
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: fc2df465cd707dc47a8c1c895ee77141, type: 3}

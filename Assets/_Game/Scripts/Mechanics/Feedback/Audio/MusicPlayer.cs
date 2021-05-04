@@ -68,7 +68,7 @@ public class MusicPlayer : MonoBehaviour
             FadeIn();
         else
         {
-            standardMusic.audioSource.volume = standardMusic.volume;
+            standardMusic.audioSource.volume = standardMusic.volume * GlobalAudioSliders.masterVolume * GlobalAudioSliders.musicVolume;
             standardMusic.audioSource.Play();
         }
     }
@@ -121,13 +121,14 @@ public class MusicPlayer : MonoBehaviour
         standardMusic.audioSource.volume = 0;
         standardMusic.audioSource.Play();
 
-        while (standardMusic.audioSource.volume < standardMusic.volume)
+        while (standardMusic.audioSource.volume < standardMusic.volume * GlobalAudioSliders.masterVolume * GlobalAudioSliders.musicVolume)
         {
             yield return new WaitForSecondsRealtime(0.05f);
-            standardMusic.audioSource.volume += 0.05f / fadeInDuration * standardMusic.volume;
+            standardMusic.audioSource.volume +=
+                0.05f * standardMusic.volume * GlobalAudioSliders.masterVolume * GlobalAudioSliders.musicVolume / fadeInDuration;
         }
 
-        standardMusic.audioSource.volume = standardMusic.volume;
+        standardMusic.audioSource.volume = standardMusic.volume * GlobalAudioSliders.masterVolume * GlobalAudioSliders.musicVolume;
     }
     #endregion
 
@@ -151,12 +152,11 @@ public class MusicPlayer : MonoBehaviour
         MusicTrack fadingOutMusicTrack = (alternativeTrack) ? alternativeMusic : standardMusic;
 
 
-        float startingVolume = fadingOutMusicTrack.audioSource.volume = fadingOutMusicTrack.volume;
-
         while (fadingOutMusicTrack.audioSource.volume > 0)
         {
             yield return new WaitForSecondsRealtime(0.05f);
-            fadingOutMusicTrack.audioSource.volume -= 0.05f / FADE_OUT_DURATION * startingVolume;
+            fadingOutMusicTrack.audioSource.volume -=
+                0.05f * standardMusic.volume * GlobalAudioSliders.masterVolume * GlobalAudioSliders.musicVolume / FADE_OUT_DURATION;
         }
 
         fadingOutMusicTrack.audioSource.Stop();
@@ -191,20 +191,52 @@ public class MusicPlayer : MonoBehaviour
         MusicTrack startMusicTrack = (standardToAlternative) ? standardMusic : alternativeMusic;
         MusicTrack endMusicTrack = (standardToAlternative) ? alternativeMusic : standardMusic;
 
-
-        float startingVolume = startMusicTrack.audioSource.volume = startMusicTrack.volume;
         endMusicTrack.audioSource.volume = 0;
         endMusicTrack.audioSource.Play();
 
         while (startMusicTrack.audioSource.volume > 0 || endMusicTrack.audioSource.volume < endMusicTrack.volume)
         {
             yield return new WaitForFixedUpdate();
-            startMusicTrack.audioSource.volume -= Time.fixedDeltaTime / crossFadeDuration * startingVolume;
-            endMusicTrack.audioSource.volume += Time.fixedDeltaTime / crossFadeDuration * endMusicTrack.volume;
+            startMusicTrack.audioSource.volume -=
+                Time.fixedDeltaTime / crossFadeDuration * startMusicTrack.volume * GlobalAudioSliders.masterVolume * GlobalAudioSliders.musicVolume;
+            endMusicTrack.audioSource.volume +=
+                Time.fixedDeltaTime / crossFadeDuration * endMusicTrack.volume * GlobalAudioSliders.masterVolume * GlobalAudioSliders.musicVolume;
         }
 
-        endMusicTrack.audioSource.volume = endMusicTrack.volume;
+        endMusicTrack.audioSource.volume = endMusicTrack.volume * GlobalAudioSliders.masterVolume * GlobalAudioSliders.musicVolume;
         startMusicTrack.audioSource.Stop();
+    }
+    #endregion
+
+    #region Volume Sliders
+    public void RefreshMusicVolume()
+    {
+        StopAllCoroutines(); // Stopping any fading
+
+        // If crossfading
+        if (standardMusic.audioSource.isPlaying && alternativeMusic.audioSource != null && alternativeMusic.audioSource.isPlaying)
+        {
+            if (alternativeMusic.audioSource.isPlaying)
+            {
+                if (altMusicPlaying)
+                {
+                    standardMusic.audioSource.Stop();
+                    alternativeMusic.audioSource.volume = alternativeMusic.volume * GlobalAudioSliders.masterVolume * GlobalAudioSliders.musicVolume;
+                }
+                else
+                {
+                    alternativeMusic.audioSource.Stop();
+                    standardMusic.audioSource.volume = standardMusic.volume * GlobalAudioSliders.masterVolume * GlobalAudioSliders.musicVolume;
+                }
+            }
+        }
+        // If not crossfading
+        else
+        {
+            standardMusic.audioSource.volume = standardMusic.volume * GlobalAudioSliders.masterVolume * GlobalAudioSliders.musicVolume;
+            if (alternativeMusic.audioSource != null)
+                alternativeMusic.audioSource.volume = alternativeMusic.volume * GlobalAudioSliders.masterVolume * GlobalAudioSliders.musicVolume;
+        }
     }
     #endregion
 }

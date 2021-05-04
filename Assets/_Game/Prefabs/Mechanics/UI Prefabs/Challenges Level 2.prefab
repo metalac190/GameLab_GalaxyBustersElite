@@ -47,7 +47,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   challenges:
-  - {fileID: 4043651132196338069}
+  - {fileID: 7851004908002542998}
   - {fileID: 8264016062600496213}
   - {fileID: 5514753568862052502}
 --- !u!1 &3789270993712765075
@@ -159,7 +159,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 5400648800099807241}
-  - component: {fileID: 4043651132196338069}
+  - component: {fileID: 7851004908002542998}
   m_Layer: 0
   m_Name: Challenge 1
   m_TagString: Untagged
@@ -181,7 +181,7 @@ Transform:
   m_Father: {fileID: 43255129420742861}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &4043651132196338069
+--- !u!114 &7851004908002542998
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -190,12 +190,12 @@ MonoBehaviour:
   m_GameObject: {fileID: 8710193396539915596}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 250b4dd1e8992d94b9035aad9625f3e8, type: 3}
+  m_Script: {fileID: 11500000, guid: 46b1a571bd2cc964f9bbbdb827abab6d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   challengeCompleted: 0
   challengeFailed: 0
-  challengeText: Complete the level without taking damage
+  challengeText: Achieve a score of at least 75,000
   scoreValue: 5000
-  threshold: 100
-  progress: 100
+  threshold: 75000
+  progress: 0

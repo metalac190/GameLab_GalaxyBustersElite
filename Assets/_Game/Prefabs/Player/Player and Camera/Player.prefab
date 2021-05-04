@@ -95,6 +95,7 @@ MonoBehaviour:
   collDuration: 2
   collForce: {x: 1000, y: 1000, z: 0}
   torqueForce: {x: 1000, y: 1000, z: 1000}
+  isHit: 0
   playerLimits: {x: 50, y: 25}
   rotateTargetTransform: {fileID: 0}
   shipsTransform: {fileID: 2473926699686103219}
@@ -251,7 +252,7 @@ MonoBehaviour:
   currentWeapon: {fileID: 4587364871884471440}
   weapons:
   - {fileID: 4587364871884471440}
-  - {fileID: 8179300219240267795}
+  - {fileID: 8161048759202589625}
   - {fileID: 4105299737162226496}
   isDodging: 0
   isInvincible: 0
@@ -498,7 +499,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 2151478074821847683}
-  - {fileID: 8179300218599468398}
+  - {fileID: 8161048758568322756}
   - {fileID: 4105299738324079619}
   m_Father: {fileID: 2473926700306051215}
   m_RootOrder: 1
@@ -782,6 +783,91 @@ PrefabInstance:
       propertyPath: m_Name
       value: Player's Particles Player
       objectReference: {fileID: 0}
+    - target: {fileID: 2726311120422235446, guid: 3e7bd995accabf04e8890ec614c659b8,
+        type: 3}
+      propertyPath: InitialModule.startLifetime.scalar
+      value: 0.26
+      objectReference: {fileID: 0}
+    - target: {fileID: 2726311120422235446, guid: 3e7bd995accabf04e8890ec614c659b8,
+        type: 3}
+      propertyPath: ColorModule.gradient.maxGradient.key2.r
+      value: 0.54901963
+      objectReference: {fileID: 0}
+    - target: {fileID: 2726311120422235446, guid: 3e7bd995accabf04e8890ec614c659b8,
+        type: 3}
+      propertyPath: ColorModule.gradient.maxGradient.key2.g
+      value: 0.9568628
+      objectReference: {fileID: 0}
+    - target: {fileID: 2726311120422235446, guid: 3e7bd995accabf04e8890ec614c659b8,
+        type: 3}
+      propertyPath: ColorModule.gradient.maxGradient.key2.b
+      value: 0.078431375
+      objectReference: {fileID: 0}
+    - target: {fileID: 2726311120422235446, guid: 3e7bd995accabf04e8890ec614c659b8,
+        type: 3}
+      propertyPath: ColorModule.gradient.maxGradient.key3.r
+      value: 0.5
+      objectReference: {fileID: 0}
+    - target: {fileID: 2726311120422235446, guid: 3e7bd995accabf04e8890ec614c659b8,
+        type: 3}
+      propertyPath: ColorModule.gradient.maxGradient.key3.g
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 2726311120422235446, guid: 3e7bd995accabf04e8890ec614c659b8,
+        type: 3}
+      propertyPath: ColorModule.gradient.maxGradient.key3.b
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2726311120422235446, guid: 3e7bd995accabf04e8890ec614c659b8,
+        type: 3}
+      propertyPath: ColorModule.gradient.maxGradient.m_NumColorKeys
+      value: 5
+      objectReference: {fileID: 0}
+    - target: {fileID: 2726311120422235446, guid: 3e7bd995accabf04e8890ec614c659b8,
+        type: 3}
+      propertyPath: ColorModule.gradient.maxGradient.key1.r
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 2726311120422235446, guid: 3e7bd995accabf04e8890ec614c659b8,
+        type: 3}
+      propertyPath: ColorModule.gradient.maxGradient.key1.g
+      value: 0.8583597
+      objectReference: {fileID: 0}
+    - target: {fileID: 2726311120422235446, guid: 3e7bd995accabf04e8890ec614c659b8,
+        type: 3}
+      propertyPath: ColorModule.gradient.maxGradient.key1.b
+      value: 0.0990566
+      objectReference: {fileID: 0}
+    - target: {fileID: 2726311120422235446, guid: 3e7bd995accabf04e8890ec614c659b8,
+        type: 3}
+      propertyPath: ColorModule.gradient.maxGradient.ctime1
+      value: 12529
+      objectReference: {fileID: 0}
+    - target: {fileID: 2726311120422235446, guid: 3e7bd995accabf04e8890ec614c659b8,
+        type: 3}
+      propertyPath: ColorModule.gradient.maxGradient.ctime2
+      value: 20046
+      objectReference: {fileID: 0}
+    - target: {fileID: 2726311120422235446, guid: 3e7bd995accabf04e8890ec614c659b8,
+        type: 3}
+      propertyPath: ColorModule.gradient.maxGradient.key4.r
+      value: 0.2767675
+      objectReference: {fileID: 0}
+    - target: {fileID: 2726311120422235446, guid: 3e7bd995accabf04e8890ec614c659b8,
+        type: 3}
+      propertyPath: ColorModule.gradient.maxGradient.key4.g
+      value: 0.5849056
+      objectReference: {fileID: 0}
+    - target: {fileID: 2726311120422235446, guid: 3e7bd995accabf04e8890ec614c659b8,
+        type: 3}
+      propertyPath: ColorModule.gradient.maxGradient.ctime3
+      value: 37972
+      objectReference: {fileID: 0}
+    - target: {fileID: 2726311120422235446, guid: 3e7bd995accabf04e8890ec614c659b8,
+        type: 3}
+      propertyPath: ColorModule.gradient.maxGradient.ctime4
+      value: 45875
+      objectReference: {fileID: 0}
     - target: {fileID: 4234064388278411199, guid: 3e7bd995accabf04e8890ec614c659b8,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -836,17 +922,6 @@ PrefabInstance:
         type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 8167018122877083882, guid: 3e7bd995accabf04e8890ec614c659b8,
-        type: 3}
-      propertyPath: allParticles.Array.data[6].particleSystem
-      value: 
-      objectReference: {fileID: 1065274769485429887, guid: bc392c8ef35805241b55881e632d5a80,
-        type: 3}
-    - target: {fileID: 8167018122877083882, guid: 3e7bd995accabf04e8890ec614c659b8,
-        type: 3}
-      propertyPath: allParticles.Array.data[6].playOnAwake
-      value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 3e7bd995accabf04e8890ec614c659b8, type: 3}
@@ -965,7 +1040,7 @@ GameObject:
     type: 3}
   m_PrefabInstance: {fileID: 3488430911488284442}
   m_PrefabAsset: {fileID: 0}
---- !u!1001 &7210593708720715426
+--- !u!1001 &7264944377435790600
 PrefabInstance:
   m_ObjectHideFlags: 0
   serializedVersion: 2
@@ -1032,24 +1107,19 @@ PrefabInstance:
       propertyPath: m_Name
       value: Energy Burst
       objectReference: {fileID: 0}
-    - target: {fileID: 3727205299085060979, guid: fac00b2cc971f864bb2082dfc1305843,
-        type: 3}
-      propertyPath: playerShipMeshRenderer
-      value: 
-      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: fac00b2cc971f864bb2082dfc1305843, type: 3}
---- !u!1 &8179300219240267795 stripped
+--- !u!1 &8161048759202589625 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 1554756656198432433, guid: fac00b2cc971f864bb2082dfc1305843,
     type: 3}
-  m_PrefabInstance: {fileID: 7210593708720715426}
+  m_PrefabInstance: {fileID: 7264944377435790600}
   m_PrefabAsset: {fileID: 0}
---- !u!4 &8179300218599468398 stripped
+--- !u!4 &8161048758568322756 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 1554756655631277004, guid: fac00b2cc971f864bb2082dfc1305843,
     type: 3}
-  m_PrefabInstance: {fileID: 7210593708720715426}
+  m_PrefabInstance: {fileID: 7264944377435790600}
   m_PrefabAsset: {fileID: 0}
 --- !u!1001 &7314156903411662432
 PrefabInstance:

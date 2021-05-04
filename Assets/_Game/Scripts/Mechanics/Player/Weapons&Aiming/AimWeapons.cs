@@ -9,7 +9,6 @@ public class AimWeapons : MonoBehaviour
 	Transform target;
 	Camera cam;
 	[SerializeField] Transform[] weapons;
-	[SerializeField] float angleClamp = 45f;
 	[SerializeField] float speed = 8f;
 	[SerializeField] bool debugRays = false;
 	[SerializeField] float debugRayLength = 25f;
@@ -20,8 +19,6 @@ public class AimWeapons : MonoBehaviour
 	public LayerMask targetMask;
 
 	Quaternion targetRotation;
-	Quaternion clampedRotation;
-	float xAngle, yAngle;
 	Vector3 mousePos;
 	bool targetFound = false;
 
@@ -44,7 +41,7 @@ public class AimWeapons : MonoBehaviour
 			{
 				// Rotate weapons to be parallel with weapon center
 				Vector3 newDir = Vector3.RotateTowards(weapon.forward, targetDir, step, 0.0F);
-				targetRotation = Quaternion.LookRotation(newDir);
+				targetRotation = Quaternion.LookRotation(newDir, transform.up);
 				weapon.rotation = targetRotation;
 
 				// Debug
@@ -77,7 +74,7 @@ public class AimWeapons : MonoBehaviour
 			{
 				// Rotate weapons to be parallel with weapon center
 				Vector3 newDir = Vector3.RotateTowards(weapon.forward, targetDir, step, 0.0F);
-				targetRotation = Quaternion.LookRotation(newDir);
+				targetRotation = Quaternion.LookRotation(newDir, transform.up);
 				weapon.rotation = targetRotation;
 
 				// Debug
